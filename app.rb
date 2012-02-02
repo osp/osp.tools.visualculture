@@ -1,4 +1,4 @@
-%w(sinatra grit).each { |gem| require gem }
+%w(sinatra grit linguist).each { |gem| require gem }
 
 mime_type :binary, 'binary/octet-stream'
 set :repo, Grit::Repo.new(ARGV[1])
