@@ -24,6 +24,8 @@ get "/:commit_id/*" do |commit_id, path|
   @object = @commit.tree / path
   halt "No object exists with path #{path}" if @object.nil?
   if @object.is_a? Grit::Blob
+    # here we need to check through linguist whether it is actually binary
+    # otherwise serve as plain-text
     content_type :binary
     @object.data
   else
