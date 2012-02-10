@@ -1,6 +1,6 @@
 <h1>Commit <%= @commit.id[0..10] %> - Path: <%= @path %></h1>
 <ul>
 <% @tree.contents.each do |obj| %>
-  <li><a href="/<%= @commit.id %>/<%= @path %><%= obj.name %>"><%= obj.name %></a> : <%= obj.mime_type %></li>
+  <li><a href="/<%= @commit.id %>/<%= @path %><%= obj.name %>"><%= obj.name %></a><%= obj.is_a?(Grit::Blob) ? " : #{obj.mime_type}" : '' %></li>
 <% end %>
 </ul>
