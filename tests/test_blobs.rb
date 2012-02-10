@@ -19,7 +19,9 @@ describe Grit::Blob do
     end
     
     it "should be transduct successfully" do
-      VC::Transducers.transduce(@png).must_equal "success!"
+      t = VC::Transducers.transduce(@png)
+      v = Linguist::FileBlob.new(t)
+      v.mime_type.must_equal "image/png"
     end
   end
   
