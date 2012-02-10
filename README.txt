@@ -35,3 +35,4 @@ Troubleshooting
 
 - If you receive an error about "missing magic files", re-install charlock_holmes gem: `gem install charlock_holmes -- --with-icu-dir=/usr/share/icu/4.8.1.1/` (again, the directory in the example is from ArchLinux).
 
+- You need to (re)build the linguist gem as above to add the new mimetypes. At least, on ArchLinux simply copying the files directly into the `/usr/lib/ruby/gem` tree at their respective locations did not work, but re-building and re-installing did.

@@ -1,7 +1,7 @@
-$:.unshift File.join(File.dirname(__FILE__))
+$:.unshift File.join(File.dirname(__FILE__), "lib")
 %w(sinatra grit linguist).each { |gem| require gem }
 
-require 'lib/vc-repo'
+require 'vc-repo'
 
 mime_type :binary, 'binary/octet-stream'
 set :repo, Grit::Repo.new(ARGV[1])
