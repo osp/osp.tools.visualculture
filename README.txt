@@ -12,6 +12,8 @@ Linguist-specific install
 $ cd /tmp
 $ git clone https://github.com/github/linguist.git
 $ cd linguist/
+$ cp #{osp.tools.visualculture}/patches/mimes.yml lib/linguist/
+$ cp #{osp.tools.visualculture}/patches/test_mime.rb test/
 $ bundle install
 $ gem build linguist.gemspec
 $ sudo gem install linguist-1.0.0.gem
