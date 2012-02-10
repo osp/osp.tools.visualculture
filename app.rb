@@ -1,4 +1,7 @@
-%w(sinatra grit).each { |gem| require gem }
+$:.unshift File.join(File.dirname(__FILE__))
+%w(sinatra grit linguist).each { |gem| require gem }
+
+require 'lib/vc-repo'
 
 mime_type :binary, 'binary/octet-stream'
 set :repo, Grit::Repo.new(ARGV[1])
@@ -25,9 +28,11 @@ get "/:commit_id/*" do |commit_id, path|
   @object = @commit.tree / path
   halt "No object exists with path #{path}" if @object.nil?
   if @object.is_a? Grit::Blob
-    # here we need to check through linguist whether it is actually binary
-    # otherwise serve as plain-text
-    content_type :binary
+    p "cool!"
+    if @object.binary?
+      p "it's binary!"
+      content_type :binary
+    end
     @object.data
   else
     @tree = @object
