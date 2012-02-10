@@ -1,6 +1,14 @@
-<h1>Commit <%= @commit.id[0..10] %> - Path: <%= @path %></h1>
-<ul>
+<h1>Commit <%= @commit.id[0..10] %> - Path: <%= @path == true ? " - Path: #{@path}" : '' %></h1>
+<ul class="thumbnails">
 <% @tree.contents.each do |obj| %>
-  <li><a href="/<%= @commit.id %>/<%= @path %><%= obj.name %>"><%= obj.name %></a><%= obj.is_a?(Grit::Blob) ? " : #{obj.mime_type}" : '' %></li>
+    <li class="span2">
+        <div class="thumbnail">
+            <a href="/<%= @commit.id %>/<%= @path %><%= obj.name %>">
+                <img src="http://placehold.it/160&text=<%= obj.name %>" />
+            </a>
+            <h5><%= obj.name %></h5>
+            <p><%= obj.is_a?(Grit::Blob) ? "#{obj.mime_type}" : 'a folder' %></p>
+        </div
+    </li>
 <% end %>
 </ul>
