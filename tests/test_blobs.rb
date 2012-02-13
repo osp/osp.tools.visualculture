@@ -6,7 +6,7 @@ require 'visualculture'
 describe Grit::Blob do
   before do
 #    include VC::Transducers
-    @repo = Grit::Repo.new('/home/serk17/osp/osp.tools.visualculture.test')
+    @repo = Grit::Repo.new( VC.settings("test-dir") )
     @commit = @repo.commits.first
     @png = @commit.tree / "test_blobs/png.png"
     @jpg = @commit.tree / "test_blobs/jpg.jpg"
@@ -31,7 +31,7 @@ describe Grit::Blob do
       @jpg.mime_type.must_equal "image/jpeg"
     end
     
-    it "should be transduct successfully" do
+    it "should transduct into a jpg" do
       v = Linguist::FileBlob.new(VC::Transducers.transduce(@jpg))
       v.mime_type.must_equal "image/jpeg"
     end

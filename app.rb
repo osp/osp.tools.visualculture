@@ -1,15 +1,16 @@
 $:.unshift File.join(File.dirname(__FILE__), "lib")
-%w(sinatra grit linguist).each { |gem| require gem }
 
-require 'vc-repo'
+require 'visualculture'
 
 mime_type :binary, 'binary/octet-stream'
 set :repo, Grit::Repo.new(ARGV[1])
 
 before %r{^/(\w+)} do
   commit_id = params[:captures].first[0..10]
-  @commit = settings.repo.commits(commit_id).first
-  @title = "OSP Visual Culture Git Viewer"
+  @repo = settings.repo
+  p @repo.commits
+  @commit = @repo.commits(commit_id).first
+  @title = VC.settings("title")
   halt "No commit exists with id #{commit_id}" if @commit.nil?
 end
 

@@ -7,7 +7,6 @@ require 'vc-transduction'
 module VC
   settings = IO.read("#{File.dirname(__FILE__)}/../settings.json")
   @settings = JSON.parse(settings)
-  @settings["cache_dir"] = "/tmp"
 
   def self.settings(setting=nil)
     if setting
