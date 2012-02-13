@@ -1,7 +1,7 @@
 require 'rake/testtask'
 
-task :default => :test
-
 Rake::TestTask.new do |t|
-  t.warning = true
+  t.libs.push "lib"
+  t.test_files = FileList['tests/*_test.rb']
+  t.verbose = true
 end

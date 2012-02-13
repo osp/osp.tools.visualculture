@@ -1,9 +1,12 @@
-$:.unshift File.join(File.dirname(__FILE__), "lib")
+dir = File.dirname(__FILE__)
+$:.unshift File.join(dir, "views")
+$:.unshift File.join(dir, "lib")
 
 require 'visualculture'
 
 mime_type :binary, 'binary/octet-stream'
 set :repo, Grit::Repo.new(ARGV[1])
+set :config, JSON.parse(IO.read "#{File.dirname(__FILE__)}/settings.json")
 
 before %r{^/(\w+)} do
   commit_id = params[:captures].first[0..10]
