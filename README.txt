@@ -3,7 +3,14 @@ OSP Visual Culture Git Viewer
 
 - - -
 
-$ sudo gem install sinatra grit haml shotgun bundler
+Prerequisites
+=============
+
+$ sudo gem install sinatra grit shotgun bundler json rmagick
+
+When running ruby 1.8, in addition:
+
+$ sudo gem install minitest
 
 
 Linguist-specific install
@@ -28,6 +35,10 @@ From the folder osp.tools.visualculture:
 
 $ shotgun app.rb "/home/e/osp/osp.work.panik"
 
+When running ruby 1.8:
+
+$ shotgun -rubygems app.rb "/home/e/osp/osp.work.panik"
+
 Troubleshooting
 ===============
 
@@ -36,3 +47,7 @@ Troubleshooting
 - If you receive an error about "missing magic files", re-install charlock_holmes gem: `gem install charlock_holmes -- --with-icu-dir=/usr/share/icu/4.8.1.1/` (again, the directory in the example is from ArchLinux).
 
 - You need to (re)build the linguist gem as above to add the new mimetypes. At least, on ArchLinux simply copying the files directly into the `/usr/lib/ruby/gem` tree at their respective locations did not work, but re-building and re-installing did.
+
+- On Ubuntu, building the rmagick gem requires you to first "sudo apt-get install libmagick9-dev"
+
+- On Ubuntu, building the Charlock Holmes gem requires you to first "sudo apt-get install libicu-dev", on Fedora "yum install libicu-devel"" 
