@@ -2,8 +2,8 @@
 #$:.unshift(File.join(dir, ".."))
 %w(sinatra grit linguist json RMagick).each { |gem| require gem }
 
-require 'vc-grit'
 require 'vc-transduction'
+require 'vc-grit'
 
 module VC
   settings = IO.read("#{File.dirname(__FILE__)}/../settings.json")

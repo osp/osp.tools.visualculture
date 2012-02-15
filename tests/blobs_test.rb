@@ -21,20 +21,19 @@ describe Grit::Blob do
     end
     
     it "should transduct and still have the correct mime type" do
-      v = Linguist::FileBlob.new (VC::Transducers.transduce @png, @png.basename, [VC.settings("preview-image-size")]).first
+      v = Linguist::FileBlob.new (@png.transduce @png, @png.basename, [VC.settings("preview-image-size")]).first
       v.mime_type.must_equal "image/png"
     end
     
     it "should emerge with either correct width or height" do
-      v = Magick::Image.read (VC::Transducers.transduce @png, @png.basename, [VC.settings("preview-image-size")]).first
+      v = Magick::Image.read (@png.transduce @png, @png.basename, [VC.settings("preview-image-size")]).first
       [v[0].columns, v[0].rows].must_include VC.settings("preview-image-size").to_i
     end
     
     it "should transduct to every size requested" do
-      v = VC::Transducers.transduce @png, @png.name, VC.settings("image-sizes")
+      v = @png.transduce @png, @png.name, VC.settings("image-sizes")
       v.length.must_equal VC.settings("image-sizes").length
     end
-    
   end
   
   # JPEG  
@@ -44,20 +43,19 @@ describe Grit::Blob do
     end
     
     it "should transduct into a jpg" do
-      v = Linguist::FileBlob.new (VC::Transducers.transduce @jpg, @jpg.basename, [VC.settings("preview-image-size")]).first
+      v = Linguist::FileBlob.new (@jpg.transduce @jpg, @jpg.basename, [VC.settings("preview-image-size")]).first
       v.mime_type.must_equal "image/jpeg"
     end
     
     it "should emerge with either correct width or height" do
-      v = Magick::Image.read (VC::Transducers.transduce @jpg, @jpg.basename, [VC.settings("preview-image-size")]).first
+      v = Magick::Image.read (@jpg.transduce @jpg, @jpg.basename, [VC.settings("preview-image-size")]).first
       [v[0].columns, v[0].rows].must_include VC.settings("preview-image-size").to_i
     end
     
     it "should transduct to every size requested" do
-      v = VC::Transducers.transduce @jpg, @jpg.basename, VC.settings("image-sizes")
+      v = @jpg.transduce @jpg, @jpg.basename, VC.settings("image-sizes")
       v.length.must_equal VC.settings("image-sizes").length
     end
-    
   end 
 
   # GIF
@@ -67,20 +65,19 @@ describe Grit::Blob do
     end
     
     it "should transduct into a gif" do
-      v = Linguist::FileBlob.new (VC::Transducers.transduce @gif, @gif.basename, [VC.settings("preview-image-size")]).first
+      v = Linguist::FileBlob.new (@gif.transduce @gif, @gif.basename, [VC.settings("preview-image-size")]).first
       v.mime_type.must_equal "image/gif"
     end
     
     it "should emerge with either correct width or height" do
-      v = Magick::Image.read (VC::Transducers.transduce @gif, @gif.basename, [VC.settings("preview-image-size")]).first
+      v = Magick::Image.read (@gif.transduce @gif, @gif.basename, [VC.settings("preview-image-size")]).first
       [v[0].columns, v[0].rows].must_include VC.settings("preview-image-size").to_i
     end
     
     it "should transduct to every size requested" do
-      v = VC::Transducers.transduce @gif, @gif.name, VC.settings("image-sizes")
+      v = @gif.transduce @gif, @gif.name, VC.settings("image-sizes")
       v.length.must_equal VC.settings("image-sizes").length
     end
-    
   end
   
   # SVG

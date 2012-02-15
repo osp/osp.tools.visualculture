@@ -12,8 +12,8 @@ module VC
         x = r[0].change_geometry geometry do |h,w,img|
           img.resize! h,w
         end
-        x.write VC.settings("cache-dir") + name + size.to_s + ".jpg"
-        ret << VC.settings("cache-dir") + name + size.to_s + ".jpg"
+        x.write VC.settings("cache-dir") + blob.name + size.to_s + ".jpg"
+        ret << VC.settings("cache-dir") + blob.name + size.to_s + ".jpg"
       end
       ret
     }
