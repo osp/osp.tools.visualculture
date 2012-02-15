@@ -4,13 +4,18 @@ require 'visualculture'
 
 module VC
   module Transducers
-    jpg = lambda {|blob|
+    jpg = lambda {|blob, name, sizes|
       r = Image.from_blob(blob.data)
-      x = r[0].change_geometry VC.settings("geometry") do |h,w,img|
-        img.resize! h,w
+      ret = []
+      sizes.each do |size|
+        geometry = Geometry.new size, size, nil, nil, GreaterGeometry
+        x = r[0].change_geometry geometry do |h,w,img|
+          img.resize! h,w
+        end
+        x.write VC.settings("cache-dir") + name + size.to_s + ".jpg"
+        ret << VC.settings("cache-dir") + name + size.to_s + ".jpg"
       end
-      x.write VC.settings("cache-dir") + "really.jpg"
-      VC.settings("cache-dir") + "really.jpg"
+      ret
     }
     @handlers["image/jpeg"] = jpg
   end

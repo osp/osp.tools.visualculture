@@ -8,9 +8,7 @@ require 'vc-transduction'
 module VC
   settings = IO.read("#{File.dirname(__FILE__)}/../settings.json")
   @settings = JSON.parse(settings)
-
-  x = @settings["cache-image-size"]
-  @settings["geometry"] = Magick::Geometry.new x, x, nil, nil, Magick::GreaterGeometry
+  @settings["image-sizes"] = [ @settings["preview-image-size"].to_i, @settings["thumb-image-size"].to_i ]
 
   def self.settings(setting=nil)
     if setting
