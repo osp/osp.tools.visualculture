@@ -12,6 +12,7 @@ describe Grit::Blob do
     @png = @commit.tree / "test_blobs/png.png"
     @jpg = @commit.tree / "test_blobs/jpg.jpg"
     @gif = @commit.tree / "test_blobs/gif.gif"
+    @svg = @commit.tree / "test_blobs/svg.svg"
   end
 
   # PNG
@@ -21,19 +22,25 @@ describe Grit::Blob do
     end
     
     it "should transduct and still have the correct mime type" do
-      v = Linguist::FileBlob.new (@png.transduce @png, @png.basename, [VC.settings("preview-image-size")]).first
+      v = Linguist::FileBlob.new (VC.transduce @png, [VC.settings("preview-image-size")]).first
       v.mime_type.must_equal "image/png"
     end
     
     it "should emerge with either correct width or height" do
-      v = Magick::Image.read (@png.transduce @png, @png.basename, [VC.settings("preview-image-size")]).first
+      v = Magick::Image.read (VC.transduce @png, [VC.settings("preview-image-size")]).first
       [v[0].columns, v[0].rows].must_include VC.settings("preview-image-size").to_i
     end
     
-    it "should transduct to every size requested" do
-      v = @png.transduce @png, @png.name, VC.settings("image-sizes")
+    it "should transduct into VC.settings-defined sizes by default" do
+      v = VC.transduce @png
       v.length.must_equal VC.settings("image-sizes").length
     end
+    
+    it "should transduct to every size requested" do
+      v = VC.transduce @png, [48,96,128]
+      v.length.must_equal [48,96,128].length
+    end
+    
   end
   
   # JPEG  
@@ -43,18 +50,23 @@ describe Grit::Blob do
     end
     
     it "should transduct into a jpg" do
-      v = Linguist::FileBlob.new (@jpg.transduce @jpg, @jpg.basename, [VC.settings("preview-image-size")]).first
+      v = Linguist::FileBlob.new (VC.transduce @jpg, [VC.settings("preview-image-size")]).first
       v.mime_type.must_equal "image/jpeg"
     end
     
     it "should emerge with either correct width or height" do
-      v = Magick::Image.read (@jpg.transduce @jpg, @jpg.basename, [VC.settings("preview-image-size")]).first
+      v = Magick::Image.read (VC.transduce @jpg, [VC.settings("preview-image-size")]).first
       [v[0].columns, v[0].rows].must_include VC.settings("preview-image-size").to_i
+    end
+
+    it "should transduct into VC.settings-defined sizes by default" do
+      v = VC.transduce @jpg
+      v.length.must_equal VC.settings("image-sizes").length
     end
     
     it "should transduct to every size requested" do
-      v = @jpg.transduce @jpg, @jpg.basename, VC.settings("image-sizes")
-      v.length.must_equal VC.settings("image-sizes").length
+      v = VC.transduce @jpg, [48,96,128]
+      v.length.must_equal [48,96,128].length
     end
   end 
 
@@ -65,28 +77,38 @@ describe Grit::Blob do
     end
     
     it "should transduct into a gif" do
-      v = Linguist::FileBlob.new (@gif.transduce @gif, @gif.basename, [VC.settings("preview-image-size")]).first
+      v = Linguist::FileBlob.new (VC.transduce @gif, [VC.settings("preview-image-size")]).first
       v.mime_type.must_equal "image/gif"
     end
     
     it "should emerge with either correct width or height" do
-      v = Magick::Image.read (@gif.transduce @gif, @gif.basename, [VC.settings("preview-image-size")]).first
+      v = Magick::Image.read (VC.transduce @gif, [VC.settings("preview-image-size")]).first
       [v[0].columns, v[0].rows].must_include VC.settings("preview-image-size").to_i
     end
     
-    it "should transduct to every size requested" do
-      v = @gif.transduce @gif, @gif.name, VC.settings("image-sizes")
+    it "should transduct into VC.settings-defined sizes by default" do
+      v = VC.transduce @gif
       v.length.must_equal VC.settings("image-sizes").length
+    end
+    
+    it "should transduct to every size requested" do
+      v = VC.transduce @gif, [48,96,128]
+      v.length.must_equal [48,96,128].length
     end
   end
   
   # SVG
   describe "when the blob is an svg" do    
     it "should return the correct mimetype" do
-      skip("Not implemented yet...")
+      @svg.mime_type.must_equal "image/svg+xml"
     end
     
-    it "should transduct into a gif" do
+    it "should transduct into a png" do
+      v = Linguist::FileBlob.new (VC.transduce @svg, [VC.settings("preview-image-size")]).first
+      v.mime_type.must_equal "image/png"
+    end
+
+    it "should transduct into VC.settings-defined sizes by default" do
       skip("Not implemented yet...")
     end
     
@@ -108,6 +130,10 @@ describe Grit::Blob do
     it "should transduct into a gif" do
       skip("Not implemented yet...")
     end
+
+    it "should transduct into VC.settings-defined sizes by default" do
+      skip("Not implemented yet...")
+    end
     
     it "should emerge with either correct width or height" do
       skip("Not implemented yet...")
@@ -125,6 +151,10 @@ describe Grit::Blob do
     end
     
     it "should transduct into a gif" do
+      skip("Not implemented yet...")
+    end
+
+    it "should transduct into VC.settings-defined sizes by default" do
       skip("Not implemented yet...")
     end
     
@@ -146,6 +176,10 @@ describe Grit::Blob do
     it "should transduct into a gif" do
       skip("Not implemented yet...")
     end
+
+    it "should transduct into VC.settings-defined sizes by default" do
+      skip("Not implemented yet...")
+    end
     
     it "should emerge with either correct width or height" do
       skip("Not implemented yet...")
@@ -165,6 +199,10 @@ describe Grit::Blob do
     it "should transduct into a gif" do
       skip("Not implemented yet...")
     end
+
+    it "should transduct into VC.settings-defined sizes by default" do
+      skip("Not implemented yet...")
+    end
     
     it "should emerge with either correct width or height" do
       skip("Not implemented yet...")
@@ -182,6 +220,10 @@ describe Grit::Blob do
     end
     
     it "should transduct into a gif" do
+      skip("Not implemented yet...")
+    end
+
+    it "should transduct into VC.settings-defined sizes by default" do
       skip("Not implemented yet...")
     end
     

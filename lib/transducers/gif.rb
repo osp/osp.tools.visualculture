@@ -4,9 +4,10 @@ require 'visualculture'
 
 module VC
   module Transducers
-    gif = lambda {|blob, name, sizes|
+    gif = lambda {|blob, sizes|
       r = ImageList.new       # ImageLists need initialization before from_blob
       ret = []
+      name = File.basename blob.name, blob.extname
       sizes.each do |size|
         r.from_blob(blob.data)
         geometry = Geometry.new size, size, nil, nil, GreaterGeometry

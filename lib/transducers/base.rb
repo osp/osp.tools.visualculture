@@ -4,20 +4,25 @@ require 'visualculture'
 
 
 module VC
+
+  def self.transduce(blob, s=nil)
+    sizes = s.nil? ? VC.settings("image-sizes") : s
+    handlers = VC::Transducers.handlers
+    handlers[blob.mime_type].call(blob, sizes)
+  end
+
+
   module Transducers
     include Magick
     @handlers = {}
-#    def self.transduce(blob, name=nil, sizes=nil)
-#      @handlers[blob.mime_type].call(blob, name, sizes)
-#    end
     
     def self.handlers
       @handlers
     end
     
-    def transduce(blob, name=nil, sizes=nil)
+    def transduce(blob, sizes=[])
       handlers = VC::Transducers.handlers
-      handlers[blob.mime_type].call(blob, name, sizes)
+      handlers[blob.mime_type].call(blob, sizes)
     end
   end
 end
