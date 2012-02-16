@@ -15,6 +15,12 @@ describe Grit::Blob do
     @svg = @commit.tree / "test_blobs/svg.svg"
   end
 
+  describe "when the blob is accessed" do
+    it "should return nil if it has no transducer" do
+      skip("Not implemented yet...")  
+    end
+  end
+
   # PNG
   describe "when the blob is a png" do
     it "should return the correct mimetype" do

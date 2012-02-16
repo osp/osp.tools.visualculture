@@ -6,10 +6,19 @@ require 'visualculture'
 module VC
 
   def self.transduce(blob, s=nil)
-    sizes = s.nil? ? VC.settings("image-sizes") : s
-    handlers = VC::Transducers.handlers
-    handlers[blob.mime_type].call(blob, sizes)
+      handlers = VC::Transducers.handlers
+      if handlers[blob.mime_type]
+        sizes = s.nil? ? VC.settings("image-sizes") : s
+        handlers[blob.mime_type].call(blob, sizes)
+      else
+        nil
+      end
   end
+
+  def transducer?(blob)
+    handlers = VC::Transducers.handlers
+    handlers[blob.mime_type] ? true : false
+  end  
 
 
   module Transducers
@@ -21,9 +30,18 @@ module VC
     end
     
     def transduce(s=nil)
-      sizes = s.nil? ? VC.settings("image-sizes") : s
       handlers = VC::Transducers.handlers
-      handlers[self.mime_type].call(self, sizes)
+      if handlers[self.mime_type]
+        sizes = s.nil? ? VC.settings("image-sizes") : s
+        handlers[self.mime_type].call(self, sizes)
+      else
+        nil
+      end
     end
+    
+    def transducer?
+      handlers = VC::Transducers.handlers
+      handlers[self.mime_type] ? true : false
+    end     
   end
 end
