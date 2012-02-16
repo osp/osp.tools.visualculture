@@ -1,0 +1,14 @@
+<h1>Commit <%= @commit.id[0..10] %> - Path: <%= @path %></h1>
+
+<p><a href="/raw/<%= @commit.id %>/<%= @path %><%= @object.name %>">Download raw</a> (<%= @object.size %> bytes)</p>
+
+<% if @object.binary? # if VC.transduce @object %>
+<div style="width:770px;height:770px;">
+    <img src="/render/<%= @commit.id %>/<%= @path %>" />
+</div>
+<% else %>
+<pre>
+    <%= @object.data %>
+</pre>
+
+<% end %>
