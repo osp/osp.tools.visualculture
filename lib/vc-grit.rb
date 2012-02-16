@@ -3,6 +3,6 @@
 module Grit
   class Blob
     include Linguist::BlobHelper
-#    include VC::Transducers
+    include VC::Transducers
   end
 end

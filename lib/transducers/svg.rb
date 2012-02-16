@@ -16,7 +16,7 @@ module VC
         w = %x[inkscape -W #{tmpsvg}]
         h = %x[inkscape -H #{tmpsvg}]
         x = w > h ? "-w" : "-h"
-        system "inkscape #{tmpsvg} -D --export-png=#{VC.settings("cache-dir") + name} #{x} #{size}"
+        %x[inkscape #{tmpsvg} -D --export-png=#{VC.settings("cache-dir") + name} #{x} #{size}]
       end
       ret
     }    

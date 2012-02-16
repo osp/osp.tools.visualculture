@@ -32,7 +32,7 @@ describe Grit::Blob do
     end
     
     it "should transduct into VC.settings-defined sizes by default" do
-      v = VC.transduce @png
+      v = @png.transduce
       v.length.must_equal VC.settings("image-sizes").length
     end
     
@@ -109,15 +109,18 @@ describe Grit::Blob do
     end
 
     it "should transduct into VC.settings-defined sizes by default" do
-      skip("Not implemented yet...")
+      v = VC.transduce @svg
+      v.length.must_equal VC.settings("image-sizes").length
     end
     
     it "should emerge with either correct width or height" do
-      skip("Not implemented yet...")
+      v = Magick::Image.read (VC.transduce @svg, [VC.settings("preview-image-size")]).first
+      [v[0].columns, v[0].rows].must_include VC.settings("preview-image-size").to_i
     end
     
     it "should transduct to every size requested" do
-      skip("Not implemented yet...")
+      v = VC.transduce @svg, [48,96,128]
+      v.length.must_equal [48,96,128].length
     end
   end
   

@@ -20,9 +20,10 @@ module VC
       @handlers
     end
     
-    def transduce(blob, sizes=[])
+    def transduce(s=nil)
+      sizes = s.nil? ? VC.settings("image-sizes") : s
       handlers = VC::Transducers.handlers
-      handlers[blob.mime_type].call(blob, sizes)
+      handlers[self.mime_type].call(self, sizes)
     end
   end
 end
