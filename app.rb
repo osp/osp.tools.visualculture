@@ -48,10 +48,15 @@ get "/thumbnail/:commit_id/*" do |commit_id, path|
   get_commit commit_id
   @object = @commit.tree / path
   halt "No object exists with path #{path}" if @object.nil?
-  x = VC::transduce(@object)
-  if x
-    send_file x[1]
+  if @object.is_a? Grit::Blob
+    x = VC::transduce(@object)
+    if x
+      send_file x[1]
+    else
+      redirect "http://placehold.it/180&text=" + @object.name
+    end
   else
+    # It’s a folder
     redirect "http://placehold.it/180&text=" + @object.name
   end
 end
