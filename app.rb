@@ -25,13 +25,6 @@ get "/" do
   erb :index
 end
 
-get "/view/:commit_id" do |commit_id|
-  get_commit commit_id
-  @tree = @commit.tree
-  @path = ""
-  erb :dir
-end
-
 get "/render/:commit_id/*" do |commit_id, path|
   get_commit commit_id
   @object = @commit.tree / path
@@ -63,15 +56,24 @@ end
 
 get "/view/:commit_id/*" do |commit_id, path|
   get_commit commit_id
-  @object = @commit.tree / path
-  halt "No object exists with path #{path}" if @object.nil?
-  if @object.is_a? Grit::Blob
-    @path = path
-    erb :blob
-  else
-    @tree = @object
-    @path = path + "/"
+  if path == ""
+    # Root
+    @tree = @commit.tree
+    @path = ""
     erb :dir
+  else
+    @object = @commit.tree / path
+    halt "No object exists with path #{path}" if @object.nil?
+    if @object.is_a? Grit::Blob
+      # Blob
+      @path = path
+      erb :blob
+    else
+      # Folder
+      @tree = @object
+      @path = path + "/"
+      erb :dir
+    end
   end
 end
 
