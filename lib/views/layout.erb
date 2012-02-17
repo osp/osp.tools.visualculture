@@ -28,12 +28,13 @@
             <ul class="breadcrumb">
                 <li>
                     <a href="/view/<%= @commit.id[0..10] %>/"><%= @repo_name %></a> <% if @path != "" %><span class="divider">/</span><% end %></a>
-                <% p = @path.split("/")
-                p[0..-2].each do |path| %>
+                <% # All this is to create links to the pathname components (that include the preceding path )
+                p = @path.split("/")
+                (0..p.length - 2).to_a.each do | i | %>
                 <li>
-                   <a href="#constructlinkfromallpathcomponentsuptillnow!"><%= path %></a> <span class="divider">/</span>
+                   <a href="/view/<%= @commit.id[0..10] %>/<%= p[0..i].join("/") %>"><%= p[i] %></a> <span class="divider">/</span>
                 </li>
-                <% end %>
+                <% end # the last one gets no link -> %>
                 <li class="active">
                    <%= p[-1] %> <% if @dir %><span class="divider">/</span><% end %>
                 </li>
