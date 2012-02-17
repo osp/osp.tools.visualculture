@@ -5,8 +5,6 @@
     <img src="/render/<%= @commit.id %>/<%= @path %>" />
 </div>
 <% else %>
-<pre>
-    <%= @object.data %>
-</pre>
+<pre><%= @object.data %></pre>
 
 <% end %>
