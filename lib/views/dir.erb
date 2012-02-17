@@ -2,8 +2,8 @@
 <% @tree.contents.each do |obj| %>
     <li class="span2">
         <div class="thumbnail">
-            <a href="/view/<%= @commit.id %>/<%= @path %><%= obj.name %>">
-                <img src="/thumbnail/<%= @commit.id %>/<%= @path %><%= obj.name %>" />
+            <a href="/view/<%= @commit.id[0..10] %>/<%= @path %><%= obj.name %>">
+                <img src="/thumbnail/<%= @commit.id[0..10] %>/<%= @path %><%= obj.name %>" />
             </a>
             <h5><%= obj.name %></h5>
             <p><%= obj.is_a?(Grit::Blob) ? "#{obj.mime_type}" : 'a folder' %></p>
