@@ -9,6 +9,7 @@ set :repo, Grit::Repo.new(ARGV[1])
 set :config, JSON.parse(IO.read "#{File.dirname(__FILE__)}/settings.json")
 
 before do
+  @repo_name = ARGV[1].split("/")[-1]
   @title = VC.settings("title")
 end
 
@@ -18,6 +19,7 @@ def get_commit commit_id
   @commit = @repo.commits(commit_id).first
   @title = VC.settings("title")
   halt "No commit exists with id #{commit_id}" if @commit.nil?
+  @dir = nil
 end
 
 get "/" do
@@ -60,6 +62,7 @@ get "/view/:commit_id/*" do |commit_id, path|
     # Root
     @tree = @commit.tree
     @path = ""
+    @dir = true
     erb :dir
   else
     @object = @commit.tree / path
@@ -72,6 +75,7 @@ get "/view/:commit_id/*" do |commit_id, path|
       # Folder
       @tree = @object
       @path = path + "/"
+      @dir = true
       erb :dir
     end
   end

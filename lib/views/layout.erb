@@ -7,7 +7,38 @@
         <link rel="stylesheet" type="text/css" href="/css/visualculture.css">
     </head>
     <body>
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div class="container">
+                        <ul class="nav">
+                            <li>
+                                <a href="/" class="brand"><%= @repo_name %></a>
+                            </li>
+                            <% if @commit %>
+                            <li class="active">
+                                <a href="/view/<%= @commit.id[0..10] %>/"><%= @commit.id[0..10] %></a>
+                            </li>
+                            <% end %>
+                        </ul>
+                   </div>
+            </div>
+        </div>
         <div class="container">
+            <% if @commit %>
+            <ul class="breadcrumb">
+                <li>
+                    <a href="/view/<%= @commit.id[0..10] %>/"><%= @repo_name %></a> <% if @path != "" %><span class="divider">/</span><% end %></a>
+                <% p = @path.split("/")
+                p[0..-2].each do |path| %>
+                <li>
+                   <a href="#constructlinkfromallpathcomponentsuptillnow!"><%= path %></a> <span class="divider">/</span>
+                </li>
+                <% end %>
+                <li class="active">
+                   <%= p[-1] %> <% if @dir %><span class="divider">/</span><% end %>
+                </li>
+            </ul>
+            <% end %>
             <%= yield %>
         </div>
     </body>

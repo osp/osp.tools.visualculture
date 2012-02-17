@@ -1,5 +1,3 @@
-<h2>Commit <%= @commit.id[0..10] %> - /<%= @path %></h2>
-
 <p><a href="/raw/<%= @commit.id %>/<%= @path %><%= @object.name %>">Download raw</a> (<%= @object.size %> bytes)</p>
 
 <% if @object.binary? # if VC.transduce @object %>
