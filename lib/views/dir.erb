@@ -1,13 +1,36 @@
 <ul class="thumbnails">
 <% @tree.contents.each do |obj| %>
     <li class="span2">
-        <div class="thumbnail">
+        <% if obj.is_a?(Grit::Blob) # it's a blob
+             if VC::transducer? obj or obj.binary? # rendering preview available %>
+        <div class="thumbnail preview">
+            <div class="thumb">
             <a href="/view/<%= @commit.id[0..10] %>/<%= @path %><%= obj.name %>">
                 <img src="/thumbnail/<%= @commit.id[0..10] %>/<%= @path %><%= obj.name %>" />
             </a>
+            </div>
             <h5><%= obj.name %></h5>
-            <p><%= obj.is_a?(Grit::Blob) ? "#{obj.mime_type}" : 'a folder' %></p>
-        </div
+            <p><%= obj.mime_type %></p>
+        </div>
+        <% else # we render plain text %>
+        <div class="thumbnail text">
+            <div class="thumb">
+                <pre><a href="/view/<%= @commit.id[0..10] %>/<%= @path %><%= obj.name %>"><%= obj.data[0..62] %></a></pre>
+            </div>
+            <h5><%= obj.name %></h5>
+            <p><%= obj.mime_type %></p>
+        </div>
+        <% end
+        else # it's a folder %>
+        <div class="thumbnail folder">
+            <div class="thumb">
+                <a href="/view/<%= @commit.id[0..10] %>/<%= @path %><%= obj.name %>">
+                <img src="/img/folder-130.png" alt="representation of a folder" title="" style="height:104px;width:130px;" />
+            </a>
+            </div>
+            <h5><%= obj.name %></h5>
+        </div>
+        <% end %>
     </li>
 <% end %>
 </ul>

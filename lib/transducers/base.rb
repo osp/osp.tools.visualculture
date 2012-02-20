@@ -15,7 +15,7 @@ module VC
       end
   end
 
-  def transducer?(blob)
+  def self.transducer?(blob)
     handlers = VC::Transducers.handlers
     handlers[blob.mime_type] ? true : false
   end  
