@@ -1,10 +1,10 @@
 <p><a href="/raw/<%= @commit.id %>/<%= @path %><%= @object.name %>">Download raw</a> (<%= @object.size %> bytes)</p>
 
-<% if @object.binary? # if VC.transduce @object %>
+<% if @object.transducer? or @object.binary? %>
 <div style="width:770px;height:770px;">
     <img src="/render/<%= @commit.id %>/<%= @path %>" />
 </div>
 <% else %>
-<pre><%= @object.data %></pre>
+<pre><%= ERB::Util.html_escape @object.data %></pre>
 
 <% end %>
