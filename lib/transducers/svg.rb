@@ -21,5 +21,6 @@ module VC
       ret
     }    
     @handlers["image/svg+xml"] = svg
+		@extensions["image/svg+xml"] = '.png'
   end
 end

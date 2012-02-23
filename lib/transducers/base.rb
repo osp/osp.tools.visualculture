@@ -1,14 +1,17 @@
-# Implemenation (could it really be this easy? -- it turns out it is!!!)
-#$: << "/home/serk17/osp/osp.tools.visualculture.test/"
 require 'visualculture'
 
 module VC
   module Transducers
     include Magick
     @handlers = {}
+		@extensions = {}
     
     def self.handlers
       @handlers
     end
+
+		def self.extensions
+			@extensions
+		end
   end
 end
