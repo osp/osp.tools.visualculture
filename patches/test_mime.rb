@@ -28,19 +28,16 @@ class TestMime < Test::Unit::TestCase
     assert_equal 'application/octet-stream', Mime.mime_for('.dll')
     assert_equal 'application/octet-stream', Mime.mime_for('.dmg')
     assert_equal 'application/octet-stream', Mime.mime_for('.exe')
-    assert_equal 'application/x-opentype', Mime.mime_for('.otf')
+
     assert_equal 'application/x-perl', Mime.mime_for('.pl')
     assert_equal 'application/x-perl', Mime.mime_for('.pm')
     assert_equal 'application/postscript', Mime.mime_for('.ai')
-    assert_equal 'application/postscript', Mime.mime_for('.eps')
-    assert_equal 'application/postscript', Mime.mime_for('.ps')
     assert_equal 'application/x-python', Mime.mime_for('.py')
     assert_equal 'application/x-ruby', Mime.mime_for('.rb')
     assert_equal 'application/x-sh', Mime.mime_for('.sh')
     assert_equal 'application/x-shockwave-flash', Mime.mime_for('.swf')
     assert_equal 'application/x-silverlight-app', Mime.mime_for('.xap')
     assert_equal 'application/x-supercollider', Mime.mime_for('.sc')
-    assert_equal 'application/x-truetype', Mime.mime_for('.ttf')
     assert_equal 'application/vnd.adobe.air-application-installer-package+zip', Mime.mime_for('.air')
     assert_equal 'application/vnd.oasis.opendocument.presentation', Mime.mime_for('.odp')
     assert_equal 'application/vnd.oasis.opendocument.spreadsheet', Mime.mime_for('.ods')
@@ -67,5 +64,12 @@ class TestMime < Test::Unit::TestCase
     assert_equal 'text/x-rust', Mime.mime_for('.rs')
     assert_equal 'text/x-rust', Mime.mime_for('.rc')
     assert_equal 'video/quicktime', Mime.mime_for('.mov')
+
+		# OSP VisualCulture
+		assert_equal 'application/x-opentype', Mime.mime_for('.otf')
+    assert_equal 'application/x-truetype', Mime.mime_for('.ttf')
+		assert_equal 'application/postscript', Mime.mime_for('.eps')
+    assert_equal 'application/postscript', Mime.mime_for('.ps')
+		assert_equal 'application/vnd.scribus', Mime.mime_for('.sla')
   end
 end

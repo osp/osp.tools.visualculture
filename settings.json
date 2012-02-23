@@ -1,6 +1,6 @@
 {
   "cache-dir"           : "/tmp/",
-  "test-dir"            : "/home/serk17/osp/osp.tools.visualculture.test",
+  "test-dir"            : "/home/serk17/code/osp.tools.visualculture.test",
   "title"               : "OSP Visual Culture Git Viewer",
   "preview-image-size"  : "770",
   "thumb-image-size"    : "240",

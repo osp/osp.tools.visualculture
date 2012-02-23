@@ -30,7 +30,6 @@ application/octet-stream @a,blend,gem,graffle,ipa,lib,mcz,nib,o,ogv,pfx,pigx,plg
 application/java-archive @ear,war
 application/netcdf :8bit
 application/ogg @ogg
-application/postscript :base64
 application/vnd.adobe.air-application-installer-package+zip @air
 application/vnd.mozilla.xul+xml :8bit
 application/vnd.oasis.opendocument.presentation @odp
@@ -43,13 +42,11 @@ application/x-iwork-keynote-sffkey @key
 application/x-iwork-numbers-sffnumbers @numbers
 application/x-iwork-pages-sffpages @pages
 application/x-ms-xbap @xbap :8bit
-application/x-opentype @otf
 application/x-parrot-bytecode @pbc
 application/x-shockwave-flash @swf
 application/x-silverlight-app @xap
 application/x-supercollider @sc :8bit
 application/x-troff-ms :8bit
-application/x-truetype @ttf
 application/x-wais-source :8bit
 application/xaml+xml @xaml :8bit
 image/x-icns @icns
@@ -60,3 +57,9 @@ text/x-nimrod @nim
 text/x-ocaml @ml,mli,mll,mly,sig,sml
 text/x-rust @rs,rc
 text/x-scheme @rkt,scm,sls,sps,ss
+
+# OSP VisualCulture
+application/x-opentype @otf
+application/x-truetype @ttf
+application/postscript @ps @eps :base64
+application/vnd.scribus @sla
