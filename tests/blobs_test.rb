@@ -15,11 +15,26 @@ describe Grit::Blob do
     @svg = @commit.tree / "test_blobs/svg.svg"
   end
 
+	# Generic blob tests
   describe "when the blob is accessed" do
     it "should return nil if it has no transducer" do
       skip("Not implemented yet...")  
     end
-  end
+	end
+
+	describe "it needs to compose the right path" do
+		it "does" do
+		@svg.compose_path(@commit, 720).must_equal "/tmp/" + @commit.id[0..10] + '/720' + '/' + File.basename(@svg.name, '.svg') + '.png'
+		end
+	end
+
+	describe "when the files is cached" do
+		it "returns true" do
+			@png.cached? @commit
+		end
+	end
+
+
 
   # PNG
   describe "when the blob is a png" do
@@ -28,25 +43,15 @@ describe Grit::Blob do
     end
     
     it "should transduct and still have the correct mime type" do
-      v = Linguist::FileBlob.new (VC.transduce @png, [VC.settings("preview-image-size")]).first
+      v = Linguist::FileBlob.new (@png.transduce @commit, VC.settings("preview-image-size"))
       v.mime_type.must_equal "image/png"
     end
     
     it "should emerge with either correct width or height" do
-      v = Magick::Image.read (VC.transduce @png, [VC.settings("preview-image-size")]).first
+      v = Magick::Image.read (@png.transduce @commit, VC.settings("preview-image-size"))
       [v[0].columns, v[0].rows].must_include VC.settings("preview-image-size").to_i
     end
-    
-    it "should transduct into VC.settings-defined sizes by default" do
-      v = @png.transduce
-      v.length.must_equal VC.settings("image-sizes").length
-    end
-    
-    it "should transduct to every size requested" do
-      v = VC.transduce @png, [48,96,128]
-      v.length.must_equal [48,96,128].length
-    end
-    
+
   end
   
   # JPEG  
@@ -56,25 +61,16 @@ describe Grit::Blob do
     end
     
     it "should transduct into a jpg" do
-      v = Linguist::FileBlob.new (VC.transduce @jpg, [VC.settings("preview-image-size")]).first
+      v = Linguist::FileBlob.new (@jpg.transduce(@commit, VC.settings("preview-image-size")))
       v.mime_type.must_equal "image/jpeg"
     end
     
     it "should emerge with either correct width or height" do
-      v = Magick::Image.read (VC.transduce @jpg, [VC.settings("preview-image-size")]).first
+      v = Magick::Image.read (@jpg.transduce(@commit, VC.settings("preview-image-size")))
       [v[0].columns, v[0].rows].must_include VC.settings("preview-image-size").to_i
     end
-
-    it "should transduct into VC.settings-defined sizes by default" do
-      v = VC.transduce @jpg
-      v.length.must_equal VC.settings("image-sizes").length
-    end
     
-    it "should transduct to every size requested" do
-      v = VC.transduce @jpg, [48,96,128]
-      v.length.must_equal [48,96,128].length
-    end
-  end 
+	end
 
   # GIF
   describe "when the blob is a gif" do
@@ -83,24 +79,15 @@ describe Grit::Blob do
     end
     
     it "should transduct into a gif" do
-      v = Linguist::FileBlob.new (VC.transduce @gif, [VC.settings("preview-image-size")]).first
+      v = Linguist::FileBlob.new (VC.transduce @gif, VC.settings("preview-image-size"))
       v.mime_type.must_equal "image/gif"
     end
     
     it "should emerge with either correct width or height" do
-      v = Magick::Image.read (VC.transduce @gif, [VC.settings("preview-image-size")]).first
+      v = Magick::Image.read (VC.transduce @gif, VC.settings("preview-image-size"))
       [v[0].columns, v[0].rows].must_include VC.settings("preview-image-size").to_i
     end
     
-    it "should transduct into VC.settings-defined sizes by default" do
-      v = VC.transduce @gif
-      v.length.must_equal VC.settings("image-sizes").length
-    end
-    
-    it "should transduct to every size requested" do
-      v = VC.transduce @gif, [48,96,128]
-      v.length.must_equal [48,96,128].length
-    end
   end
   
   # SVG
@@ -110,24 +97,15 @@ describe Grit::Blob do
     end
     
     it "should transduct into a png" do
-      v = Linguist::FileBlob.new (VC.transduce @svg, [VC.settings("preview-image-size")]).first
+      v = Linguist::FileBlob.new (VC.transduce @svg, VC.settings("preview-image-size"))
       v.mime_type.must_equal "image/png"
-    end
-
-    it "should transduct into VC.settings-defined sizes by default" do
-      v = VC.transduce @svg
-      v.length.must_equal VC.settings("image-sizes").length
     end
     
     it "should emerge with either correct width or height" do
-      v = Magick::Image.read (VC.transduce @svg, [VC.settings("preview-image-size")]).first
+      v = Magick::Image.read (VC.transduce @svg, VC.settings("preview-image-size"))
       [v[0].columns, v[0].rows].must_include VC.settings("preview-image-size").to_i
     end
     
-    it "should transduct to every size requested" do
-      v = VC.transduce @svg, [48,96,128]
-      v.length.must_equal [48,96,128].length
-    end
   end
   
   # PostScript

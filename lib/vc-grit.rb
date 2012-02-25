@@ -4,5 +4,6 @@ module Grit
   class Blob
     include Linguist::BlobHelper
     include VC::TransductionHelper
+		include VC::CacheHelper
   end
 end

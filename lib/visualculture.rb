@@ -2,6 +2,7 @@
 #$:.unshift(File.join(dir, ".."))
 %w(sinatra grit linguist json RMagick).each { |gem| require gem }
 
+require 'vc-cache'
 require 'vc-transduction'
 require 'vc-grit'
 

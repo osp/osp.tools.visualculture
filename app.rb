@@ -31,9 +31,9 @@ end
 
 get "/render/:commit_id/*" do |commit_id, path|
   get_commit commit_id, path
-  x = @object.transduce VC.settings("preview-image-size")
+  x = @object.transduce @commit, VC.settings("preview-image-size")
   if x
-    send_file x.first
+    send_file x
   else
     redirect "http://placehold.it/770x770&text=" + @object.name
   end
@@ -42,9 +42,9 @@ end
 get "/thumbnail/:commit_id/*" do |commit_id, path|
   get_commit commit_id, path
   if @object.is_a? Grit::Blob
-    x = @object.transduce VC.settings("thumb-image-size")
+    x = @object.transduce @commit, VC.settings("thumb-image-size")
     if x
-      send_file x.first
+      send_file x
     else
       redirect "http://placehold.it/180&text=" + @object.name
     end
