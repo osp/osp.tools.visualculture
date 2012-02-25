@@ -13,10 +13,12 @@ before do
   @title = VC.settings("title")
 end
 
-def get_commit commit_id
+def get_commit(commit_id, path)
   @repo = settings.repo
   @commit = @repo.commit(commit_id)
   halt "No commit exists with id #{commit_id}" if @commit.nil?
+	@object = path == "" ? @commit.tree : @commit.tree / path 
+  halt "No object exists with path #{path}" if @object.nil?
 end
 
 get "/" do
@@ -28,9 +30,7 @@ get "/settings" do
 end
 
 get "/render/:commit_id/*" do |commit_id, path|
-  get_commit commit_id
-  @object = @commit.tree / path
-  halt "No object exists with path #{path}" if @object.nil?
+  get_commit commit_id, path
   x = @object.transduce VC.settings("preview-image-size")
   if x
     send_file x.first
@@ -40,9 +40,7 @@ get "/render/:commit_id/*" do |commit_id, path|
 end
 
 get "/thumbnail/:commit_id/*" do |commit_id, path|
-  get_commit commit_id
-  @object = @commit.tree / path
-  halt "No object exists with path #{path}" if @object.nil?
+  get_commit commit_id, path
   if @object.is_a? Grit::Blob
     x = @object.transduce VC.settings("thumb-image-size")
     if x
@@ -57,9 +55,7 @@ get "/thumbnail/:commit_id/*" do |commit_id, path|
 end
 
 get "/view/:commit_id/*" do |commit_id, path|
-  get_commit commit_id
-	@object = path == "" ? @commit.tree : @commit.tree / path 
-  halt "No object exists with path #{path}" if @object.nil?
+  get_commit commit_id, path
   if @object.is_a? Grit::Blob
     # Blob
     @path = path
@@ -78,10 +74,8 @@ get "/view/:commit_id/*" do |commit_id, path|
 end
 
 get "/raw/:commit_id/*" do |commit_id, path|
-  get_commit commit_id
-  @object = @commit.tree / path
-  halt "No object exists with path #{path}" if @object.nil?
-  if @object.is_a? Grit::Blob
+  get_commit commit_id, path
+	if @object.is_a? Grit::Blob
     if @object.binary?
       content_type :binary
     else
