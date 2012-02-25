@@ -23,7 +23,7 @@ module VC
 	module TransductionHelper
     def transduce(s=nil)
       if VC::Transducers.handlers[self.mime_type]
-        sizes = s.nil? ? VC.settings("image-sizes") : s
+        sizes = s.nil? ? VC.settings("image-sizes") : [s]
         VC::Transducers.handlers[self.mime_type].call(self, sizes)
       else
         nil
