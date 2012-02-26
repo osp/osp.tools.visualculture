@@ -33,8 +33,7 @@ def get_commit(repo_slug, commit_id, path)
 end
 
 get "/" do
-  # need to implemement an index
-  redirect "/" + settings.repos.first.first + "/"
+  erb :repos
 end
 
 get "/:repo_slug/" do |repo_slug|
