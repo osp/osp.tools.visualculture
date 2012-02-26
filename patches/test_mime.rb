@@ -65,11 +65,11 @@ class TestMime < Test::Unit::TestCase
     assert_equal 'text/x-rust', Mime.mime_for('.rc')
     assert_equal 'video/quicktime', Mime.mime_for('.mov')
 
-		# OSP VisualCulture
-		assert_equal 'application/x-opentype', Mime.mime_for('.otf')
+    # OSP VisualCulture
+    assert_equal 'application/x-opentype', Mime.mime_for('.otf')
     assert_equal 'application/x-truetype', Mime.mime_for('.ttf')
-		assert_equal 'application/postscript', Mime.mime_for('.eps')
+    assert_equal 'application/postscript', Mime.mime_for('.eps')
     assert_equal 'application/postscript', Mime.mime_for('.ps')
-		assert_equal 'application/vnd.scribus', Mime.mime_for('.sla')
+    assert_equal 'application/vnd.scribus', Mime.mime_for('.sla')
   end
 end

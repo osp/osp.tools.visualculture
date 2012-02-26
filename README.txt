@@ -3,10 +3,20 @@ OSP Visual Culture Git Viewer
 
 - - -
 
-Prerequisites
-=============
+Installation
+============
 
-$ sudo gem install sinatra grit shotgun bundler tilt json rmagick
+Get the code
+------------
+
+$ git clone git://git.constantvzw.org/osp.tools.visualculture.git
+
+Prerequisites
+-------------
+
+You can check your r
+
+$ sudo gem install sinatra grit shotgun bundler json rmagick
 
 When running ruby 1.8, in addition:
 
@@ -14,11 +24,13 @@ $ sudo gem install minitest
 
 
 Linguist-specific install
-========================
+-------------------------
 
 $ cd /tmp
-$ git clone https://github.com/ab5tract/linguist.git
+$ git clone https://github.com/github/linguist.git
 $ cd linguist/
+$ cp #{osp.tools.visualculture}/patches/mimes.yml lib/linguist/
+$ cp #{osp.tools.visualculture}/patches/test_mime.rb test/
 $ sudo bundle install
 $ gem build linguist.gemspec
 $ sudo gem install linguist-1.0.0.gem
@@ -39,6 +51,13 @@ $ shotgun -rubygems app.rb "/home/e/osp/osp.work.panik"
 
 Troubleshooting
 ===============
+
+- On Ubuntu, with Ruby 1.8 you can get errors like:
+Invalid gemspec in [/path/to/gemspec/tilt-1.3.3.gemspec]: invalid date format in specification: "2011-08-25 00:00:00.000000000Z"
+You need to update gem, as such:
+
+$ sudo gem install rubygems-update
+$ sudo update_rubygems
 
 - If you run into any errors relating to 'lib.so' missing, the solution is to edit `/usr/lib/ruby/gems/1.9.1/gems/rubypython-0.5.3/lib/rubypython/pythonexec.rb`. Find where @library is assigned and set it manually rather than relying on the `find_python_lib` method. On ArchLinux, this means `@library = "/usr/lib/libpython2.7.so`. You can also set `@python = "python2"` to remove any further doubts.
 

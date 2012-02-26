@@ -15,24 +15,24 @@ describe Grit::Blob do
     @svg = @commit.tree / "test_blobs/svg.svg"
   end
 
-	# Generic blob tests
+  # Generic blob tests
   describe "when the blob is accessed" do
     it "should return nil if it has no transducer" do
       skip("Not implemented yet...")  
     end
-	end
+  end
 
-	describe "it needs to compose the right path" do
-		it "does" do
-		@svg.compose_path(@commit, 720).must_equal "/tmp/" + @commit.id[0..10] + '/720' + '/' + File.basename(@svg.name, '.svg') + '.png'
-		end
-	end
+  describe "it needs to compose the right path" do
+    it "does" do
+    @svg.compose_path(@commit, 720).must_equal "/tmp/" + @commit.id[0..10] + '/720' + '/' + File.basename(@svg.name, '.svg') + '.png'
+    end
+  end
 
-	describe "when the files is cached" do
-		it "returns true" do
-			@png.cached? @commit
-		end
-	end
+  describe "when the files is cached" do
+    it "returns true" do
+      @png.cached? @commit
+    end
+  end
 
 
 
@@ -70,7 +70,7 @@ describe Grit::Blob do
       [v[0].columns, v[0].rows].must_include VC.settings("preview-image-size").to_i
     end
     
-	end
+  end
 
   # GIF
   describe "when the blob is a gif" do

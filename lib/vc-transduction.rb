@@ -20,15 +20,15 @@ module VC
 end
 
 module VC
-	module TransductionHelper
+  module TransductionHelper
     def transduce(commit, size=nil)
       if VC::Transducers.handlers[self.mime_type]
         size = size.nil? ? VC.settings("preview-image-size") : size
-				if self.cached? commit, size
-				  compose_path(commit, size)
-				else
+        if self.cached? commit, size
+          compose_path(commit, size)
+        else
           VC::Transducers.handlers[self.mime_type].call(self, size)
-				end
+        end
       else
         nil
       end
@@ -37,5 +37,5 @@ module VC
     def transducer?
       VC::Transducers.handlers[self.mime_type] ? true : false
     end
-	end
+  end
 end

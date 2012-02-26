@@ -13,7 +13,7 @@ module VC
         x.change_geometry! geometry do |h,w,img|
           img.resize! h,w
         end
-			end
+      end
       r.write VC.settings("cache-dir") + name + size.to_s + ".gif"
       VC.settings("cache-dir") + name + size.to_s + ".gif"
     }  

@@ -17,7 +17,7 @@ def get_commit(commit_id, path)
   @repo = settings.repo
   @commit = @repo.commit(commit_id)
   halt "No commit exists with id #{commit_id}" if @commit.nil?
-	@object = path == "" ? @commit.tree : @commit.tree / path 
+  @object = path == "" ? @commit.tree : @commit.tree / path 
   halt "No object exists with path #{path}" if @object.nil?
 end
 
@@ -64,10 +64,10 @@ get "/view/:commit_id/*" do |commit_id, path|
     # Folder
     @tree = @object
     if path == ""
-			@path = path
-		else
-		  @path = path + "/"
-		end
+      @path = path
+    else
+      @path = path + "/"
+    end
     @dir = true
     erb :dir
   end
@@ -75,7 +75,7 @@ end
 
 get "/raw/:commit_id/*" do |commit_id, path|
   get_commit commit_id, path
-	if @object.is_a? Grit::Blob
+  if @object.is_a? Grit::Blob
     if @object.binary?
       content_type :binary
     else

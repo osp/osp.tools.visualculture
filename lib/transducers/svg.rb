@@ -18,6 +18,6 @@ module VC
       VC.settings("cache-dir") + name
     }    
     @handlers["image/svg+xml"] = svg
-		@extensions["image/svg+xml"] = '.png'
+    @extensions["image/svg+xml"] = '.png'
   end
 end

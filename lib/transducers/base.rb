@@ -4,14 +4,14 @@ module VC
   module Transducers
     include Magick
     @handlers = {}
-		@extensions = {}
+    @extensions = {}
     
     def self.handlers
       @handlers
     end
 
-		def self.extensions
-			@extensions
-		end
+    def self.extensions
+      @extensions
+    end
   end
 end

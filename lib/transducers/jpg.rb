@@ -12,8 +12,8 @@ module VC
         img.resize! h,w
       end
       x.write VC.settings("cache-dir") + name + size.to_s + ".jpg"
-#			x.write path
-			VC.settings("cache-dir") + name + size.to_s + ".jpg"
+#      x.write path
+      VC.settings("cache-dir") + name + size.to_s + ".jpg"
     }
     @handlers["image/jpeg"] = jpg
   end
