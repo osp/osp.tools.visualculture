@@ -16,7 +16,7 @@
                             </li>
                             <% if @commit %>
                             <li class="active">
-                                <a href="/view/<%= @commit.id[0..10] %>/"><%= @commit.id[0..10] %></a>
+                                <a href="/<%= @repo_slug %>/view/<%= @commit.id[0..10] %>/"><%= @commit.id[0..10] %></a>
                             </li>
                             <% end %>
                         </ul>
@@ -27,7 +27,7 @@
             <% if @commit %>
             <ul class="breadcrumb">
                 <li>
-                    <a href="/view/<%= @commit.id[0..10] %>/"><%= @repo_name %></a> <% if @path != "" %><span class="divider">/</span><% end %></a>
+                    <a href="/<%= @repo_slug %>/view/<%= @commit.id[0..10] %>/"><%= @repo_slug %></a> <% if @path != "" %><span class="divider">/</span><% end %></a>
                 <% # All this is to create links to the pathname components (that include the preceding path )
                 p = @path.split("/")
                 (0..p.length - 2).to_a.each do | i | %>

@@ -5,16 +5,27 @@ $:.unshift File.join(dir, "lib")
 require 'visualculture'
 
 mime_type :binary, 'binary/octet-stream'
-set :repo, Grit::Repo.new(ARGV[1])
+# Get repo-paths from command line (1 or more):
+# or from settings (to be implemented)
+repo_paths = ARGV[1..-1]
+
+# Create a hash to access repos through their slug:
+@repos = {}
+repo_paths.each do |repo_path|
+  @repos[File.basename(repo_path, ".git")] = Grit::Repo.new(repo_path)
+  # Though creating all git_repo instances at initialisation
+  # might be to heavy at some point
+end
+set :repos, @repos
 set :config, JSON.parse(IO.read "#{File.dirname(__FILE__)}/settings.json")
 
 before do
-  @repo_name = ARGV[1].split("/")[-1]
   @title = VC.settings("title")
 end
 
-def get_commit(commit_id, path)
-  @repo = settings.repo
+def get_commit(repo_slug, commit_id, path)
+  @repo_slug = repo_slug
+  @repo = settings.repos[repo_slug]
   @commit = @repo.commit(commit_id)
   halt "No commit exists with id #{commit_id}" if @commit.nil?
   @object = path == "" ? @commit.tree : @commit.tree / path 
@@ -22,15 +33,21 @@ def get_commit(commit_id, path)
 end
 
 get "/" do
-  @commits = settings.repo.commits
+  # need to implemement an index
+  redirect "/" + settings.repos.first.first + "/"
+end
+
+get "/:repo_slug/" do |repo_slug|
+  @commits = settings.repos[repo_slug].commits
+  @repo_slug = repo_slug
   erb :index
 end
 
 get "/settings" do
 end
 
-get "/render/:commit_id/*" do |commit_id, path|
-  get_commit commit_id, path
+get "/:repo_slug/render/:commit_id/*" do |repo_slug, commit_id, path|
+  get_commit repo_slug, commit_id, path
   x = @object.transduce @commit, VC.settings("preview-image-size")
   if x
     send_file x
@@ -39,8 +56,8 @@ get "/render/:commit_id/*" do |commit_id, path|
   end
 end
 
-get "/thumbnail/:commit_id/*" do |commit_id, path|
-  get_commit commit_id, path
+get "/:repo_slug/thumbnail/:commit_id/*" do |repo_slug, commit_id, path|
+  get_commit repo_slug, commit_id, path
   if @object.is_a? Grit::Blob
     x = @object.transduce @commit, VC.settings("thumb-image-size")
     if x
@@ -54,8 +71,8 @@ get "/thumbnail/:commit_id/*" do |commit_id, path|
   end
 end
 
-get "/view/:commit_id/*" do |commit_id, path|
-  get_commit commit_id, path
+get "/:repo_slug/view/:commit_id/*" do |repo_slug, commit_id, path|
+  get_commit repo_slug, commit_id, path
   if @object.is_a? Grit::Blob
     # Blob
     @path = path
@@ -73,8 +90,8 @@ get "/view/:commit_id/*" do |commit_id, path|
   end
 end
 
-get "/raw/:commit_id/*" do |commit_id, path|
-  get_commit commit_id, path
+get "/:repo_slug/raw/:commit_id/*" do |repo_slug, commit_id, path|
+  get_commit repo_slug, commit_id, path
   if @object.is_a? Grit::Blob
     if @object.binary?
       content_type :binary

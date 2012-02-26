@@ -2,7 +2,7 @@
 
 <% if @object.transducer? or @object.binary? %>
 <div style="width:770px;height:770px;">
-    <img src="/render/<%= @commit.id %>/<%= @path %>" />
+    <img src="/<%= @repo_slug %>/render/<%= @commit.id %>/<%= @path %>" />
 </div>
 <% else %>
 <pre><%= ERB::Util.html_escape @object.data %></pre>
