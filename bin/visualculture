@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+dir = File.dirname(__FILE__)
+$:.unshift File.join(dir, "..", "lib")
+$:.unshift File.join(dir, "..")
+require 'vc-server'
+
+require 'commander/import'
+
+program :name, 'Visual Culture'
+program :version, '0.0.1'
+program :description, 'Sinatra-powered visual git interface for graphic design workflows'
+
+
+command :server do |c|
+  c.syntax = 'visualculture server [repositories]'
+  c.description = 'Visual Culture will display [repositories]. Otherwise, it will display the repositories found in the directory it is run from, or the the current repository if it is run from within one.'
+  c.action do |args, options|
+    puts args
+    if args.empty?
+      if File.exist?(".git")
+        args << Dir.pwd
+      else
+        Dir.glob('*/*.git',File::FNM_DOTMATCH) do |g|
+          g[/\/\.git/] = ''
+          args << g
+        end
+      end
+    end
+    VC.set("repositories", args)
+    VC::Server.run!
+  end
+end

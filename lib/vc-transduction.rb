@@ -6,9 +6,13 @@ require 'transducers/svg'
 
 module VC
   def self.transduce(blob, s=nil)
-    if VC::Transducers.handlers[blob.mime_type]
-      sizes = s.nil? ? VC.settings("image-sizes") : s
-      VC::Transducers.handlers[blob.mime_type].call(blob, sizes)
+    if VC::Transducers.handlers[self.mime_type]
+      size = size.nil? ? VC.settings("preview-image-size") : size
+      if self.cached? commit, size
+        compose_path(commit, size)
+      else
+        VC::Transducers.handlers[self.mime_type].call(self, size)
+      end
     else
       nil
     end

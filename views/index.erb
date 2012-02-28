@@ -1,0 +1,5 @@
+<ul>
+<% @commits.each do |commit| %>
+  <li><a href="/<%= @repo_slug %>/view/<%= commit.id[0..10] %>/"> <%= commit.id[0..10] %> (by <%= commit.author %>, <%= commit.committed_date %>) </a></li>
+<% end %>
+</ul>

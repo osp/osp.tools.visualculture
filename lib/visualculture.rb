@@ -3,6 +3,7 @@
 %w(sinatra grit linguist json RMagick).each { |gem| require gem }
 
 require 'vc-cache'
+require 'vc-server'
 require 'vc-transduction'
 require 'vc-grit'
 
@@ -17,6 +18,10 @@ module VC
     else
       @settings.to_s
     end
+  end
+  
+  def self.set(setting, args)
+    @settings[setting] = args
   end
   
 end
