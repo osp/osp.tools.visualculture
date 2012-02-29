@@ -9,6 +9,7 @@ module VC
   class Server < Sinatra::Base
     set :public_folder, File.dirname(__FILE__) + '/..' + '/public'
     set :views, File.dirname(__FILE__) + '/..' + '/views'
+    register Sinatra::Reloader
     mime_type :binary
 
     # Methods

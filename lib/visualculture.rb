@@ -1,6 +1,9 @@
 #dir = File.dirname(__FILE__)
 #$:.unshift(File.join(dir, ".."))
-%w(sinatra grit linguist json RMagick).each { |gem| require gem }
+%w(grit linguist json RMagick).each { |gem| require gem }
+
+require 'sinatra/base'
+require 'sinatra/reloader'
 
 require 'vc-cache'
 require 'vc-server'

@@ -16,7 +16,7 @@ Prerequisites
 
 You can check your r
 
-$ sudo gem install sinatra grit shotgun bundler json rmagick
+$ sudo gem install sinatra sinatra-contrib grit shotgun bundler json rmagick
 
 When running ruby 1.8, in addition:
 
@@ -27,15 +27,29 @@ Linguist-specific install
 -------------------------
 
 $ cd /tmp
-$ git clone https://github.com/github/linguist.git
+$ git clone https://github.com/ab5tract/linguist.git
 $ cd linguist/
-$ cp #{osp.tools.visualculture}/patches/mimes.yml lib/linguist/
-$ cp #{osp.tools.visualculture}/patches/test_mime.rb test/
 $ sudo bundle install
 $ gem build linguist.gemspec
 $ sudo gem install linguist-1.0.0.gem
 
 Using
+=====
+
+This gem ships with a command-line program, 'visualculture'.
+
+This command allows you to start the Visual Culture web application in three ways:
+
+1) By passing a list of repositories as an argument:
+      $ visualculture server "thisgit" "project/thatgit" "an/othergit"
+2) By running in a directory containing git repositories:
+      $ visualculture server
+3)  By running in a directory that itself contains a repository:
+      $ visualculture server
+      
+The last two options use the same command but respond differently depending if run from within a git repository or not.
+
+Using (old way, deprecate soon)
 =====
 
 Use shotgun to serve with auto reload,
