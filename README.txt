@@ -16,7 +16,7 @@ Prerequisites
 
 You can check your r
 
-$ sudo gem install sinatra sinatra-contrib grit shotgun bundler json rmagick
+$ sudo gem install sinatra sinatra-contrib grit shotgun bundler json rmagick commander
 
 When running ruby 1.8, in addition:
 
