@@ -26,7 +26,7 @@ command :server do |c|
         end
       end
     end
-    VC.set("repositories", args)
+    VC.set("repositories", args) unless args.nil?
     VC::Server.run!
   end
 end

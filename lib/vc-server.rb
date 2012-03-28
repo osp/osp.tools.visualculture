@@ -17,7 +17,11 @@ module VC
       super
       # Get repo-paths from command line (1 or more):
       # or from settings (to be implemented)
-      repo_paths = VC.settings("repositories")
+      if VC.settings("repositories").length == 0
+        raise "No repositories specified on either command-line or in the current config file."
+      else  
+        repo_paths = VC.settings("repositories")
+      end
 
       # Create a hash to access repos through their slug:
       @repos = {}
