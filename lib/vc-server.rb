@@ -37,7 +37,7 @@ module VC
       @repo = @repos[repo_slug]
       @commit = @repo.commit(commit_id)
       halt "No commit exists with id #{commit_id}" if @commit.nil?
-      @object = path == "" ? @commit.tree : @commit.tree / path 
+      @object = (path == "" ? @commit.tree : @commit.tree / path)
       halt "No object exists with path #{path}" if @object.nil?
     end
 
