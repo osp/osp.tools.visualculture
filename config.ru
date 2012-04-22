@@ -1,7 +1,7 @@
 dir = File.dirname(__FILE__)
+$:.unshift File.join(dir, "views")
 $:.unshift File.join(dir, "lib")
-$:.unshift File.join(dir, "..")
 
 require "vc-server.rb"
 
-run VC::Server
+run VC::Server.new
