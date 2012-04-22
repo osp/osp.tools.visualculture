@@ -107,7 +107,7 @@ module VC
       get_commit repo_slug, commit_id, path
       if @object.is_a? Grit::Blob
         if @object.binary?
-          content_type :binary
+          content_type "application/octet-stream"
         else
           content_type "text/plain"
         end
