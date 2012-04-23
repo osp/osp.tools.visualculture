@@ -117,5 +117,11 @@ module VC
       end
     end
     
+    # sweet, an api
+    get "/index.json" do
+      content_type "text/plain"
+      @repos.keys.to_json 
+    end
+    
   end
 end
