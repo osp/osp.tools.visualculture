@@ -1,0 +1,3 @@
+[submodule "public"]
+	path = public
+	url = git://git.constantvzw.org/osp.tools.bootstrap.git
