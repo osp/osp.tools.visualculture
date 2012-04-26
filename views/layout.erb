@@ -3,10 +3,43 @@
     <head>
         <meta charset="UTF-8" />
         <title><%= @title %></title>
-        <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="/css/visualculture.css">
+        <script src="/js/jquery-1.7.2.min.js"></script>
+        <script src="/bootstrap/js/bootstrap.min.js"></script>
     </head>
     <body>
+    <div class="navbar" style="margin-bottom:0;">
+            <div class="navbar-inner">
+                <div class="container">
+                        <ul class="nav">
+                            <li>
+                                <a href="http://ospublish.constantvzw.org/" class="brand">OSP</a>
+                            </li>
+                            <li>
+                                <a href="http://ospublish.constantvzw.org/portfolio/">Portfolio</a>
+                            </li>
+                            <li class="active">
+                                <a href="http://git.schr.fr/">Source Files</a>
+                            </li>
+                            <li>
+                                <a href="http://ospublish.constantvzw.org/images/">Snapshots</a>
+                            </li>
+                            <li>
+                                <a href="http://ospublish.constantvzw.org/foundry/">Foundry</a>
+                            </li>
+                        </ul>
+                        <ul class="nav pull-right">
+                            <li>
+                                <a href="http://ospublish.constantvzw.org/about">About</a>
+                            </li>
+                            <li>
+                                <a href="http://ospublish.constantvzw.org/contact">Contact</a>
+                            </li>
+                        </ul>
+                   </div>
+            </div>
+        </div>
         <div class="navbar">
             <div class="navbar-inner">
                 <div class="container">
@@ -20,6 +53,11 @@
                             </li>
                             <% end %>
                         </ul>
+                        <% if @commit %>
+                        <ul class="nav pull-right">
+                            <li><a data-toggle="modal" href="#cloneModal" >Git Clone</a></li>
+                        </ul>
+                        <% end %>
                    </div>
             </div>
         </div>
@@ -42,5 +80,22 @@
             <% end %>
             <%= yield %>
         </div>
+        <% if @commit %>
+        <div class="modal hide" id="cloneModal">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal">×</a>
+                <h3>Clone the git repository</h3>
+            </div>
+            <div class="modal-body">
+                <p>The public git address for this repo is:</p>
+                <pre>git://git.constantvzw.org/<%= @repo_slug %>.git</pre>
+                <p>to clone it, in the terminal type:</p>
+                <pre>git clone git://git.constantvzw.org/<%= @repo_slug %>.git</pre>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal">Close</a>
+            </div>
+        </div>
+        <% end %>
     </body>
 </html>
