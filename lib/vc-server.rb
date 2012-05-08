@@ -35,7 +35,11 @@ module VC
     def get_commit(repo_slug, commit_id, path)
       @repo_slug = repo_slug
       @repo = @repos[repo_slug]
-      @commit = @repo.commit(commit_id)
+      if commit_id == "latest"
+        @commit = @repo.commit('HEAD')
+      else
+        @commit = @repo.commit(commit_id)
+      end
       halt "No commit exists with id #{commit_id}" if @commit.nil?
       @object = (path == "" ? @commit.tree : @commit.tree / path)
       halt "No object exists with path #{path}" if @object.nil?
