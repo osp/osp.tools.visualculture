@@ -1,8 +1,8 @@
-<p><a href="/<%= @repo_slug %>/raw/<%= @commit.id[0..10] %>/<%= @path %>">Download raw</a> (<%= @object.size %> bytes)</p>
+<p><a href="/<%= @repo_path %>/raw/<%= @commit_slug %>/<%= @path %>">Download raw</a> (<%= @object.size %> bytes)</p>
 
 <% if @object.transducer? or @object.binary? %>
 <div style="width:770px;height:770px;">
-    <img src="/<%= @repo_slug %>/render/<%= @commit.id[0..10] %>/<%= @path %>" />
+    <img src="/<%= @repo_path %>/render/<%= @commit_slug %>/<%= @path %>" />
 </div>
 <% else %>
 <pre><%= ERB::Util.html_escape @object.data %></pre>

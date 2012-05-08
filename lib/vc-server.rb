@@ -32,13 +32,16 @@ module VC
       end
     end
 
-    def get_commit(repo_slug, commit_id, path)
-      @repo_slug = repo_slug
-      @repo = @repos[repo_slug]
+    def get_commit(cat, id, commit_id, path)
+      @repo_slug = 'osp' + '.' + cat + '.' + id
+      @repo_path = cat + '/' + id
+      @repo = @repos[@repo_slug]
       if commit_id == "latest"
         @commit = @repo.commit('HEAD')
+        @commit_slug = "latest"
       else
         @commit = @repo.commit(commit_id)
+        @commit_slug = @commit.id[0..10]
       end
       halt "No commit exists with id #{commit_id}" if @commit.nil?
       @object = (path == "" ? @commit.tree : @commit.tree / path)
@@ -54,17 +57,18 @@ module VC
       erb :repos
     end
 
-    get "/:repo_slug/" do |repo_slug|
-      @commits = @repos[repo_slug].commits
-      @repo_slug = repo_slug
+    get "/:cat/:id/" do |cat, id|
+      @repo_path = cat + '/' + id
+      @repo_slug = 'osp' + '.' + cat + '.' + id
+      @commits = @repos[@repo_slug].commits
       erb :index
     end
 
     get "/settings" do
     end
 
-    get "/:repo_slug/render/:commit_id/*" do |repo_slug, commit_id, path|
-      get_commit repo_slug, commit_id, path
+    get "/:cat/:id/render/:commit_id/*" do |cat, id, commit_id, path|
+      get_commit cat, id, commit_id, path
       x = @object.transduce @commit, VC.settings("preview-image-size")
       if x
         send_file x
@@ -73,8 +77,8 @@ module VC
       end
     end
 
-    get "/:repo_slug/thumbnail/:commit_id/*" do |repo_slug, commit_id, path|
-      get_commit repo_slug, commit_id, path
+    get "/:cat/:id/thumbnail/:commit_id/*" do |cat, id, commit_id, path|
+      get_commit cat, id, commit_id, path
       if @object.is_a? Grit::Blob
         x = @object.transduce @commit, VC.settings("thumb-image-size")
         if x
@@ -88,8 +92,8 @@ module VC
       end
     end
 
-    get "/:repo_slug/view/:commit_id/*" do |repo_slug, commit_id, path|
-      get_commit repo_slug, commit_id, path
+    get "/:cat/:id/view/:commit_id/*" do |cat, id, commit_id, path|
+      get_commit cat, id, commit_id, path
       if @object.is_a? Grit::Blob
         # Blob
         @path = path
@@ -107,8 +111,8 @@ module VC
       end
     end
 
-    get "/:repo_slug/raw/:commit_id/*" do |repo_slug, commit_id, path|
-      get_commit repo_slug, commit_id, path
+    get "/:cat/:id/raw/:commit_id/*" do |cat, id, commit_id, path|
+      get_commit cat, id, commit_id, path
       if @object.is_a? Grit::Blob
         if @object.binary?
           content_type "application/octet-stream"

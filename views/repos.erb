@@ -1,5 +1,6 @@
 <ul>
 <% @repos.each do |repo_slug, repo| %>
-  <li><a href="/<%= repo_slug %>/"><%= repo_slug %></li>
+  <% repo_path = repo_slug.split('.')[1..2].join('/') %>
+  <li><a href="/<%= repo_path %>/"><%= repo_slug %></li>
 <% end %>
 </ul>
