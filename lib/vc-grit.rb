@@ -6,4 +6,7 @@ module Grit
     include VC::TransductionHelper
     include VC::CacheHelper
   end
+  class Repo
+    include VC::RepoHelper
+  end
 end

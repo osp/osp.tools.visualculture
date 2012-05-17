@@ -1,6 +1,7 @@
 #dir = File.dirname(__FILE__)
 #$:.unshift(File.join(dir, ".."))
 %w(grit linguist json RMagick).each { |gem| require gem }
+require 'rdiscount'
 
 require 'sinatra/base'
 require 'sinatra/reloader'
@@ -8,6 +9,7 @@ require 'sinatra/reloader'
 require 'vc-cache'
 require 'vc-server'
 require 'vc-transduction'
+require 'vc-repo'
 require 'vc-grit'
 
 module VC

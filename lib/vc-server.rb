@@ -64,6 +64,13 @@ module VC
       erb :index
     end
 
+    get "/:cat/:id/repo.json" do |cat, id|
+      content_type "text/plain"
+      @repo_path = cat + '/' + id
+      @repo_slug = 'osp' + '.' + cat + '.' + id
+      @repos[@repo_slug].to_json
+    end
+
     get "/settings" do
     end
 
