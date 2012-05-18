@@ -1,5 +1,27 @@
-<ul>
-<% @commits.each do |commit| %>
-  <li><a href="/<%= @repo_path %>/view/<%= commit.id[0..10] %>/"> <%= commit.id[0..10] %> (by <%= commit.author %>, <%= commit.committed_date %>) </a></li>
-<% end %>
-</ul>
+<div class="row">
+  <div class="span8">
+    <%= @repo.project_description %>
+
+    <% if @repo.iceberg %>
+        <% @repo.iceberg.each do |image| %>
+            <p><img src="/<%= @repo.web_path %>/render/latest/iceberg/<%= image %>" /></p>
+        <% end %>
+    <% end %>
+  </div>
+  <div class="span4">
+  <% if @repo.source_files %>
+  <h3>Source Files</h3>
+  
+  <p><a href="/<%= @repo.web_path %>/view/latest/"><img src="/img/folder-130.png" style="width:130px;103px;" /></a></p>
+  <ul>
+  <% @repo.commits.each_with_index do |commit, i| %>
+    <li><a href="/<%= @repo.web_path %>/view/<%= i == 0 ? 'latest' : commit.id[0..10] %>/"><%= commit.message.lines.first %></a><br/>
+    <%= commit.id[0..10] %> (by <%= commit.author %>, <%= commit.committed_date %>)    
+    </li>
+  <% end %>
+  </ul>
+  <% else %>
+  &nbsp;
+  <% end%>
+  </div>
+</div>

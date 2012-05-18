@@ -60,7 +60,7 @@ module VC
     get "/:cat/:id/" do |cat, id|
       @repo_path = cat + '/' + id
       @repo_slug = 'osp' + '.' + cat + '.' + id
-      @commits = @repos[@repo_slug].commits
+      @repo = @repos[@repo_slug]
       erb :index
     end
 
