@@ -11,6 +11,9 @@ module VC
     def web_path
       self.slug.split('.')[-2..-1].join('/')
     end
+    def category
+      self.slug.split('.')[1]
+    end
     def _readme
       readme_file = self.tree.contents.map {|x| x.name.include?('README') ? x.name : nil}.compact.first
       (self.tree / readme_file).data

@@ -57,6 +57,11 @@ module VC
       erb :repos
     end
 
+    get "/:cat/" do |cat|
+      @cat = cat
+      erb :category
+    end
+
     get "/:cat/:id/" do |cat, id|
       @repo_path = cat + '/' + id
       @repo_slug = 'osp' + '.' + cat + '.' + id
