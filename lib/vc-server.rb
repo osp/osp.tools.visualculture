@@ -126,11 +126,7 @@ module VC
     get "/:cat/:id/raw/:commit_id/*" do |cat, id, commit_id, path|
       get_commit cat, id, commit_id, path
       if @object.is_a? Grit::Blob
-        if @object.binary?
-          content_type "application/octet-stream"
-        else
-          content_type "text/plain"
-        end
+        content_type @object.mime_type
         @object.data
       else
         halt "to implement raw tree?"
