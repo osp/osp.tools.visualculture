@@ -134,9 +134,18 @@ module VC
     end
     
     # sweet, an api
-    get "/index.json" do
+    get "/repos.json" do
       content_type "text/plain"
-      @repos.keys.to_json 
+      @repos.values.map {|repo| repo.to_hash}.sort_by {|r| r['last_updated']}.reverse.to_json 
+    end
+    
+    get "/commits.json" do
+      content_type "text/plain"
+      commits = []
+      @repos.values.each do |repo|
+        commits += repo.commit_overview
+      end
+      commits.sort_by {|r| r['date_iso']}[-10..-1].reverse.to_json 
     end
     
   end

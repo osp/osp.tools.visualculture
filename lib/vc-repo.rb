@@ -54,10 +54,16 @@ module VC
       nil
     end
     def commit_overview
-      self.commits.map {|commit| { 'id' => commit.id[0..10], 'author' => commit.author, 'date' => commit.committed_date, 'message' => commit.message, 'message_short' => commit.message.lines.first }}
+      self.commits.map {|commit| { 'id' => commit.id[0..10], 'author' => commit.author, 'date' => commit.committed_date, 'date_iso' => commit.committed_date.xmlschema, 'message' => commit.message, 'message_short' => commit.message.lines.first }}
+    end
+    def last_updated
+      self.commit('HEAD').date.xmlschema
+    end
+    def to_hash
+      {'slug' => self.slug, 'web_path' => self.web_path, 'title' => self.title, 'project_description' => self.project_description, 'iceberg' => self.iceberg, 'commits' => self.commit_overview, 'blog_post' => self.blog_post, 'gallery' => self.gallery, 'source_files' => self.source_files, 'last_updated' => self.last_updated}
     end
     def to_json
-      {'slug' => self.slug, 'web_path' => self.web_path, 'title' => self.title, 'project_description' => self.project_description, 'iceberg' => self.iceberg, 'commits' => self.commit_overview, 'blog_post' => self.blog_post, 'gallery' => self.gallery, 'source_files' => self.source_files}.to_json
+      self.to_hash.to_json
     end
   end
 end
