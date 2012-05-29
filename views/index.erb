@@ -10,10 +10,7 @@
   </div>
   <div class="span4">
   <% if @repo.source_files %>
-  <h3>Source Files</h3>
-  
-  <p><a href="/<%= @repo.web_path %>/view/latest/"><img src="/img/folder-130.png" style="width:130px;103px;" /></a></p>
-  <ul>
+  <ul style="margin-top: 72px">
   <% @repo.commits.each_with_index do |commit, i| %>
     <li><a href="/<%= @repo.web_path %>/view/<%= i == 0 ? 'latest' : commit.id[0..10] %>/"><%= commit.message.lines.first %></a><br/>
     <%= commit.id[0..10] %> (by <%= commit.author %>, <%= commit.committed_date %>)    

@@ -46,6 +46,14 @@ module VC
       halt "No commit exists with id #{commit_id}" if @commit.nil?
       @object = (path == "" ? @commit.tree : @commit.tree / path)
       halt "No object exists with path #{path}" if @object.nil?
+      
+      # Set title
+      if @repo
+        @title += " :: " + @repo.category.capitalize + " :: " + @repo.title
+      end
+      if @commit
+        @title += " :: " + ( @object.name ? @object.name : "/" )  + " @ " + @commit_slug 
+      end
     end
 
     # Routes
@@ -58,6 +66,7 @@ module VC
     end
 
     get "/:cat/" do |cat|
+      @title += " :: " + cat.capitalize
       @cat = cat
       erb :category
     end
@@ -66,6 +75,7 @@ module VC
       @repo_path = cat + '/' + id
       @repo_slug = 'osp' + '.' + cat + '.' + id
       @repo = @repos[@repo_slug]
+      @title += " :: " + @repo.category.capitalize + " :: " + @repo.title
       erb :index
     end
 

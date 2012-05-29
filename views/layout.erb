@@ -4,6 +4,7 @@
         <meta charset="UTF-8" />
         <title><%= @title %></title>
         <link rel="stylesheet" type="text/css" href="/atfont-face/atfont-face.css">
+        <link rel="stylesheet" type="text/css" href="/atfont-face/UniversElse.css">
         <link rel="stylesheet" type="text/css" href="/css/osp.main.css">
         <link rel="stylesheet" type="text/css" href="/css/visualculture.css">
         <script src="/js/jquery-1.7.2.min.js"></script>
@@ -16,7 +17,7 @@
             <div class="navbar-inner">
                 <div class="container">
                         <ul class="nav">
-        <li><a href="http://osp.schr.fr/web/themes/raw/latest/layouts/home.html">Home</a></li>
+        <li><a href="http://osp.constantvzw.org/" class="brand">OSP</a></li>
         <li><a href="http://osp.schr.fr/work/">Works</a></li>
         <li><a href="http://osp.constantvzw.org/foundry/">Foundry</a></li>
         <li><a href="http://osp.schr.fr/workshop/">Workshops</a></li>
@@ -29,20 +30,26 @@
                    </div>
             </div>
         </div>
+        <% if @repo %>
         <div class="navbar">
             <div class="navbar-inner">
                 <div class="container">
                         <ul class="nav">
                             <li>
-                                <a href="/" class="brand"><%= @repo_name %></a>
+                                <a href="/<%= @repo.web_path %>/" class="brand"><%= @repo.title %></a>
                             </li>
+                            <% if @repo.source_files %>
+                            <li>
+                                <a href="/<%= @repo.web_path %>/view/latest/">Source Files</a>
+                            </li>
+                            <% end %>
                             <% if @commit %>
                             <li class="active">
-                                <a href="/<%= @repo_path %>/view/<%= @commit_slug %>/"><%= @commit_slug %></a>
+                                <a href="/<%= @repo.web_path %>/view/<%= @commit_slug %>/"><%= @commit_slug %></a>
                             </li>
                             <% end %>
                         </ul>
-                        <% if @commit %>
+                        <% if @repo.source_files %>
                         <ul class="nav pull-right">
                             <li><a data-toggle="modal" href="#cloneModal" >Git Clone</a></li>
                         </ul>
@@ -50,16 +57,17 @@
                    </div>
             </div>
         </div>
+        <% end %>
         <div class="container">
             <% if @commit %>
             <ul class="breadcrumb">
                 <li>
-                    <a href="/<%= @repo_path %>/view/<%= @commit_slug %>/"><%= @repo_path %></a> <% if @path != "" %><span class="divider">/</span><% end %></a>
+                    <a href="/<%= @repo.web_path %>/view/<%= @commit_slug %>/"><%= @repo.slug %></a> <% if @path != "" %><span class="divider">/</span><% end %></a>
                 <% # All this is to create links to the pathname components (that include the preceding path )
                 p = @path.split("/")
                 (0..p.length - 2).to_a.each do | i | %>
                 <li>
-                   <a href="/<%= @repo_path %>/view/<%= @commit_slug %>/<%= p[0..i].join("/") %>"><%= p[i] %></a> <span class="divider">/</span>
+                   <a href="/<%= @repo.web_path %>/view/<%= @commit_slug %>/<%= p[0..i].join("/") %>"><%= p[i] %></a> <span class="divider">/</span>
                 </li>
                 <% end # the last one gets no link -> %>
                 <li class="active">
