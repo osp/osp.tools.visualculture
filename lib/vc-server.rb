@@ -30,6 +30,8 @@ module VC
         # Though creating all git_repo instances at initialisation
         # might be to heavy at some point
       end
+      
+      @sorted_repos = @repos.values.sort_by {|r| r.last_updated}.reverse
     end
 
     def get_commit(cat, id, commit_id, path)

@@ -1,6 +1,6 @@
 <ul class="thumbnails">
-<% @repos.each do |repo_slug, repo| %>
-  <% if repo_slug.split('.')[1] == @cat %>
+<% @sorted_repos.each do |repo| %>
+  <% if repo.category == @cat %>
   <li class="span2">
       <div class="thumbnail">
           <div class="thumb">
