@@ -7,6 +7,7 @@ require 'transducers/gif'
 require 'transducers/svg'
 require 'transducers/otf'
 require 'transducers/ttf'
+require 'transducers/pdf'
 
 module VC
   module TransductionHelper
