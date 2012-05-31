@@ -6,16 +6,16 @@ module VC
   module Transducers
     svg = lambda {|blob, size|
       ret = []
-      tmpsvg = VC.settings("cache-dir") + "owgod.svg"
+      tmpsvg = File.join( VC.settings("cache-dir"), "#{blob.id[0..10]}.svg" )
       File.open(tmpsvg, 'w') do |f|
         f.write blob.data
       end
-      name = File.basename(blob.name, blob.extname) + size.to_s + ".png" 
+      name = blob.compose_path_2(size) 
       w = %x[inkscape -W #{tmpsvg}]
       h = %x[inkscape -H #{tmpsvg}]
       x = w > h ? "-w" : "-h"
-      %x[inkscape #{tmpsvg} -D --export-png=#{VC.settings("cache-dir") + name} #{x} #{size}]
-      VC.settings("cache-dir") + name
+      %x[inkscape #{tmpsvg} -D --export-png=#{name} #{x} #{size}]
+      name
     }    
     @handlers["image/svg+xml"] = svg
     @extensions["image/svg+xml"] = '.png'

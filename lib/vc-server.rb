@@ -93,7 +93,7 @@ module VC
 
     get "/:cat/:id/render/:commit_id/*" do |cat, id, commit_id, path|
       get_commit cat, id, commit_id, path
-      x = @object.transduce @commit, VC.settings("preview-image-size")
+      x = @object.transduce VC.settings("preview-image-size")
       if x
         send_file x
       else
@@ -104,7 +104,7 @@ module VC
     get "/:cat/:id/thumbnail/:commit_id/*" do |cat, id, commit_id, path|
       get_commit cat, id, commit_id, path
       if @object.is_a? Grit::Blob
-        x = @object.transduce @commit, VC.settings("thumb-image-size")
+        x = @object.transduce VC.settings("thumb-image-size")
         if x
           send_file x
         else

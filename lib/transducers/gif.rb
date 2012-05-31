@@ -5,8 +5,8 @@ require 'visualculture'
 module VC
   module Transducers
     gif = lambda {|blob, size|
+      name = blob.compose_path_2(size)
       r = ImageList.new       # ImageLists need initialization before from_blob
-      name = File.basename blob.name, blob.extname
       r.from_blob(blob.data)
       geometry = Geometry.new size.to_i, size.to_i, nil, nil, GreaterGeometry
       r.each do |x|
@@ -14,8 +14,8 @@ module VC
           img.resize! h,w
         end
       end
-      r.write VC.settings("cache-dir") + name + size.to_s + ".gif"
-      VC.settings("cache-dir") + name + size.to_s + ".gif"
+      r.write name
+      name
     }  
     @handlers["image/gif"] = gif
   end
