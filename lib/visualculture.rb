@@ -1,6 +1,9 @@
 #dir = File.dirname(__FILE__)
 #$:.unshift(File.join(dir, ".."))
-%w(grit linguist json RMagick).each { |gem| require gem }
+require 'grit'
+require 'linguist'
+require 'json'
+require 'RMagick'
 require 'rdiscount'
 
 require 'sinatra/base'
