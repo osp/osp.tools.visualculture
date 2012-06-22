@@ -1,0 +1,281 @@
+@font-face {
+  font-family: 'CrickxRegular';
+  src: url("crickx_crickx-webfont.eot");
+  src: url("crickx_crickx-webfont.eot?#iefix") format("embedded-opentype"), url("crickx_crickx-webfont.woff") format("woff"), url("crickx_crickx-webfont.ttf") format("truetype"), url("crickx_crickx-webfont.svg#CrickxRegular") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'CrickxSharkCut';
+  src: url("crickxsharkcut_crickxsharkcut-webfont.eot");
+  src: url("crickxsharkcut_crickxsharkcut-webfont.eot?#iefix") format("embedded-opentype"), url("crickxsharkcut_crickxsharkcut-webfont.woff") format("woff"), url("crickxsharkcut_crickxsharkcut-webfont.ttf") format("truetype"), url("crickxsharkcut_crickxsharkcut-webfont.svg#CrickxSharkCut") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'CrickxDroite';
+  src: url("crickxdroite_crickxdroite-webfont.eot");
+  src: url("crickxdroite_crickxdroite-webfont.eot?#iefix") format("embedded-opentype"), url("crickxdroite_crickxdroite-webfont.woff") format("woff"), url("crickxdroite_crickxdroite-webfont.ttf") format("truetype"), url("crickxdroite_crickxdroite-webfont.svg#CrickxDroite") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+    font-family: 'DINOSPMedium';
+    src: url('din_osp11-webfont.eot');
+    src: url('din_osp11-webfont.eot?#iefix') format('embedded-opentype'),
+         url('din_osp11-webfont.woff') format('woff'),
+         url('din_osp11-webfont.ttf') format('truetype'),
+         url('din_osp11-webfont.svg#DINOSPMedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'LibertinageFull';
+    src: url('libertinage-webfont.eot');
+    src: url('libertinage-webfont.eot?#iefix') format('embedded-opentype'),
+         url('libertinage-webfont.woff') format('woff'),
+         url('libertinage-webfont.ttf') format('truetype'),
+         url('libertinage-webfont.svg#LibertinageFull') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'AlfphabetIV';
+    src: url('alfphabet-iv-webfont.eot');
+    src: url('alfphabet-iv-webfont.eot?#iefix') format('embedded-opentype'),
+         url('alfphabet-iv-webfont.woff') format('woff'),
+         url('alfphabet-iv-webfont.ttf') format('truetype'),
+         url('alfphabet-iv-webfont.svg#AlfphabetIV') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'CimaticsDust';
+    src: url('cimatics-dust-webfont.eot');
+    src: url('cimatics-dust-webfont.eot?#iefix') format('embedded-opentype'),
+         url('cimatics-dust-webfont.woff') format('woff'),
+         url('cimatics-dust-webfont.ttf') format('truetype'),
+         url('cimatics-dust-webfont.svg#CimaticsDust') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'CimaticsTrash';
+    src: url('cimatics-trash-webfont.eot');
+    src: url('cimatics-trash-webfont.eot?#iefix') format('embedded-opentype'),
+         url('cimatics-trash-webfont.woff') format('woff'),
+         url('cimatics-trash-webfont.ttf') format('truetype'),
+         url('cimatics-trash-webfont.svg#CimaticsTrash') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'diluvienneRegular';
+    src: url('diluvienne-webfont.eot');
+    src: url('diluvienne-webfont.eot?#iefix') format('embedded-opentype'),
+         url('diluvienne-webfont.woff') format('woff'),
+         url('diluvienne-webfont.ttf') format('truetype'),
+         url('diluvienne-webfont.svg#diluvienneRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+    
+@font-face {
+    font-family: 'LimousineMedium';
+    src: url('limousine-webfont.eot');
+    src: url('limousine-webfont.eot?#iefix') format('embedded-opentype'),
+         url('limousine-webfont.woff') format('woff'),
+         url('limousine-webfont.ttf') format('truetype'),
+         url('limousine-webfont.svg#LimousineMedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'LMMono9Regular';
+    src: url('lmmonoltcond10-regular-webfont.eot');
+    src: url('lmmonoltcond10-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('lmmonoltcond10-regular-webfont.woff') format('woff'),
+         url('lmmonoltcond10-regular-webfont.ttf') format('truetype'),
+         url('lmmonoltcond10-regular-webfont.svg#LMMono9Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'LMRoman10Bold';
+    src: url('lmroman10-bold-webfont.eot');
+    src: url('lmroman10-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('lmroman10-bold-webfont.woff') format('woff'),
+         url('lmroman10-bold-webfont.ttf') format('truetype'),
+         url('lmroman10-bold-webfont.svg#LMRoman10Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'LatinModernRomanUnslanted10Rg';
+    src: url('lmromanunsl10-regular-webfont.eot');
+    src: url('lmromanunsl10-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('lmromanunsl10-regular-webfont.woff') format('woff'),
+         url('lmromanunsl10-regular-webfont.ttf') format('truetype'),
+         url('lmromanunsl10-regular-webfont.svg#LatinModernRomanUnslanted10Rg') format('svg');
+    font-weight: normal;
+    font-style: normal; }
+
+@font-face {
+    font-family: 'SansGuilt1Medium';
+    src: url('sansguilt1-webfont.eot');
+    src: url('sansguilt1-webfont.eot?#iefix') format('embedded-opentype'),
+         url('sansguilt1-webfont.woff') format('woff'),
+         url('sansguilt1-webfont.ttf') format('truetype'),
+         url('sansguilt1-webfont.svg#SansGuilt1Medium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'SansGuilt2Medium';
+    src: url('sansguilt2-webfont.eot');
+    src: url('sansguilt2-webfont.eot?#iefix') format('embedded-opentype'),
+         url('sansguilt2-webfont.woff') format('woff'),
+         url('sansguilt2-webfont.ttf') format('truetype'),
+         url('sansguilt2-webfont.svg#SansGuilt2Medium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'SansGuilt2Medium';
+    src: url('sansguilt2-webfont.eot');
+    src: url('sansguilt2-webfont.eot?#iefix') format('embedded-opentype'),
+         url('sansguilt2-webfont.woff') format('woff'),
+         url('sansguilt2-webfont.ttf') format('truetype'),
+         url('sansguilt2-webfont.svg#SansGuilt2Medium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'whiskyjazzDemi';
+    src: url('whiskyjazzbeta-webfont.eot');
+    src: url('whiskyjazzbeta-webfont.eot?#iefix') format('embedded-opentype'),
+         url('whiskyjazzbeta-webfont.woff') format('woff'),
+         url('whiskyjazzbeta-webfont.ttf') format('truetype'),
+         url('whiskyjazzbeta-webfont.svg#whiskyjazzDemi') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+
+@font-face {
+    font-family: 'PolskuRegular';
+    src: url('polsku-webfont.eot');
+    src: url('polsku-webfont.eot?#iefix') format('embedded-opentype'),
+         url('polsku-webfont.woff') format('woff'),
+         url('polsku-webfont.ttf') format('truetype'),
+         url('polsku-webfont.svg#PolskuRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'RCAGillMedium';
+    src: url('rcagill-webfont.eot');
+    src: url('rcagill-webfont.eot?#iefix') format('embedded-opentype'),
+         url('rcagill-webfont.woff') format('woff'),
+         url('rcagill-webfont.ttf') format('truetype'),
+         url('rcagill-webfont.svg#RCAGillMedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'OSPAtlast1';
+    src: url('osp-atlast-webfont.eot');
+    src: url('osp-atlast-webfont.eot?#iefix') format('embedded-opentype'),
+         url('osp-atlast-webfont.woff') format('woff'),
+         url('osp-atlast-webfont.ttf') format('truetype'),
+         url('osp-atlast-webfont.svg#OSPAtlast1') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'NotCourierSans';
+    src: url('notcouriersans-bold-webfont.eot');
+    src: url('notcouriersans-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('notcouriersans-bold-webfont.woff') format('woff'),
+         url('notcouriersans-bold-webfont.ttf') format('truetype'),
+         url('notcouriersans-bold-webfont.svg#NotCourierSansBold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'NotCourierSans';
+    src: url('notcouriersans-webfont.eot');
+    src: url('notcouriersans-webfont.eot?#iefix') format('embedded-opentype'),
+         url('notcouriersans-webfont.woff') format('woff'),
+         url('notcouriersans-webfont.ttf') format('truetype'),
+         url('notcouriersans-webfont.svg#NotCourierSansRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'LMRoman10Bold';
+    src: url('lmroman10-bold-webfont.eot');
+    src: url('lmroman10-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('lmroman10-bold-webfont.woff') format('woff'),
+         url('lmroman10-bold-webfont.ttf') format('truetype'),
+         url('lmroman10-bold-webfont.svg#LMRoman10Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'LMRoman5Regular';
+    src: url('lmroman5-regular-webfont.eot');
+    src: url('lmroman5-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('lmroman5-regular-webfont.woff') format('woff'),
+         url('lmroman5-regular-webfont.ttf') format('truetype'),
+         url('lmroman5-regular-webfont.svg#LMRoman5Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'RegloBold';
+    src: url('reglo-bold-webfont.eot');
+    src: url('reglo-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('reglo-bold-webfont.woff') format('woff'),
+         url('reglo-bold-webfont.ttf') format('truetype'),
+         url('reglo-bold-webfont.svg#RegloBold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+
