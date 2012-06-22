@@ -63,8 +63,26 @@ module VC
     def last_updated
       self.commit('HEAD').date.xmlschema
     end
+    def recent
+      if Time.now() - self.commit('HEAD').date < 30 * 24 * 60 * 60
+        true
+      else
+        nil
+      end
+    end
+    def html_classes
+      html_classes = []
+      methods = ['iceberg', 'blog_post', 'gallery', 'source_files', 'recent']
+      methods.each do |m|
+        unless self.send(m) == nil
+          html_classes << m
+        end
+      end
+      html_classes << self.category
+      html_classes.join(' ')
+    end
     def to_hash
-      {'slug' => self.slug, 'web_path' => self.web_path, 'web_url' => self.web_url, 'title' => self.title, 'project_description' => self.project_description, 'iceberg' => self.iceberg, 'commits' => self.commit_overview, 'blog_post' => self.blog_post, 'gallery' => self.gallery, 'source_files' => self.source_files, 'last_updated' => self.last_updated}
+      {'slug' => self.slug, 'web_path' => self.web_path, 'web_url' => self.web_url, 'title' => self.title, 'project_description' => self.project_description, 'iceberg' => self.iceberg, 'commits' => self.commit_overview, 'blog_post' => self.blog_post, 'gallery' => self.gallery, 'source_files' => self.source_files, 'html_classes' => self.html_classes, 'last_updated' => self.last_updated}
     end
     def to_json
       self.to_hash.to_json
