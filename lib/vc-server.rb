@@ -26,7 +26,10 @@ module VC
       # Create a hash to access repos through their slug:
       @repos = {}
       repo_paths.each do |repo_path|
-        @repos[File.basename(repo_path, ".git")] = Grit::Repo.new(repo_path)
+        r = Grit::Repo.new(repo_path)
+        unless r.commit('HEAD').nil?
+          @repos[File.basename(repo_path, ".git")] = Grit::Repo.new(repo_path)
+        end
         # Though creating all git_repo instances at initialisation
         # might be to heavy at some point
       end
