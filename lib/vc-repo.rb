@@ -20,13 +20,18 @@ module VC
     end
     def _readme
       readme_file = self.tree.contents.map {|x| x.name.include?('README') ? x.name : nil}.compact.first
-      (self.tree / readme_file).data
+      f = (self.tree / readme_file)
+      if f.nil?
+        nil
+      else
+        f.data
+      end
     end
     def title
       if self._readme
         self._readme.lines.first.chomp
       else
-        nil
+        "PLEASE ADD README.TXT"
       end
     end
     def project_description
@@ -36,7 +41,7 @@ module VC
         m = RDiscount.new self._readme.split('- - -')[0]
         m.to_html
       else
-        nil
+        "<p>Please insert a project description</p>"
       end
     end
     def iceberg
