@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # JPG transducer
 $:.unshift File.join(File.dirname(__FILE__), "..")
 require 'visualculture'

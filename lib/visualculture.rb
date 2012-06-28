@@ -1,5 +1,4 @@
-#dir = File.dirname(__FILE__)
-#$:.unshift(File.join(dir, ".."))
+# encoding: UTF-8
 require 'grit'
 require 'linguist'
 require 'json'

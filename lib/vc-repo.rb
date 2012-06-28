@@ -1,3 +1,4 @@
+# encoding: UTF-8
 module VC
   module RepoHelper
     def slug

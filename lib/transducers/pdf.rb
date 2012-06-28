@@ -1,5 +1,5 @@
-require 'open3'
-
+# encoding: UTF-8
+# PDF transducer
 $:.unshift File.join(File.dirname(__FILE__), "..")
 require 'visualculture'
 

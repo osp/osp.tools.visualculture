@@ -1,3 +1,4 @@
+# encoding: UTF-8
 module VC
   module CacheHelper
     def cached?(size=nil)

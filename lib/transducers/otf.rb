@@ -1,4 +1,5 @@
-# SVG transducer
+# encoding: UTF-8
+# OTF transducer
 $:.unshift File.join(File.dirname(__FILE__), "..")
 require 'visualculture'
 

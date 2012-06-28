@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # Here we include Visual Culture-specific mixins and modules into the Grit ecosystem
 
 module Grit
