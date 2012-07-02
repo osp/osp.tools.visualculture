@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="span8">
+  <div class="span6">
     <%= @repo.project_description %>
 
     <% if @repo.iceberg %>
@@ -8,17 +8,26 @@
         <% end %>
     <% end %>
   </div>
-  <div class="span4">
+
+  <div id="commit-list" class="span4">
   <% if @repo.source_files %>
-  <ul style="margin-top: 72px">
-  <% @repo.commits.each_with_index do |commit, i| %>
-    <li><a href="/<%= @repo.web_path %>/view/<%= i == 0 ? 'latest' : commit.id[0..10] %>/"><%= commit.message.lines.first %></a><br/>
-    <%= commit.id[0..10] %> (by <%= commit.author %>, <%= commit.committed_date %>)    
-    </li>
-  <% end %>
-  </ul>
+	  <ul style="margin-top: 72px">
+	  <% @repo.commits.each_with_index do |commit, i| %>
+		    <li class="commit" >
+		        <p class="commit-id">
+				<%= commit.id[0..10] %> 
+			</p><p>
+				<span class="commit-author"><%= commit.author %></span> <span class="commit-author-said">said</span>
+			<p class="commit-message">
+				<a href="/<%= @repo.web_path %>/view/<%= i == 0 ? 'latest' : commit.id[0..10] %>/"><%= commit.message.lines.first %></a>
+			</p>
+			<p class="commit-date"><%= commit.committed_date.strftime("%A, %d %B %Y") %></p>
+		    </li>
+	  <% end %>
+	  </ul>
   <% else %>
-  &nbsp;
+	  &nbsp;
   <% end%>
+
   </div>
 </div>

@@ -5,7 +5,9 @@
         <title><%= @title %></title>
         <link rel="stylesheet" type="text/css" href="/atfont-face/atfont-face.css">
         <link rel="stylesheet" type="text/css" href="/atfont-face/UniversElse.css">
-        <link rel="stylesheet" type="text/css" href="/css/visualculture.css">
+        <!-- <link rel="stylesheet" type="text/css" href="/css/visualculture.css"> -->
+        <link rel="stylesheet/less" type="text/css" href="/visualculture.less">
+        <link rel="stylesheet/less" type="text/css" href="http://osp.constantvzw.org/styles-start.less">
         <script src="/js/jquery-1.7.2.min.js"></script>
         <!-- <link rel="stylesheet/less" type="text/css" href="/less/bootstrap.less"> -->
         <script src="/js/less-1.2.1.min.js"></script>
@@ -13,46 +15,44 @@
     </head>
     <body>
     <div class="navbar" style="margin-bottom:0;">
-            <div class="navbar-inner">
-                <div class="container">
-                        <ul class="nav">
-        <li><a href="http://osp.constantvzw.org/" class="brand">OSP</a></li>
-        <li><a href="/work/">Works</a></li>
-        <li><a href="http://osp.constantvzw.org/foundry/">Foundry</a></li>
-        <li><a href="/workshop/">Workshops</a></li>
-        <li><a href="/tools/">Tools</a></li>
-        <li><a href="http://osp.constantvzw.org/blog/">Blog</a></li>
-        <li><a href="http://osp.constantvzw.org/images/">Images</a></li>
-        <li><a href="http://osp.constantvzw.org/about">About</a></li>
-        <li><a href="http://osp.constantvzw.org/contact">Contact</a></li>
-                        </ul>
-                   </div>
+        <div class="navbar-inner">
+            <div class="container">
+                <ul class="nav">
+                    <li><a href="/work/">Works</a></li>
+                    <li><a href="http://osp.constantvzw.org/foundry/">Foundry</a></li>
+                    <li><a href="/workshop/">Workshops</a></li>
+                    <li><a href="/tools/">Tools</a></li>
+                    <li><a href="http://osp.constantvzw.org/blog/">Blog</a></li>
+                    <li><a href="http://osp.constantvzw.org/images/">Images</a></li>
+                    <li><a href="http://osp.constantvzw.org/about">About</a></li>
+                    <li><a href="http://osp.constantvzw.org/contact">Contact</a></li>
+		    <li>
+		        <object data="http://osp.constantvzw.org/pict/OSP_new-frog.svg" style="width:60px;height:60px;" type="image/svg+xml">
+		            <img alt="A stylised image of a frog." style="width:60px;height:60px;" src="./pict/OSP_new-frog.png">
+		        </object>
+			<a href="http://osp.constantvzw.org/">OSP,</a>
+			<p id="baseline">Graphic design caravan</p>
+		    </li>
+                </ul>
             </div>
         </div>
+    </div>
         <% if @repo %>
         <div class="navbar">
             <div class="navbar-inner">
                 <div class="container">
-                        <ul class="nav">
-                            <li>
-                                <a href="/<%= @repo.web_path %>/" class="brand"><%= @repo.title %></a>
-                            </li>
                             <% if @repo.source_files %>
-                            <li>
-                                <a href="/<%= @repo.web_path %>/view/latest/">Source Files</a>
-                            </li>
+				    <p>
+					<a href="/<%= @repo.web_path %>/view/latest/"><!-- <img src="http://upload.wikimedia.org/wikipedia/commons/f/f5/Anaphase.jpg" />--></a>
+					<a class="project-source" href="/<%= @repo.web_path %>/view/latest/">Source Files</a>
+				    </p>
+				    <p><a class="git-clone" data-toggle="modal" href="#cloneModal" >Git Clone</a></p>
                             <% end %>
                             <% if @commit %>
                             <li class="active">
                                 <a href="/<%= @repo.web_path %>/view/<%= @commit_slug %>/"><%= @commit_slug %></a>
                             </li>
                             <% end %>
-                        </ul>
-                        <% if @repo.source_files %>
-                        <ul class="nav pull-right">
-                            <li><a data-toggle="modal" href="#cloneModal" >Git Clone</a></li>
-                        </ul>
-                        <% end %>
                    </div>
             </div>
         </div>
