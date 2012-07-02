@@ -64,6 +64,7 @@ module VC
 
     # Routes
     before do
+	    print request.url
       @title = VC.settings("title")
     end
 

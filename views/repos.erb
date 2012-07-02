@@ -1,6 +1,32 @@
-<ul>
+
 <% @repos.each do |repo_slug, repo| %>
   <% repo_path = repo_slug.split('.')[1..2].join('/') %>
-  <li><a href="/<%= repo_path %>/"><%= repo_slug %></li>
+
+<div class="project">
+            <p class="project-type"><%= repo.category %></p>
+           <h2 class="project-title">
+                <a href="/<%= repo_path %>/">
+                    <%= repo.title %>
+                </a>
+            </h2>
+            <div class="iceberg"><a href="/<%= repo_path %>/"><img class="iceberg-pict-big" src="/<%= repo.web_path %>/thumbnail/latest/iceberg/<%= repo.iceberg[0] %>"></a>
+           
+            </div>
+            <p class="project-source"><a href="/<%= repo.web_path %>/view/latest/">Source files</a></p>
+
+            <div class="commit-list">
+<% repo.commits[0..5].each do |commit|%>
+			
+		<div class='ellipse' style='width: 5px; margin: auto; text-align: center; height: ".$ellipse."px; border-left: 1px solid springgreen;'>&nbsp;</div>
+                        <div class='commit'>
+                        <p><span class='commit-author'><%= commit.author.name %></span><span class='commit-author-said'>said
+                        </span></p>
+                            <p class='commit-message'>&mdash; <%= commit.message %></p>
+                            <p class='commit-date'><%= commit.committed_date %></p>
+                        </div>
+		
+            <% end %> 
+                            
+            </div>
+</div>
 <% end %>
-</ul>

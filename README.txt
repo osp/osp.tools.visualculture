@@ -22,6 +22,8 @@ Prerequisites
 
 You can check your r
 
+(Note that grit/shotgun/bundler/commander aren't packaged on Debian)
+
 $ sudo gem install sinatra sinatra-contrib grit shotgun bundler json rmagick commander
 
 When running ruby 1.8, in addition:
@@ -32,7 +34,7 @@ $ sudo gem install minitest
 Linguist-specific install
 -------------------------
 
-$ cd /tmp
+$ cd /tmp # please! :)
 $ git clone https://github.com/ab5tract/linguist.git
 $ cd linguist/
 $ sudo bundle install
