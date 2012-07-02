@@ -7,6 +7,7 @@ gem "bundler"
 gem "json"
 gem "rmagick"
 gem "commander"
+gem "rdiscount"
 gem "linguist", :git => "git://github.com/ab5tract/linguist.git"
 
 
