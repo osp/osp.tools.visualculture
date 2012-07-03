@@ -1,15 +1,23 @@
-
+<% # -*- coding: UTF-8 -*- %>
 <% @repos.each do |repo_slug, repo| %>
-  <% repo_path = repo_slug.split('.')[1..2].join('/') %>
+
+
+<!-- I dont get why I need to convert to ascii here, and not in other cases
+where i use repo.title-->
+<% if repo.iceberg %>
+<% begin %>
+<% title = repo.title.force_encoding("ASCII-8BIT") %>
+<% rescue NoMethodError %>
+<% title = repo.title.force_encoding("ASCII-8BIT") %>
+<% end %>
+
 
 <div class="project">
             <p class="project-type"><%= repo.category %></p>
            <h2 class="project-title">
-                <a href="/<%= repo_path %>/">
-                    <%= repo.title %>
-                </a>
+                <a href="/<%= repo.web_path %>/"><%= title %></a>
             </h2>
-            <div class="iceberg"><a href="/<%= repo_path %>/"><img class="iceberg-pict-big" src="/<%= repo.web_path %>/thumbnail/latest/iceberg/<%= repo.iceberg[0] %>"></a>
+            <div class="iceberg"><a href="/<%= repo.web_path %>/"><img class="iceberg-pict-big" src="/<%= repo.web_path %>/thumbnail/latest/iceberg/<%= repo.iceberg[0] %>"></a>
            
             </div>
             <p class="project-source"><a href="/<%= repo.web_path %>/view/latest/">Source files</a></p>
@@ -29,4 +37,5 @@
                             
             </div>
 </div>
+<% end %>
 <% end %>
