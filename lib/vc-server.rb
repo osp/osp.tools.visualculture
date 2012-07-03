@@ -69,7 +69,7 @@ module VC
     end
 
     get "/" do
-      erb :home
+      erb :repos
     end
 
     get "/:cat/" do |cat|
