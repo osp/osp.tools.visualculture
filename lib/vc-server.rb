@@ -69,7 +69,9 @@ module VC
     end
 
     get "/" do
-      erb :repos
+      # 8 latest repos with an iceberg:
+      @home_repos = @repos.values.map.map {|x| x.iceberg ? x : nil}.compact.sort_by {|r| r.last_updated}.reverse[0..8]
+      erb :home
     end
 
     get "/:cat/" do |cat|
