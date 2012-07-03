@@ -8,7 +8,7 @@ where i use repo.title-->
 <% begin %>
 <% title = repo.title.force_encoding("ASCII-8BIT") %>
 <% rescue NoMethodError %>
-<% title = repo.title.force_encoding("ASCII-8BIT") %>
+<% title = repo.title %>
 <% end %>
 
 
