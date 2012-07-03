@@ -25,7 +25,11 @@ module VC
       if f.nil?
         nil
       else
-        f.data
+        begin
+          f.data.force_encoding("UTF-8")
+        rescue NoMethodError
+          f.data
+        end
       end
     end
     def title
@@ -48,7 +52,7 @@ module VC
     def iceberg
       iceberg = (self.tree / "iceberg")
       if iceberg.nil?
-        return []
+        return nil
       end      
       iceberg.contents.map {|x| /jpg|jpeg|png|gif/i.match(x.name) ? x.name : nil}.compact
     end
@@ -64,7 +68,11 @@ module VC
       nil
     end
     def commit_overview
-      self.commits.map {|commit| { 'id' => commit.id[0..10], 'author' => commit.author.name, 'date' => commit.committed_date, 'date_iso' => commit.committed_date.xmlschema, 'message' => commit.message, 'message_short' => commit.message.lines.first, 'parent_repo_slug' => self.slug, 'parent_repo_title' => self.title, 'parent_repo_url' => self.web_url }}
+      begin
+        self.commits.map {|commit| { 'id' => commit.id[0..10], 'author' => commit.author.name.force_encoding("UTF-8"), 'date' => commit.committed_date, 'date_iso' => commit.committed_date.xmlschema, 'message' => commit.message.force_encoding("UTF-8"), 'message_short' => commit.message.lines.first.force_encoding("UTF-8"), 'parent_repo_slug' => self.slug, 'parent_repo_title' => self.title, 'parent_repo_url' => self.web_url }}
+      rescue NoMethodError
+        self.commits.map {|commit| { 'id' => commit.id[0..10], 'author' => commit.author.name, 'date' => commit.committed_date, 'date_iso' => commit.committed_date.xmlschema, 'message' => commit.message, 'message_short' => commit.message.lines.first, 'parent_repo_slug' => self.slug, 'parent_repo_title' => self.title, 'parent_repo_url' => self.web_url }}
+      end 
     end
     def last_updated
       self.commit('HEAD').date.xmlschema
