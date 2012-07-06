@@ -18,7 +18,7 @@ end
 	File.open(tmpf, 'w') do |f|
 		f.write blob.data
 	end
-	surf = Cairo::ImageSurface.new(size.to_i,size.to_i)
+	surf = Cairo::ImageSurface.new(Cairo::FORMAT_ARGB32,size.to_i,size.to_i)
 	ctx = Cairo::Context.new(surf)
 	doc = Poppler::Document.new(tmpf)
 	page = doc.get_page(0)
