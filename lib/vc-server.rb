@@ -74,6 +74,10 @@ module VC
       erb :home
     end
 
+    get "/repos/" do
+      erb :repos
+    end
+
     get "/:cat/" do |cat|
       @title += " :: " + cat.capitalize
       @cat = cat
