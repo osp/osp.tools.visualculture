@@ -70,7 +70,7 @@ module VC
 
     get "/" do
       # 8 latest repos with an iceberg:
-      @home_repos = @repos.values.map.map {|x| x.iceberg ? x : nil}.compact.sort_by {|r| r.last_updated}.reverse[0..8]
+      @home_repos = @sorted_repos.map {|x| x.iceberg ? x : nil}.compact[0..8]
       erb :home
     end
 
@@ -155,7 +155,7 @@ module VC
     # sweet, an api
     get "/repos.json" do
       content_type "text/plain"
-      @repos.values.map {|repo| repo.to_hash}.sort_by {|r| r['last_updated']}.reverse.to_json 
+      @sorted_repos.map {|repo| repo.to_hash}.to_json 
     end
     
     get "/commits.json" do
