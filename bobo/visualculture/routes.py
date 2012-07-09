@@ -1,6 +1,8 @@
 import bobo
+import webob
 import pygit2
 import os
+import magic
 
 
 GIT_REPO_ROOT = '/home/pierre/System/src/'
@@ -51,7 +53,12 @@ def item(name,oid):
 		return '\n'.join(ret)
 		
 	if commit.type == pygit2.GIT_OBJ_BLOB:
-		return commit.data
+		ms = magic.open(magic.MIME_TYPE)
+		ms.load()
+		res = webob.Response()
+		res.headerlist = [('Content-type', ms.buffer(commit.data))]
+		res.body = commit.data
+		return res
 		
 		
 	return 'Unhandled object type %s'%commit.type
