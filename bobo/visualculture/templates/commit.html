@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}{{ page }}{% endblock %}
+
+{% block content %}
+
+<h4><a href="/osp/{{name}}">In {{name}}</a></h4>
+<div class=commit>
+	<p>
+		<span class="commit-author">{{ commit.author.name }}</span> 
+		<span class="commit-author-said">said</span>
+	</p>
+	<p class="commit-message">
+		<a href="/osp/{{ name }}/{{ commit.hex }}">{{ commit.message }}</a>
+	</p>
+	<p class="commit-date">
+		{{ commit.commit_time|datetimeformat }}
+	</p>
+	
+	<pre>
+	{{ diff.patch }}
+	</pre>
+</div>
+
+{% endblock %}
