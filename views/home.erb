@@ -18,8 +18,9 @@ where i use repo.title-->
            <h2 class="project-title">
                 <a href="/<%= repo.web_path %>/"><%= title %></a>
             </h2>
-            <div class="iceberg"><a href="/<%= repo.web_path %>/"><img class="iceberg-pict-big" src="/<%= repo.web_path %>/thumbnail/latest/iceberg/<%= repo.iceberg[0] %>"></a>
-           
+            <% iceberg.repo each_with_index do |img, i| %>
+            <div class="iceberg"><a href="/<%= repo.web_path %>/"><img class="<%= i == 0 ? 'iceberg-pict-big' : 'iceberg-pict' %>" src="/<%= repo.web_path %>/thumbnail/latest/iceberg/<%= img %>"></a>
+            <% end %>
             </div>
             <p class="project-source"><a href="/<%= repo.web_path %>/view/latest/">Source files</a></p>
 
