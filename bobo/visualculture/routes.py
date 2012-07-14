@@ -8,9 +8,11 @@ import magic
 import jinja2
 import datetime
 
+import transducer
+
 
 GIT_REPO_ROOT = '/home/pierre/System/src/'
-GIT_REPO_ROOT = '/home/pierre/public_html/'
+#GIT_REPO_ROOT = '/home/pierre/public_html/'
 
 def datetimeformat(value):
     return datetime.date.fromtimestamp(value).isoformat()
@@ -117,7 +119,7 @@ def repo(name):
 	return show_tree(name, repo.head.tree)
 
 @bobo.query('/:name/:oid')
-def item(name,oid):
+def item(bobo_request,name,oid):
 	entries = os.listdir(GIT_REPO_ROOT)
 	repo = None
 	if name in entries:
@@ -140,8 +142,10 @@ def item(name,oid):
 		ms = magic.open(magic.MIME_TYPE)
 		ms.load()
 		res = webob.Response()
-		res.content_type = ms.buffer(commit.data)
-		res.body = commit.data
+		mime = ms.buffer(commit.data)
+		t = transducer.tr(bobo_request, commit.data, mime)
+		res.content_type = t['mime']
+		res.body = t['data']
 		return res
 		
 		
@@ -150,3 +154,9 @@ def item(name,oid):
 @bobo.query('/:name/:oid/')
 def item2(name,oid):
 	return item(name, oid)
+	
+	
+#@bobo.query('/vc/:name/:oid/')
+#def vc(request, name, oid):
+	
+	
