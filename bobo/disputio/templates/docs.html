@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Documents{% endblock %}
+
+{% block content %}
+{% for id in ids %}
+	<div class="id-box">
+	<a href="/disputio/id/{{id}}">{{id}}</a>
+	</div>
+{% endfor %}
+{% endblock %}
