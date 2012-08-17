@@ -9,7 +9,6 @@
         <script src="/js/bootstrap.min.js"></script>
     </head>
     <body>
-        <div id="active-projects">
             <div id="home-infos">
             What is that? Some says that those snapshots are to our work what the pictures of a cookbook are to the cooked meal. source files = ingredients. These arrangements of blocks of text and pictures tries harder to depict the most current projects, some interesting visual extracts and the source files that provide a convenient way to access to study it, change it, to redistribute copies of it, to improve it and release your improvements (and modified versions in general). Nous sommes embarqués.<a href="http://osp.constantvzw.org/about"> Read more about the way we work → </a>
             </div>
@@ -57,29 +56,34 @@
         </div>
         <% end %>
 
+
+        <div id="active-projects">
+
             <!-- Main body follows:-->
 <%= yield %>
 
         </div>
         
         <!-- Menu navigation-->
-        <ul id="menu">
-            <li><a href="/work/">Works</a></li>
-            <li><a href="http://osp.constantvzw.org/foundry/">Foundry</a></li>
-            <li><a href="/workshop/">Workshops</a></li>
-            <li><a href="/tools/">Tools</a></li>
-            <li><a href="http://osp.constantvzw.org/blog/">Blog</a></li>
-            <li><a href="http://osp.constantvzw.org/images/">Images</a></li>
-            <li><a href="http://osp.constantvzw.org/about">About</a></li>
-            <li><a href="http://osp.constantvzw.org/contact">Contact</a></li>
-            <li>
-                <object data="http://osp.constantvzw.org/pict/OSP_new-frog.svg" style="width:60px;height:60px;" type="image/svg+xml">
-                    <img alt="A stylised image of a frog." style="width:60px;height:60px;" src="./pict/OSP_new-frog.png">
-                </object>
-                <a href="/">OSP,</a>
-                <p id="baseline">Graphic design caravan</p>
-           </li>
-       </ul>
+        <div id="menu-wrapper">
+            <ul id="menu">
+                <li><a href="/work/">Works</a></li>
+                <li><a href="http://osp.constantvzw.org/foundry/">Foundry</a></li>
+                <li><a href="/workshop/">Workshops</a></li>
+                <li><a href="/tools/">Tools</a></li>
+                <li><a href="http://osp.constantvzw.org/blog/">Blog</a></li>
+                <li><a href="http://osp.constantvzw.org/images/">Images</a></li>
+                <li><a href="http://osp.constantvzw.org/about">About</a></li>
+                <li><a href="http://osp.constantvzw.org/contact">Contact</a></li>
+                <li>
+                    <object data="http://osp.constantvzw.org/pict/OSP_new-frog.svg" style="width:60px;height:60px;" type="image/svg+xml">
+                        <img alt="A stylised image of a frog." style="width:60px;height:60px;" src="./pict/OSP_new-frog.png">
+                    </object>
+                    <a href="/">OSP,</a>
+                    <p id="baseline">Graphic design caravan</p>
+               </li>
+           </ul>
+       </div>
        
         
         <% if @repo %>

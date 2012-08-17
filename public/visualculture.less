@@ -68,7 +68,10 @@ dt {
     margin-top:15px;
     margin-left:20px;
     width: auto;
-    
+    // make it minimally 3 columns wide
+    min-width: 4 * 20px + 3 * 250px;
+    // and let it not bump into the menu
+    padding-right: 165px;
 }
 
 // project box -------------------------------------------------
@@ -190,6 +193,22 @@ background: linear-gradient(left, @color-author-said-gauche 0%,@color-author-sai
        margin-left: 18px;
 }
 ///////// menu /////////
+#menu-wrapper{
+// The menu sticks to the right of this wrapper.
+// The wrapper is at 100% of the page unless the page
+// Becomes less than 995px wide
+// ( the padding is subtracted from the width because
+//   of the different box-sizing model )
+// This way the menu doesn’t interfere with the main page
+// content in #active-projects
+    position: absolute;
+    top: 0;
+    padding-left: 995px;
+    width: 100%;
+    .box-sizing(border-box);
+    z-index: -100;
+}
+
 #menu{
     position: absolute;
     right:10px;
@@ -234,6 +253,8 @@ background: linear-gradient(left, @color-author-said-gauche 0%,@color-author-sai
 // infos -box ------------------------------------------------
 
 #home-infos{
+    margin-top:15px;
+    margin-left:20px;
     height: 65px;
     width: 780px;
     padding: 5px 5px 5px 5px;
