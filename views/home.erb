@@ -14,30 +14,39 @@ where i use repo.title-->
 
 
 <div class="project">
-            <p class="project-type"><%= repo.category %></p>
-           <h2 class="project-title">
-                <a href="/<%= repo.web_path %>/"><%= title %></a>
-            </h2>
-            <% iceberg.repo each_with_index do |img, i| %>
-            <div class="iceberg"><a href="/<%= repo.web_path %>/"><img class="<%= i == 0 ? 'iceberg-pict-big' : 'iceberg-pict' %>" src="/<%= repo.web_path %>/thumbnail/latest/iceberg/<%= img %>"></a>
-            <% end %>
-            </div>
-            <p class="project-source"><a href="/<%= repo.web_path %>/view/latest/">Source files</a></p>
+    <p class="project-type"><%= repo.category %></p>
 
-            <div class="commit-list">
-<% repo.commits[0..5].each do |commit|%>
-			
-		<div class='ellipse' style='width: 5px; margin: auto; text-align: center; height: ".$ellipse."px; border-left: 1px solid springgreen;'>&nbsp;</div>
-                        <div class='commit'>
-                        <p><span class='commit-author'><%= commit.author.name %></span><span class='commit-author-said'>said
-                        </span></p>
-                            <p class='commit-message'>&mdash; <%= commit.message %></p>
-                            <p class='commit-date'><%= commit.committed_date %></p>
-                        </div>
-		
-            <% end %> 
-                            
-            </div>
+    <h2 class="project-title">
+        <a href="/<%= repo.web_path %>/"><%= title %></a>
+    </h2>
+
+    <div class="iceberg">
+    <% repo.iceberg.each_with_index do |img, i| %>
+        <a href="/<%= repo.web_path %>/"><img class="<%= i == 0 ? 'iceberg-pict-big' : 'iceberg-pict' %>" src="/<%= repo.web_path %>/thumbnail/latest/iceberg/<%= img %>"></a>
+    <% end %>
+    </div>
+
+    <p class="project-source"><a href="/<%= repo.web_path %>/view/latest/">Source files</a></p>
+
+    <div class="commit-list">
+    <% ellipse = 0 %>
+    <% previous_commit_date = Time.now %>
+    <% repo.commits[0..5].each_with_index do |commit, i|%>
+    <% if i != 0 %>
+        <!-- Number of days between commits:-->
+        <%  ellipse = (previous_commit_date.to_i - commit.committed_date.to_i) / (24*60*60) %>
+        <%  ellipse = ellipse * 3 %>
+    <% end %>
+        <div class='ellipse' style='width: 5px; margin: auto; text-align: center; height: <%= ellipse %>px; border-left: 1px solid springgreen;'>&nbsp;</div>
+        <div class='commit'>
+            <p><span class='commit-author'><%= commit.author.name %></span><span class='commit-author-said'>said</span></p>
+            <p class='commit-message'>&mdash; <%= commit.message %></p>
+            <p class='commit-date'><%= commit.committed_date.strftime("%A, %d %B %Y") %></p>
+        </div>
+    <% previous_commit_date = commit.committed_date %>
+    <% end %> 
+    </div>
+    
 </div>
 <% end %>
 <% end %>
