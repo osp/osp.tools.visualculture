@@ -3,62 +3,43 @@
     <head>
         <meta charset="UTF-8" />
         <title><%= @title %></title>
-        <link rel="stylesheet" type="text/css" href="/atfont-face/atfont-face.css">
-        <link rel="stylesheet" type="text/css" href="/atfont-face/UniversElse.css">
-        <!-- <link rel="stylesheet" type="text/css" href="/css/visualculture.css"> -->
         <link rel="stylesheet/less" type="text/css" href="/visualculture.less">
-        <link rel="stylesheet/less" type="text/css" href="http://osp.constantvzw.org/styles-start.less">
         <script src="/js/jquery-1.7.2.min.js"></script>
-        <!-- <link rel="stylesheet/less" type="text/css" href="/less/bootstrap.less"> -->
         <script src="/js/less-1.2.1.min.js"></script>
-        <script src="/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
     </head>
     <body>
-    <div class="navbar" style="margin-bottom:0;">
-        <div class="navbar-inner">
-            <div class="container">
-                <ul class="nav">
-                    <li><a href="/work/">Works</a></li>
-                    <li><a href="http://osp.constantvzw.org/foundry/">Foundry</a></li>
-                    <li><a href="/workshop/">Workshops</a></li>
-                    <li><a href="/tools/">Tools</a></li>
-                    <li><a href="http://osp.constantvzw.org/blog/">Blog</a></li>
-                    <li><a href="http://osp.constantvzw.org/images/">Images</a></li>
-                    <li><a href="http://osp.constantvzw.org/about">About</a></li>
-                    <li><a href="http://osp.constantvzw.org/contact">Contact</a></li>
-		    <li>
-		        <object data="http://osp.constantvzw.org/pict/OSP_new-frog.svg" style="width:60px;height:60px;" type="image/svg+xml">
-		            <img alt="A stylised image of a frog." style="width:60px;height:60px;" src="./pict/OSP_new-frog.png">
-		        </object>
-			<a href="http://osp.constantvzw.org/">OSP,</a>
-			<p id="baseline">Graphic design caravan</p>
-		    </li>
-                </ul>
+        <div id="active-projects">
+            <div id="home-infos">
+            What is that? Some says that those snapshots are to our work what the pictures of a cookbook are to the cooked meal. source files = ingredients. These arrangements of blocks of text and pictures tries harder to depict the most current projects, some interesting visual extracts and the source files that provide a convenient way to access to study it, change it, to redistribute copies of it, to improve it and release your improvements (and modified versions in general). Nous sommes embarqués.<a href="http://osp.constantvzw.org/about"> Read more about the way we work → </a>
             </div>
-        </div>
-    </div>
+
         <% if @repo %>
+        <!-- extra options when in a repository-->
+        <!-- note this could be shown elsewhere then in a navbar-->
         <div class="navbar">
             <div class="navbar-inner">
                 <div class="container">
-                            <% if @repo.source_files %>
-				    <p>
-					<a href="/<%= @repo.web_path %>/view/latest/"><!-- <img src="http://upload.wikimedia.org/wikipedia/commons/f/f5/Anaphase.jpg" />--></a>
-					<a class="project-source" href="/<%= @repo.web_path %>/view/latest/">Source Files</a>
-				    </p>
-				    <p><a class="git-clone" data-toggle="modal" href="#cloneModal" >Git Clone</a></p>
-                            <% end %>
-                            <% if @commit %>
-                            <li class="active">
-                                <a href="/<%= @repo.web_path %>/view/<%= @commit_slug %>/"><%= @commit_slug %></a>
-                            </li>
-                            <% end %>
+                    <ul class="nav">
+                    <% if @repo.source_files %>
+                        <li><a href="/<%= @repo.web_path %>/view/latest/"><!-- <img src="http://upload.wikimedia.org/wikipedia/commons/f/f5/Anaphase.jpg" />--></a>
+                        <li><a class="project-source" href="/<%= @repo.web_path %>/view/latest/">Source Files</a></li>
+                        <li><a class="git-clone" data-toggle="modal" href="#cloneModal" >Git Clone</a></li>
+                    <% end %>
+                    <% if @commit %>
+                        <li class="active">
+                            <a href="/<%= @repo.web_path %>/view/<%= @commit_slug %>/"><%= @commit_slug %></a>
+                        </li>
+                    </ul>
+                    <% end %>
                    </div>
             </div>
         </div>
         <% end %>
+
+        <% if @commit %>
+        <!-- Navigate through the repository-->
         <div class="container">
-            <% if @commit %>
             <ul class="breadcrumb">
                 <li>
                     <a href="/<%= @repo.web_path %>/view/<%= @commit_slug %>/"><%= @repo.slug %></a> <% if @path != "" %><span class="divider">/</span><% end %></a>
@@ -73,10 +54,36 @@
                    <%= p[-1] %> <% if @dir %><span class="divider">/</span><% end %>
                 </li>
             </ul>
-            <% end %>
-            <%= yield %>
         </div>
-        <% if @commit %>
+        <% end %>
+
+            <!-- Main body follows:-->
+<%= yield %>
+
+        </div>
+        
+        <!-- Menu navigation-->
+        <ul id="menu">
+            <li><a href="/work/">Works</a></li>
+            <li><a href="http://osp.constantvzw.org/foundry/">Foundry</a></li>
+            <li><a href="/workshop/">Workshops</a></li>
+            <li><a href="/tools/">Tools</a></li>
+            <li><a href="http://osp.constantvzw.org/blog/">Blog</a></li>
+            <li><a href="http://osp.constantvzw.org/images/">Images</a></li>
+            <li><a href="http://osp.constantvzw.org/about">About</a></li>
+            <li><a href="http://osp.constantvzw.org/contact">Contact</a></li>
+            <li>
+                <object data="http://osp.constantvzw.org/pict/OSP_new-frog.svg" style="width:60px;height:60px;" type="image/svg+xml">
+                    <img alt="A stylised image of a frog." style="width:60px;height:60px;" src="./pict/OSP_new-frog.png">
+                </object>
+                <a href="/">OSP,</a>
+                <p id="baseline">Graphic design caravan</p>
+           </li>
+       </ul>
+       
+        
+        <% if @repo %>
+        <!-- This is shown when you click Git Clone-->
         <div class="modal hide" id="cloneModal">
             <div class="modal-header">
                 <a class="close" data-dismiss="modal">×</a>
