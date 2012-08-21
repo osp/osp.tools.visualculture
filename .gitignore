@@ -11,6 +11,7 @@ settings.json
 *.exe
 *.o
 *.so
+*.pyc
 
 # Packages #
 ############
