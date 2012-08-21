@@ -37,7 +37,7 @@ def get_tree(name, commit):
 				items.append({'hex': item.hex, 'name': item.name})
 		except Exception:
 			pass
-	return HttpResponse(json.dumps({'type':'tree', 'dirs':dirs, 'files':items}), mimetype="application/json")
+	return HttpResponse(json.dumps({'type':'tree', 'repo_name':name, 'dirs':dirs, 'files':items}), mimetype="application/json")
 	
 def get_blob(name, commit):
 	mime = magic_find_mime.buffer(commit.data)
@@ -74,12 +74,11 @@ def item(request,repo_name, oid):
 	if commit.type == pygit2.GIT_OBJ_BLOB:
 		return get_blob(repo_name, commit)
 		
-		
-	return 'Unhandled object type %s'%commit.type
+	return HttpResponseBadRequest('Unhandled object type %s'%commit.type)
 	
 def blob_data(request, repo_name, oid):
 	commit = getattr(git_collection, repo_name)[oid]
 	if commit.type == pygit2.GIT_OBJ_BLOB:
 		return get_blob_data(commit)
 		
-	return Http404()
+	return HttpResponseBadRequest('Requested object is not a BLOB')

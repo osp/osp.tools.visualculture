@@ -7,8 +7,6 @@ git_info.git
 
 import pygit2
 import os
-import magic
-import datetime
 
 try:
 	from settings import GIT_ROOT
@@ -72,8 +70,8 @@ class GitCollection:
 					try:
 						repo = GitRepository(name)
 					except Exception as e:
-						print('Can not create a repo off [%s]'%name)
-						print('\t %s'%e)
+						#print('Can not create a repo off [%s]'%name)
+						#print('\t %s'%e)
 						pass
 					if repo != None:
 						self.repos_[d] = repo
