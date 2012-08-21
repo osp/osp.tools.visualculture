@@ -1,7 +1,16 @@
 settings.json
 
+
+# IDE files #
+#############
+
 *~
 .project
+
+# Virtual environment #
+#######################
+
+venv
 
 # Compiled source #
 ###################
