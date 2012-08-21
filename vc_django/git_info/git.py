@@ -20,12 +20,14 @@ class GitRepository():
 		self.repo = pygit2.Repository(fname)
 		
 		# We expect a 3 components name: prefix.category.name (eg: osp.work.balsamine)
+		# These can be more components when subspecifying:
+		# osp.work.balsamine.2011-2012, osp.tools.visualculture.test
 		self.repo_fullname = os.path.basename(os.path.normpath(fname))
 		self.repo_parts = self.repo_fullname.split('.')
 		if len(self.repo_parts) > 2:
 			self.repo_prefix = self.repo_parts[0]
 			self.repo_category = self.repo_parts[1]
-			self.repo_name = self.repo_parts[2] 
+			self.repo_name = '.'.join(self.repo_parts[2:])
 		else:
 			self.repo_prefix = ''
 			self.repo_category = ''
