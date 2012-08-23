@@ -54,4 +54,4 @@ class Reader(object):
 		return HttpResponse(result['data'], mimetype=result['mime'])
 		
 
-import image
+from config import *
