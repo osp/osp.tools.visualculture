@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <title>{{ title }}</title>
+    
+    <style>
+    .repo,.dir{
+	cursor:pointer;
+	font-weight:bold;
+    }
+    .repo span:hover{
+	border-bottom:1px solid blue;
+    }
+    .dir span:hover{
+	border-bottom:1px solid blue;
+    }
+    
+    .files{
+	margin-top:1em;
+	cursor:pointer;
+    }
+    </style>
+<script src="http://media.visualculture/jquery.js"></script>
+<script>
+$(document).ready(function(){
+	
+	
+	function service(p, obj, cb)
+	{
+		var s = 'http://127.0.0.1:8000/repos/';
+		$.ajax({
+			url:s + p,
+			dataType: "json",
+			success: function(jqXHR, status, responseText)
+			{
+				var data = JSON.parse(responseText.responseText);
+				cb.apply(obj, [data, status, jqXHR]);
+			}
+		});
+	}
+	
+	var browser = $('#browser');
+	var title = $('#title')
+	
+	function blob(e){
+		
+	}
+	
+	function files(e)
+	{
+		var parents = e.data.parents.slice();
+		browser.text('');
+		title.text(e.data.rn + ' ('+e.data.hex+')');
+		service( [e.data.rn, e.data.hex].join('/'), browser,function(data){
+			var that = $(this);
+			var parent = $('<div class="dir"><span>..</span></dir>');
+			if(parents.length > 0)
+			{
+				var pc = parents.slice();
+				pc.pop();
+				parent.on('click', {rn:data.repo_name, hex:parents[parents.length - 1], parents:pc}, files);
+			}
+			else
+			{
+				parent.on('click', {repo_name:data.repo_name}, repo);
+			}
+			that.append(parent);
+			
+			parents.push(e.data.hex);
+			$.each(data.dirs, function(idx,el){
+					var i = $('<div class="dir"><span>'+el.name+'</span></dir>');
+					i.on('click',{rn:data.repo_name, hex:el.hex, parents:parents}, files);
+					that.append(i);
+				});
+			$.each(data.files, function(idx,el){
+					var i = $('<div class="file"><a target="_blank"href="http://127.0.0.1:8000/vc/'+data.repo_name+'/'+el.hex+'/">'+el.name+'</a></dir>');
+// 					i.on('click',{rn:data.repo_name, hex:el.hex}, blob);
+					that.append(i);
+				});
+		});
+	}
+	
+	function repo(e)
+	{
+		var rn = e.data.repo_name;
+		browser.text('');
+		service(rn, browser, function(data){
+			var that = $(this);
+			title.text(data.repo_name);
+			that.append('<h4>'+data.author+'</h4>');
+			that.append('<em>'+data.message+'</em>');
+			
+			var f = $('<div class="files">FILES</div>');
+			f.on('click', {rn:data.repo_name, hex:data.files, parents:[]}, files);
+			that.append(f);
+			
+		});
+		
+	}
+	
+	function index()
+	{
+		service('', browser, function(data){
+			var repos = data['repos'];
+			var that = $(this);
+			$.each(repos,function(idx, elem){
+				var i = $('<div class="repo"><span>'+elem+'</span></div>');
+				i.on('click', {repo_name:elem}, repo);
+				that.append(i);
+			});
+		});
+	};
+	
+	index();
+	
+});
+
+</script>
+
+  </head>
+  <body>
+  <h1 id="title">/</h1>
+  <div id="browser">
+  </div>
+  </body>
+</html>
