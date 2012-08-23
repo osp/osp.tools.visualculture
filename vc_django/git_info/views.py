@@ -10,8 +10,11 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadReque
 
 from git_info.git import *
 
-magic_find_mime = magic.open(magic.MIME_TYPE)
-magic_find_mime.load()
+try:
+	magic_find_mime = magic.open(magic.MIME_TYPE)
+	magic_find_mime.load()
+except AttributeError:
+	magic_find_mime = magic.Magic(mime=True)
 		
 # This module only serves JSON, reflecting the state of a GIT repository
 
@@ -40,12 +43,18 @@ def get_tree(name, commit):
 	return HttpResponse(json.dumps({'type':'tree', 'repo_name':name, 'dirs':dirs, 'files':items}), mimetype="application/json")
 	
 def get_blob(name, commit):
-	mime = magic_find_mime.buffer(commit.data)
+	try:
+		mime = magic_find_mime.buffer(commit.data)
+	except AttributeError:
+		mime = magic_find_mime.from_buffer(commit.data)
 	context = {'type':'blob', 'repo_name':name, 'commit' : commit.hex, 'mime':mime}
 	return HttpResponse(json.dumps(context), mimetype="application/json")
 	
 def get_blob_data(commit):
-	mime = magic_find_mime.buffer(commit.data)
+	try:
+		mime = magic_find_mime.buffer(commit.data)
+	except AttributeError:
+		mime = magic_find_mime.from_buffer(commit.data)
 	return HttpResponse(commit.data, mimetype=mime)
 	
 def index(request):
