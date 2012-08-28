@@ -68,7 +68,7 @@ class VCCache(models.Model):
 			obj = VCCache()
 			obj.repo_name = repo_name
 			obj.blob_hex = blob_hex
-			obj.blob_mime = blob_info['mime']
+			obj.blob_mime = result['mime']
 			obj.save()
 			data = result['data']
 			mime =obj.blob_mime
