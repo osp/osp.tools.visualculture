@@ -5,7 +5,6 @@ visual_culture.readers
 
 import re
 
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, Http404, HttpResponseForbidden, HttpResponseNotAllowed
 
 Readers = {}
 
@@ -33,6 +32,7 @@ class Reader(object):
 	def __init__(self):
 		#self.service = service_root
 		self.readers = {}
+		self.tasks = []
 	
 	def get_reader(self, mime):
 		reader = None
@@ -51,7 +51,9 @@ class Reader(object):
 	def read_blob(self, blob_info, blob_data):
 		reader = self.get_reader(blob_info['mime'])
 		result = reader.read_blob(blob_info, blob_data)
-		return HttpResponse(result['data'], mimetype=result['mime'])
+		return result
+		#return HttpResponse(result['data'], mimetype=result['mime'])
+		
 		
 
 from config import *

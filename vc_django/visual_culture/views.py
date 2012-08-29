@@ -2,6 +2,9 @@
 visual_culture.views
 """
 
+
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, Http404, HttpResponseForbidden, HttpResponseNotAllowed
+
 HAVE_GITCOLLECTION = True
 magic_find_mime = None
 
@@ -13,9 +16,11 @@ except ImportError:
 	import urllib
 	import json
 
-from visual_culture.readers import *
+#from visual_culture.readers import *
 
-vc_reader = Reader()
+#vc_reader = Reader()
+
+from vc_cache.models import VCCache
 
 
 if HAVE_GITCOLLECTION:
@@ -49,7 +54,13 @@ def blob_data(request, repo_name, oid):
 	the game here is to get data and mime type, whether from git_info module
 	or from a git_info server, to feed the Reader
 	"""
-	if HAVE_GITCOLLECTION:
-		return get_from_module(repo_name, oid)
-	return get_from_network(repo_name, oid)
+	#if HAVE_GITCOLLECTION:
+		#return get_from_module(repo_name, oid)
+	#return get_from_network(repo_name, oid)
+	
+	cache = VCCache()
+	blob = cache.Get(repo_name, oid)
+	
+	return HttpResponse(blob['data'], mimetype=blob['mime'])
+	
 	
