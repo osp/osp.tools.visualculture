@@ -22,11 +22,11 @@ def get_commit(name, commit):
 	files = []
 	#for entry in commit.tree:
 		#files.append({'name':entry.name, 'hex':entry.hex})
-	parent = None
-	if commit.parents:
-		parent = commit.parents[0]
 
-	context = {'type':'commit', 'repo_name':name, 'commit' : commit.hex , 'author':commit.author.name, 'message':commit.message, 'files':commit.tree.hex, 'parent':parent.hex}
+	context = {'type':'commit', 'repo_name':name, 'commit' : commit.hex , 'author':commit.author.name, 'message':commit.message, 'files':commit.tree.hex}
+	if commit.parents:
+		context['parent'] = commit.parents[0].hex
+	
 	return HttpResponse(json.dumps(context), mimetype="application/json")
 	
 def get_tree(name, commit):
