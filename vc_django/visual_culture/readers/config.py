@@ -7,3 +7,4 @@ import readers here
 import text_plain
 import pdf
 import image
+import font

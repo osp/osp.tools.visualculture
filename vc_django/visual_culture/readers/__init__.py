@@ -45,7 +45,8 @@ class Reader(object):
 			if re.match(cr, mime) != None:
 				self.readers[cr] = Readers[R]()
 				return  self.readers[cr]
-			
+		
+		print('MimeNotSupported %s'%(mime,))
 		raise MimeNotSupported(mime)
 		
 	def read_blob(self, blob_info, blob_data):
