@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 git_info.views
 
@@ -84,6 +85,30 @@ def item(request,repo_name, oid):
 		return get_blob(repo_name, commit)
 		
 	return HttpResponseBadRequest('Unhandled object type %s'%commit.type)
+
+def item_from_path(request, repo_name, path):
+	"""
+	Git doesn’t have a specific way to search for a tree or blob by path,
+	you just recurse down the tree:
+	/libs/transducers -> repo.head.tree['libs'].to_object()['transducers'].to_object()
+	"""
+	repo = getattr(git_collection, repo_name)
+	paths = path.split('/')
+	print "looking for %s from %s in %s" % (paths, path, repo_name)
+	obj = repo.head.tree
+	for p in paths:
+		if p == '':
+			break
+		try:
+			obj = obj[p].to_object()
+		except KeyError:
+			raise Http404
+		
+	if obj.type == pygit2.GIT_OBJ_TREE:
+		return get_tree(repo_name, obj)
+		
+	if obj.type == pygit2.GIT_OBJ_BLOB:
+		return get_blob(repo_name, obj)
 	
 def blob_data(request, repo_name, oid):
 	commit = getattr(git_collection, repo_name)[oid]
