@@ -1,43 +1,115 @@
 VISUAL CULTURE GIT VIEWER
 =========================
 
+* Note: there will be a simpler version of this procedure,
+  to install just the OSP website for development. A large
+  part of this machinery can stay online on the Constant
+  server. *
+
 Installation
 ------------
+
+### OS Dependencies
+
+#### Debian / Ubuntu
+
+sudo apt-get install rabbitmq-server
+
+Get the latest libgit2 release from https://github.com/libgit2/libgit2/downloads
+and build it as in the instructions provided on the website.
+
+Finally Python can’t automatically find the libraries, you have to tell it
+where they are at, i.e. add
+
+export LD_LIBRARY_PATH=/usr/local/lib
+
+to your .bashrc
+
+see:  http://stackoverflow.com/questions/1099981/why-cant-python-find-shared-objects-that-are-in-directories-in-sys-path
+
+#### OS X
+
+brew install libmagic libgit2
+
+### Python modules
 
 Run-of-the-mill python modules required:
 
 django
 python-magic
+django-celery
+pygit2 (built from source or via pip)
 
-To install pygit2, you need to first build libgit2
+### Setting up django
 
-Careful! libgit2’s default branch is ‘development’
-pygit2 is developed against ‘master’
+cp settings_example.py settings.py
 
-after cloning libgit2, do:
+In the settings file, you will at least need to change the `GIT_ROOT` setting.
+This is the folder that Visual Culture will scan for git repositories.
 
-git checkout --track origin/master
+then run `python manage.py syncdb`
 
-to checkout and switch to the master branch.
+You can then use `python manage.py runserver` to run the application
 
-Then proceed to build libgit2 following the instructions
-on its website.
+You have to run the Celery queue at the same time if you want to use
+Visual Culture’s image generation functions. For that you first need to
+set up RabbitMQ:
 
-Pygit2 install instructions are found on it’s website,
-but I found quite recent versions are on pypi as well.
+### Setting up rabbitmq
 
-One final caveat:
+sudo rabbitmqctl add_user user password
+sudo rabbitmqctl set_permissions user '.*' '.*' '.*'
 
-Python expects to find installed libraries in the path
-specified by the environment library LD_LIBRARY_PATH
-if this is not specified you will get the error
+### Setting up the Celery queue
 
-ImportError: libgit2.so.0: cannot open shared object file: No such file or directory
+Add the following to your settings.py:
 
-In this case you can add for example
+import djcelery
+djcelery.setup_loader()
+BROKER_URL = 'amqp://user:password@localhost:5672/'
 
-export LD_LIBRARY_PATH=/usr/local/lib
+Add 'djcelery' to the installed_apps tuple in settings.py,
+run python manage.py syncdb
 
-to your .bashrc,
-see:  http://stackoverflow.com/questions/1099981/why-cant-python-find-shared-objects-that-are-in-directories-in-sys-path
+Now you can run the queue as:
 
+python manage.py celeryd --purge -E -c 2
+
+This means that in development you’ll have two development servers
+running: the Celery queue en the Django server.
+
+Adding vc image rendering components
+------------------------------------
+
+### PDF-SUPPORT
+
+Poppler
+
+#### Ubuntu:
+
+sudo apt-get install libpoppler-cpp-dev libpoppler-qt4-dev libboost-dev libboost-python-dev libboost-system-dev libboost-thread-dev
+
+Then:
+
+mkdir build && cd build
+cmake ..
+make
+ln -s libvc_poppler.so ../../vc_django/visual_culture/readers/vc_poppler.so
+
+#### OSX
+
+brew install poppler boost
+
+### FONT-SUPPORT
+
+sudo apt-get install python-fontforge
+
+brew install fontforge
+
+Maintenance
+-----------
+
+### Empty the cache
+
+rm -rf {MEDIAROOT}/cache
+python manage.py reset vc_cache
