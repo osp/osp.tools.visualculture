@@ -3,6 +3,8 @@ visual_culture.readers.config
 
 import readers here
 """
+import sys
+
 def try_import(module):
 	try:
 		m_ = __import__(module, globals())
