@@ -4,6 +4,7 @@ visual_culture.readers
 """
 
 import re
+import sys
 
 
 Readers = {}
