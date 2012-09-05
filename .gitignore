@@ -1,5 +1,18 @@
-settings.json
+# Config files #
+################
 
+settings.json
+vc_django/settings.py
+
+# Visual Culture Cache #
+########################
+
+visual
+
+# Visual Culture Database #
+###########################
+
+dev.data
 
 # IDE files #
 #############
