@@ -42,7 +42,7 @@ def add(bobo_request):
 	
 	col = get_collection()
 	col.insert(doc)
-	return bobo.redirect('/')
+	return bobo.redirect('/disputio')
 	
 	
 def r_to_doc(r, keys):

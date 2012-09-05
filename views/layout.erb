@@ -1,63 +1,82 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en-US">
     <head>
+        <script type="text/javascript">
+            less = { env: 'development' };
+        </script>
         <meta charset="UTF-8" />
         <title><%= @title %></title>
         <link rel="stylesheet/less" type="text/css" href="/visualculture.less">
         <script src="/js/jquery-1.7.2.min.js"></script>
-        <script src="/js/less-1.2.1.min.js"></script>
+        <script src="/js/less-1.2.1.min.js?123"></script>
         <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/jquery.masonry.min.js"></script>
     </head>
     <body>
             <div id="home-infos">
             What is that? Some says that those snapshots are to our work what the pictures of a cookbook are to the cooked meal. source files = ingredients. These arrangements of blocks of text and pictures tries harder to depict the most current projects, some interesting visual extracts and the source files that provide a convenient way to access to study it, change it, to redistribute copies of it, to improve it and release your improvements (and modified versions in general). Nous sommes embarqués.<a href="http://osp.constantvzw.org/about"> Read more about the way we work → </a>
             </div>
 
+        <div id="active-projects">
+
+        <!-- Header and options when showing a repository -->
         <% if @repo %>
-        <!-- extra options when in a repository-->
-        <!-- note this could be shown elsewhere then in a navbar-->
-        <div class="navbar">
-            <div class="navbar-inner">
-                <div class="container">
-                    <ul class="nav">
-                    <% if @repo.source_files %>
-                        <li><a href="/<%= @repo.web_path %>/view/latest/"><!-- <img src="http://upload.wikimedia.org/wikipedia/commons/f/f5/Anaphase.jpg" />--></a>
-                        <li><a class="project-source" href="/<%= @repo.web_path %>/view/latest/">Source Files</a></li>
-                        <li><a class="git-clone" data-toggle="modal" href="#cloneModal" >Git Clone</a></li>
-                    <% end %>
-                    <% if @commit %>
+        <div class="row">
+        <div class="span6">
+            <ul class="nav nav-pills">
+            <% if @repo.source_files %>
+                <% unless @commit %>
+                <li><a class="project-source" href="/<%= @repo.web_path %>/view/latest/">Source Files</a></li>
+                <% end %>
+                <li><a class="git-clone" data-toggle="modal" href="#cloneModal" >Git Clone</a></li>
+            <% end %>
+            <% if @commit %>
+                <li> <!-- Navigate through the repository -->
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="/<%= @repo.web_path %>/view/<%= @commit_slug %>/"><%= @repo.slug %></a> <% if @path != "" %><span class="divider">/</span><% end %></a>
+                        <% # All this is to create links to the pathname components (that include the preceding path )
+                        p = @path.split("/")
+                        (0..p.length - 2).to_a.each do | i | %>
+                        <li>
+                           <a href="/<%= @repo.web_path %>/view/<%= @commit_slug %>/<%= p[0..i].join("/") %>"><%= p[i] %></a> <span class="divider">/</span>
+                        </li>
+                        <% end # the last one gets no link -> %>
                         <li class="active">
-                            <a href="/<%= @repo.web_path %>/view/<%= @commit_slug %>/"><%= @commit_slug %></a>
+                           <%= p[-1] %> <% if @dir %><span class="divider">/</span><% end %>
                         </li>
                     </ul>
-                    <% end %>
-                   </div>
-            </div>
-        </div>
-        <% end %>
-
-        <% if @commit %>
-        <!-- Navigate through the repository-->
-        <div class="container">
-            <ul class="breadcrumb">
-                <li>
-                    <a href="/<%= @repo.web_path %>/view/<%= @commit_slug %>/"><%= @repo.slug %></a> <% if @path != "" %><span class="divider">/</span><% end %></a>
-                <% # All this is to create links to the pathname components (that include the preceding path )
-                p = @path.split("/")
-                (0..p.length - 2).to_a.each do | i | %>
-                <li>
-                   <a href="/<%= @repo.web_path %>/view/<%= @commit_slug %>/<%= p[0..i].join("/") %>"><%= p[i] %></a> <span class="divider">/</span>
                 </li>
-                <% end # the last one gets no link -> %>
-                <li class="active">
-                   <%= p[-1] %> <% if @dir %><span class="divider">/</span><% end %>
-                </li>
+                <% end %>
             </ul>
         </div>
         <% end %>
-
-
-        <div id="active-projects">
+        
+        
+        <!-- Showing the HEAD-->
+        <% if @commit and @repo.source_files %>
+        <div class="span4">
+            <div class="commit-list">
+                <ul>
+                    <li class="commit" >
+                        <p class="commit-id">
+                            <%= @commit.id[0..10] %> 
+                        </p>
+                        <p>
+                            <span class="commit-author"><%= @commit.author %></span> <span class="commit-author-said">said</span>
+                        </p>
+                        <p class="commit-message">
+                            <a href="/<%= @repo.web_path %>/view/<%= @commit_slug %>/"><%= @commit.message.lines.first %></a>
+                        </p>
+                        <p class="commit-date">
+                            <%= @commit.committed_date.strftime("%A, %d %B %Y") %>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <% end%>
+        </div>
 
             <!-- Main body follows:-->
 <%= yield %>
@@ -76,14 +95,14 @@
                 <li><a href="http://osp.constantvzw.org/about">About</a></li>
                 <li><a href="http://osp.constantvzw.org/contact">Contact</a></li>
                 <li>
-                    <object data="http://osp.constantvzw.org/pict/OSP_new-frog.svg" style="width:60px;height:60px;" type="image/svg+xml">
-                        <img alt="A stylised image of a frog." style="width:60px;height:60px;" src="./pict/OSP_new-frog.png">
+                    <object data="/img/OSP_new-frog.svg" style="width:59px;height:67px;" type="image/svg+xml">
+                        <img alt="A stylised image of a frog." style="width:59px;height:67px;" src="/img/OSP_new-frog.png">
                     </object>
                     <a href="/">OSP,</a>
                     <p id="baseline">Graphic design caravan</p>
-               </li>
-           </ul>
-       </div>
+                </li>
+            </ul>
+        </div>
        
         
         <% if @repo %>
