@@ -1,8 +1,13 @@
 <% # -*- coding: UTF-8 -*- %>
-<% @home_repos.each do |repo| %>
+
+<script>
+$('#active-projects').masonry({
+  itemSelector: '.project'
+});
+</script>
+
 <!-- These are the latest 8 repos with an iceberg as defined in vc-server.rb-->
-
-
+<% @home_repos.each do |repo| %>
 <!-- I dont get why I need to convert to ascii here, and not in other cases
 where i use repo.title-->
 <% if repo.iceberg %>
