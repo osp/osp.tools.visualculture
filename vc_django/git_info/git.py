@@ -8,6 +8,8 @@ git_info.git
 import pygit2
 import os
 
+from ordereddict import OrderedDict
+
 try:
 	from settings import GIT_ROOT
 except Exception:
@@ -71,17 +73,20 @@ class GitCollection:
 					repo = None
 					try:
 						repo = GitRepository(name)
+						head = repo.head.commit_time
 					except Exception as e:
-						#print('Can not create a repo off [%s]'%name)
-						#print('\t %s'%e)
-						pass
+						# print('Can not create a repo off [%s]'%name)
+						# print('\t %s'%e)
+						repo = None
 					if repo != None:
 						self.repos_[d] = repo
 						
 				except Exception as e:
 					print 'ERROR (root): %s'%e
-					
-					
+			
+		# If we sort on __init__ we have to sort less often
+		self.repos_ = OrderedDict(sorted(self.repos_.iteritems(), key=lambda r: r[1].head.commit_time, reverse=True))
+				
 	def get_names(self):
 		return self.repos_.keys()
 		

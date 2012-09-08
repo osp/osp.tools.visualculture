@@ -22,15 +22,14 @@
 	cursor:pointer;
     }
     </style>
-<!-- <script src="http://code.jquery.com/jquery-1.8.0.min.js"></script> -->
-<script src="http://media.visualculture/jquery.js"></script>
+<script src="{{ STATIC_URL }}js/jquery-1.7.2.min.js"></script>
 <script>
 $(document).ready(function(){
 	
 	
 	function service(p, obj, cb)
 	{
-		var s = 'http://127.0.0.1:8000/repos/';
+		var s = 'http://127.0.0.1:8000/api/';
 		$.ajax({
 			url:s + p,
 			dataType: "json",
