@@ -19,21 +19,20 @@ except AttributeError:
 		
 # This module only serves JSON, reflecting the state of a GIT repository
 
-def get_commit(name, commit):
-	files = []
-	#for entry in commit.tree:
-		#files.append({'name':entry.name, 'hex':entry.hex})
-
-	context = {'type':'commit', 'repo_name':name, 'commit' : commit.hex , 'author':commit.author.name, 'message':commit.message, 'files':commit.tree.hex, 'commit_time': commit.commit_time}
+def render_commit(repo_name, commit):
+	context = {'type':'commit', 'repo_name': repo_name, 'commit' : commit.hex , 'author':commit.author.name, 'message':commit.message, 'files':commit.tree.hex, 'commit_time': commit.commit_time}
 	if commit.parents:
 		context['parent'] = commit.parents[0].hex
-	
+	return context
+
+def get_commit(repo_name, commit):
+	context = render_commit(commit)
 	return HttpResponse(json.dumps(context), mimetype="application/json")
-	
-def get_tree(name, commit):
+
+def render_tree(repo_name, tree):
 	items = []
 	dirs = []
-	for item in commit:
+	for item in tree:
 		try:
 			if item.to_object().type == pygit2.GIT_OBJ_TREE:
 				dirs.append({'hex': item.hex, 'name': item.name})
@@ -41,14 +40,19 @@ def get_tree(name, commit):
 				items.append({'hex': item.hex, 'name': item.name})
 		except Exception:
 			pass
-	return HttpResponse(json.dumps({'type':'tree', 'repo_name':name, 'dirs':dirs, 'files':items}), mimetype="application/json")
+	context = {'type':'tree', 'repo_name':repo_name, 'dirs':dirs, 'files':items}
+	return context
 	
-def get_blob(name, commit):
+def get_tree(repo_name, tree):
+	context = render_tree(repo_name, tree)
+	return HttpResponse(json.dumps(context), mimetype="application/json")
+	
+def get_blob(name, blob):
 	try:
-		mime = magic_find_mime.buffer(commit.data)
+		mime = magic_find_mime.buffer(blob.data)
 	except AttributeError:
-		mime = magic_find_mime.from_buffer(commit.data)
-	context = {'type':'blob', 'repo_name':name, 'commit' : commit.hex, 'mime':mime}
+		mime = magic_find_mime.from_buffer(blob.data)
+	context = {'type':'blob', 'repo_name':name, 'commit' : blob.hex, 'mime':mime}
 	return HttpResponse(json.dumps(context), mimetype="application/json")
 	
 def get_blob_data(commit):
@@ -64,25 +68,30 @@ def index(request):
 def repo(request, repo_name):
 	print('Requested repo: %s'%repo_name)
 	repo = getattr(git_collection, repo_name)
-	return get_commit(repo_name, repo.head)
+	context = render_commit(repo_name, repo.head)
+	context['commits'] = []
+	for commit in repo.walk(repo.head.hex, pygit2.GIT_OBJ_TREE):
+		context['commits'].append(render_commit(repo_name, commit))
+	context['tree'] = render_tree(repo_name, repo.head.tree)	
+	return HttpResponse(json.dumps(context), mimetype="application/json")
 
 def item(request,repo_name, oid):
 	print('Requested item: %s %s' % (repo_name, oid))
 	repo = getattr(git_collection, repo_name)
-	commit = None
+	obj = None
 	if(oid == 'head'):
 		commit = repo.head
 	else:
-		commit = repo[oid]
+		obj = repo[oid]
 	
-	if commit.type == pygit2.GIT_OBJ_COMMIT:
-		return get_commit(repo_name, commit)
+	if obj.type == pygit2.GIT_OBJ_COMMIT:
+		return get_commit(repo_name, obj)
 		
-	if commit.type == pygit2.GIT_OBJ_TREE:
-		return get_tree(repo_name, commit)
+	if obj.type == pygit2.GIT_OBJ_TREE:
+		return get_tree(repo_name, obj)
 		
-	if commit.type == pygit2.GIT_OBJ_BLOB:
-		return get_blob(repo_name, commit)
+	if obj.type == pygit2.GIT_OBJ_BLOB:
+		return get_blob(repo_name, obj)
 		
 	return HttpResponseBadRequest('Unhandled object type %s'%commit.type)
 
@@ -111,8 +120,8 @@ def item_from_path(request, repo_name, path):
 		return get_blob(repo_name, obj)
 	
 def blob_data(request, repo_name, oid):
-	commit = getattr(git_collection, repo_name)[oid]
-	if commit.type == pygit2.GIT_OBJ_BLOB:
+	obj = getattr(git_collection, repo_name)[oid]
+	if obj.type == pygit2.GIT_OBJ_BLOB:
 		return get_blob_data(commit)
 		
 	return HttpResponseBadRequest('Requested object is not a BLOB')
