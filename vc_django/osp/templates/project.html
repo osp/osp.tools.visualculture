@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content%}
+        <!-- Header and options when showing a repository -->
+        {{ if repo.source_files }}
+        <div class="row">
+        <div class="span6">
+            <ul class="nav nav-pills">
+                <li><a class="git-clone" data-toggle="modal" href="#cloneModal" >Git Clone</a></li>
+                <li> <!-- Navigate through the repository -->
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="{{ STATIC }}<%= @repo.web_path %>/view/<%= @commit_slug %>/"><%= @repo.slug %></a> <% if @path != "" %><span class="divider">/</span><% end %></a>
+                        <% # All this is to create links to the pathname components (that include the preceding path )
+                        p = @path.split("{{ STATIC }}")
+                        (0..p.length - 2).to_a.each do | i | %>
+                        <li>
+                           <a href="{{ STATIC }}<%= @repo.web_path %>/view/<%= @commit_slug %>/<%= p[0..i].join("{{ STATIC }}") %>"><%= p[i] %></a> <span class="divider">/</span>
+                        </li>
+                        <% end # the last one gets no link -> %>
+                        <li class="active">
+                           <%= p[-1] %> <% if @dir %><span class="divider">/</span><% end %>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Showing the HEAD-->
+        <div class="span4">
+            <div class="commit-list">
+                <ul>
+                    <li class="commit" >
+                        <p class="commit-id">
+                            {{ repo.commits[0].id }} 
+                        </p>
+                        <p>
+                            <span class="commit-author">{{ repo.commits[0].author }}</span> <span class="commit-author-said">said</span>
+                        </p>
+                        <p class="commit-message">
+                            <a href="{% url osp.diffs repo.commits[0].id %}">{{ repo.commits[0].short_message }}</a>
+                        </p>
+                        <p class="commit-date">
+                            {{ repo.commits[0].commit_date }}
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        </div>
+        {{ endif }}
+{% endblock %}
+
+{% block footer %}
+        {% if repo.sourcefiles %}
+        <!-- This is shown when you click Git Clone-->
+        <div class="modal hide" id="cloneModal">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal">×</a>
+                <h3>Clone the git repository</h3>
+            </div>
+            <div class="modal-body">
+                <p>The public git address for this repo is:</p>
+                <pre>git://git.constantvzw.org/{{ repo.slug }}.git</pre>
+                <p>to clone it, in the terminal type:</p>
+                <pre>git clone git://git.constantvzw.org/{{ repo.slug }}.git</pre>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal">Close</a>
+            </div>
+        </div>
+        {% endif %}
+{% endblock %}
