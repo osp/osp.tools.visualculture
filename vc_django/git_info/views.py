@@ -64,15 +64,31 @@ def get_blob_data(commit):
 	
 def index(request):
 	return HttpResponse(json.dumps({'repos': git_collection.get_names()}), mimetype="application/json")
-	
-def repo(request, repo_name):
-	print('Requested repo: %s'%repo_name)
+
+def render_repo(repo_name):
 	repo = getattr(git_collection, repo_name)
 	context = render_commit(repo_name, repo.head)
+	context['category'] = repo.repo_category
+	# context['repo_name'] = repo.repo_name
 	context['commits'] = []
 	for commit in repo.walk(repo.head.hex, pygit2.GIT_OBJ_TREE):
 		context['commits'].append(render_commit(repo_name, commit))
 	context['tree'] = render_tree(repo_name, repo.head.tree)	
+	return context
+	
+def repo(request, repo_name):
+	print('Requested repo: %s'%repo_name)
+	context = render_repo(repo_name)
+	return HttpResponse(json.dumps(context), mimetype="application/json")
+
+def repos(repo_names):
+	context = []
+	for repo_name in repo_names:
+		context.append(render_repo(repo_name))
+	return context
+
+def all_repos(request):
+	context = repos(git_collection.get_names())
 	return HttpResponse(json.dumps(context), mimetype="application/json")
 
 def item(request,repo_name, oid):
