@@ -60,23 +60,23 @@ $(document).ready(function(){
 			{
 				var pc = parents.slice();
 				pc.pop();
-				parent.on('click', {rn:data.repo_name, hex:parents[parents.length - 1], parents:pc}, files);
+				parent.on('click', {rn:data.slug, hex:parents[parents.length - 1], parents:pc}, files);
 			}
 			else
 			{
-				parent.on('click', {repo_name:data.repo_name}, repo);
+				parent.on('click', {slug:data.slug}, repo);
 			}
 			that.append(parent);
 			
 			parents.push(e.data.hex);
 			$.each(data.dirs, function(idx,el){
 					var i = $('<div class="dir"><span>'+el.name+'</span></dir>');
-					i.on('click',{rn:data.repo_name, hex:el.hex, parents:parents}, files);
+					i.on('click',{rn:data.slug, hex:el.hex, parents:parents}, files);
 					that.append(i);
 				});
 			$.each(data.files, function(idx,el){
-					var i = $('<div class="file"><a target="_blank"href="http://127.0.0.1:8000/vc/'+data.repo_name+'/'+el.hex+'/">'+el.name+'</a></dir>');
-// 					i.on('click',{rn:data.repo_name, hex:el.hex}, blob);
+					var i = $('<div class="file"><a target="_blank"href="http://127.0.0.1:8000/vc/'+data.slug+'/'+el.hex+'/">'+el.name+'</a></dir>');
+// 					i.on('click',{rn:data.slug, hex:el.hex}, blob);
 					that.append(i);
 				});
 		});
@@ -84,16 +84,16 @@ $(document).ready(function(){
 	
 	function repo(e)
 	{
-		var rn = e.data.repo_name;
+		var rn = e.data.slug;
 		browser.text('');
 		service(rn, browser, function(data){
 			var that = $(this);
-			title.text(data.repo_name);
-			that.append('<h4>'+data.author+'</h4>');
-			that.append('<em>'+data.message+'</em>');
+			title.text(data.slug);
+			that.append('<h4>'+data.commits[0].author+'</h4>');
+			that.append('<em>'+data.commits[0].message+'</em>');
 			
 			var f = $('<div class="files">FILES</div>');
-			f.on('click', {rn:data.repo_name, hex:data.files, parents:[]}, files);
+			f.on('click', {rn:data.slug, hex:data.files, parents:[]}, files);
 			that.append(f);
 			
 		});
@@ -107,7 +107,7 @@ $(document).ready(function(){
 			var that = $(this);
 			$.each(repos,function(idx, elem){
 				var i = $('<div class="repo"><span>'+elem+'</span></div>');
-				i.on('click', {repo_name:elem}, repo);
+				i.on('click', {slug:elem}, repo);
 				that.append(i);
 			});
 		});

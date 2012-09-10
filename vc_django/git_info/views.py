@@ -4,10 +4,12 @@ git_info.views
 
 """
 
+
 import json
 import magic
 
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, Http404, HttpResponseForbidden, HttpResponseNotAllowed
+from django.views.decorators.cache import cache_page
 
 from git_info.git import *
 
@@ -18,6 +20,9 @@ except AttributeError:
 	magic_find_mime = magic.Magic(mime=True)
 		
 # This module only serves JSON, reflecting the state of a GIT repository
+
+
+
 
 def render_commit(repo_name, commit):
 	context = {'type':'commit', 'repo_name': repo_name, 'commit' : commit.hex , 'author':commit.author.name, 'message':commit.message, 'files':commit.tree.hex, 'commit_time': commit.commit_time}
@@ -65,15 +70,17 @@ def get_blob_data(commit):
 def index(request):
 	return HttpResponse(json.dumps({'repos': git_collection.get_names()}), mimetype="application/json")
 
-def render_repo(repo_name):
-	repo = getattr(git_collection, repo_name)
-	context = render_commit(repo_name, repo.head)
+def render_repo(repo_slug):
+	repo = getattr(git_collection, repo_slug)
+	context = render_commit(repo_slug, repo.head)
+#	context = {}
 	context['category'] = repo.repo_category
-	# context['repo_name'] = repo.repo_name
+	context['name'] = repo.repo_name
+	context['slug'] = repo_slug
 	context['commits'] = []
 	for commit in repo.walk(repo.head.hex, pygit2.GIT_OBJ_TREE):
-		context['commits'].append(render_commit(repo_name, commit))
-	context['tree'] = render_tree(repo_name, repo.head.tree)	
+		context['commits'].append(render_commit(repo_slug, commit))
+	context['tree'] = render_tree(repo_slug, repo.head.tree)	
 	return context
 	
 def repo(request, repo_name):
@@ -87,6 +94,7 @@ def repos(repo_names):
 		context.append(render_repo(repo_name))
 	return context
 
+@cache_page(60 * 60)
 def all_repos(request):
 	context = repos(git_collection.get_names())
 	return HttpResponse(json.dumps(context), mimetype="application/json")
