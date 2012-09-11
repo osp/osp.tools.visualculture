@@ -36,7 +36,7 @@ def render_commit(repo_name, commit):
 
 def get_commit(repo_name, commit):
 	context = render_commit(commit)
-	return HttpResponse(json.dumps(context), mimetype="application/json")
+	return HttpResponse(json.dumps(context, indent=2), mimetype="application/json")
 
 def render_tree(repo_name, tree):
 	items = []
@@ -54,7 +54,7 @@ def render_tree(repo_name, tree):
 	
 def get_tree(repo_name, tree):
 	context = render_tree(repo_name, tree)
-	return HttpResponse(json.dumps(context), mimetype="application/json")
+	return HttpResponse(json.dumps(context, indent=2), mimetype="application/json")
 	
 def get_blob(name, blob):
 	try:
@@ -62,7 +62,7 @@ def get_blob(name, blob):
 	except AttributeError:
 		mime = magic_find_mime.from_buffer(blob.data)
 	context = {'type':'blob', 'repo_name':name, 'commit' : blob.hex, 'mime':mime}
-	return HttpResponse(json.dumps(context), mimetype="application/json")
+	return HttpResponse(json.dumps(context, indent=2), mimetype="application/json")
 	
 def get_blob_data(commit):
 	try:
@@ -72,7 +72,7 @@ def get_blob_data(commit):
 	return HttpResponse(commit.data, mimetype=mime)
 	
 def index(request):
-	return HttpResponse(json.dumps({'repos': git_collection.get_names()}), mimetype="application/json")
+	return HttpResponse(json.dumps({'repos': git_collection.get_names()}, indent=2), mimetype="application/json")
 
 def render_repo(repo_slug, n_commits=5):
 	repo = getattr(git_collection, repo_slug)
@@ -94,7 +94,7 @@ def render_repo(repo_slug, n_commits=5):
 def repo(request, repo_name):
 	print('Requested repo: %s'%repo_name)
 	context = render_repo(repo_name)
-	return HttpResponse(json.dumps(context), mimetype="application/json")
+	return HttpResponse(json.dumps(context, indent=2), mimetype="application/json")
 
 def repos(repo_names):
 	context = []
@@ -105,7 +105,7 @@ def repos(repo_names):
 @cache_page(60 * 60)
 def all_repos(request):
 	context = repos(git_collection.get_names())
-	return HttpResponse(json.dumps(context), mimetype="application/json")
+	return HttpResponse(json.dumps(context, indent=2), mimetype="application/json")
 
 def item(request,repo_name, oid):
 	print('Requested item: %s %s' % (repo_name, oid))
