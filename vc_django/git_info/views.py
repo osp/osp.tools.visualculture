@@ -74,7 +74,7 @@ def get_blob_data(commit):
 def index(request):
 	return HttpResponse(json.dumps({'repos': git_collection.get_names()}), mimetype="application/json")
 
-def render_repo(repo_slug):
+def render_repo(repo_slug, n_commits=5):
 	repo = getattr(git_collection, repo_slug)
 	context = render_commit(repo_slug, repo.head)
 #	context = {}
@@ -82,8 +82,12 @@ def render_repo(repo_slug):
 	context['name'] = repo.repo_name
 	context['slug'] = repo_slug
 	context['commits'] = []
+	i = 0
 	for commit in repo.walk(repo.head.hex, pygit2.GIT_OBJ_TREE):
 		context['commits'].append(render_commit(repo_slug, commit))
+		i += 1
+		if i == n_commits:
+			break
 	context['tree'] = render_tree(repo_slug, repo.head.tree)	
 	return context
 	
