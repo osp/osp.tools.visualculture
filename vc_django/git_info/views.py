@@ -13,6 +13,8 @@ from django.views.decorators.cache import cache_page
 
 from git_info.git import *
 
+from vc_django.settings import PREFIX
+
 try:
 	magic_find_mime = magic.open(magic.MIME_TYPE)
 	magic_find_mime.load()
@@ -21,8 +23,10 @@ except AttributeError:
 		
 # This module only serves JSON, reflecting the state of a GIT repository
 
-
-
+if PREFIX:
+	git_collection = GitCollection(PREFIX)
+else:
+	git_collection = GitCollection()
 
 def render_commit(repo_name, commit):
 	context = {'type':'commit', 'repo_name': repo_name, 'commit' : commit.hex , 'author':commit.author.name, 'message':commit.message, 'files':commit.tree.hex, 'commit_time': commit.commit_time}
