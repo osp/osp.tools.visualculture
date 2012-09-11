@@ -29,7 +29,7 @@ else:
 	git_collection = GitCollection()
 
 def render_commit(repo_name, commit):
-	context = {'type':'commit', 'repo_name': repo_name, 'commit' : commit.hex , 'author':commit.author.name, 'message':commit.message, 'files':commit.tree.hex, 'commit_time': commit.commit_time}
+	context = {'type':'commit', 'repo_name': repo_name, 'hex' : commit.hex , 'author':commit.author.name, 'message':commit.message, 'files':commit.tree.hex, 'commit_time': commit.commit_time}
 	if commit.parents:
 		context['parent'] = commit.parents[0].hex
 	return context
@@ -76,8 +76,8 @@ def index(request):
 
 def render_repo(repo_slug, n_commits=5):
 	repo = getattr(git_collection, repo_slug)
-	context = render_commit(repo_slug, repo.head)
-#	context = {}
+#	context = render_commit(repo_slug, repo.head)
+	context = {}
 	context['category'] = repo.repo_category
 	context['name'] = repo.repo_name
 	context['slug'] = repo_slug
