@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<p>It’s the home page</p>
+<ul>
+	{% for repo in repos %}
+	<li>{{ repo }}</li>
+	{% endfor %}
+</ul>
+
+{% endblock %}

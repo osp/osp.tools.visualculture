@@ -100,4 +100,3 @@ class GitCollection:
 			raise AttributeError("GitCollection has no repository %s \n%s" % (name,self.repos_))
 
 				
-git_collection = GitCollection()

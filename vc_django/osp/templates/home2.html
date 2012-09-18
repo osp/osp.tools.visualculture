@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<script>
+$('#active-projects').masonry({
+  itemSelector: '.project'
+});
+</script>
+
+{% for repo in repos %}
+<div class="project">
+    <p class="project-type">{{ repo.category }}</p>
+
+    <h2 class="project-title">
+        <a href="{{ repo.web_path }}">{{ repo.name }}</a>
+    </h2>
+
+    <div class="iceberg">
+    {% for img in iceberg %}
+        <a href="{{ repo.web_path }}"><img class="{% if forloop.first %}iceberg-pict-big{% else %}iceberg-pict{% endif %}" src="{{ STATIC_URL }}img/OSP_new-frog.png"></a>
+    {% endfor %}
+    </div>
+
+    <p class="project-source"><a href="{{ repo.web_path }}">Source files</a></p>
+
+    <div class="commit-list">
+    {% for commit in repo.commits %}
+        <div class='ellipse' style='width: 5px; margin: auto; text-align: center; height: {{ commit.ellipse }}px; border-left: 1px solid springgreen;'>&nbsp;</div>
+        <div class='commit'>
+            <p><span class='commit-author'>{{ commit.author }}</span><span class='commit-author-said'>said</span></p>
+            <p class='commit-message'>&mdash; {{ commit.message }}</p>
+            <p class='commit-date'>{{ commit.commit_date }}</p>
+        </div>
+    {% endfor %} 
+    </div>
+    
+</div>
+{% endfor %}
+
+{% endblock %}
