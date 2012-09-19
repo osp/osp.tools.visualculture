@@ -114,7 +114,10 @@ def item(request,repo_name, oid):
 	if(oid == 'head'):
 		commit = repo.head
 	else:
-		obj = repo[oid]
+		try:
+			obj = repo[oid]
+		except KeyError:
+			raise Http404
 	
 	if obj.type == pygit2.GIT_OBJ_COMMIT:
 		return get_commit(repo_name, obj)
