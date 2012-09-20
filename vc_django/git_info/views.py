@@ -8,7 +8,8 @@ git_info.views
 import json
 import magic
 
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, Http404, HttpResponseForbidden, HttpResponseNotAllowed
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, Http404, HttpResponseForbidden, HttpResponseNotAllowed
+from django.core.urlresolvers import reverse
 from django.views.decorators.cache import cache_page
 
 from git_info.git import *
@@ -34,10 +35,6 @@ def render_commit(repo_name, commit):
 		context['parent'] = commit.parents[0].hex
 	return context
 
-def get_commit(repo_name, commit):
-	context = render_commit(commit)
-	return HttpResponse(json.dumps(context, indent=2), mimetype="application/json")
-
 def render_tree(repo_name, tree):
 	items = []
 	dirs = []
@@ -52,24 +49,26 @@ def render_tree(repo_name, tree):
 	context = {'type':'tree', 'repo_name':repo_name, 'dirs':dirs, 'files':items}
 	return context
 	
-def get_tree(repo_name, tree):
-	context = render_tree(repo_name, tree)
-	return HttpResponse(json.dumps(context, indent=2), mimetype="application/json")
 	
-def get_blob(name, blob):
+def render_blob(repo_name, blob):
+	"""
+	Ok so render is not the right name for this.
+	Will re-rename them all to get.
+	
+	"""
 	try:
 		mime = magic_find_mime.buffer(blob.data)
 	except AttributeError:
 		mime = magic_find_mime.from_buffer(blob.data)
-	context = {'type':'blob', 'repo_name':name, 'commit' : blob.hex, 'mime':mime}
-	return HttpResponse(json.dumps(context, indent=2), mimetype="application/json")
+	return {'type':'blob', 'repo_name':repo_name, 'hex' : blob.hex, 'mime':mime}
+
 	
-def get_blob_data(commit):
+def get_blob_data(obj):
 	try:
-		mime = magic_find_mime.buffer(commit.data)
+		mime = magic_find_mime.buffer(obj.data)
 	except AttributeError:
-		mime = magic_find_mime.from_buffer(commit.data)
-	return HttpResponse(commit.data, mimetype=mime)
+		mime = magic_find_mime.from_buffer(obj.data)
+	return HttpResponse(obj.data, mimetype=mime)
 	
 def index(request):
 	return HttpResponse(json.dumps({'repos': git_collection.get_names()}, indent=2), mimetype="application/json")
@@ -107,7 +106,7 @@ def all_repos(request):
 	context = repos(git_collection.get_names())
 	return HttpResponse(json.dumps(context, indent=2), mimetype="application/json")
 
-def item(request,repo_name, oid):
+def item(request, repo_name, oid):
 	print('Requested item: %s %s' % (repo_name, oid))
 	repo = getattr(git_collection, repo_name)
 	obj = None
@@ -120,15 +119,19 @@ def item(request,repo_name, oid):
 			raise Http404
 	
 	if obj.type == pygit2.GIT_OBJ_COMMIT:
-		return get_commit(repo_name, obj)
+		context = render_commit(repo_name, obj)
 		
-	if obj.type == pygit2.GIT_OBJ_TREE:
-		return get_tree(repo_name, obj)
+	elif obj.type == pygit2.GIT_OBJ_TREE:
+		context = render_tree(repo_name, obj)
 		
-	if obj.type == pygit2.GIT_OBJ_BLOB:
-		return get_blob(repo_name, obj)
-		
-	return HttpResponseBadRequest('Unhandled object type %s'%commit.type)
+	elif obj.type == pygit2.GIT_OBJ_BLOB:
+		context = render_blob(repo_name, obj)
+
+	else:
+		return HttpResponseBadRequest('Unhandled object type %s'%commit.type)
+
+	return HttpResponse(json.dumps(context, indent=2), mimetype="application/json")
+
 
 def item_from_path(request, repo_name, path):
 	"""
@@ -138,25 +141,33 @@ def item_from_path(request, repo_name, path):
 	"""
 	repo = getattr(git_collection, repo_name)
 	paths = path.split('/')
+	if paths[-1] == '':
+		paths.pop()
 	print "looking for %s from %s in %s" % (paths, path, repo_name)
 	obj = repo.head.tree
 	for p in paths:
-		if p == '':
-			break
 		try:
 			obj = obj[p].to_object()
 		except KeyError:
 			raise Http404
 		
 	if obj.type == pygit2.GIT_OBJ_TREE:
-		return get_tree(repo_name, obj)
+		context = render_tree(repo_name, obj)
 		
 	if obj.type == pygit2.GIT_OBJ_BLOB:
-		return get_blob(repo_name, obj)
+		context = render_blob(repo_name, obj)
+		context['raw_url'] = reverse('git_info.views.blob_data', args=[repo_name, context['hex']])
+		# Note: to pass the absolute url:
+		context['raw_url'] = request.build_absolute_uri(context['raw_url'])
+		
+	context['paths'] = paths
+	context['name'] = paths[-1]
+	
+	return HttpResponse(json.dumps(context, indent=2), mimetype="application/json")
 	
 def blob_data(request, repo_name, oid):
 	obj = getattr(git_collection, repo_name)[oid]
 	if obj.type == pygit2.GIT_OBJ_BLOB:
-		return get_blob_data(commit)
+		return get_blob_data(obj)
 		
 	return HttpResponseBadRequest('Requested object is not a BLOB')
