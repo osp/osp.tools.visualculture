@@ -73,7 +73,7 @@ def get_blob_data(obj):
 def index(request):
 	return HttpResponse(json.dumps({'repos': git_collection.get_names()}, indent=2), mimetype="application/json")
 
-def render_repo(repo_slug, n_commits=5):
+def render_repo(repo_slug, n_commits=5, tree=False):
 	repo = getattr(git_collection, repo_slug)
 #	context = render_commit(repo_slug, repo.head)
 	context = {}
@@ -87,12 +87,13 @@ def render_repo(repo_slug, n_commits=5):
 		i += 1
 		if i == n_commits:
 			break
-	context['tree'] = render_tree(repo_slug, repo.head.tree)	
+	if tree:
+		context['tree'] = render_tree(repo_slug, repo.head.tree)
 	return context
 	
 def repo(request, repo_name):
 	print('Requested repo: %s'%repo_name)
-	context = render_repo(repo_name)
+	context = render_repo(repo_name, tree=True)
 	return HttpResponse(json.dumps(context, indent=2), mimetype="application/json")
 
 def repos(repo_names):
@@ -140,12 +141,14 @@ def item_from_path(request, repo_name, path):
 	/libs/transducers -> repo.head.tree['libs'].to_object()['transducers'].to_object()
 	"""
 	repo = getattr(git_collection, repo_name)
+	
 	paths = path.split('/')
-	if paths[-1] == '':
-		paths.pop()
+	
 	print "looking for %s from %s in %s" % (paths, path, repo_name)
 	obj = repo.head.tree
 	for p in paths:
+		if p == '':
+			break
 		try:
 			obj = obj[p].to_object()
 		except KeyError:
@@ -154,14 +157,23 @@ def item_from_path(request, repo_name, path):
 	if obj.type == pygit2.GIT_OBJ_TREE:
 		context = render_tree(repo_name, obj)
 		
-	if obj.type == pygit2.GIT_OBJ_BLOB:
+	elif obj.type == pygit2.GIT_OBJ_BLOB:
 		context = render_blob(repo_name, obj)
 		context['raw_url'] = reverse('git_info.views.blob_data', args=[repo_name, context['hex']])
 		# Note: to pass the absolute url:
 		context['raw_url'] = request.build_absolute_uri(context['raw_url'])
-		
+	
 	context['paths'] = paths
-	context['name'] = paths[-1]
+
+	if len(paths) == 1:
+		# root path named after repo
+		context['name'] = repo_name
+	elif paths[-1] == '':
+		# tree named after tree
+		context['name'] = paths[-2]
+	else:
+		# blob named after blob
+		context['name'] = paths[-1]
 	
 	return HttpResponse(json.dumps(context, indent=2), mimetype="application/json")
 	
