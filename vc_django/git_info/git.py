@@ -24,7 +24,11 @@ class GitRepository():
 		# We expect a 3 components name: prefix.category.name (eg: osp.work.balsamine)
 		# These can be more components when subspecifying:
 		# osp.work.balsamine.2011-2012, osp.tools.visualculture.test
-		self.repo_fullname = os.path.basename(os.path.normpath(fname))
+		
+		# in case of a bare git repository, the folder name will end in .git
+		# this is stripped off
+		
+		self.repo_fullname = os.path.basename(os.path.normpath(fname)).rstrip('.git')
 		self.repo_parts = self.repo_fullname.split('.')
 		if len(self.repo_parts) > 2:
 			self.repo_prefix = self.repo_parts[0]
@@ -79,7 +83,8 @@ class GitCollection:
 						# print('\t %s'%e)
 						repo = None
 					if repo != None:
-						self.repos_[d] = repo
+						slug = d.rstrip('.git')
+						self.repos_[slug] = repo
 						
 				except Exception as e:
 					print 'ERROR (root): %s'%e
