@@ -41,15 +41,17 @@ def browse(request, category, name, path):
 
     if obj['type'] == 'tree':
         # Add hyperlinks to all files and folders
-        
         dirs = []
         for dir in obj['dirs']:
-            dir['path'] = '/'.join([path.rstrip('/'), dir['name'], ''])
+            # the last element of the paths array is empty 
+            # '/some/path/to/tree/'.split('/') -> ['some', 'path', 'to', 'tree', '']
+            # which we have to take into account when adding new elements to the path
+            dir['path'] = '/'.join(obj['paths'][:-1] + [dir['name'], ''])
             dir['href'] = reverse('osp.views.browse', args=[ repo['category'], repo['name'], dir['path'] ])
             dirs.append(dir)
         files = []
         for file in obj['files']:
-            file['path'] = '/'.join([path.rstrip('/'), file['name']])
+            file['path'] = '/'.join(obj['paths'][:-1] + [file['name']])
             file['href'] = reverse('osp.views.browse', args=[ repo['category'], repo['name'], file['path'] ])
             files.append(file)
         tree = obj
