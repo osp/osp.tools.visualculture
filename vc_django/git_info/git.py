@@ -17,7 +17,7 @@ except Exception:
 	raise
 
 	
-class GitRepository():
+class GitRepository(object):
 	def __init__(self, fname):
 		self.repo = pygit2.Repository(fname)
 		
@@ -53,8 +53,11 @@ class GitRepository():
 	
 	def __getattr__(self, name):
 		return getattr(self.repo, name)
+		
+	
+		
 
-class GitCollection:
+class GitCollection(object):
 	"""
 	Hold a collection of instances of GIT repositories
 	"""
@@ -103,5 +106,19 @@ class GitCollection:
 			return self.repos_[name]
 		else:
 			raise AttributeError("GitCollection has no repository %s \n%s" % (name,self.repos_))
-
-				
+		
+	# 3.4.6. Emulating container types <http://docs.python.org/reference/datamodel.html#emulating-container-types>
+	# mainly by exposing "read-only" self.repos_'s methods 
+	
+	def __len__(self):
+		return count(self.repos_)
+		
+	def __getitem__(self, key):
+		return self.repos_[key]
+		
+	def __iter__(self):
+		return self.repos_.__iter__()
+		
+	def __contains__(self, item):
+		return self.repos_.__contains__(item)
+		

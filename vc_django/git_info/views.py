@@ -109,7 +109,7 @@ def all_repos(request):
 
 def item(request, repo_name, oid):
 	print('Requested item: %s %s' % (repo_name, oid))
-	repo = getattr(git_collection, repo_name)
+	repo = git_collection[repo_name]
 	obj = None
 	if(oid == 'head'):
 		commit = repo.head
@@ -140,7 +140,7 @@ def item_from_path(request, repo_name, path):
 	you just recurse down the tree:
 	/libs/transducers -> repo.head.tree['libs'].to_object()['transducers'].to_object()
 	"""
-	repo = getattr(git_collection, repo_name)
+	repo = git_collection[repo_name]
 	
 	paths = path.split('/')
 	
@@ -178,7 +178,7 @@ def item_from_path(request, repo_name, path):
 	return HttpResponse(json.dumps(context, indent=2), mimetype="application/json")
 	
 def blob_data(request, repo_name, oid):
-	obj = getattr(git_collection, repo_name)[oid]
+	obj = git_collection[repo_name][oid]
 	if obj.type == pygit2.GIT_OBJ_BLOB:
 		return get_blob_data(obj)
 		
