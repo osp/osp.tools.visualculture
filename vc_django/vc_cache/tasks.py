@@ -6,19 +6,20 @@ from visual_culture.readers import Reader
 
 from celery import task
 
-def ensure_dir(path):
-	try:
-		os.makedirs(path)
-	except OSError as exception:
-		if exception.errno != errno.EEXIST:
-			raise exception
+from vc_cache import utils 
+
+
 
 @task.task()	
-def read_blob(cache_root, blob_info, blob_data):
+def read_blob(cache_root, blob_info, blob_data, options):
 	r = Reader()
-	ret = r.read_blob(blob_info, blob_data)
-	ensure_dir(os.path.join(cache_root, blob_info['repo_name']))
-	f = open(os.path.join(cache_root, blob_info['repo_name'], blob_info['commit']), 'wb')
+	ret = r.read_blob(blob_info, blob_data, options)
+	print('R%s'%cache_root)
+	print('I%s'% blob_info['repo_name'])
+	print('H%s'%utils.hash_options(options))
+	cpath = os.path.join(cache_root, blob_info['repo_name'], utils.hash_options(options))
+	utils.ensure_dir(cpath)
+	f = open(os.path.join(cpath, blob_info['commit']), 'wb')
 	f.write(ret['data'])
 	f.close()
 	return ret

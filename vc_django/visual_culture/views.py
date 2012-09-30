@@ -58,8 +58,14 @@ def blob_data(request, repo_name, oid):
 		#return get_from_module(repo_name, oid)
 	#return get_from_network(repo_name, oid)
 	
+	options = {}
+	for k in request.POST:
+		options[k] = request.POST.get(k, '')
+	for k in request.GET:
+		options[k] = request.GET.get(k, '')
+		
 	cache = VCCache()
-	blob = cache.Get(repo_name, oid)
+	blob = cache.Get(repo_name, oid, options=options)
 	
 	return HttpResponse(blob['data'], mimetype=blob['mime'])
 	

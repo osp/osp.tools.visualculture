@@ -49,7 +49,7 @@ class Reader(object):
 		print('MimeNotSupported %s'%(mime,))
 		raise MimeNotSupported(mime)
 		
-	def read_blob(self, blob_info, blob_data, options=None):
+	def read_blob(self, blob_info, blob_data, options={}):
 		reader = self.get_reader(blob_info['mime'])
 		result = reader.read_blob(blob_info, blob_data, options)
 		return result

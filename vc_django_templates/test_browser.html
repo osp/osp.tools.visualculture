@@ -22,7 +22,7 @@
 	cursor:pointer;
     }
     </style>
-<script src="{{ STATIC_URL }}js/jquery-1.7.2.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.js"></script>
 <script>
 $(document).ready(function(){
 	
@@ -60,22 +60,22 @@ $(document).ready(function(){
 			{
 				var pc = parents.slice();
 				pc.pop();
-				parent.on('click', {rn:data.slug, hex:parents[parents.length - 1], parents:pc}, files);
+				parent.on('click', {rn:data.repo_name, hex:parents[parents.length - 1], parents:pc}, files);
 			}
 			else
 			{
-				parent.on('click', {slug:data.slug}, repo);
+				parent.on('click', {rn:data.repo_name}, repo);
 			}
 			that.append(parent);
 			
 			parents.push(e.data.hex);
 			$.each(data.dirs, function(idx,el){
 					var i = $('<div class="dir"><span>'+el.name+'</span></dir>');
-					i.on('click',{rn:data.slug, hex:el.hex, parents:parents}, files);
+					i.on('click',{rn:data.repo_name, hex:el.hex, parents:parents}, files);
 					that.append(i);
 				});
 			$.each(data.files, function(idx,el){
-					var i = $('<div class="file"><a target="_blank"href="http://127.0.0.1:8000/vc/'+data.slug+'/'+el.hex+'/">'+el.name+'</a></dir>');
+					var i = $('<div class="file"><a target="_blank"href="http://127.0.0.1:8000/vc/'+data.repo_name+'/'+el.hex+'/">'+el.name+'</a></dir>');
 // 					i.on('click',{rn:data.slug, hex:el.hex}, blob);
 					that.append(i);
 				});
@@ -93,7 +93,7 @@ $(document).ready(function(){
 			that.append('<em>'+data.commits[0].message+'</em>');
 			
 			var f = $('<div class="files">FILES</div>');
-			f.on('click', {rn:data.slug, hex:data.files, parents:[]}, files);
+			f.on('click', {rn:data.slug, hex:data.commits[0].files, parents:[]}, files);
 			that.append(f);
 			
 		});

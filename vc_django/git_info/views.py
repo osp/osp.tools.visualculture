@@ -14,7 +14,7 @@ from django.views.decorators.cache import cache_page
 
 from git_info.git import *
 
-from vc_django.settings import PREFIX
+import settings
 
 try:
 	magic_find_mime = magic.open(magic.MIME_TYPE)
@@ -24,8 +24,8 @@ except AttributeError:
 		
 # This module only serves JSON, reflecting the state of a GIT repository
 
-if PREFIX:
-	git_collection = GitCollection(PREFIX)
+if settings.PREFIX:
+	git_collection = GitCollection(settings.PREFIX)
 else:
 	git_collection = GitCollection()
 
@@ -74,7 +74,7 @@ def index(request):
 	return HttpResponse(json.dumps({'repos': git_collection.get_names()}, indent=2), mimetype="application/json")
 
 def render_repo(repo_slug, n_commits=5, tree=False):
-	repo = getattr(git_collection, repo_slug)
+	repo = git_collection[repo_slug]
 #	context = render_commit(repo_slug, repo.head)
 	context = {}
 	context['category'] = repo.repo_category
@@ -112,7 +112,7 @@ def item(request, repo_name, oid):
 	repo = git_collection[repo_name]
 	obj = None
 	if(oid == 'head'):
-		commit = repo.head
+		obj = repo.head
 	else:
 		try:
 			obj = repo[oid]
@@ -129,7 +129,7 @@ def item(request, repo_name, oid):
 		context = render_blob(repo_name, obj)
 
 	else:
-		return HttpResponseBadRequest('Unhandled object type %s'%commit.type)
+		return HttpResponseBadRequest('Unhandled object type %s'%obj.type)
 
 	return HttpResponse(json.dumps(context, indent=2), mimetype="application/json")
 

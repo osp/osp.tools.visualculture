@@ -54,7 +54,8 @@ class GitRepository(object):
 	def __getattr__(self, name):
 		return getattr(self.repo, name)
 		
-	
+	def __getitem__(self, key):
+		return self.repo[key]
 		
 
 class GitCollection(object):
