@@ -1,36 +1,31 @@
+{% extends "base.html" %}
+
+{% block content%}
 <ul class="thumbnails">
-<% @tree.contents.each do |obj| %>
+{% for dir in tree.dirs %}
     <li class="span2">
-        <% if obj.is_a?(Grit::Blob) # it's a blob
-             if obj.transducer? or obj.binary? # rendering preview available %>
-        <div class="thumbnail preview">
-            <div class="thumb">
-            <a href="/<%= @repo_path %>/view/<%= @commit_slug %>/<%= @path %><%= obj.name %>">
-                <img src="/<%= @repo_path %>/thumbnail/<%= @commit_slug %>/<%= @path %><%= obj.name %>" />
-            </a>
-            </div>
-            <h5><%= obj.name %></h5>
-            <p><%= obj.mime_type %></p>
-        </div>
-        <% else # we render plain text %>
-        <div class="thumbnail text">
-            <div class="thumb">
-                <pre><a href="/<%= @repo_path %>/view/<%= @commit_slug %>/<%= @path %><%= obj.name %>"><%= ERB::Util.html_escape obj.data[0..62] %></a></pre>
-            </div>
-            <h5><%= obj.name %></h5>
-            <p><%= obj.mime_type %></p>
-        </div>
-        <% end
-        else # it's a folder %>
         <div class="thumbnail folder">
             <div class="thumb">
-                <a href="/<%= @repo_path %>/view/<%= @commit_slug %>/<%= @path %><%= obj.name %>">
-                <img src="/img/folder-130.png" alt="representation of a folder" title="" style="height:104px;width:130px;" />
+                <a href="{{ dir.href }}">
+                <img src="{{ STATIC_URL }}img/folder-130.png" alt="representation of a folder" title="" style="height:104px;width:130px;" />
             </a>
             </div>
-            <h5><%= obj.name %></h5>
+            <h5>{{ dir.name }}</h5>
         </div>
-        <% end %>
     </li>
-<% end %>
+{% endfor %}
+{% for file in tree.files %}
+    <li class="span2">
+        <div class="thumbnail preview">
+            <div class="thumb">
+            <a href="{{ file.href }}">
+                <img src="{{ STATIC_URL }}img/OSP_new-frog.png" />
+            </a>
+            </div>
+            <h5>{{ file.name }}</h5>
+            <p>{{ file.mime }}</p>
+        </div>
+    </li>
+{% endfor %}
 </ul>
+{% endblock %}

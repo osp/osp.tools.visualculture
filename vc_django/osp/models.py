@@ -1,4 +1,4 @@
-from vc_django.settings import API_PATH, PREFIX
+from osp.settings import API_PATH, PREFIX
 from urllib2 import urlopen, HTTPError
 import json
 

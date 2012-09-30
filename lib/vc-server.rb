@@ -70,7 +70,7 @@ module VC
 
     get "/" do
       # 8 latest repos with an iceberg:
-      @home_repos = @sorted_repos.map {|x| x.iceberg ? x : nil}.compact[0..8]
+      @home_repos = @sorted_repos.map {|x| x.iceberg ? x : nil}.compact #[0..8]
       erb :home
     end
 

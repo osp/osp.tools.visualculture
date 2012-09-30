@@ -2,24 +2,18 @@
 
 {% block content%}
         <!-- Header and options when showing a repository -->
-        {{ if repo.source_files }}
         <div class="row">
         <div class="span6">
             <ul class="nav nav-pills">
                 <li><a class="git-clone" data-toggle="modal" href="#cloneModal" >Git Clone</a></li>
                 <li> <!-- Navigate through the repository -->
                     <ul class="breadcrumb">
+                        {% for breadcrumb in breadcrumbs %}
                         <li>
-                            <a href="{{ STATIC }}<%= @repo.web_path %>/view/<%= @commit_slug %>/"><%= @repo.slug %></a> <% if @path != "" %><span class="divider">/</span><% end %></a>
-                        <% # All this is to create links to the pathname components (that include the preceding path )
-                        p = @path.split("{{ STATIC }}")
-                        (0..p.length - 2).to_a.each do | i | %>
-                        <li>
-                           <a href="{{ STATIC }}<%= @repo.web_path %>/view/<%= @commit_slug %>/<%= p[0..i].join("{{ STATIC }}") %>"><%= p[i] %></a> <span class="divider">/</span>
+                            <a href="{{ breadcrumb.href }}">{{ breadcrumb.name }}</a> <span class="divider">/</span>
                         </li>
-                        <% end # the last one gets no link -> %>
                         <li class="active">
-                           <%= p[-1] %> <% if @dir %><span class="divider">/</span><% end %>
+                           {{ breadcrumb.name }} {% if tree %}<span class="divider">/</span>{% endif %}
                         </li>
                     </ul>
                 </li>
@@ -49,11 +43,9 @@
         </div>
 
         </div>
-        {{ endif }}
 {% endblock %}
 
 {% block footer %}
-        {% if repo.sourcefiles %}
         <!-- This is shown when you click Git Clone-->
         <div class="modal hide" id="cloneModal">
             <div class="modal-header">
@@ -70,5 +62,4 @@
                 <a href="#" class="btn" data-dismiss="modal">Close</a>
             </div>
         </div>
-        {% endif %}
 {% endblock %}

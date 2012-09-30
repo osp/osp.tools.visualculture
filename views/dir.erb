@@ -1,3 +1,10 @@
+<script>
+$(window).load(function() {
+  $('ul.thumbnails').masonry({
+    itemSelector: 'li'
+  });
+});
+</script>
 <ul class="thumbnails">
 <% @tree.contents.each do |obj| %>
     <li class="span2">

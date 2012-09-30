@@ -1,8 +1,10 @@
 <% # -*- coding: UTF-8 -*- %>
 
 <script>
-$('#active-projects').masonry({
-  itemSelector: '.project'
+$(window).load(function() {
+  $('#active-projects').masonry({
+    itemSelector: '.project'
+  });
 });
 </script>
 
@@ -22,12 +24,12 @@ where i use repo.title-->
     <p class="project-type"><%= repo.category %></p>
 
     <h2 class="project-title">
-        <a href="/<%= repo.web_path %>/"><%= title %></a>
+        <a href="/<%= repo.web_path %>/view/latest/"><%= title %></a>
     </h2>
 
     <div class="iceberg">
     <% repo.iceberg[0...3].each_with_index do |img, i| %>
-        <a href="/<%= repo.web_path %>/"><img class="<%= i == 0 ? 'iceberg-pict-big' : 'iceberg-pict' %>" src="/<%= repo.web_path %>/thumbnail/latest/iceberg/<%= img %>"></a>
+        <a href="/<%= repo.web_path %>/view/latest/"><img class="<%= i == 0 ? 'iceberg-pict-big' : 'iceberg-pict' %>" src="/<%= repo.web_path %>/thumbnail/latest/iceberg/<%= img %>"></a>
     <% end %>
     </div>
 
