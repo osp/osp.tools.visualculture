@@ -7,6 +7,7 @@ from visual_culture.readers import reader
 from PIL import Image
 import StringIO
 
+
 @reader(r'image/.*')
 class VC_Image(object):
 	"""
@@ -34,7 +35,8 @@ class VC_Image(object):
 		image.thumbnail((width,height), Image.ANTIALIAS)
 		return image
 	
-	def read_blob(self, blob_info, blob_data, options):
+	def read_blob(self, blob_info, options):
+		blob_data = self.get_blob_data(blob_info)
 		buf_in = StringIO.StringIO(blob_data)
 		image = Image.open(buf_in)
 		simage = self.scale_image(image, options)

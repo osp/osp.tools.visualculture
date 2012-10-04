@@ -15,6 +15,8 @@ from git_info import git
 from vc_cache import tasks 
 from vc_cache import utils 
 
+import time
+
 import magic
 magic_find_mime = None
 try:
@@ -51,7 +53,12 @@ class VCCache(models.Model):
 			mime = magic_find_mime.buffer(commit.data)
 		except AttributeError:
 			mime = magic_find_mime.from_buffer(commit.data)
-		return ({'type':'blob', 'repo_name':repo_name, 'commit' : commit.hex, 'mime':mime}, commit.data)
+		return {'type':'blob', 
+			'repo_name':repo_name, 
+			'blob_hex': blob_hex,
+			'blob_url':'/'.join([settings.API_HOST, 'api', repo_name, blob_hex, 'blob_data']), 
+			'commit' : commit.hex, 
+			'mime':mime}
 	
 
 	def Get(self, repo_name, blob_hex, options = {}):
@@ -66,13 +73,16 @@ class VCCache(models.Model):
 			f.close()
 			mime = obj.blob_mime
 		except VCCache.DoesNotExist:
-			blob_info, blob_data = self.get_from_module(repo_name, blob_hex)
-			task_result = tasks.read_blob.delay(self.root_path, blob_info, blob_data, options)
+			print('[%s][%s] Not found in cache'%(options_h,time.asctime()))
+			blob_info = self.get_from_module(repo_name, blob_hex)
+			print('[%s][%s] Got the blob info'%(blob_info['blob_url'],time.asctime()))
+			task_result = tasks.read_blob.delay(self.root_path, blob_info, options)
 			result = task_result.get() # synchronous
 			obj = VCCache()
 			obj.repo_name = repo_name
 			obj.blob_hex = blob_hex
 			obj.blob_mime = result['mime']
+			obj.cache_options = options_h
 			obj.save()
 			data = result['data']
 			mime =obj.blob_mime

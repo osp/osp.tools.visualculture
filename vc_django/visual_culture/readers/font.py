@@ -8,7 +8,6 @@ from visual_culture.readers import reader
 import fontforge
 from tempfile import NamedTemporaryFile
 
-
 class ContourDecomposer(object):
 	def noop_(self, *args, **kwargs):
 		print('noop')
@@ -163,7 +162,8 @@ class VC_Font(object):
 		f.write(buf)
 		self.font = fontforge.open(f.name)
 	
-	def read_blob(self, blob_info, blob_data):
+	def read_blob(self, blob_info, options):
+		blob_data = self.get_blob_data(blob_info)
 		self.load_from_buffer(blob_data)
 		
 		dc = SVGPathDecomp()

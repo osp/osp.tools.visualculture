@@ -61,6 +61,8 @@ PagePtr page(DocumentPtr doc, int idx)
 	return PagePtr(doc->create_page(idx));
 }
 
+// BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(page_rect_overloads, poppler::page::page_rect, poppler::crop_box, 1);
+
 BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(render_page_overloads, poppler::page_renderer::render_page, 1, 8);
 
 std::string image_data(poppler::image* image)
@@ -78,6 +80,22 @@ BOOST_PYTHON_MODULE(vc_poppler)
 		.value("rotate_90", poppler::rotate_90)
 		.value("rotate_180", poppler::rotate_180)
 		.value("rotate_270", poppler::rotate_270)
+	;
+	
+	enum_<poppler::page_box_enum>("page_box")
+		.value("media_box", poppler::media_box)
+		.value("crop_box", poppler::crop_box)
+		.value("bleed_box", poppler::bleed_box)
+		.value("trim_box", poppler::trim_box)
+		.value("art_box", poppler::art_box)
+	;
+	
+	/// rectangle
+	class_<poppler::rectf>("Rect")
+		.def("x", &poppler::rectf::x)
+		.def("y", &poppler::rectf::y)
+		.def("width", &poppler::rectf::width)
+		.def("height", &poppler::rectf::height)
 	;
 	
 	/// document
@@ -115,7 +133,9 @@ BOOST_PYTHON_MODULE(vc_poppler)
 	;
 	
 	/// page
-	class_<poppler::page, PagePtr, boost::noncopyable>("Page", no_init);
+	class_<poppler::page, PagePtr, boost::noncopyable>("Page", no_init)
+		.def("rect", &poppler::page::page_rect)
+	;
 	
 	
 	/// page_renderer

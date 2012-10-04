@@ -13,5 +13,6 @@ class VC_TextPlain(object):
 	def __init__(self):
 		pass
 	
-	def read_blob(self, blob_info, blob_data):
+	def read_blob(self, blob_info, options):
+		blob_data = self.get_blob_data(blob_info)
 		return {'data':blob_data, 'mime': blob_info['mime']}

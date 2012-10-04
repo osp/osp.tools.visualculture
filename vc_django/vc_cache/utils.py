@@ -3,6 +3,7 @@ vc_cache.utils
 """
 
 import os
+import errno
 
 def ensure_dir(path):
 	try:
