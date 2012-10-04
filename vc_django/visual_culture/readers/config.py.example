@@ -12,7 +12,7 @@ def try_import(module):
 	except Exception as e:
 		sys.stderr.write('Could not import %s because of exception: %s'%(module, e))
 
-try_import( 'text_plain' )
+#try_import( 'text_plain' )
 try_import( 'pdf' )
 try_import( 'image' )
-try_import( 'font' )
+#try_import( 'font' )

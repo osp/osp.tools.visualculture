@@ -3,11 +3,13 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.core.urlresolvers import reverse, NoReverseMatch
+
+import settings
 # dummy data
 
 import json
 import os
-all = json.loads(open(os.path.join(os.path.dirname(__file__), 'all.json')).read())
+#all = json.loads(open(os.path.join(os.path.dirname(__file__), 'all.json')).read())
 
 def home(request):
     data = get_api('all')
@@ -18,7 +20,12 @@ def home(request):
             r['web_path'] = reverse('osp.views.project', args=[ r['category'], r['name'] ])
         except NoReverseMatch:
             r['web_path'] = ''
-        r['iceberg'] = ['foo', 'foo', 'foo']
+            
+        # iceberg ?
+        ice = get_api(repo['slug'],'path/iceberg')
+        r['iceberg'] = []
+        for penguin in ice['files']:
+            r['iceberg'].append(penguin)
         commits = []
         for commit in r['commits']:
             c = commit
@@ -28,7 +35,7 @@ def home(request):
         repos.append(r)
 
     return render_to_response('home2.html',
-        { 'repos' : repos },
+        { 'repos' : repos, 'api_url' :settings },
         context_instance=RequestContext(request))
 
 def browse(request, category, name, path):

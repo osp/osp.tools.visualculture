@@ -20,8 +20,13 @@ def which_repo(category, name):
 
 def get_api(*args):
     url = API_PATH + '/'.join(args)
-    res = urlopen(url)
-    dict = json.loads(res.read())
-    res.close
-    return dict
+    try:
+        res = urlopen(url)
+        api_dict = json.loads(res.read())
+    except Exception:
+        api_dict = {}
+    finally:
+        res.close()
+    
+    return api_dict
 
