@@ -47,7 +47,7 @@ public:
  		poppler::document* doc(poppler::document::load_from_data(b_data));
 		if(!doc)
 		{
-			std::cerr<<"Couldn't create a Poppler document"<<std::endl;
+// 			std::cerr<<"Couldn't create a Poppler document"<<std::endl;
 			return DocumentPtr();
 		}
 		DocumentPtr ret(doc);
