@@ -108,9 +108,9 @@ class GitCollection(object):
 				
 		entries = os.listdir(GIT_ROOT)
 		for d in entries:
-			if prefix != None:
+			if self.prefix != None:
 				pd = d.split('.')[0]
-				if pd != prefix:
+				if pd != self.prefix:
 					continue
 				
 			name = os.path.join(GIT_ROOT,d)
