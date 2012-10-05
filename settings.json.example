@@ -1,9 +1,0 @@
-{
-  "cache-dir"           : "/tmp/",
-  "test-dir"            : "/home/serk17/code/osp.tools.visualculture.test",
-  "web-domain"          : "http://example.com/",
-  "title"               : "OSP Visual Culture Git Viewer",
-  "repositories"        : [],
-  "preview-image-size"  : "770",
-  "thumb-image-size"    : "240"
-}
