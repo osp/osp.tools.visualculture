@@ -21,9 +21,8 @@ DATABASES = {
     }
 }
 
-if DEBUG:
-#    API_PATH = 'http://127.0.0.1:8000/api/'
-    API_PATH = 'http://ospwork.constantvzw.org/api/'
+API_PATH = 'http://ospwork.constantvzw.org/api/'
+VC_URL = 'http://ospwork.constantvzw.org/vc/'
 
 PREFIX = 'osp'
 
