@@ -18,7 +18,7 @@ $('#active-projects').masonry({
     <div class="iceberg">
     {% for ice in iceberg %}
         <a href="{{ repo.web_path }}">
-		<img class="{% if forloop.first %}iceberg-pict-big{% else %}iceberg-pict{% endif %}" src="{{VC_URL}}{{}}{{ repo.name }}/{{ice.hex}}?width=200">
+		<img class="{% if forloop.first %}iceberg-pict-big{% else %}iceberg-pict{% endif %}" src="{{VC_URL}}{{ repo.name }}/{{ice.hex}}?width=200">
 	</a>
     {% endfor %}
     </div>
