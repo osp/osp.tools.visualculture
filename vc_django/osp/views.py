@@ -24,8 +24,9 @@ def home(request):
         # iceberg ?
         ice = get_api(repo['slug'],'path/iceberg')
         r['iceberg'] = []
-        for penguin in ice['files']:
-            r['iceberg'].append(penguin)
+        if 'files' in ice:
+            for penguin in ice['files']:
+                r['iceberg'].append(penguin)
         commits = []
         for commit in r['commits']:
             c = commit
