@@ -1,6 +1,14 @@
 from osp.settings import API_PATH, PREFIX
-from urllib2 import urlopen, HTTPError
+from urllib2 import  Request, urlopen, URLError
 import json
+
+class ApiError(Exception):
+    def __init__(self, url, what):
+        self.url = url
+        self.what = what
+    def __str__(self):
+        return '(%s) => %s'%(self.url,self.what)
+
 
 def repo_parts(repo_slug):
     parts = repo_slug.split('.')
@@ -20,15 +28,17 @@ def which_repo(category, name):
 
 def get_api(*args):
     url = API_PATH + '/'.join(args)
+    req = Request(url)
+    print('[API] %s'%url)
     res = None
     try:
-        res = urlopen(url)
+        res = urlopen(req)
         api_dict = json.loads(res.read())
-    except Exception:
-        api_dict = {}
-    finally:
-        if res:
-            res.close()
-    
+    except URLError, e:
+        if hasattr(e, 'reason'):
+            raise ApiError(url, e.reason)
+        elif hasattr(e, 'code'):
+            raise ApiError(url, e.code)
+
     return api_dict
 

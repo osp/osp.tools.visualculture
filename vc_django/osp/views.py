@@ -1,5 +1,5 @@
-from osp.models import get_api, which_repo
-from django.http import HttpResponse
+from osp.models import get_api, which_repo, ApiError
+from django.http import HttpResponse, Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.core.urlresolvers import reverse, NoReverseMatch
@@ -22,11 +22,16 @@ def home(request):
             r['web_path'] = ''
             
         # iceberg ?
-        ice = get_api(repo['slug'],'path/iceberg')
+        
         r['iceberg'] = []
-        if 'files' in ice:
-            for penguin in ice['files']:
-                r['iceberg'].append(penguin)
+        try:
+            ice = get_api(repo['slug'],'path/iceberg')
+            if 'files' in ice:
+                for penguin in ice['files']:
+                    r['iceberg'].append(penguin)
+        except ApiError:
+            pass
+    
         commits = []
         for commit in r['commits']:
             c = commit
@@ -36,14 +41,17 @@ def home(request):
         repos.append(r)
 
     return render_to_response('home2.html',
-        { 'repos' : repos, 'api_url' :settings },
+        { 'repos' : repos, 'vc_url' :settings.VC_URL },
         context_instance=RequestContext(request))
 
 def browse(request, category, name, path):
     repo_slug = which_repo(category, name)
+    try:
+        repo = get_api(repo_slug)
+        obj = get_api(repo_slug, 'path', path)
+    except ApiError:
+        return Http404()
 
-    repo = get_api(repo_slug)
-    obj = get_api(repo_slug, 'path', path)
 
     title = "Browsing %s in %s" % (path, name)
 
