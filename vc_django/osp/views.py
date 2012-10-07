@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from osp.models import get_api, which_repo, ApiError
 from django.http import HttpResponse, Http404
 from django.shortcuts import render_to_response
@@ -21,17 +23,16 @@ def home(request):
         except NoReverseMatch:
             r['web_path'] = ''
             
-        # iceberg ?
-        
-        r['iceberg'] = []
-        try:
-            ice = get_api(repo['slug'],'path/iceberg')
-            if 'files' in ice:
-                for penguin in ice['files']:
-                    r['iceberg'].append(penguin)
-        except ApiError:
-            pass
-    
+        ice = []
+        # The iceberg returned by the APO is just like a regular tree, 
+        # so there’s files and folders
+        if 'iceberg' in r and 'files' in r['iceberg']:
+            for penguin in r['iceberg']['files']:
+                # This is where you would add specific logic to not include
+                # certain file types
+                ice.append(penguin)
+        r['iceberg'] = ice
+
         commits = []
         for commit in r['commits']:
             c = commit

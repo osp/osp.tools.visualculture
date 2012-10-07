@@ -2,6 +2,13 @@
 """
 git_info.views
 
+Views that render the GitCollection accessible over HTTP a JSON API.
+
+All the `render` functions should basically get out of here and become part
+of the GitCollection class from git_info.py, in the form of `to_hash` methods.
+That would clean up a bunch and save us the necessity to pass `repo_name`
+around all the time.
+
 """
 
 
@@ -22,7 +29,6 @@ try:
 except AttributeError:
 	magic_find_mime = magic.Magic(mime=True)
 		
-# This module only serves JSON, reflecting the state of a GIT repository
 
 if settings.PREFIX:
 	git_collection = GitCollection(settings.PREFIX)
@@ -73,9 +79,8 @@ def get_blob_data(obj):
 def index(request):
 	return HttpResponse(json.dumps({'repos': git_collection.get_names()}, indent=2), mimetype="application/json")
 
-def render_repo(repo_slug, n_commits=5, tree=False):
+def render_repo(repo_slug, n_commits=5, tree=False, iceberg=False):
 	repo = git_collection[repo_slug]
-#	context = render_commit(repo_slug, repo.head)
 	context = {}
 	context['category'] = repo.repo_category
 	context['name'] = repo.repo_name
@@ -89,17 +94,20 @@ def render_repo(repo_slug, n_commits=5, tree=False):
 			break
 	if tree:
 		context['tree'] = render_tree(repo_slug, repo.head.tree)
+	if iceberg:
+		if repo.has_iceberg():
+			context['iceberg'] = render_tree(repo_slug, repo.head.tree['iceberg'].to_object())
 	return context
 	
 def repo(request, repo_name):
 	print('Requested repo: %s'%repo_name)
-	context = render_repo(repo_name, tree=True)
+	context = render_repo(repo_name, tree=True, iceberg=True)
 	return HttpResponse(json.dumps(context, indent=2), mimetype="application/json")
 
 def repos(repo_names):
 	context = []
 	for repo_name in repo_names:
-		context.append(render_repo(repo_name))
+		context.append(render_repo(repo_name, iceberg=True))
 	return context
 
 @cache_page(60 * 60)
