@@ -9,12 +9,15 @@
                 <li> <!-- Navigate through the repository -->
                     <ul class="breadcrumb">
                         {% for breadcrumb in breadcrumbs %}
+                        {% if not forloop.last %}
                         <li>
                             <a href="{{ breadcrumb.href }}">{{ breadcrumb.name }}</a> <span class="divider">/</span>
                         </li>
+                        {% else %}
                         <li class="active">
                            {{ breadcrumb.name }} {% if tree %}<span class="divider">/</span>{% endif %}
                         </li>
+                        {% endif %}
                         {% endfor %}
                     </ul>
                 </li>
