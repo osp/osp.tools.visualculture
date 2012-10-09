@@ -113,6 +113,6 @@ def project(request, category, name, path=""):
     except ApiError:
         return Http404()
 
-    return render_to_response('project.html',
+    return render_to_response('project_base.html',
             { 'repo' : repo, "said": said, 'vc_url' :settings.VC_URL },
         context_instance=RequestContext(request))
