@@ -1,9 +1,5 @@
 {% extends 'base.html' %}
 
-{% block menu %}
-blalba
-{% endblock %}
-
 {% block content %}
 <script>
 // $('#active-projects').masonry({
@@ -11,7 +7,7 @@ blalba
 // });
 </script>
 
-{% for repo in repositories %}
+{% for repo in repos %}
 <div class="project">
     <p class="project-type">{{ repo.category }}</p>
 
