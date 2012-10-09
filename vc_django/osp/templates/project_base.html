@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ repo.name }}</h1>
+
+    <div class="iceberg">
+        {% for ice in repo.iceberg.files %}
+            <a href="{{ repo.web_path }}">
+                <img class="{% if forloop.first %}iceberg-pict-big{% else %}iceberg-pict{% endif %}" src="{{vc_url}}{{ repo.slug }}/{{ice.hex}}?width=200">
+            </a>
+        {% endfor %}
+    </div>
+
+    {% include "commit-list.html" %}
+
+    {% block vc_content %}
+    {% endblock %}
+
+{% endblock %}
+
+{% block footer %}
+        <!-- This is shown when you click Git Clone-->
+        <div class="modal hide" id="cloneModal">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal">×</a>
+                <h3>Clone the git repository</h3>
+            </div>
+            <div class="modal-body">
+                <p>The public git address for this repo is:</p>
+                <pre>git://git.constantvzw.org/{{ repo.slug }}.git</pre>
+                <p>to clone it, in the terminal type:</p>
+                <pre>git clone git://git.constantvzw.org/{{ repo.slug }}.git</pre>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal">Close</a>
+            </div>
+        </div>
+{% endblock %}
