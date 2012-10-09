@@ -5,6 +5,7 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.core.urlresolvers import reverse, NoReverseMatch
+from datetime import datetime
 
 import settings
 # dummy data
@@ -38,13 +39,14 @@ def home(request):
         commits = []
         for commit in r['commits']:
             c = commit
+            c['commit_time'] = datetime.fromtimestamp(c['commit_time'])
             c['ellipse'] = 0
             commits.append(c)
         r['commits'] = commits
         repos.append(r)
-        
+
     return render_to_response('home2.html',
-        { 'repos' : repos, 'vc_url' :settings.VC_URL, 'said' : said },
+        { 'repos' : repos, 'vc_url' :settings.VC_URL },
         context_instance=RequestContext(request))
 
 def browse(request, category, name, path):
