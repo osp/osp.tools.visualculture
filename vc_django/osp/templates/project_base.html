@@ -1,5 +1,51 @@
 {% extends "base.html" %}
 
+{% block navigation %}
+        <!-- Header and options when showing a repository -->
+        <div class="row">
+        <div class="span6">
+            <ul class="nav nav-pills">
+                <li><a class="git-clone" data-toggle="modal" href="#cloneModal" >Git Clone</a></li>
+                <li> <!-- Navigate through the repository -->
+                    <ul class="breadcrumb">
+                        {% for breadcrumb in breadcrumbs %}
+                        <li>
+                            <a href="{{ breadcrumb.href }}">{{ breadcrumb.name }}</a> <span class="divider">/</span>
+                        </li>
+                        <li class="active">
+                           {{ breadcrumb.name }} {% if tree %}<span class="divider">/</span>{% endif %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Showing the HEAD-->
+        <div class="span4">
+            <div class="commit-list">
+                <ul>
+                    <li class="commit" >
+                        <p class="commit-id">
+                            {{ repo.commits.0.id }} 
+                        </p>
+                        <p>
+                            <span class="commit-author">{{ repo.commits.0.author }}</span> <span class="commit-author-said">said</span>
+                        </p>
+                        <p class="commit-message">
+                            <a href="#">{{ repo.commits.0.message }}</a>
+                        </p>
+                        <p class="commit-date">
+                            {{ repo.commits.0.commit_time }}
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        </div>
+{% endblock %}
+
 {% block content %}
     <h1>{{ repo.name }}</h1>
 
