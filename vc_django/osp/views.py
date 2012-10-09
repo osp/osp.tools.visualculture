@@ -6,6 +6,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.core.urlresolvers import reverse, NoReverseMatch
 from datetime import datetime
+from math import log1p
 
 import settings
 # dummy data
@@ -37,10 +38,19 @@ def home(request):
         r['iceberg'] = ice
 
         commits = []
+        ellipse = 0
+        i = 0
         for commit in r['commits']:
             c = commit
+            
+            if i != 0:
+                commit_time=  datetime.fromtimestamp(c['commit_time'])
+                ellipse = float((previous_commit - c['commit_time']))/(24*60*60)
+                ellipse = log1p(ellipse) * 50
+            i += 1
+            previous_commit = c['commit_time']
             c['commit_time'] = datetime.fromtimestamp(c['commit_time'])
-            c['ellipse'] = 0
+            c['ellipse'] = ellipse
             commits.append(c)
         r['commits'] = commits
         repos.append(r)
