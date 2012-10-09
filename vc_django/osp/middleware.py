@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 Users of the API might have to deal with failed requests.
 This middleware catches errors raised by urllib2’s urlopen,
