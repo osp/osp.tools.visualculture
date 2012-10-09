@@ -5,6 +5,7 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.core.urlresolvers import reverse, NoReverseMatch
+from datetime import datetime
 
 import settings
 # dummy data
@@ -12,6 +13,8 @@ import settings
 import json
 import os
 #all = json.loads(open(os.path.join(os.path.dirname(__file__), 'all.json')).read())
+
+said = ["said", "whispered", "shouted", "cried", "confessed", "expressed", "verbalized", "verbalised", "uttered", "gave tongue to", "claimed", "argued", "complained", "ironized", "said", "tweeted", "told", "stated", "song", "interpreted", "rendered", "emited", "let out", "let loose", "talked", "spoke", "said", "whistled", "spilled the beans", "let the cat out of the bag", "talked", "tattled", "blabed", "peached", "babbled", "babbled out", "blabed out", "unwraped", "disclosed", "let on", "said", "bring out", "revealed", "discovered", "exposed", "published", "divulged", "gave away"]
 
 def home(request):
     data = get_api('all')
@@ -36,6 +39,7 @@ def home(request):
         commits = []
         for commit in r['commits']:
             c = commit
+            c['commit_time'] = datetime.fromtimestamp(c['commit_time'])
             c['ellipse'] = 0
             commits.append(c)
         r['commits'] = commits
