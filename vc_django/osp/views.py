@@ -46,7 +46,7 @@ def home(request):
         repos.append(r)
 
     return render_to_response('home2.html',
-        { 'repos' : repos, 'vc_url' :settings.VC_URL },
+            { 'repos' : repos, "said": said, 'vc_url' :settings.VC_URL },
         context_instance=RequestContext(request))
 
 def browse(request, category, name, path):
