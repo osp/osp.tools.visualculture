@@ -3,11 +3,24 @@
     <head>
         <meta charset="UTF-8" />
         <title>{{ title }}</title>
-        <link rel="stylesheet/less" type="text/css" href="{{ STATIC_URL }}visualculture.less">
+{% load compress %}
+{% if COMPRESS_ENABLED %}
+{% compress css %}
+        <link rel="stylesheet" type="text/less" media="all" href="{{ STATIC_URL }}visualculture.less">
+{% endcompress %}
+{% else %}
+        <link rel="stylesheet/less" type="text/css" media="all" href="{{ STATIC_URL }}visualculture.less">
+        <script src="{{ STATIC_URL }}js/less-1.2.1.min.js"></script>
+{% endif%}
+
+{% compress js %}
         <script src="{{ STATIC_URL }}js/jquery-1.7.2.min.js"></script>
-        <script src="{{ STATIC_URL }}js/less-1.2.1.min.js?123"></script>
 <!--         <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script> -->
 <!--         <script src="{{ STATIC_URL }}js/jquery.masonry.min.js"></script> -->
+{% endcompress %}
+
+
+
     </head>
     <body>
         {% block header %}

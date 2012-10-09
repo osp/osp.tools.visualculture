@@ -1,5 +1,7 @@
 # Django settings for vc_django project.
 import os
+import django.conf.global_settings as DEFAULT_SETTINGS
+
 import djcelery
 djcelery.setup_loader()
 BROKER_URL = 'amqp://user:password@localhost:5672/'
@@ -122,6 +124,10 @@ TEMPLATE_DIRS = (
     os.getcwd().replace('vc_django', 'vc_django_templates'),
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
+    "osp.context_processors.compress_enabled",
+)
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -130,6 +136,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'djcelery',
+    'compressor',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
@@ -139,6 +146,16 @@ INSTALLED_APPS = (
     'test_browser',
     'vc_cache'
 )
+
+COMPRESS_ENABLED = not DEBUG
+
+if COMPRESS_ENABLED:
+    COMPRESS_PRECOMPILERS = (
+        ('text/less', 'lessc {infile} {outfile}'),
+    )
+
+INTERNAL_IPS = ('127.0.0.1',)
+COMPRESS_ROOT = STATICFILES_DIRS[0]
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
