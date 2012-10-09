@@ -14,7 +14,7 @@ import json
 import os
 #all = json.loads(open(os.path.join(os.path.dirname(__file__), 'all.json')).read())
 
-said = ["said", "whispered", "shouted", "cried", "confessed", "expressed", "verbalized", "verbalised", "uttered", "gave tongue to", "claimed", "argued", "complained", "ironized", "said", "tweeted", "told", "stated", "song", "interpreted", "rendered", "emited", "let out", "let loose", "talked", "spoke", "said", "whistled", "spilled the beans", "let the cat out of the bag", "talked", "tattled", "blabed", "peached", "babbled", "babbled out", "blabed out", "unwraped", "disclosed", "let on", "said", "bring out", "revealed", "discovered", "exposed", "published", "divulged", "gave away"]
+said = ["said", "whispered", "shouted", "cried", "confessed", "expressed", "verbalized", "verbalised", "uttered", "claimed", "argued", "complained", "ironized", "said", "tweeted", "told", "stated", "song", "interpreted", "rendered", "emited", "let out", "let loose", "talked", "spoke", "said", "whistled", "spilled the beans", "let the cat out of the bag", "talked", "tattled", "blabed", "peached", "babbled", "babbled out", "blabed out", "unwraped", "disclosed", "let on", "said", "bring out", "revealed", "discovered", "exposed", "published", "divulged", "gave away"]
 
 def home(request):
     data = get_api('all')
