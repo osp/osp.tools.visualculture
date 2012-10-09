@@ -15,6 +15,7 @@
 
 {% compress js %}
         <script src="{{ STATIC_URL }}js/jquery-1.7.2.min.js"></script>
+        <script src="{{ STATIC_URL }}js/bootstrap-modal.js"></script>
 <!--         <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script> -->
 <!--         <script src="{{ STATIC_URL }}js/jquery.masonry.min.js"></script> -->
 {% endcompress %}
@@ -23,6 +24,7 @@
 
     </head>
     <body>
+    {% block body %}
         {% block header %}
         <div id="home-infos">
         What is that? Some says that those snapshots are to our work what the
@@ -45,7 +47,7 @@
 
         {% block menu %}
         <!-- Menu navigation-->
-<!--         <div id="menu-wrapper"> -->
+         <div id="menu-wrapper">
             <ul id="menu">
                 <li><a href="/work/">Works</a></li>
                 <li><a href="http://osp.constantvzw.org/foundry/">Foundry</a></li>
@@ -63,7 +65,7 @@
                     <p id="baseline">Graphic design caravan</p>
                 </li>
             </ul>
-<!--         </div> -->
+            </div>
 
 <div>
 <a href="http://osp.constantvzw.org"><img style="position: absolute; top: 0; right: 0; border: 0;" src="{{ STATIC_URL }}img/ribbon-osp.png" alt="Frog me on GitOsp"></a>
@@ -73,5 +75,6 @@
        {% endblock %}
         
 {% block footer %}{% endblock %}
+    {% endblock %}
     </body>
 </html>
