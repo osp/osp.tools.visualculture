@@ -1,0 +1,10 @@
+<div class="commit-list">
+    {% for commit in repo.commits %}
+        <div class='ellipse' style='width: 5px; margin: auto; text-align: center; height: {{ commit.ellipse }}px; border-left: 1px solid springgreen;'>&nbsp;</div>
+        <div class='commit'>
+            <p><span class='commit-author'>{{ commit.author }}</span><span class='commit-author-said'>{{ said|random }}</span></p>
+            <p class='commit-message'>&mdash; {{ commit.message }}</p>
+            <p class='commit-date'>{{ commit.commit_time|date:"l, jS F Y - H:i" }}</p>
+        </div>
+    {% endfor %} 
+</div>

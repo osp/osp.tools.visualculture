@@ -14,7 +14,7 @@ import json
 import os
 #all = json.loads(open(os.path.join(os.path.dirname(__file__), 'all.json')).read())
 
-said = ["said", "whispered", "shouted", "cried", "confessed", "expressed", "verbalized", "verbalised", "uttered", "gave tongue to", "claimed", "argued", "complained", "ironized", "said", "tweeted", "told", "stated", "song", "interpreted", "rendered", "emited", "let out", "let loose", "talked", "spoke", "said", "whistled", "spilled the beans", "let the cat out of the bag", "talked", "tattled", "blabed", "peached", "babbled", "babbled out", "blabed out", "unwraped", "disclosed", "let on", "said", "bring out", "revealed", "discovered", "exposed", "published", "divulged", "gave away"]
+said = ["said", "whispered", "shouted", "cried", "confessed", "expressed", "verbalized", "verbalised", "uttered", "claimed", "argued", "complained", "ironized", "said", "tweeted", "told", "stated", "song", "interpreted", "rendered", "emited", "let out", "let loose", "talked", "spoke", "said", "whistled", "spilled the beans", "let the cat out of the bag", "talked", "tattled", "blabed", "peached", "babbled", "babbled out", "blabed out", "unwraped", "disclosed", "let on", "said", "bring out", "revealed", "discovered", "exposed", "published", "divulged", "gave away"]
 
 def home(request):
     data = get_api('all')
@@ -102,5 +102,17 @@ def browse(request, category, name, path):
                'blob' : blob },
               context_instance=RequestContext(request))
 
-def project(request, category, name):
-    return browse(request, category, name, '')
+#def project(request, category, name):
+    #return browse(request, category, name, '')
+
+def project(request, category, name, path=""):
+    repo_slug = which_repo(category, name)
+    try:
+        repo = get_api(repo_slug)
+        obj = get_api(repo_slug, 'path', path)
+    except ApiError:
+        return Http404()
+
+    return render_to_response('project_base.html',
+            { 'repo' : repo, "said": said, 'vc_url' :settings.VC_URL },
+        context_instance=RequestContext(request))
