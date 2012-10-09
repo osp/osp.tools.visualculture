@@ -57,9 +57,29 @@ def browse(request, category, name, path):
     except ApiError:
         return Http404()
 
+    breadcrumbs = []
+    repo_home = {}
+    repo_home['name'] = obj['repo_name']
+    repo_home['href'] = reverse('osp.views.project', args=[ category, name ])
+    breadcrumbs.append(repo_home)
+    
+    path_to = ''
+    for i, path in enumerate(obj['paths']):
+        path_to += path + '/'
+        if i == len(obj['paths']) -1:
+            if obj['type'] == 'blob':
+                "we want to render the breadcrumb for the blob, but without a trailing slash"
+                path_to = path_to.rstrip('/')
+            else:
+                "the list of 'paths' of a tree ends with an empty string, we do not need to render"
+                break
+        breadcrumb = {}
+        breadcrumb['name'] = path
+        breadcrumb['href'] = reverse('osp.views.browse', args=[ category, name, path_to ])
+        breadcrumbs.append(breadcrumb)
+
 
     title = "Browsing %s in %s" % (path, name)
-
     if obj['type'] == 'tree':
         # Add hyperlinks to all files and folders
         dirs = []
@@ -79,8 +99,12 @@ def browse(request, category, name, path):
         tree['dirs'] = dirs
         tree['files'] = files
         
+#            path_to = '/'.join(obj['paths'][:i+1] + [''])
+
+        
         return render_to_response('tree.html', 
               {'title': title,
+               'breadcrumbs' : breadcrumbs,
                'repo' : repo,
                'tree' : tree },
               context_instance=RequestContext(request))
@@ -98,6 +122,7 @@ def browse(request, category, name, path):
                 vc['image'] = True
         return render_to_response('blob.html', 
               {'title': title,
+               'breadcrumbs' : breadcrumbs,
                'repo' : repo,
                'blob' : blob },
               context_instance=RequestContext(request))
