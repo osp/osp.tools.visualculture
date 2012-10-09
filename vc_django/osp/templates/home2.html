@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block menu %}
+blalba
+{% endblock %}
+
 {% block content %}
 <script>
 // $('#active-projects').masonry({
@@ -7,7 +11,7 @@
 // });
 </script>
 
-{% for repo in repos %}
+{% for repo in repositories %}
 <div class="project">
     <p class="project-type">{{ repo.category }}</p>
 
@@ -31,7 +35,7 @@
         <div class='commit'>
             <p><span class='commit-author'>{{ commit.author }}</span><span class='commit-author-said'>said</span></p>
             <p class='commit-message'>&mdash; {{ commit.message }}</p>
-            <p class='commit-date'>{{ commit.commit_time }}</p>
+            <p class='commit-date'>{{ commit.commit_time|date:"l, jS F Y - H:i" }}</p>
         </div>
     {% endfor %} 
     </div>
