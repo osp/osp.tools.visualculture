@@ -1,48 +1,21 @@
 {% extends "base.html" %}
 
-{% block content%}
-        <!-- Header and options when showing a repository -->
-        <div class="row">
-        <div class="span6">
-            <ul class="nav nav-pills">
-                <li><a class="git-clone" data-toggle="modal" href="#cloneModal" >Git Clone</a></li>
-                <li> <!-- Navigate through the repository -->
-                    <ul class="breadcrumb">
-                        {% for breadcrumb in breadcrumbs %}
-                        <li>
-                            <a href="{{ breadcrumb.href }}">{{ breadcrumb.name }}</a> <span class="divider">/</span>
-                        </li>
-                        <li class="active">
-                           {{ breadcrumb.name }} {% if tree %}<span class="divider">/</span>{% endif %}
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
+{% block content %}
+    <h1>{{ repo.name }}</h1>
 
-        <!-- Showing the HEAD-->
-        <div class="span4">
-            <div class="commit-list">
-                <ul>
-                    <li class="commit" >
-                        <p class="commit-id">
-                            {{ repo.commits[0].id }} 
-                        </p>
-                        <p>
-                            <span class="commit-author">{{ repo.commits[0].author }}</span> <span class="commit-author-said">said</span>
-                        </p>
-                        <p class="commit-message">
-                            <a href="{% url osp.diffs repo.commits[0].id %}">{{ repo.commits[0].short_message }}</a>
-                        </p>
-                        <p class="commit-date">
-                            {{ repo.commits[0].commit_date }}
-                        </p>
-                    </li>
-                </ul>
-            </div>
-        </div>
+    <div class="iceberg">
+        {% for ice in repo.iceberg.files %}
+            <a href="{{ repo.web_path }}">
+                <img class="{% if forloop.first %}iceberg-pict-big{% else %}iceberg-pict{% endif %}" src="{{vc_url}}{{ repo.slug }}/{{ice.hex}}?width=200">
+            </a>
+        {% endfor %}
+    </div>
 
-        </div>
+    {% include "commit-list.html" %}
+
+    {% block vc_content %}
+    {% endblock %}
+
 {% endblock %}
 
 {% block footer %}

@@ -102,5 +102,17 @@ def browse(request, category, name, path):
                'blob' : blob },
               context_instance=RequestContext(request))
 
-def project(request, category, name):
-    return browse(request, category, name, '')
+#def project(request, category, name):
+    #return browse(request, category, name, '')
+
+def project(request, category, name, path=""):
+    repo_slug = which_repo(category, name)
+    try:
+        repo = get_api(repo_slug)
+        obj = get_api(repo_slug, 'path', path)
+    except ApiError:
+        return Http404()
+
+    return render_to_response('project.html',
+            { 'repo' : repo, "said": said, 'vc_url' :settings.VC_URL },
+        context_instance=RequestContext(request))
