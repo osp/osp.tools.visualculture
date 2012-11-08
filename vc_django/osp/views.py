@@ -64,6 +64,21 @@ def browse(request, category, name, path):
     try:
         repo = get_api(repo_slug)
         obj = get_api(repo_slug, 'path', path)
+        commits = []
+        ellipse = 0
+        i = 0
+        for commit in repo['commits']:
+            c = commit
+            
+            if i != 0:
+                commit_time=  datetime.fromtimestamp(c['commit_time'])
+                ellipse = float((previous_commit - c['commit_time']))/(24*60*60)
+                ellipse = log1p(ellipse) * 50
+            i += 1
+            previous_commit = c['commit_time']
+            c['commit_time'] = datetime.fromtimestamp(c['commit_time'])
+            c['ellipse'] = ellipse
+            commits.append(c)
     except ApiError:
         return Http404()
 
@@ -117,6 +132,7 @@ def browse(request, category, name, path):
                'breadcrumbs' : breadcrumbs,
                'repo' : repo,
                'said': said,
+               'vc_url': settings.VC_URL,
                'tree' : tree },
               context_instance=RequestContext(request))
     if obj['type'] == 'blob':
@@ -139,17 +155,32 @@ def browse(request, category, name, path):
                'blob' : blob },
               context_instance=RequestContext(request))
 
-#def project(request, category, name):
-    #return browse(request, category, name, '')
 
 def project(request, category, name, path=""):
-    repo_slug = which_repo(category, name)
-    try:
-        repo = get_api(repo_slug)
-        obj = get_api(repo_slug, 'path', path)
-    except ApiError:
-        return Http404()
+    #repo_slug = which_repo(category, name)
+    #try:
+        #repo = get_api(repo_slug)
+        #obj = get_api(repo_slug, 'path', path)
+        #commits = []
+        #ellipse = 0
+        #i = 0
+        #for commit in repo['commits']:
+            #c = commit
+            
+            #if i != 0:
+                #commit_time=  datetime.fromtimestamp(c['commit_time'])
+                #ellipse = float((previous_commit - c['commit_time']))/(24*60*60)
+                #ellipse = log1p(ellipse) * 50
+            #i += 1
+            #previous_commit = c['commit_time']
+            #c['commit_time'] = datetime.fromtimestamp(c['commit_time'])
+            #c['ellipse'] = ellipse
+            #commits.append(c)
+        #repo['commits'] = commits
+    #except ApiError:
+        #return Http404()
+    return browse(request, category, name, path)
 
-    return render_to_response('project_base.html',
-            { 'repo' : repo, "said": said, 'vc_url' :settings.VC_URL },
-        context_instance=RequestContext(request))
+    #return render_to_response('project_base.html',
+            #{ 'repo' : repo, "said": said, 'vc_url' :settings.VC_URL },
+        #context_instance=RequestContext(request))
