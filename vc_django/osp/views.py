@@ -116,6 +116,7 @@ def browse(request, category, name, path):
               {'title': title,
                'breadcrumbs' : breadcrumbs,
                'repo' : repo,
+               'said': said,
                'tree' : tree },
               context_instance=RequestContext(request))
     if obj['type'] == 'blob':
@@ -134,6 +135,7 @@ def browse(request, category, name, path):
               {'title': title,
                'breadcrumbs' : breadcrumbs,
                'repo' : repo,
+               'said': said,
                'blob' : blob },
               context_instance=RequestContext(request))
 
