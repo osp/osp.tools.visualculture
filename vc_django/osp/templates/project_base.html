@@ -53,7 +53,7 @@
     <h1>{{ repo.name }}</h1>
 
     <div class="iceberg">
-        {% for ice in repo.iceberg.files %}
+        {% for ice in repo.iceberg.files reversed %}
             <a href="{{ repo.web_path }}">
                 <img class="{% if forloop.first %}iceberg-pict-big{% else %}iceberg-pict{% endif %}" src="{{vc_url}}{{ repo.slug }}/{{ice.hex}}?width=200">
             </a>
