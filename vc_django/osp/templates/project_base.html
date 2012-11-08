@@ -50,12 +50,13 @@
 {% endblock %}
 
 {% block content %}
+<div id="project-detail">
     <h1>{{ repo.name }}</h1>
 
     <div class="iceberg">
         {% for ice in repo.iceberg.files reversed %}
             <a href="{{ repo.web_path }}">
-                <img class="{% if forloop.first %}iceberg-pict-big{% else %}iceberg-pict{% endif %}" src="{{vc_url}}{{ repo.slug }}/{{ice.hex}}?width=200">
+                <img src="{{vc_url}}{{ repo.slug }}/{{ice.hex}}?width=200">
             </a>
         {% endfor %}
     </div>
@@ -65,6 +66,7 @@
     {% block vc_content %}
     {% endblock %}
 
+</div>
 {% endblock %}
 
 {% block footer %}
