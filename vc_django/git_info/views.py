@@ -100,7 +100,7 @@ def render_repo(repo_slug, n_commits=5, tree=False, iceberg=False):
 	
 def repo(request, repo_name):
 	print('Requested repo: %s'%repo_name)
-	context = render_repo(repo_name, tree=True, iceberg=True)
+	context = render_repo(repo_name, n_commits=10, tree=True, iceberg=True)
 	return HttpResponse(json.dumps(context, indent=2), mimetype="application/json")
 
 def repos(repo_names):
