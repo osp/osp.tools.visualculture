@@ -152,6 +152,7 @@ def browse(request, category, name, path):
                'breadcrumbs' : breadcrumbs,
                'repo' : repo,
                'said': said,
+               'vc_url': settings.VC_URL,
                'blob' : blob },
               context_instance=RequestContext(request))
 
