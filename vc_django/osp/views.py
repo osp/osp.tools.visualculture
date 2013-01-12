@@ -64,6 +64,9 @@ def category(request, category):
     repos = []
     for repo in data:
         r = repo
+        if r['category'] != category:
+            continue
+        
         try:
             r['web_path'] = reverse('osp.views.project', args=[ r['category'], r['name'] ])
         except NoReverseMatch:
