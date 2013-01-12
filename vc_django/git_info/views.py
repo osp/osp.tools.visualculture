@@ -19,6 +19,7 @@ from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, HttpRes
 from django.core.urlresolvers import reverse
 from django.views.decorators.cache import cache_page
 
+from vc_cache.models import VCCache
 from git_info.git import *
 
 import settings
@@ -26,8 +27,10 @@ import settings
 try:
 	magic_find_mime = magic.open(magic.MIME_TYPE)
 	magic_find_mime.load()
+	magic_finder = magic_find_mime.buffer
 except AttributeError:
 	magic_find_mime = magic.Magic(mime=True)
+	magic_finder = magic_find_mime.from_buffer
 		
 
 if settings.PREFIX:
@@ -62,18 +65,14 @@ def render_blob(repo_name, blob):
 	Will re-rename them all to get.
 	
 	"""
-	try:
-		mime = magic_find_mime.buffer(blob.data)
-	except AttributeError:
-		mime = magic_find_mime.from_buffer(blob.data)
-	return {'type':'blob', 'repo_name':repo_name, 'hex' : blob.hex, 'mime':mime}
+	mime = magic_finder(blob.data)
+	# Returns cache status as to let the caller decide if it goes for VC or cached files
+	cache = VCCache().GetCacheInfo(repo_name, blob.hex)
+	return {'type':'blob', 'repo_name':repo_name, 'hex' : blob.hex, 'mime':mime, 'cache':cache}
 
 	
 def get_blob_data(obj):
-	try:
-		mime = magic_find_mime.buffer(obj.data)
-	except AttributeError:
-		mime = magic_find_mime.from_buffer(obj.data)
+	mime = magic_finder(obj.data)
 	return HttpResponse(obj.data, mimetype=mime)
 	
 def index(request):
@@ -101,7 +100,7 @@ def render_repo(repo_slug, n_commits=5, tree=False, iceberg=False):
 	
 def repo(request, repo_name):
 	print('Requested repo: %s'%repo_name)
-	context = render_repo(repo_name, tree=True, iceberg=True)
+	context = render_repo(repo_name, n_commits=-1, tree=True, iceberg=True)
 	return HttpResponse(json.dumps(context, indent=2), mimetype="application/json")
 
 def repos(repo_names):

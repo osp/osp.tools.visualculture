@@ -5,16 +5,18 @@
         <div class="row">
         <div class="span6">
             <ul class="nav nav-pills">
-                <li><a class="git-clone" data-toggle="modal" href="#cloneModal" >Git Clone</a></li>
                 <li> <!-- Navigate through the repository -->
                     <ul class="breadcrumb">
                         {% for breadcrumb in breadcrumbs %}
+                        {% if not forloop.last %}
                         <li>
                             <a href="{{ breadcrumb.href }}">{{ breadcrumb.name }}</a> <span class="divider">/</span>
                         </li>
+                        {% else %}
                         <li class="active">
                            {{ breadcrumb.name }} {% if tree %}<span class="divider">/</span>{% endif %}
                         </li>
+                        {% endif %}
                         {% endfor %}
                     </ul>
                 </li>
@@ -22,6 +24,7 @@
         </div>
 
         <!-- Showing the HEAD-->
+        {% comment %}
         <div class="span4">
             <div class="commit-list">
                 <ul>
@@ -42,26 +45,34 @@
                 </ul>
             </div>
         </div>
+        {% endcomment %}
 
         </div>
 {% endblock %}
 
 {% block content %}
-    <h1>{{ repo.name }}</h1>
-
-    <div class="iceberg">
-        {% for ice in repo.iceberg.files %}
-            <a href="{{ repo.web_path }}">
-                <img class="{% if forloop.first %}iceberg-pict-big{% else %}iceberg-pict{% endif %}" src="{{vc_url}}{{ repo.slug }}/{{ice.hex}}?width=200">
-            </a>
-        {% endfor %}
+<div id="project-detail">
+    <div id="project-detail-head">
+        <h1>{{ repo.name }}</h1>
+        <a class="git-clone" data-toggle="modal" href="#cloneModal" >Git Clone</a>
     </div>
 
-    {% include "commit-list.html" %}
+    <div id="project-detail-body">
+        <div class="iceberg">
+            {% for ice in repo.iceberg.files reversed %}
+                <a href="{{ repo.web_path }}">
+                    <img src="{{vc_url}}{{ repo.slug }}/{{ice.hex}}?width=200">
+                </a>
+            {% endfor %}
+        </div>
 
-    {% block vc_content %}
-    {% endblock %}
+        {% include "commit-list.html" %}
 
+        {% block vc_content %}
+        {% endblock %}
+    </div>
+
+</div>
 {% endblock %}
 
 {% block footer %}

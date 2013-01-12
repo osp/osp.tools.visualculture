@@ -1,13 +1,10 @@
 {% extends 'base.html' %}
+{% block header %}
+<h1>{{ category|title }}</h1>
+{% endblock %}
 
 {% block content %}
 <div id="active-projects">
-    <script>
-    // $('#active-projects').masonry({
-    //   itemSelector: '.project'
-    // });
-    </script>
-
     {% for repo in repos %}
     <div class="project">
         <p class="project-type">{{ repo.category }}</p>
@@ -25,8 +22,6 @@
         </div>
 
         <p class="project-source"><a href="{{ repo.web_path }}">Source files</a></p>
-
-        {% include "commit-list.html" %}
         
     </div>
     {% endfor %}
