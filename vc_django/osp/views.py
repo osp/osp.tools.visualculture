@@ -55,7 +55,7 @@ def home(request):
         r['commits'] = commits
         repos.append(r)
 
-    return render_to_response('home2.html',
+    return render_to_response('home.html',
             { 'repos' : repos[:8], "said": said, 'vc_url' :settings.VC_URL },
         context_instance=RequestContext(request))
 
