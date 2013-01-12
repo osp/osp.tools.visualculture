@@ -6,6 +6,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.core.urlresolvers import reverse, NoReverseMatch
 from datetime import datetime
+from math import log1p
 
 import settings
 # dummy data
@@ -37,16 +38,25 @@ def home(request):
         r['iceberg'] = ice
 
         commits = []
+        ellipse = 0
+        i = 0
         for commit in r['commits']:
             c = commit
+            
+            if i != 0:
+                commit_time=  datetime.fromtimestamp(c['commit_time'])
+                ellipse = float((previous_commit - c['commit_time']))/(24*60*60)
+                ellipse = log1p(ellipse) * 50
+            i += 1
+            previous_commit = c['commit_time']
             c['commit_time'] = datetime.fromtimestamp(c['commit_time'])
-            c['ellipse'] = 0
+            c['ellipse'] = ellipse
             commits.append(c)
         r['commits'] = commits
         repos.append(r)
 
-    return render_to_response('home2.html',
-            { 'repos' : repos, "said": said, 'vc_url' :settings.VC_URL },
+    return render_to_response('home.html',
+            { 'repos' : repos[:8], "said": said, 'vc_url' :settings.VC_URL },
         context_instance=RequestContext(request))
 
 def browse(request, category, name, path):
@@ -54,12 +64,47 @@ def browse(request, category, name, path):
     try:
         repo = get_api(repo_slug)
         obj = get_api(repo_slug, 'path', path)
+        commits = []
+        ellipse = 0
+        i = 0
+        for commit in repo['commits']:
+            c = commit
+            
+            if i != 0:
+                commit_time=  datetime.fromtimestamp(c['commit_time'])
+                ellipse = float((previous_commit - c['commit_time']))/(24*60*60)
+                ellipse = log1p(ellipse) * 50
+            i += 1
+            previous_commit = c['commit_time']
+            c['commit_time'] = datetime.fromtimestamp(c['commit_time'])
+            c['ellipse'] = ellipse
+            commits.append(c)
     except ApiError:
         return Http404()
 
+    breadcrumbs = []
+    repo_home = {}
+    repo_home['name'] = obj['repo_name']
+    repo_home['href'] = reverse('osp.views.project', args=[ category, name ])
+    breadcrumbs.append(repo_home)
+    
+    path_to = ''
+    for i, path in enumerate(obj['paths']):
+        path_to += path + '/'
+        if i == len(obj['paths']) -1:
+            if obj['type'] == 'blob':
+                "we want to render the breadcrumb for the blob, but without a trailing slash"
+                path_to = path_to.rstrip('/')
+            else:
+                "the list of 'paths' of a tree ends with an empty string, we do not need to render"
+                break
+        breadcrumb = {}
+        breadcrumb['name'] = path
+        breadcrumb['href'] = reverse('osp.views.browse', args=[ category, name, path_to ])
+        breadcrumbs.append(breadcrumb)
+
 
     title = "Browsing %s in %s" % (path, name)
-
     if obj['type'] == 'tree':
         # Add hyperlinks to all files and folders
         dirs = []
@@ -79,9 +124,15 @@ def browse(request, category, name, path):
         tree['dirs'] = dirs
         tree['files'] = files
         
+#            path_to = '/'.join(obj['paths'][:i+1] + [''])
+
+        
         return render_to_response('tree.html', 
               {'title': title,
+               'breadcrumbs' : breadcrumbs,
                'repo' : repo,
+               'said': said,
+               'vc_url': settings.VC_URL,
                'tree' : tree },
               context_instance=RequestContext(request))
     if obj['type'] == 'blob':
@@ -98,21 +149,39 @@ def browse(request, category, name, path):
                 vc['image'] = True
         return render_to_response('blob.html', 
               {'title': title,
+               'breadcrumbs' : breadcrumbs,
                'repo' : repo,
+               'said': said,
+               'vc_url': settings.VC_URL,
                'blob' : blob },
               context_instance=RequestContext(request))
 
-#def project(request, category, name):
-    #return browse(request, category, name, '')
 
 def project(request, category, name, path=""):
-    repo_slug = which_repo(category, name)
-    try:
-        repo = get_api(repo_slug)
-        obj = get_api(repo_slug, 'path', path)
-    except ApiError:
-        return Http404()
+    #repo_slug = which_repo(category, name)
+    #try:
+        #repo = get_api(repo_slug)
+        #obj = get_api(repo_slug, 'path', path)
+        #commits = []
+        #ellipse = 0
+        #i = 0
+        #for commit in repo['commits']:
+            #c = commit
+            
+            #if i != 0:
+                #commit_time=  datetime.fromtimestamp(c['commit_time'])
+                #ellipse = float((previous_commit - c['commit_time']))/(24*60*60)
+                #ellipse = log1p(ellipse) * 50
+            #i += 1
+            #previous_commit = c['commit_time']
+            #c['commit_time'] = datetime.fromtimestamp(c['commit_time'])
+            #c['ellipse'] = ellipse
+            #commits.append(c)
+        #repo['commits'] = commits
+    #except ApiError:
+        #return Http404()
+    return browse(request, category, name, path)
 
-    return render_to_response('project_base.html',
-            { 'repo' : repo, "said": said, 'vc_url' :settings.VC_URL },
-        context_instance=RequestContext(request))
+    #return render_to_response('project_base.html',
+            #{ 'repo' : repo, "said": said, 'vc_url' :settings.VC_URL },
+        #context_instance=RequestContext(request))

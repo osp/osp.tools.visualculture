@@ -75,7 +75,8 @@ dt {
        font-size: @font-size-small;
 }
 ///////// active pieces /////////
-#active-projects{
+#active-projects,
+#project-detail {
      .clearfix;
     margin-top:15px;
     margin-left:20px;
@@ -205,6 +206,28 @@ background: linear-gradient(left, @color-author-said-gauche 0%,@color-author-sai
     font-size: @font-size-small;
        margin-left: 18px;
 }
+
+///////// project-detail /////////
+div#project-detail .iceberg,
+div#project-detail .commit-list {
+    float: left;
+}
+div#project-detail-head h1,
+div#project-detail-head a.git-clone {
+    float: left;
+}
+div#project-detail-head a.git-clone {
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    margin: 1em;
+    padding: 1em;
+}
+div#project-detail-body {
+    clear: both;
+}
+
+
 ///////// menu /////////
 #menu-wrapper{
 // The menu sticks to the right of this wrapper.
@@ -261,6 +284,12 @@ background: linear-gradient(left, @color-author-said-gauche 0%,@color-author-sai
     color:blue;
 }
 
+
+
+///////// nav/breadcrumbs /////////
+.nav-pills {
+    padding-left: 1em;
+}
 
 
 // infos -box ------------------------------------------------
