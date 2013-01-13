@@ -19,13 +19,9 @@ Get the latest libgit2 release from https://github.com/libgit2/libgit2/downloads
 and build it as in the instructions provided on http://libgit2.github.com.
 
 Finally Python can’t automatically find the libraries, you have to tell it
-where they are at, i.e. add
+where they are at, do:
 
-export LD_LIBRARY_PATH=/usr/local/lib
-
-to your .bashrc
-
-see:  http://stackoverflow.com/questions/1099981/why-cant-python-find-shared-objects-that-are-in-directories-in-sys-path
+sudo ldconfig
 
 #### OS X
 
@@ -80,11 +76,14 @@ sudo apt-get install libpoppler-cpp-dev libpoppler-qt4-dev libboost-dev libboost
 
 #### Debian
 
+well, just a note
+
+a) remove the leading 'lib' from the resulting library filename
+b) drop it wherever Python can find it and it will be available as a module
+c) because the Debian we run on doesn't have libpoppler-cpp, I got the 0.20 tarball, compile it and installed it in the venv we use for this deployment, then adjusted PKG_CONFIG_PATH to make cmake find it
 
 
-
-
-Then:
+#### Then:
 
 mkdir build && cd build
 cmake ..
@@ -97,7 +96,9 @@ brew install poppler boost
 
 ### FONT-SUPPORT
 
-sudo apt-get install python-fontforge
+sudo apt-get install python-fontforge fontforge
+
+#### OSX
 
 brew install fontforge
 
