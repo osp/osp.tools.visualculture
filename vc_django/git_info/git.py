@@ -128,7 +128,10 @@ class GitCollection(object):
                         # print('\t %s'%e)
                         repo = None
                     if repo != None:
-                        slug = d.rstrip('.git')
+                        if d.endswith('git'):
+                            slug = d[:-4]
+                        else:
+                            slug = d
                         self.repos_[slug] = repo
                         
                 except Exception as e:
