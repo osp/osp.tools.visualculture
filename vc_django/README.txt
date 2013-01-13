@@ -16,7 +16,7 @@ Installation
 sudo apt-get install rabbitmq-server
 
 Get the latest libgit2 release from https://github.com/libgit2/libgit2/downloads
-and build it as in the instructions provided on the website.
+and build it as in the instructions provided on http://libgit2.github.com.
 
 Finally Python can’t automatically find the libraries, you have to tell it
 where they are at, i.e. add
@@ -62,16 +62,7 @@ sudo rabbitmqctl set_permissions user '.*' '.*' '.*'
 
 ### Setting up the Celery queue
 
-Add the following to your settings.py:
-
-import djcelery
-djcelery.setup_loader()
-BROKER_URL = 'amqp://user:password@localhost:5672/'
-
-Add 'djcelery' to the installed_apps tuple in settings.py,
-run python manage.py syncdb
-
-Now you can run the queue as:
+Run the queue as:
 
 python manage.py celeryd --purge -E -c 2
 
@@ -81,13 +72,16 @@ running: the Celery queue en the Django server.
 Adding vc image rendering components
 ------------------------------------
 
-### PDF-SUPPORT
+### PDF-SUPPORT : Poppler
 
-Poppler
-
-#### Ubuntu:
+#### Ubuntu
 
 sudo apt-get install libpoppler-cpp-dev libpoppler-qt4-dev libboost-dev libboost-python-dev libboost-system-dev libboost-thread-dev
+
+#### Debian
+
+
+
 
 Then:
 
