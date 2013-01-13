@@ -59,6 +59,34 @@ def home(request):
             { 'repos' : repos[:8], "said": said, 'vc_url' :settings.VC_URL },
         context_instance=RequestContext(request))
 
+def category(request, category):
+    data = get_api('all')
+    repos = []
+    for repo in data:
+        r = repo
+        if r['category'] != category:
+            continue
+        
+        try:
+            r['web_path'] = reverse('osp.views.project', args=[ r['category'], r['name'] ])
+        except NoReverseMatch:
+            r['web_path'] = ''
+            
+        ice = []
+        # The iceberg returned by the APO is just like a regular tree, 
+        # so there’s files and folders
+        if 'iceberg' in r and 'files' in r['iceberg']:
+            for penguin in r['iceberg']['files']:
+                # This is where you would add specific logic to not include
+                # certain file types
+                ice.append(penguin)
+        r['iceberg'] = ice
+        repos.append(r)
+
+    return render_to_response('category.html',
+        { 'repos' : repos[:8], "said": said, 'vc_url' :settings.VC_URL, 'category' : category },
+    context_instance=RequestContext(request))
+
 def browse(request, category, name, path):
     repo_slug = which_repo(category, name)
     try:
@@ -185,3 +213,5 @@ def project(request, category, name, path=""):
     #return render_to_response('project_base.html',
             #{ 'repo' : repo, "said": said, 'vc_url' :settings.VC_URL },
         #context_instance=RequestContext(request))
+
+

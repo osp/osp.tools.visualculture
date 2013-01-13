@@ -1,13 +1,10 @@
 {% extends 'base.html' %}
+{% block header %}
+<h1>{{ category|title }}</h1>
+{% endblock %}
 
 {% block content %}
 <div id="active-projects">
-    <script>
-    // $('#active-projects').masonry({
-    //   itemSelector: '.project'
-    // });
-    </script>
-
     {% for repo in repos %}
     <div class="project">
         <p class="project-type">{{ repo.category }}</p>
@@ -18,15 +15,13 @@
 
         <div class="iceberg">
             {% for ice in repo.iceberg reversed %}
-                <a href="/{{ repo.category }}/{{ repo.name }}/tree/master/iceberg/{{ ice.name }}">
+                <a href="{{ repo.web_path }}">
                 <img class="{% if forloop.first %}iceberg-pict-big{% else %}iceberg-pict{% endif %}" src="{{vc_url}}{{ repo.slug }}/{{ice.hex}}?width=200">
             </a>
             {% endfor %}
         </div>
 
         <p class="project-source"><a href="{{ repo.web_path }}">Source files</a></p>
-
-        {% include "commit-list.html" %}
         
     </div>
     {% endfor %}
