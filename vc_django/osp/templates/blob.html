@@ -5,10 +5,6 @@
 <h2>{{ blob.mime }}</h2>
 <p><a href="{{ blob.raw_url }}">Download raw</a> ({{ blob.size }})</p>
 
-{# We need a way to now if what kind of response we can get from vc
-    images? text/html? and make a corresponding template
-    #}
-
-<img src="{{vc_url}}{{ repo.slug }}/{{blob.hex}}?width=600" />
+<a rel="embed" href="{{vc_url}}{{ repo.slug }}/{{blob.hex}}?width=600">{{vc_url}}{{ repo.slug }}/{{blob.hex}}?width=600</a>
 
 {% endblock %}
