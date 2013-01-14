@@ -16,16 +16,12 @@ Installation
 sudo apt-get install rabbitmq-server
 
 Get the latest libgit2 release from https://github.com/libgit2/libgit2/downloads
-and build it as in the instructions provided on the website.
+and build it as in the instructions provided on http://libgit2.github.com.
 
 Finally Python can’t automatically find the libraries, you have to tell it
-where they are at, i.e. add
+where they are at, do:
 
-export LD_LIBRARY_PATH=/usr/local/lib
-
-to your .bashrc
-
-see:  http://stackoverflow.com/questions/1099981/why-cant-python-find-shared-objects-that-are-in-directories-in-sys-path
+sudo ldconfig
 
 #### OS X
 
@@ -62,16 +58,7 @@ sudo rabbitmqctl set_permissions user '.*' '.*' '.*'
 
 ### Setting up the Celery queue
 
-Add the following to your settings.py:
-
-import djcelery
-djcelery.setup_loader()
-BROKER_URL = 'amqp://user:password@localhost:5672/'
-
-Add 'djcelery' to the installed_apps tuple in settings.py,
-run python manage.py syncdb
-
-Now you can run the queue as:
+Run the queue as:
 
 python manage.py celeryd --purge -E -c 2
 
@@ -81,15 +68,22 @@ running: the Celery queue en the Django server.
 Adding vc image rendering components
 ------------------------------------
 
-### PDF-SUPPORT
-
-Poppler
+### PDF-SUPPORT : Poppler
 
 #### Ubuntu:
 
 sudo apt-get install libpoppler-cpp-dev libpoppler-qt4-dev libboost-dev libboost-python-dev libboost-system-dev libboost-thread-dev
 
-Then:
+#### Debian
+
+well, just a note
+
+a) remove the leading 'lib' from the resulting library filename
+b) drop it wherever Python can find it and it will be available as a module
+c) because the Debian we run on doesn't have libpoppler-cpp, I got the 0.20 tarball, compile it and installed it in the venv we use for this deployment, then adjusted PKG_CONFIG_PATH to make cmake find it
+
+
+#### Then:
 
 mkdir build && cd build
 cmake ..
@@ -102,7 +96,9 @@ brew install poppler boost
 
 ### FONT-SUPPORT
 
-sudo apt-get install python-fontforge
+sudo apt-get install python-fontforge fontforge
+
+#### OSX
 
 brew install fontforge
 
