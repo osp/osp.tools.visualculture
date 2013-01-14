@@ -2,7 +2,7 @@
 <html dir="ltr" lang="en-US">
     <head>
         <meta charset="UTF-8" />
-        <title>{{ title }}</title>
+        <title>OSP (Open Source Publishing) → {{ title }}</title>
 {% load compress %}
 {% if COMPRESS_ENABLED %}
 {% compress css %}
@@ -35,13 +35,12 @@
     {% block body %}
         {% block header %}
         <div id="home-infos">
-        What is that? Some says that those snapshots are to our work what the
-	pictures of a cookbook are to the cooked meal. source files = ingredients. These
-	arrangements of blocks of text and pictures tries harder to depict the most
-	current projects, some interesting visual extracts and the source files that
-	provide a convenient way to access to study it, change it, to redistribute
-	copies of it, to improve it and release your improvements (and modified versions
-	in general). Nous sommes embarqués.
+        What is that? Some says that those snapshots are to our work what the pictures of a cookbook are to the cooked meal. 
+        Source files = ingredients. These arrangements of blocks of text and pictures try harder to depict the most current 
+        projects, their narratives, some selected visuals and the source files of everything. We warmly welcome you to <a href="http://en.wikipedia.org/wiki/Copyleft#Applying_copyleft">study</a> 
+        them, <a href="http://en.wikipedia.org/wiki/Copyleft#Applying_copyleft">improve</a> them, to <a href="http://en.wikipedia.org/wiki/Copyleft#Applying_copyleft">redistribute copies</a> 
+        of them and <a href="http://en.wikipedia.org/wiki/Copyleft#Applying_copyleft">release your improvements</a> (or fucked up versions as you like). 
+	Nous sommes embarqués.
 	<a href="http://osp.constantvzw.org/about">Read more about the way we work → </a>
         </div>
         {% endblock %}
@@ -55,24 +54,8 @@
 
         {% block menu %}
         <!-- Menu navigation-->
-         <div id="menu-wrapper">
-            <ul id="menu">
-                <li><a href="/work/">Works</a></li>
-                <li><a href="http://osp.constantvzw.org/foundry/">Foundry</a></li>
-                <li><a href="/workshop/">Workshops</a></li>
-                <li><a href="/tools/">Tools</a></li>
-                <li><a href="http://osp.constantvzw.org/blog/">Blog</a></li>
-                <li><a href="http://osp.constantvzw.org/images/">Images</a></li>
-                <li><a href="http://osp.constantvzw.org/about">About</a></li>
-                <li><a href="http://osp.constantvzw.org/contact">Contact</a></li>
-                <li>
-                    <object data="{{ STATIC_URL }}img/OSP_new-frog.svg" style="width:59px;height:67px;" type="image/svg+xml">
-                        <img alt="A stylised image of a frog." style="width:59px;height:67px;" src="{{ STATIC_URL }}img/OSP_new-frog.png">
-                    </object>
-                    <a href="/">OSP,</a>
-                    <p id="baseline">Graphic design caravan</p>
-                </li>
-            </ul>
+            <div id="menu-wrapper">
+{% include "partials/nav.html" %}
             </div>
 
 <div>

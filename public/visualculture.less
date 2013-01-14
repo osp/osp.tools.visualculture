@@ -60,11 +60,28 @@ p {
 }
 
 body { 
-    font-family: "karla"; 
+    font-family: "patin"; 
     font-size: 12px; 
     line-height: 1.2;
     color: black;
 } 
+
+h1{ 
+    font-family: "patin"; 
+    font-size: 35px; 
+    color: black;
+    font-weight: normal;
+    line-height: 0.9;
+    margin-top:0px;
+} 
+
+h2{ 
+    font-family: "patin"; 
+    font-size: 21px; 
+    color: black;
+    font-weight: normal;
+} 
+
 a {
     color: @color-link;
     text-decoration:none;
@@ -103,7 +120,7 @@ background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63
 */
 }
 .project-type{
-    font-family: karla, sans; 
+    font-family: patin, sans; 
     text-transform: uppercase;
     font-size: 13px; 
     text-align: center; 
@@ -111,7 +128,7 @@ background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63
     letter-spacing: 0.025em;
 }
 .project-title{
-    font-family:karla; 
+    font-family:patin; 
     font-size: 30px;  
     text-align: left; 
     margin-bottom: 20px;
@@ -120,6 +137,16 @@ background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63
     letter-spacing: -0.03em;
     font-weight: normal;
 }
+.project-description-from-the-readme{
+	font-family:patin; 
+	font-size: 15px;  
+	text-align: left; 
+	margin-bottom: 20px;
+	margin-left: 10px;
+	line-height: 1.2;
+	font-weight: normal;
+}
+
 //iceberg pictures -------------------------------------------------
 .iceberg{
     margin-right:15px;
@@ -211,6 +238,7 @@ background: linear-gradient(left, @color-author-said-gauche 0%,@color-author-sai
 div#project-detail .iceberg,
 div#project-detail .commit-list {
     float: left;
+    margin-right: 20px;
 }
 div#project-detail-head h1,
 div#project-detail-head a.git-clone {
@@ -220,12 +248,38 @@ div#project-detail-head a.git-clone {
     background-color: blue;
     color: white;
     font-weight: bold;
-    margin: 1em;
+    margin: 0 1em;
     padding: 1em;
 }
 div#project-detail-body {
     clear: both;
 }
+
+.project-detail-img-file {
+    margin-top: 20px;
+}
+
+.project-detail-file-name{   
+    font-family:lmroman; 
+    font-size: 18px;  
+    text-align: left; 
+    font-weight: normal;
+}
+
+.project-detail-file-mime{
+    font-family:lmroman; 
+    font-size: 12px;  
+    text-align: left; 
+    font-weight: normal;
+}
+
+.project-detail-blob-size{   
+    font-family:lmroman; 
+    font-size: 12px;  
+    text-align: left; 
+    font-weight: normal;
+}
+
 
 
 ///////// menu /////////
@@ -249,8 +303,7 @@ div#project-detail-body {
     position: absolute;
     right:10px;
     top: 10px;
-    font-family: karla, sans; 
-    text-transform : uppercase;
+    font-family: patin, sans; 
     line-height : 18px;
     margin-top: 20px;
     margin-right:30px;
@@ -263,7 +316,7 @@ div#project-detail-body {
 }
 #menu li{
     list-style: none;
-    font-family: karla, serif;
+    font-family: patin, serif;
 }
 #menu a:link {
     color: @color-link; 
@@ -304,7 +357,7 @@ div#project-detail-body {
     text-align: left; 
     color: blue; 
 //     border:solid 1px;
-    font-family:karla; 
+    font-family:patin; 
 }
 
 
@@ -314,7 +367,7 @@ div#project-detail-body {
     margin-top: 20px;
     margin-left: 20px;
     height: 100%;
-    font-family: karla, sans; 
+    font-family: patin, sans; 
     font-size: @font-size-medium; 
     text-align: left; 
     color: black; 
@@ -333,7 +386,7 @@ div#project-detail-body {
     width: 520px;
     margin-top: 20px;
     margin-left: 40px;
-    font-family: karla, sans; 
+    font-family: patin, sans; 
     font-size: @font-size-medium; 
     text-align: left; 
     color: black; 
