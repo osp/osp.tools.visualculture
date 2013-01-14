@@ -60,7 +60,7 @@
     <div id="project-detail-body">
         <div class="iceberg">
             {% for ice in repo.iceberg.files reversed %}
-                <a href="{{ repo.web_path }}">
+                <a href="/{{ repo.category }}/{{ repo.name }}/tree/master/iceberg/{{ ice.name }}">
                     <img src="{{vc_url}}{{ repo.slug }}/{{ice.hex}}?width=200">
                 </a>
             {% endfor %}

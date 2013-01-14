@@ -16,8 +16,16 @@
 {% compress js %}
         <script src="{{ STATIC_URL }}js/jquery-1.7.2.min.js"></script>
         <script src="{{ STATIC_URL }}js/bootstrap-modal.js"></script>
-<!--         <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script> -->
-<!--         <script src="{{ STATIC_URL }}js/jquery.masonry.min.js"></script> -->
+        <script src="{{ STATIC_URL }}js/jquery.masonry.min.js"></script>
+        <script>
+        $(window).load(function() {
+            $('#active-projects').masonry({
+                itemSelector: '.project',
+                isFitWidth: true,
+                columnWidth: 290
+            });
+        });
+        </script>
 {% endcompress %}
 
 

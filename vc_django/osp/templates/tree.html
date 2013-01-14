@@ -19,7 +19,7 @@
         <div class="thumbnail preview">
             <div class="thumb">
             <a href="{{ file.href }}">
-                <img src="{{ STATIC_URL }}img/OSP_new-frog.png" />
+                <img src="{{vc_url}}{{ repo.slug }}/{{file.hex}}?width=140" />
             </a>
             </div>
             <h5>{{ file.name }}</h5>
