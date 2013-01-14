@@ -65,4 +65,5 @@ venv
 Icon?
 ehthumbs.db
 Thumbs.db
+*.swp
 
