@@ -14,11 +14,8 @@ try:
 except ImportError:
     HAVE_GITCOLLECTION = False
     import urllib
-    import json
 
-#from visual_culture.readers import *
-
-#vc_reader = Reader()
+import json
 
 from vc_cache.models import VCCache
 
@@ -67,6 +64,7 @@ def blob_data(request, repo_name, oid):
     cache = VCCache()
     blob = cache.Get(repo_name, oid, options=options)
     
-    return HttpResponse(blob['data'], mimetype=blob['mime'])
+    #return HttpResponse(blob['data'], mimetype=blob['mime'])
+    return HttpResponse(json.dumps(blob, indent=2), mimetype="application/json")
     
     
