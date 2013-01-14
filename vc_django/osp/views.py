@@ -132,7 +132,7 @@ def browse(request, category, name, path):
         breadcrumbs.append(breadcrumb)
 
 
-    title = "Browsing %s in %s" % (path, name)
+    title = "you're traveling toward %s in %s" % (path, name)
     if obj['type'] == 'tree':
         # Add hyperlinks to all files and folders
         dirs = []
