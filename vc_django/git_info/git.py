@@ -28,7 +28,6 @@ class GitRepository(object):
         # in case of a bare git repository, the folder name will end in .git
         # this is stripped off
         
-        # This is buggy 'rstrip' argument is a collection of chars to remove, NOT a string
         self.repo_fullname = os.path.basename(os.path.normpath(fname))
         if self.repo_fullname.endswith('.git'):
             self.repo_fullname = self.repo_fullname[:-4]

@@ -12,12 +12,12 @@ import settings
 from django.db import models
 
 from git_info import git
-from vc_cache import tasks 
 from vc_cache import utils 
+from visual_culture.readers import Reader
 
 import time
-
 import magic
+
 magic_find_mime = None
 try:
     magic_find_mime = magic.open(magic.MIME_TYPE)
@@ -78,26 +78,26 @@ class VCCache(models.Model):
         options_h = utils.hash_options(options)
         try:
             obj = VCCache.objects.get(repo_name=repo_name, blob_hex=blob_hex, cache_options=options_h)
-            f = open(os.path.join(self.root_path, repo_name, options_h, blob_hex), 'rb')
-            data = f.read()
-            f.close()
             mime = obj.blob_mime
         except VCCache.DoesNotExist:
-            print('[%s][%s] Not found in cache'%(options_h,time.asctime()))
             blob_info = self.get_from_module(repo_name, blob_hex)
-            print('[%s][%s] Got the blob info'%(blob_info['blob_url'],time.asctime()))
-            task_result = tasks.read_blob.delay(self.root_path, blob_info, options)
-            result = task_result.get() # synchronous
+            r = Reader()
+            result = r.read_blob(blob_info, options)
+            cpath = os.path.join(self.root_path, repo_name, options_h)
+            utils.ensure_dir(cpath)
+            f = open(os.path.join(cpath, blob_hex), 'wb')
+            f.write(result['data'])
+            f.close()
             obj = VCCache()
             obj.repo_name = repo_name
             obj.blob_hex = blob_hex
             obj.blob_mime = result['mime']
             obj.cache_options = options_h
             obj.save()
-            data = result['data']
-            mime =obj.blob_mime
+            mime = obj.blob_mime\
             
-        return {'data':data, 'mime':mime}
+        cache_url = os.path.join(self.root_url, repo_name, options_h, blob_hex)
+        return {'url':cache_url, 'mime':mime}
 
 
 #class VCCacheProcessServer(StreamServer):

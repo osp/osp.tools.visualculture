@@ -86,11 +86,14 @@ def render_repo(repo_slug, n_commits=5, tree=False, iceberg=False):
     context['slug'] = repo_slug
     context['commits'] = []
     i = 0
-    for commit in repo.walk(repo.head.hex, pygit2.GIT_OBJ_TREE):
-        context['commits'].append(render_commit(repo_slug, commit))
-        i += 1
-        if i == n_commits:
-            break
+    try:
+        for commit in repo.walk(repo.head.hex, pygit2.GIT_OBJ_TREE):
+            context['commits'].append(render_commit(repo_slug, commit))
+            i += 1
+            if i == n_commits:
+                break
+    except Exception as exn:
+        pass
     if tree:
         context['tree'] = render_tree(repo_slug, repo.head.tree)
     if iceberg:
