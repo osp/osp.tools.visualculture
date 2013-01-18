@@ -2,11 +2,8 @@
 
 {% block navigation %}
         <!-- Header and options when showing a repository -->
-        <div class="row">
-        <div class="span6">
-            <ul class="nav nav-pills">
-                <li> <!-- Navigate through the repository -->
-                    <ul class="breadcrumb">
+        <!-- Navigate through the repository -->
+        <ul class="breadcrumb">
                         {% for breadcrumb in breadcrumbs %}
                         {% if not forloop.last %}
                         <li>
@@ -18,14 +15,9 @@
                         </li>
                         {% endif %}
                         {% endfor %}
-                    </ul>
-                </li>
-            </ul>
-        </div>
-
+        </ul>
         <!-- Showing the HEAD-->
         {% comment %}
-        <div class="span4">
             <div class="commit-list">
                 <ul>
                     <li class="commit" >
@@ -44,10 +36,7 @@
                     </li>
                 </ul>
             </div>
-        </div>
         {% endcomment %}
-
-        </div>
 {% endblock %}
 
 {% block content %}
