@@ -8,6 +8,7 @@
 @font-size-small: 12px;
 @font-size-medium: 15px;
 @font-size-big: 21px;
+@font-size-huge: 21px;
 @font-default: "patin"; 
 
 
@@ -51,6 +52,21 @@ li {
 	list-style: none;
 	list-style-type: none;
 }
+h1{ 
+font-family: @font-default; 
+font-size: @font-size-huge; 
+color: @color-text;
+font-weight: normal;
+line-height: 0.9;
+margin-top:0px;
+} 
+h2{ 
+font-family: @font-default; 
+font-size: @font-size-big; 
+color: @color-text;
+font-weight: normal;
+line-height: 0.9;
+} 
 
 
 // fonts -------------------------------------------------
@@ -249,18 +265,18 @@ div#project-detail-head a.git-clone {
     background-color: blue;
     color: white;
     font-weight: bold;
-    margin: 1em;
+    margin: 0 1em;
     padding: 1em;
 }
 div#project-detail-body {
     clear: both;
 }
 .project-detail-img-file {
-    border: 5px solid red;
+    margin-top: 20px;
 }
 .project-detail-file-name{   
     font-family:lmroman; 
-    font-size: 15px;  
+    font-size: 18px;  
     text-align: left; 
     font-weight: normal;
 }
@@ -270,6 +286,14 @@ div#project-detail-body {
     text-align: left; 
     font-weight: normal;
 }
+
+.project-detail-blob-size{   
+    font-family:lmroman; 
+    font-size: 12px;  
+    text-align: left; 
+    font-weight: normal;
+}
+
 
 
 // menu -------------------------------------------------

@@ -53,7 +53,7 @@
         <div class="iceberg">
             {% for ice in repo.iceberg.files reversed %}
                 <a href="/{{ repo.category }}/{{ repo.name }}/tree/master/iceberg/{{ ice.name }}">
-                    <img src="{{vc_url}}{{ repo.slug }}/{{ice.hex}}?width=200">
+                    <a rel="embed" href="{{vc_url}}{{ repo.slug }}/{{ice.hex}}?width=200"></a>
                 </a>
             {% endfor %}
         </div>
@@ -84,4 +84,12 @@
                 <a href="#" class="btn" data-dismiss="modal">Close</a>
             </div>
         </div>
+{% endblock %}
+
+{% block js %}
+{{ block.super }}
+<script src="{{ STATIC_URL }}osp/js/osp.js"></script>
+<script>
+jQuery(document).ready(VC.annotations.init());
+</script>
 {% endblock %}
