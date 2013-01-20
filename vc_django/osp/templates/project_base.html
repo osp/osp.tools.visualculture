@@ -93,8 +93,29 @@
     <script>
     $(function() {
         $(".commit").each(function() {
-            var commitDateTime = new Date($(this).data("date")),
-                times = SunCalc.getTimes(commitDateTime, 50.850, 4.383);
+            // var commitDateTime = new Date($(this).data("date")),
+            //     times = SunCalc.getTimes(commitDateTime, 50.850, 4.383);
+
+            // var dayBegin = new Date(commitDateTime.getTime());
+            //     dayBegin.setHours(0, 0, 0, 0);
+            // var dayEnd = new Date(dayBegin.getFullYear(), dayBegin.getMonth(), dayBegin.getDate()+1);
+
+            // var ba = dayEnd - dayBegin;
+            // var xa = commitDateTime - dayBegin;
+            // var pc = xa / ba * 100;
+
+            // var timeline = $("<div>").css({"border": "1px solid black"});
+            //     var commitPoint = $("<div>").css({"background-color": "red", "width": "2px", "height": "5px", "position": "relative", "left": pc + "%"});
+            // timeline.append(commitPoint);
+            // $(this).prepend(timeline);
+
+            // for (var i in times) {
+            //     xa = times[i] - dayBegin;
+            //     pc = xa / ba * 100;
+            //     var point = $("<div>").css({"background-color": "blue", "width": "2px", "height": "5px", "position": "relative", "left": pc + "%"});
+            //     timeline.append(point);
+            //     
+            // }
 
             //console.log(times);
 
