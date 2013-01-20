@@ -14,14 +14,14 @@
 
 // colors variables -------------------------------------------------
 
-@color-background: #ddddff;
+@color-background: white;
 @color-text: black;
 @color-link: black;
 @color-author: yellow;
 @color-author-said-gauche: #b8d37a;
 @color-author-said-droite: #87bcea;
 @color-message: lightblue;
-@color-date: springgreen;
+@color-date: #AFEEEE;
 @dawn-sky: #ed3aff; 
 @dawn-earth: #ffdd83;
 @day-sky: #0e4d81;
@@ -197,6 +197,9 @@ background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63
     margin-bottom: -1px;
     margin-right: -1px;   
 }
+.ellipse {
+    clear: both;
+}
 .commit{
 //        padding-left: 18px;
 }
@@ -211,6 +214,8 @@ background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63
     .grappe;
     display: inline-block;
     background-color: @color-author;
+    position: relative;
+    border-bottom-color: yellow;
 }
 .commit-author-said{
     text-transform: none;
@@ -220,27 +225,42 @@ background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63
     border:solid 1px;
     .grappe(1px, 3px, 1px, 3px);
     display: inline-block;
-    // background-color: @color-author-said;
-background: #b8d37a; /* Old browsers */
-background: -moz-linear-gradient(left, @color-author-said-gauche 0%, @color-author-said-droite 100%); /* FF3.6+ */
-background:  -webkit-gradient(linear, left top, right top, color-stop(0%,@color-author-said-gauche),  color-stop(100%,@color-author-said-droite)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(left, @color-author-said-gauche 0%,@color-author-said-droite 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(left, @color-author-said-gauche 0%,@color-author-said-droite 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(left, @color-author-said-gauche 0%,@color-author-said-droite 100%); /* IE10+ */
-background: linear-gradient(left, @color-author-said-gauche 0%,@color-author-said-droite 100%); /* W3C */
+    background-color: @color-author;
+    position: relative;
+    border-left-color: @color-author;
+    top: 4px;
+    margin-left: -1px;
+    border-bottom-color: yellow;
+}
+.commit-spacer {
+    width: 19px;
+    height: 1em;
+    float: left;
+    border-top: 1px solid black;
+    position: relative;
 }
 .commit-message{
-       margin-left: 18px;
-       text-indent: -18px;
-       font-family: @font-default;
-       font-size: 14px;
-       line-height: 1.3em; 
-       border:solid 1px;
-       display: inline-block;
-       padding: 6px 4px 3px 22px;
-       background-color: @color-message;
+    float: left;
+    /*margin-left: 18px;*/
+    text-indent: -18px;
+    font-family: @font-default;
+    font-size: 14px;
+    line-height: 1.3em; 
+    border:solid 1px;
+    display: inline-block;
+    padding: 6px 4px 3px 22px;
+    /*background: #b8d37a; [> Old browsers <]*/
+    background: -moz-linear-gradient(top, @color-author 0%, @color-date 100%); /* FF3.6+ */
+    background:  -webkit-gradient(linear, top, bottom, color-stop(0%,@color-author),  color-stop(100%,@color-date)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, @color-author 0%,@color-date 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, @color-author 0%,@color-date 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, @color-author 0%,@color-date 100%); /* IE10+ */
+    background: linear-gradient(top, @color-author 0%,@color-date 100%); /* W3C */
+    max-width: 200px;
+    margin-left: -1px;
 }
 .commit-date{
+    float: left;
     font-family: lmroman;
     font-size: @font-size-small; 
     margin-left: 18px;
@@ -251,6 +271,8 @@ background: linear-gradient(left, @color-author-said-gauche 0%,@color-author-sai
     padding-right: 4px;
     .grappe(1px, 3px, 1px, 3px);
     background-color: @color-date;
+    border-top-color: @color-date;
+    margin-top: -2px;
 }
 .commit-source {
     font-size: @font-size-small;
