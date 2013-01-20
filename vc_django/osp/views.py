@@ -83,7 +83,7 @@ def category(request, category):
         r['iceberg'] = ice
         repos.append(r)
 
-    return render_to_response('category.html',
+    return render_to_response('category_%s.html'%(category,),
         { 'repos' : repos[:8], "said": said, 'vc_url' :settings.VC_URL, 'category' : category },
     context_instance=RequestContext(request))
 

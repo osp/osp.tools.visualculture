@@ -1,97 +1,108 @@
 @import "less/bootstrap/bootstrap.less";
 
-/* --- osp styles --- */ 
-/* Variables */
-@color-background: #5555FF;
-@color-link: black;
-@font-size-micro :7px;
-@font-size-mini :9px;
+
+// font sizes variables -------------------------------------------------
+
+@font-size-micro: 7px;
+@font-size-mini: 9px;
 @font-size-small: 12px;
 @font-size-medium: 15px;
 @font-size-big: 21px;
+@font-size-huge: 21px;
+@font-default: "patin"; 
+
+
+// colors variables -------------------------------------------------
+
+@color-background: #ddddff;
+@color-text: black;
+@color-link: black;
 @color-author: yellow;
 @color-author-said-gauche: #b8d37a;
 @color-author-said-droite: #87bcea;
 @color-message: lightblue;
 @color-date: springgreen;
 
-li {
-  list-style: none;
-  list-style-type: none;
-}
 
+// default -------------------------------------------------
 
-/* Page */ 
 html { 
-  font-size: 100%; 
+	font-size: 100%; 
 } 
-//fonts
-@font-face {
-    font-family: lmitalic;
-    src: url("./fonts/lmroman10-italic.otf");
-}
-@font-face {
-    font-family: lmroman;
-    src: url("./fonts/lmroman10-regular.otf");
-}
-@font-face {
-    font-family: patin;
-    src: url("./fonts/OSP_Le-patin-helvete.ttf");
-}
-@font-face {
-    font-family: univers;
-    src: url("./fonts/UniversElse-Regular.ttf");
-}
-@font-face {
-    font-family: universlight;
-    src: url("./fonts/UniversElse-Light.ttf");
-}
-@font-face {
-    font-family: universbold;
-    src: url("./fonts/UniversElse-Bold.ttf");
-}
-@font-face {
-    font-family: karla;
-    src: url("./fonts/Karla-Regular.ttf");
-}
-//default
-p {
-    margin: 0;
-}
-
 body { 
-    font-family: "patin"; 
-    font-size: 12px; 
-    line-height: 1.2;
-    color: black;
+    font-family: @font-default; 
+    font-size: @font-size-small; 
+    line-height: 1.1;
+    color: @color-text;
+    background-color: @color-background;
 } 
-
-h1{ 
-    font-family: "patin"; 
-    font-size: 35px; 
-    color: black;
-    font-weight: normal;
-    line-height: 0.9;
-    margin-top:0px;
-} 
-
-h2{ 
-    font-family: "patin"; 
-    font-size: 21px; 
-    color: black;
-    font-weight: normal;
-} 
-
+p {
+	margin: 0;
+}
 a {
     color: @color-link;
     text-decoration:none;
 }
 dt {
        letter-spacing: 0.05em;
-       font-family: lmroman, serif; 
+       font-family: lmroman; 
        font-size: @font-size-small;
 }
-///////// active pieces /////////
+li {
+	list-style: none;
+	list-style-type: none;
+}
+h1{ 
+font-family: @font-default; 
+font-size: @font-size-huge; 
+color: @color-text;
+font-weight: normal;
+line-height: 0.9;
+margin-top:0px;
+} 
+h2{ 
+font-family: @font-default; 
+font-size: @font-size-big; 
+color: @color-text;
+font-weight: normal;
+line-height: 0.9;
+} 
+
+
+// fonts -------------------------------------------------
+
+@font-face {
+	font-family: lmitalic;
+	src: url("./fonts/lmroman10-italic.otf");
+}
+@font-face {
+	font-family: lmroman;
+	src: url("./fonts/lmroman10-regular.otf");
+}
+@font-face {
+	font-family: patin;
+	src: url("./fonts/OSP_Le-patin-helvete.ttf");
+}
+@font-face {
+	font-family: univers;
+	src: url("./fonts/UniversElse-Regular.ttf");
+}
+@font-face {
+	font-family: universlight;
+	src: url("./fonts/UniversElse-Light.ttf");
+}
+@font-face {
+	font-family: universbold;
+	src: url("./fonts/UniversElse-Bold.ttf");
+}
+@font-face {
+	font-family: karla;
+	src: url("./fonts/Karla-Regular.ttf");
+}
+
+
+// active pieces -------------------------------------------------
+
 #active-projects,
 #project-detail {
      .clearfix;
@@ -104,7 +115,9 @@ dt {
     padding-right: 165px;
 }
 
+
 // project box -------------------------------------------------
+
 .project{
     float: left;
     width: 250px;
@@ -120,16 +133,15 @@ background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63
 */
 }
 .project-type{
-    font-family: patin, sans; 
+    font-family: @font-default; 
     text-transform: uppercase;
-    font-size: 13px; 
+    font-size: @font-size-medium; 
     text-align: center; 
-    line-height: 13px;
     letter-spacing: 0.025em;
 }
 .project-title{
-    font-family:patin; 
-    font-size: 30px;  
+    font-family: @font-default; 
+    font-size: @font-size-big;  
     text-align: left; 
     margin-bottom: 20px;
     margin-left: 10px;
@@ -138,16 +150,18 @@ background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63
     font-weight: normal;
 }
 .project-description-from-the-readme{
-	font-family:patin; 
-	font-size: 15px;  
+	font-family: @font-default ; 
+	font-size: @font-size-medium;  
 	text-align: left; 
 	margin-bottom: 20px;
 	margin-left: 10px;
-	line-height: 1.2;
+	letter-spacing: -0.03em;
 	font-weight: normal;
 }
 
-//iceberg pictures -------------------------------------------------
+
+// iceberg pictures -------------------------------------------------
+
 .iceberg{
     margin-right:15px;
     width: 225px;
@@ -161,7 +175,9 @@ background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63
 //     border: solid 1px gray;
     width:250px;
     }
-// commit -------------------------------------------------
+    
+    
+// commits -------------------------------------------------
  
 .commit-list{
        width: 250px;
@@ -175,14 +191,13 @@ background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63
 }
 .commit{
 //        padding-left: 18px;
-       line-height: 1.2em;
 }
 .commit p {
     margin-bottom: 0;
 }
 .commit-author{
     text-transform: uppercase;
-    font-family: lmroman, serif;
+    font-family: lmroman;
     letter-spacing: 0.05em;
     font-size: @font-size-small;
     .grappe;
@@ -191,7 +206,7 @@ background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63
 }
 .commit-author-said{
     text-transform: none;
-    font-family: lmroman, serif;
+    font-family: lmroman;
     letter-spacing: 0.05em;
     font-size: @font-size-small; 
     border:solid 1px;
@@ -209,7 +224,7 @@ background: linear-gradient(left, @color-author-said-gauche 0%,@color-author-sai
 .commit-message{
        margin-left: 18px;
        text-indent: -18px;
-       font-family: patin, serif;
+       font-family: @font-default;
        font-size: 14px;
        line-height: 1.3em; 
        border:solid 1px;
@@ -218,7 +233,7 @@ background: linear-gradient(left, @color-author-said-gauche 0%,@color-author-sai
        background-color: @color-message;
 }
 .commit-date{
-    font-family: lmroman, serif;
+    font-family: lmroman;
     font-size: @font-size-small; 
     margin-left: 18px;
     border:solid 1px;
@@ -234,7 +249,9 @@ background: linear-gradient(left, @color-author-said-gauche 0%,@color-author-sai
        margin-left: 18px;
 }
 
-///////// project-detail /////////
+
+// project-detail -------------------------------------------------
+
 div#project-detail .iceberg,
 div#project-detail .commit-list {
     float: left;
@@ -254,18 +271,15 @@ div#project-detail-head a.git-clone {
 div#project-detail-body {
     clear: both;
 }
-
 .project-detail-img-file {
     margin-top: 20px;
 }
-
 .project-detail-file-name{   
     font-family:lmroman; 
     font-size: 18px;  
     text-align: left; 
     font-weight: normal;
 }
-
 .project-detail-file-mime{
     font-family:lmroman; 
     font-size: 12px;  
@@ -282,7 +296,8 @@ div#project-detail-body {
 
 
 
-///////// menu /////////
+// menu -------------------------------------------------
+
 #menu-wrapper{
 // The menu sticks to the right of this wrapper.
 // The wrapper is at 100% of the page unless the page
@@ -298,12 +313,11 @@ div#project-detail-body {
     .box-sizing(border-box);
     z-index: 100;
 }
-
 #menu{
     position: absolute;
     right:10px;
     top: 10px;
-    font-family: patin, sans; 
+    font-family: @font-default; 
     line-height : 18px;
     margin-top: 20px;
     margin-right:30px;
@@ -311,12 +325,11 @@ div#project-detail-body {
     font-size: 13px; 
     letter-spacing: 0.025em;
     text-align: left; 
-    color: black; 
-    
+    color: @color-text;     
 }
 #menu li{
     list-style: none;
-    font-family: patin, serif;
+    font-family: @font-default;
 }
 #menu a:link {
     color: @color-link; 
@@ -328,24 +341,23 @@ div#project-detail-body {
 #menu a:visited { 
     color: @color-link; 
 }
-
 #baseline {
     display: block;
     text-transform: none;
-    font-family: patin, serif;
+    font-family: @font-default;
     font-size: 14px;
     color:blue;
 }
 
 
+// nav/breadcrumbs -------------------------------------------------
 
-///////// nav/breadcrumbs /////////
 .nav-pills {
     padding-left: 1em;
 }
 
 
-// infos -box ------------------------------------------------
+// infos-box ------------------------------------------------
 
 #home-infos{
     margin-top:15px;
@@ -357,7 +369,7 @@ div#project-detail-body {
     text-align: left; 
     color: blue; 
 //     border:solid 1px;
-    font-family:patin; 
+    font-family:@font-default; 
 }
 
 
@@ -367,27 +379,24 @@ div#project-detail-body {
     margin-top: 20px;
     margin-left: 20px;
     height: 100%;
-    font-family: patin, sans; 
+    font-family: @font-default; 
     font-size: @font-size-medium; 
     text-align: left; 
-    color: black; 
+    color: @color-text; 
 }
-
 .contact{ 
     color: blue; 
 }
-
 .osp-about-texts{
     color: red; 
 }
-
 #about-members{
     float : left;
     width: 520px;
     margin-top: 20px;
     margin-left: 40px;
-    font-family: patin, sans; 
+    font-family: @font-default; 
     font-size: @font-size-medium; 
     text-align: left; 
-    color: black; 
+    color: @color-text; 
 }
