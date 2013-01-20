@@ -2,6 +2,7 @@
 
 from osp.models import get_api, which_repo, ApiError
 from django.http import HttpResponse, Http404
+from django.template import Context, loader, TemplateDoesNotExist
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.core.urlresolvers import reverse, NoReverseMatch
@@ -83,9 +84,14 @@ def category(request, category):
         r['iceberg'] = ice
         repos.append(r)
 
-    return render_to_response('category_%s.html'%(category,),
-        { 'repos' : repos[:8], "said": said, 'vc_url' :settings.VC_URL, 'category' : category },
-    context_instance=RequestContext(request))
+    try:
+        t = loader.get_template('category_%s.html'%(category))
+    except TemplateDoesNotExist:
+        t = loader.get_template('category.html')
+    c = RequestContext(request,
+           { 'repos' : repos[:8], "said": said, 'vc_url' :settings.VC_URL, 'category' : category }
+       )
+    return HttpResponse(t.render(c))
 
 def browse(request, category, name, path):
     repo_slug = which_repo(category, name)
