@@ -39,6 +39,23 @@
         {% endcomment %}
 {% endblock %}
 
+
+{% block header %}
+    <div id="home-infos">
+    {% if repo.category == "tools" %}
+        {% include "header_tools.html" %}
+    {% elif repo.category == "workshop" %}
+        {% include "header_workshop.html" %}
+    {% elif repo.category == "work" %}
+        {% include "header_work.html" %}
+    {% else %}
+        {% include "header_default.html" %}
+    {% endif %}
+        <a href="http://osp.constantvzw.org/about">Read more about the way we work → </a>
+    </div>
+{% endblock %}
+
+
 {% block content %}
 <div id="project-detail">
 

@@ -1,8 +1,8 @@
 README OSP
 ==========
 
-The OSP website uses the Visual Culture api as basis. The osp app, contained
-in the vc_django project, can also be used as a standalone django app. This means
+The OSP website uses the Visual Culture api as basis to show our work based on our gitted practice. 
+The osp app, contained in the vc_django project, can also be used as a standalone django app. This means
 you don’t need to install all of visual culture locally when you just want to
 work on the OSP website.
 
