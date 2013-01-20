@@ -84,10 +84,10 @@ def category(request, category):
         r['iceberg'] = ice
         repos.append(r)
 
-    try:
-        t = loader.get_template('category_%s.html'%(category))
-    except TemplateDoesNotExist:
-        t = loader.get_template('category.html')
+    #try:
+        #t = loader.get_template('category_%s.html'%(category))
+    #except TemplateDoesNotExist:
+    t = loader.get_template('category.html')
     c = RequestContext(request,
            { 'repos' : repos[:8], "said": said, 'vc_url' :settings.VC_URL, 'category' : category }
        )
