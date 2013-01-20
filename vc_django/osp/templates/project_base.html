@@ -96,11 +96,3 @@
             </div>
         </div>
 {% endblock %}
-
-{% block js %}
-{{ block.super }}
-<script src="{{ STATIC_URL }}osp/js/osp.js"></script>
-<script>
-jQuery(document).ready(VC.annotations.init());
-</script>
-{% endblock %}
