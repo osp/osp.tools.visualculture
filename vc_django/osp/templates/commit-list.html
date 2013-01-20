@@ -1,6 +1,6 @@
 <div class="commit-list">
     {% for commit in repo.commits %}
-        <div class='ellipse' style='width: 5px; margin: auto; margin-left: 36px; height: {{ commit.ellipse }}px; border-left: 1px solid springgreen;'>&nbsp;</div>
+        <div class='ellipse' style='height: {{ commit.ellipse }}px;'>&nbsp;</div>
         <div class='commit'>
             <p><span class='commit-author'>{{ commit.author }}</span><span class='commit-author-said'>{{ said|random }}</span></p>
             <div class='commit-spacer'>
