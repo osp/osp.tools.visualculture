@@ -102,3 +102,25 @@
             </div>
         </div>
 {% endblock %}
+
+
+{% block js %}
+    {{ block.super }}
+    <script src="{{ STATIC_URL }}js/mourner-suncalc-f5bbdac/suncalc-min.js"></script>
+    <script>
+    $(function() {
+        $(".commit").each(function() {
+            var commitDateTime = new Date($(this).data("date")),
+                times = SunCalc.getTimes(commitDateTime, 50.850, 4.383);
+
+            //console.log(times);
+
+            //if (commitDateTime < times.sunrise || commitDateTime > times.sunset) {
+            //    $(this).css('background-color', 'black');
+            //} else {
+            //    $(this).css('background-color', 'white');
+            //};
+        });
+    });
+    </script>
+{% endblock %}
