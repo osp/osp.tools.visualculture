@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block extrahead %}
+<base target="_parent" />
+{% endblock %}
+
 {% block body %}
 <style>
     ul#menu {
@@ -7,5 +11,8 @@
     }
 </style>
 {% include "partials/nav.html" %}
+{% endblock %}
+
+{% block js %}
 {% endblock %}
 
