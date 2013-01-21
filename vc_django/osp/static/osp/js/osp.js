@@ -9,8 +9,8 @@ VC.annotations = (function ($) {
     // *-* public methods *-*
     var init = function () {
         $('[rel=embed]').each(function() {
-            var url = $(this).attr("href"),
-                that = this;
+            var url = $(this).attr("href");
+            var that = this;
 
             $.ajax(url, {
                 dataType: 'json',
@@ -22,9 +22,8 @@ VC.annotations = (function ($) {
                     console.info('success');
                     if (data.mime === "image/png") {
                         $(that).replaceWith('<img src="' + data.url + '"/>');
-                    } else if (data.mime === "text/plain") {
-                        console.log(data);
-                        
+                    } else {
+                        $(that).replaceWith('<img src="/static/img/OSP_new-frog.png" />');
                     };
                 },
                 error: function (xhr, ajaxOptions, thrownError) {

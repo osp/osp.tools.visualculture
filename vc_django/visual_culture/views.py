@@ -4,6 +4,8 @@ visual_culture.views
 
 
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, Http404, HttpResponseForbidden, HttpResponseNotAllowed
+from visual_culture.readers import MimeNotSupported
+
 
 HAVE_GITCOLLECTION = True
 magic_find_mime = None
@@ -62,7 +64,11 @@ def blob_data(request, repo_name, oid):
         options[k] = request.GET.get(k, '')
         
     cache = VCCache()
-    blob = cache.Get(repo_name, oid, options=options)
+    
+    try:
+        blob = cache.Get(repo_name, oid, options=options)
+    except MimeNotSupported:
+        blob = {'url': '', 'mime': ''}
     
     #return HttpResponse(blob['data'], mimetype=blob['mime'])
     return HttpResponse(json.dumps(blob, indent=2), mimetype="application/json")

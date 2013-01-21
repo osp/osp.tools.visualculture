@@ -2,10 +2,6 @@
 import os
 import django.conf.global_settings as DEFAULT_SETTINGS
 
-import djcelery
-djcelery.setup_loader()
-BROKER_URL = 'amqp://user:password@localhost:5672/'
-
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -32,6 +28,8 @@ if DEBUG:
     API_HOST = 'http:/127.0.0.1:8000/'
 else:
     API_HOST = '' # add web-reachable address of the server hosting the git_info
+
+PREFIX = 'osp' # Searches osp.something git repositories
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -112,7 +110,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'vc_django.middleware.ProfileMiddleware'
+    # 'vc_django.middleware.ProfileMiddleware'
 )
 
 ROOT_URLCONF = 'vc_django.urls'
@@ -135,7 +133,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'djcelery',
+    'django.contrib.markup',
     'compressor',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
@@ -144,7 +142,8 @@ INSTALLED_APPS = (
     'git_info',
     'visual_culture',
     'test_browser',
-    'vc_cache'
+    'vc_cache',
+    'osp'
 )
 
 COMPRESS_ENABLED = not DEBUG

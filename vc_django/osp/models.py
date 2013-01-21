@@ -9,7 +9,6 @@ class ApiError(Exception):
     def __str__(self):
         return '(%s) => %s'%(self.url,self.what)
 
-
 def repo_parts(repo_slug):
     parts = repo_slug.split('.')
     if PREFIX:
@@ -34,11 +33,23 @@ def get_api(*args):
     try:
         res = urlopen(req)
         api_dict = json.loads(res.read())
-    except URLError, e:
+    except URLError, e:  # This error checking code doesnt always work
         if hasattr(e, 'reason'):
             raise ApiError(url, e.reason)
         elif hasattr(e, 'code'):
             raise ApiError(url, e.code)
-
     return api_dict
 
+def get_url_contents(url):
+    req = Request(url)
+    res = urlopen(req)
+    res = None
+    try:
+        res = urlopen(req)
+        data = res.read()
+    except URLError, e: # This error checking code doesnt always work
+        if hasattr(e, 'reason'):
+            raise ApiError(url, e.reason)
+        elif hasattr(e, 'code'):
+            raise ApiError(url, e.code)
+    return data

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load markup %}
 
 {% block navigation %}
         <!-- Header and options when showing a repository -->
@@ -60,17 +61,18 @@
 <div id="project-detail">
 
     <div id="project-detail-head">
-        <h1>{{ repo.name }}</h1>
+        {% if not README %}<h1 class="repo_slug">{{ repo.name }}</h1>{% endif %}
         <a class="git-clone" data-toggle="modal" href="#cloneModal" >Git Clone</a>
-        <p class="project-description-from-the-readme">Maybe more a web publication than a website. Danslab is a practice based research initiative in The Hague that encourages 
-        a network for the artist’s development and exchange, as well builds on a centre for knowledge of artistic research, dance and choreography.</p>
+        <div class="project-description-from-the-readme">
+            {{ README|markdown }}
+        </div>
     </div>
 
     <div id="project-detail-body">
         <div class="iceberg">
             {% for ice in repo.iceberg.files reversed %}
                 <a href="/{{ repo.category }}/{{ repo.name }}/tree/master/iceberg/{{ ice.name }}">
-                    <a rel="embed" href="{{vc_url}}{{ repo.slug }}/{{ice.hex}}?width=200"></a>
+                    <link rel="embed" href="{{vc_url}}{{ repo.slug }}/{{ice.hex}}?width=200"></a>
                 </a>
             {% endfor %}
         </div>

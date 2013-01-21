@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from osp.models import get_api, which_repo, ApiError
+from osp.models import get_api, which_repo, get_url_contents, ApiError
 from django.http import HttpResponse, Http404
 from django.template import Context, loader, TemplateDoesNotExist
 from django.shortcuts import render_to_response
@@ -113,6 +113,14 @@ def browse(request, category, name, path):
             c['commit_time'] = datetime.fromtimestamp(c['commit_time'])
             c['ellipse'] = ellipse
             commits.append(c)
+            
+        root_files = [i['name'] for i in repo['tree']['files']]
+        README = ''
+        for f in root_files:
+            if 'README' in f or 'readme' in f: # A regex would be more flexible
+                README = get_url_contents(get_api(repo_slug, 'path', f)['raw_url'])
+                break
+         
     except ApiError:
         return Http404()
 
@@ -158,6 +166,7 @@ def browse(request, category, name, path):
         tree['dirs'] = dirs
         tree['files'] = files
         
+        
 #            path_to = '/'.join(obj['paths'][:i+1] + [''])
 
         
@@ -167,7 +176,8 @@ def browse(request, category, name, path):
                'repo' : repo,
                'said': said,
                'vc_url': settings.VC_URL,
-               'tree' : tree },
+               'tree' : tree,
+               'README' : README },
               context_instance=RequestContext(request))
     if obj['type'] == 'blob':
         blob = obj
@@ -187,7 +197,8 @@ def browse(request, category, name, path):
                'repo' : repo,
                'said': said,
                'vc_url': settings.VC_URL,
-               'blob' : blob },
+               'blob' : blob,
+               'README' : README },
               context_instance=RequestContext(request))
 
 
