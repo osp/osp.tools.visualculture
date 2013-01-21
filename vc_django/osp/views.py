@@ -47,7 +47,7 @@ def home(request):
             if i != 0:
                 commit_time=  datetime.fromtimestamp(c['commit_time'])
                 ellipse = float((previous_commit - c['commit_time']))/(24*60*60)
-                ellipse = log1p(ellipse) * 50
+                ellipse = (log1p(ellipse) * 50) + 3
             i += 1
             previous_commit = c['commit_time']
             c['commit_time'] = datetime.fromtimestamp(c['commit_time'])
