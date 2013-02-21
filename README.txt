@@ -1,10 +1,21 @@
 VISUAL CULTURE GIT VIEWER
 =========================
 
-* Note: there will be a simpler version of this procedure,
-  to install just the OSP website for development. A large
-  part of this machinery can stay online on the Constant
-  server. *
+OSP Visual Culture Git Viewer
+=============================
+
+We are Open Source Publishing. A group of designers working in Brussels. We make books and posters and websites, and we do that using only Free and Open Source Software. That is because we feel it is important to have an intimate relation with our tools. If all designers use the same tools made by the same company, this is bound to make us less creative and less relevant.
+
+For working together and sharing our source files, we use a system called Git. This system, originally developed for computer code, is great to work together. Yet when we started sharing our source code through the internet, we found all interfaces to git were geared to sharing text files. We want to create an interface for sharing our work
+
+We have been displaying the contents of our repository in a more graphic way: showing previews in the filelistings of the fonts and the illustrations and the pdf’s. We want to take this a whole step further still, and build this into a platform where you can in a visual way view the development of your graphic design projects, the changes in between files, and comment and share and make visible your process.
+
+- - -
+
+* Note: this is for installing the Visual Culture API
+  for working on the OSP website, there is a more simple
+  application that interfaces with the API.
+  See README-OSP.txt *
 
 Installation
 ------------
