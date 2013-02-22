@@ -94,6 +94,8 @@ def category(request, category):
     return HttpResponse(t.render(c))
 
 def browse(request, category, name, path):
+    title = "you're traveling toward %s in %s" % (path, name)
+    
     repo_slug = which_repo(category, name)
     try:
         repo = get_api(repo_slug)
@@ -101,7 +103,7 @@ def browse(request, category, name, path):
         commits = []
         ellipse = 0
         i = 0
-        for commit in repo['commits']:
+        for commit in repo['commits']: # default is newest first, we start from the beginning
             c = commit
             
             if i != 0:
@@ -145,10 +147,10 @@ def browse(request, category, name, path):
         breadcrumb['href'] = reverse('osp.views.browse', args=[ category, name, path_to ])
         breadcrumbs.append(breadcrumb)
 
-
-    title = "you're traveling toward %s in %s" % (path, name)
     if obj['type'] == 'tree':
+        
         # Add hyperlinks to all files and folders
+        
         dirs = []
         for dir in obj['dirs']:
             # the last element of the paths array is empty 
@@ -166,10 +168,6 @@ def browse(request, category, name, path):
         tree['dirs'] = dirs
         tree['files'] = files
         
-        
-#            path_to = '/'.join(obj['paths'][:i+1] + [''])
-
-        
         return render_to_response('tree.html', 
               {'title': title,
                'breadcrumbs' : breadcrumbs,
@@ -182,15 +180,7 @@ def browse(request, category, name, path):
     if obj['type'] == 'blob':
         blob = obj
         blob['size'] = 0
-        if 'vc' in blob:
-            if 'vc.mime' in ['text/html', 'text/plain' ]:
-                # get the data, wrap it in html, and pass
-                # it to vc.data
-                # vc['data'] =
-                pass
-            vc['image'] = False
-            if 'image' in vc.mime:
-                vc['image'] = True
+        
         return render_to_response('blob.html', 
               {'title': title,
                'breadcrumbs' : breadcrumbs,
@@ -203,32 +193,6 @@ def browse(request, category, name, path):
 
 
 def project(request, category, name, path=""):
-    #repo_slug = which_repo(category, name)
-    #try:
-        #repo = get_api(repo_slug)
-        #obj = get_api(repo_slug, 'path', path)
-        #commits = []
-        #ellipse = 0
-        #i = 0
-        #for commit in repo['commits']:
-            #c = commit
-            
-            #if i != 0:
-                #commit_time=  datetime.fromtimestamp(c['commit_time'])
-                #ellipse = float((previous_commit - c['commit_time']))/(24*60*60)
-                #ellipse = log1p(ellipse) * 50
-            #i += 1
-            #previous_commit = c['commit_time']
-            #c['commit_time'] = datetime.fromtimestamp(c['commit_time'])
-            #c['ellipse'] = ellipse
-            #commits.append(c)
-        #repo['commits'] = commits
-    #except ApiError:
-        #return Http404()
+    # For now a project home page is the same as all the other browse views--
+    # up for change of course!
     return browse(request, category, name, path)
-
-    #return render_to_response('project_base.html',
-            #{ 'repo' : repo, "said": said, 'vc_url' :settings.VC_URL },
-        #context_instance=RequestContext(request))
-
-
