@@ -24,15 +24,18 @@ Installation
 
 #### Debian / Ubuntu
 
-sudo apt-get install rabbitmq-server
+Libgit2 needs to be compiled from source:
 
-Get the latest libgit2 release from https://github.com/libgit2/libgit2/downloads
-and build it as in the instructions provided on http://libgit2.github.com.
-
-Finally Python can’t automatically find the libraries, you have to tell it
-where they are at, do:
-
-sudo ldconfig
+    sudo apt-get install build-essential cmake
+    mkdir -p ~/src
+    cd ~/src
+    curl https://github.com/downloads/libgit2/libgit2/libgit2-0.17.0.tar.gz | tar xvz
+    cd libgit2-0.17.0
+    mkdir build && cd build
+    cmake ..
+    cmake --build .
+    sudo cmake --build . --target install
+    sudo ldconfig
 
 #### OS X
 
@@ -42,39 +45,25 @@ brew install libmagic libgit2
 
 Run-of-the-mill python modules required:
 
-django
-python-magic
-django-celery
-pygit2 (built from source or via pip)
+- django
+- python-magic
+- pygit2 (built from source or via pip)
 
 ### Setting up django
 
-cp settings_example.py settings.py
+From inside the `visualculture` folder:
+
+    cp settings.py.example settings.py
 
 In the settings file, you will at least need to change the `GIT_ROOT` setting.
 This is the folder that Visual Culture will scan for git repositories.
 
-then run `python manage.py syncdb`
+then run
+
+    python manage.py syncdb
 
 You can then use `python manage.py runserver` to run the application
 
-You have to run the Celery queue at the same time if you want to use
-Visual Culture’s image generation functions. For that you first need to
-set up RabbitMQ:
-
-### Setting up rabbitmq
-
-sudo rabbitmqctl add_user user password
-sudo rabbitmqctl set_permissions user '.*' '.*' '.*'
-
-### Setting up the Celery queue
-
-Run the queue as:
-
-python manage.py celeryd --purge -E -c 2
-
-This means that in development you’ll have two development servers
-running: the Celery queue en the Django server.
 
 Adding vc image rendering components
 ------------------------------------
@@ -83,7 +72,7 @@ Adding vc image rendering components
 
 #### Ubuntu:
 
-sudo apt-get install libpoppler-cpp-dev libpoppler-qt4-dev libboost-dev libboost-python-dev libboost-system-dev libboost-thread-dev
+    sudo apt-get install libpoppler-cpp-dev libpoppler-qt4-dev libboost-dev libboost-python-dev libboost-system-dev libboost-thread-dev
 
 #### Debian
 
@@ -96,27 +85,27 @@ c) because the Debian we run on doesn't have libpoppler-cpp, I got the 0.20 tarb
 
 #### Then:
 
-mkdir build && cd build
-cmake ..
-make
-ln -s libvc_poppler.so ../../vc_django/visual_culture/readers/vc_poppler.so
+    mkdir build && cd build
+    cmake ..
+    make
+    ln -s libvc_poppler.so ../../visualculture/visual_culture/readers/vc_poppler.so
 
 #### OSX
 
-brew install poppler boost
+    brew install poppler boost
 
 ### FONT-SUPPORT
 
-sudo apt-get install python-fontforge fontforge
+    sudo apt-get install python-fontforge fontforge
 
 #### OSX
 
-brew install fontforge
+    brew install fontforge
 
 Maintenance
 -----------
 
 ### Empty the cache
 
-rm -rf {MEDIAROOT}/cache
-python manage.py reset vc_cache
+    rm -rf {MEDIAROOT}/cache
+    python manage.py reset vc_cache

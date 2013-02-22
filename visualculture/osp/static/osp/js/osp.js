@@ -27,7 +27,7 @@ VC.annotations = (function ($) {
                     };
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
-                    console.info('error');
+                    console.log('error: ' + xhr.status + ' ' + xhr.statusText);
                 },
                 complete: function () {
                     console.info('complete');
