@@ -10,11 +10,9 @@ from datetime import datetime
 from math import log1p
 
 import settings
-# dummy data
 
 import json
 import os
-#all = json.loads(open(os.path.join(os.path.dirname(__file__), 'all.json')).read())
 
 said = ["said", "whispered", "shouted", "cried", "confessed", "expressed", "verbalized", "verbalised", "uttered", "claimed", "argued", "complained", "ironized", "said", "tweeted", "told", "stated", "song", "interpreted", "rendered", "emited", "let out", "let loose", "talked", "spoke", "said", "whistled", "spilled the beans", "let the cat out of the bag", "talked", "tattled", "blabed", "peached", "babbled", "babbled out", "blabed out", "unwraped", "disclosed", "let on", "said", "bring out", "revealed", "discovered", "exposed", "published", "divulged", "gave away"]
 
@@ -100,32 +98,43 @@ def browse(request, category, name, path):
     try:
         repo = get_api(repo_slug)
         obj = get_api(repo_slug, 'path', path)
-        commits = []
-        ellipse = 0
-        i = 0
-        for commit in repo['commits']: # default is newest first, we start from the beginning
-            c = commit
-            
-            if i != 0:
-                commit_time=  datetime.fromtimestamp(c['commit_time'])
-                ellipse = float((previous_commit - c['commit_time']))/(24*60*60)
-                ellipse = log1p(ellipse) * 50
-            i += 1
-            previous_commit = c['commit_time']
-            c['commit_time'] = datetime.fromtimestamp(c['commit_time'])
-            c['ellipse'] = ellipse
-            commits.append(c)
-            
-        root_files = [i['name'] for i in repo['tree']['files']]
-        README = ''
-        for f in root_files:
-            if 'README' in f or 'readme' in f: # A regex would be more flexible
-                README = get_url_contents(get_api(repo_slug, 'path', f)['raw_url'])
-                break
-         
     except ApiError:
         return Http404()
 
+    # Render commits with time apart
+    
+    commits = []
+    ellipse = 0
+    i = 0
+    for commit in repo['commits']: # default is newest first, we start from the beginning
+        c = commit
+        
+        if i != 0:
+            commit_time=  datetime.fromtimestamp(c['commit_time'])
+            ellipse = float((previous_commit - c['commit_time']))/(24*60*60)
+            ellipse = log1p(ellipse) * 50
+        i += 1
+        previous_commit = c['commit_time']
+        c['commit_time'] = datetime.fromtimestamp(c['commit_time'])
+        c['ellipse'] = ellipse
+        commits.append(c)
+            
+    
+    # Render README
+    
+    root_files = [i['name'] for i in repo['tree']['files']]
+    README = ''
+    for f in root_files:
+        if 'README' in f or 'readme' in f: # A regex would be more flexible
+            README = get_url_contents(get_api(repo_slug, 'path', f)['raw_url'])
+            # OSP Convention: the part of the README that equals the description is 
+            # terminated by a Markdown representation of a horizontal line - - -.
+            README = README.split('- - -')[0]
+            break
+
+
+    # Render a breadcrumbs navigation for the current path
+    
     breadcrumbs = []
     repo_home = {}
     repo_home['name'] = obj['repo_name']
@@ -177,6 +186,7 @@ def browse(request, category, name, path):
                'tree' : tree,
                'README' : README },
               context_instance=RequestContext(request))
+    
     if obj['type'] == 'blob':
         blob = obj
         blob['size'] = 0
