@@ -189,7 +189,6 @@ def browse(request, category, name, path):
     
     if obj['type'] == 'blob':
         blob = obj
-        blob['size'] = 0
         
         return render_to_response('blob.html', 
               {'title': title,

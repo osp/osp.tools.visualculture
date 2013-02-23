@@ -5,7 +5,7 @@ git_info.views
 Views that render the GitCollection accessible over HTTP a JSON API.
 
 All the `render` functions should basically get out of here and become part
-of the GitCollection class from git_info.py, in the form of `to_hash` methods.
+of the GitCollection class from git.py, in the form of `to_hash` methods.
 That would clean up a bunch and save us the necessity to pass `repo_name`
 around all the time.
 
@@ -39,10 +39,10 @@ else:
     git_collection = GitCollection()
 
 def render_commit(repo_name, commit):
-    context = {'type':'commit', 'repo_name': repo_name, 'hex' : commit.hex , 'author':commit.author.name, 'message':commit.message, 'files':commit.tree.hex, 'commit_time': commit.commit_time}
+    hash = {'type':'commit', 'repo_name': repo_name, 'hex' : commit.hex , 'author':commit.author.name, 'message':commit.message, 'files':commit.tree.hex, 'commit_time': commit.commit_time}
     if commit.parents:
-        context['parent'] = commit.parents[0].hex
-    return context
+        hash['parent'] = commit.parents[0].hex
+    return hash
 
 def render_tree(repo_name, tree):
     items = []
@@ -55,8 +55,8 @@ def render_tree(repo_name, tree):
                 items.append({'hex': item.hex, 'name': item.name})
         except Exception:
             pass
-    context = {'type':'tree', 'repo_name':repo_name, 'dirs':dirs, 'files':items}
-    return context
+    hash = {'type':'tree', 'repo_name':repo_name, 'dirs':dirs, 'files':items}
+    return hash
     
     
 def render_blob(repo_name, blob):
@@ -68,54 +68,49 @@ def render_blob(repo_name, blob):
     mime = magic_finder(blob.data)
     # Returns cache status as to let the caller decide if it goes for VC or cached files
     cache = VCCache().GetCacheInfo(repo_name, blob.hex)
-    return {'type':'blob', 'repo_name':repo_name, 'hex' : blob.hex, 'mime':mime, 'cache':cache}
+    return {'type':'blob', 'repo_name':repo_name, 'hex' : blob.hex, 'mime': mime, 'size' : blob.size, 'cache':cache}
 
-    
-def get_blob_data(obj):
-    mime = magic_finder(obj.data)
-    return HttpResponse(obj.data, mimetype=mime)
-    
 def index(request):
     return HttpResponse(json.dumps({'repos': git_collection.get_names()}, indent=2), mimetype="application/json")
 
 def render_repo(repo_slug, n_commits=5, tree=False, iceberg=False):
     repo = git_collection[repo_slug]
-    context = {}
-    context['category'] = repo.repo_category
-    context['name'] = repo.repo_name
-    context['slug'] = repo_slug
-    context['commits'] = []
+    hash = {}
+    hash['category'] = repo.repo_category
+    hash['name'] = repo.repo_name
+    hash['slug'] = repo_slug
+    hash['commits'] = []
     i = 0
     try:
         for commit in repo.walk(repo.head.hex, pygit2.GIT_OBJ_TREE):
-            context['commits'].append(render_commit(repo_slug, commit))
+            hash['commits'].append(render_commit(repo_slug, commit))
             i += 1
             if i == n_commits:
                 break
     except Exception as exn:
         pass
     if tree:
-        context['tree'] = render_tree(repo_slug, repo.head.tree)
+        hash['tree'] = render_tree(repo_slug, repo.head.tree)
     if iceberg:
         if repo.has_iceberg():
-            context['iceberg'] = render_tree(repo_slug, repo.head.tree['iceberg'].to_object())
-    return context
+            hash['iceberg'] = render_tree(repo_slug, repo.head.tree['iceberg'].to_object())
+    return hash
     
 def repo(request, repo_name):
     print('Requested repo: %s'%repo_name)
-    context = render_repo(repo_name, n_commits=-1, tree=True, iceberg=True)
-    return HttpResponse(json.dumps(context, indent=2), mimetype="application/json")
+    hash = render_repo(repo_name, n_commits=-1, tree=True, iceberg=True)
+    return HttpResponse(json.dumps(hash, indent=2), mimetype="application/json")
 
 def repos(repo_names):
-    context = []
+    hash = []
     for repo_name in repo_names:
-        context.append(render_repo(repo_name, iceberg=True))
-    return context
+        hash.append(render_repo(repo_name, iceberg=True))
+    return hash
 
 @cache_page(60 * 60)
 def all_repos(request):
-    context = repos(git_collection.get_names())
-    return HttpResponse(json.dumps(context, indent=2), mimetype="application/json")
+    hash = repos(git_collection.get_names())
+    return HttpResponse(json.dumps(hash, indent=2), mimetype="application/json")
 
 def item(request, repo_name, oid):
     print('Requested item: %s %s' % (repo_name, oid))
@@ -130,18 +125,18 @@ def item(request, repo_name, oid):
             raise Http404
     
     if obj.type == pygit2.GIT_OBJ_COMMIT:
-        context = render_commit(repo_name, obj)
+        hash = render_commit(repo_name, obj)
         
     elif obj.type == pygit2.GIT_OBJ_TREE:
-        context = render_tree(repo_name, obj)
+        hash = render_tree(repo_name, obj)
         
     elif obj.type == pygit2.GIT_OBJ_BLOB:
-        context = render_blob(repo_name, obj)
+        hash = render_blob(repo_name, obj)
 
     else:
         return HttpResponseBadRequest('Unhandled object type %s'%obj.type)
 
-    return HttpResponse(json.dumps(context, indent=2), mimetype="application/json")
+    return HttpResponse(json.dumps(hash, indent=2), mimetype="application/json")
 
 
 def item_from_path(request, repo_name, path):
@@ -163,33 +158,50 @@ def item_from_path(request, repo_name, path):
             obj = obj[p].to_object()
         except KeyError:
             raise Http404
-        
-    if obj.type == pygit2.GIT_OBJ_TREE:
-        context = render_tree(repo_name, obj)
-        
-    elif obj.type == pygit2.GIT_OBJ_BLOB:
-        context = render_blob(repo_name, obj)
-        context['raw_url'] = reverse('git_info.views.blob_data', args=[repo_name, context['hex']])
-        # Note: to pass the absolute url:
-        context['raw_url'] = request.build_absolute_uri(context['raw_url'])
     
-    context['paths'] = paths
-
     if len(paths) == 1:
         # root path named after repo
-        context['name'] = repo_name
+        name = repo_name
     elif paths[-1] == '':
         # tree named after tree
-        context['name'] = paths[-2]
+        name = paths[-2]
     else:
         # blob named after blob
-        context['name'] = paths[-1]
+        name = paths[-1]
     
-    return HttpResponse(json.dumps(context, indent=2), mimetype="application/json")
+    if obj.type == pygit2.GIT_OBJ_TREE:
+        hash = render_tree(repo_name, obj)
+        
+    elif obj.type == pygit2.GIT_OBJ_BLOB:
+        hash = render_blob(repo_name, obj)
+        hash['raw_url'] = reverse('git_info.views.blob_data', args=[repo_name, hash['hex']]) + name
+        # Note: to pass the absolute url:
+        hash['raw_url'] = request.build_absolute_uri(hash['raw_url']) 
     
+    hash['name'] = name
+    hash['paths'] = paths
+    
+    return HttpResponse(json.dumps(hash, indent=2), mimetype="application/json")
+
 def blob_data(request, repo_name, oid):
     obj = git_collection[repo_name][oid]
+    
     if obj.type == pygit2.GIT_OBJ_BLOB:
-        return get_blob_data(obj)
-        
+        mime = magic_finder(obj.data)
+        return HttpResponse(obj.data, mimetype=mime)
+    
+    return HttpResponseBadRequest('Requested object is not a BLOB')
+
+def blob_data_from_path(request, repo_name, path):
+    repo = git_collection[repo_name]
+    try:
+        oid = repo.index[path].oid
+    except KeyError:
+         raise Http404
+    obj = git_collection[repo_name][oid]
+    
+    if obj.type == pygit2.GIT_OBJ_BLOB:
+        mime = magic_finder(obj.data)
+        return HttpResponse(obj.data, mimetype=mime)
+    
     return HttpResponseBadRequest('Requested object is not a BLOB')
