@@ -1,5 +1,6 @@
 from osp.settings import API_PATH, PREFIX
 from urllib2 import  Request, urlopen, URLError
+from urllib import quote
 import json
 
 class ApiError(Exception):
@@ -26,7 +27,7 @@ def which_repo(category, name):
     return '.'.join((category, name))
 
 def get_api(*args):
-    url = API_PATH + '/'.join(args)
+    url = API_PATH + quote( ( '/'.join(args)).encode('utf-8') )
     req = Request(url)
     print('[API] %s'%url)
     res = None
