@@ -49,6 +49,10 @@ Run-of-the-mill python modules required:
 - python-magic
 - pygit2 (built from source or via pip)
 
+Django apps:
+
+- django-cors
+
 ### Setting up django
 
 From inside the `visualculture` folder:
