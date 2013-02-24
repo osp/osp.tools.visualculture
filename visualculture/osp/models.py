@@ -47,7 +47,7 @@ def get_url_contents(url):
     try:
         res = urlopen(req)
         data = res.read()
-    except URLError, e: # This error checking code doesnt always work
+    except URLError, e:
         if hasattr(e, 'reason'):
             raise ApiError(url, e.reason)
         elif hasattr(e, 'code'):

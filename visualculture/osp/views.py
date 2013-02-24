@@ -99,7 +99,7 @@ def browse(request, category, name, path):
         repo = get_api(repo_slug)
         obj = get_api(repo_slug, 'path', path)
     except ApiError:
-        return Http404()
+        raise Http404
 
     # Render commits with time apart
     
