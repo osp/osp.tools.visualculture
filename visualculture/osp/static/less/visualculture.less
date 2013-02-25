@@ -1,5 +1,11 @@
-@import "less/bootstrap/bootstrap.less";
+@import "reset.less";
+@import "bootstrap/bootstrap.less";
 
+
+// size variables -------------------------------------------------------
+
+@h-unit: 15px;
+@v-unit: 20px;
 
 // font sizes variables -------------------------------------------------
 
@@ -8,7 +14,7 @@
 @font-size-small: 12px;
 @font-size-medium: 15px;
 @font-size-big: 21px;
-@font-size-huge: 21px;
+@font-size-huge: 25px;
 @font-default: "patin"; 
 
 
@@ -31,91 +37,99 @@
 @night-sky: #320070;
 @night-earth: #9b4e9e;
 
+// fonts -------------------------------------------------
+
+@font-face {
+    font-family: lmitalic;
+    src: url("../fonts/lmroman10-italic.otf");
+}
+@font-face {
+    font-family: lmroman;
+    src: url("../fonts/lmroman10-regular.otf");
+}
+@font-face {
+    font-family: patin;
+    src: url("../fonts/OSP_Le-patin-helvete.ttf");
+}
+@font-face {
+    font-family: univers;
+    src: url("../fonts/UniversElse-Regular.ttf");
+}
+@font-face {
+    font-family: universlight;
+    src: url("../fonts/UniversElse-Light.ttf");
+}
+@font-face {
+    font-family: universbold;
+    src: url("../fonts/UniversElse-Bold.ttf");
+}
+@font-face {
+    font-family: karla;
+    src: url("../fonts/Karla-Regular.ttf");
+}
 
 // default -------------------------------------------------
 
 html { 
-	font-size: 100%; 
+    font-size: 100%; 
 } 
-body { 
+body {
     font-family: @font-default; 
     font-size: @font-size-small; 
-    line-height: 1.1;
+    line-height: @h-unit;
     color: @color-text;
     background-color: @color-background;
-} 
+    letter-spacing: 0.025em;
+    word-wrap: break-word;
+}
+
+// typography ----------------------------------------------
+
 p {
-	margin: 0;
+    margin: 0;
+    margin-bottom: @font-size-small;
 }
-a {
+a, a:visited {
     color: @color-link;
-    text-decoration:none;
 }
+
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+    text-decoration: none;
+}
+
 dt {
-       letter-spacing: 0.05em;
-       font-family: lmroman; 
-       font-size: @font-size-small;
+    letter-spacing: 0.05em;
+    font-family: lmroman; 
+    font-size: @font-size-small;
 }
 li {
-	list-style: none;
-	list-style-type: none;
+    list-style: none;
+    list-style-type: none;
 }
-h1{ 
-font-family: @font-default; 
-font-size: @font-size-huge; 
-color: @color-text;
-font-weight: normal;
-line-height: 0.9;
-margin-top:0px;
+h1{
+    font-size: @font-size-huge; 
+    color: @color-text;
+    font-weight: normal;
+    line-height: 2 * @v-unit - 2px;
+    margin-bottom: 2px;
+    margin-top:0px;
 } 
-h2{ 
-font-family: @font-default; 
-font-size: @font-size-big; 
-color: @color-text;
-font-weight: normal;
-line-height: 0.9;
-} 
-
-
-// fonts -------------------------------------------------
-
-@font-face {
-	font-family: lmitalic;
-	src: url("./fonts/lmroman10-italic.otf");
+h2{
+    font-size: @font-size-big; 
+    color: @color-text;
+    font-weight: normal;
+    line-height: 0.9;
+    line-height: @v-unit - 2px;
+    margin-bottom: 2px;
 }
-@font-face {
-	font-family: lmroman;
-	src: url("./fonts/lmroman10-regular.otf");
-}
-@font-face {
-	font-family: patin;
-	src: url("./fonts/OSP_Le-patin-helvete.ttf");
-}
-@font-face {
-	font-family: univers;
-	src: url("./fonts/UniversElse-Regular.ttf");
-}
-@font-face {
-	font-family: universlight;
-	src: url("./fonts/UniversElse-Light.ttf");
-}
-@font-face {
-	font-family: universbold;
-	src: url("./fonts/UniversElse-Bold.ttf");
-}
-@font-face {
-	font-family: karla;
-	src: url("./fonts/Karla-Regular.ttf");
-}
-
 
 // active pieces -------------------------------------------------
 
 #active-projects,
 #project-detail {
-     .clearfix;
-    margin-top:15px;
-    margin-left:20px;
+    .clearfix;
+    margin-top: @h-unit;
+    margin-left: @v-unit;
     width: auto;
     // make it minimally 3 columns wide
     min-width: 4 * 20px + 3 * 250px;
@@ -123,14 +137,13 @@ line-height: 0.9;
     padding-right: 165px;
 }
 
-
 // project box -------------------------------------------------
 
 .project{
     float: left;
     width: 250px;
-    margin-right: 20px;
-    margin-bottom: 20px;
+    margin-right: @v-unit;
+    margin-bottom: @h-unit;
 /*
 background: -moz-linear-gradient(left, #ffffff 37%, #ffa73d 48%, #ff7c00 54%, #ffffff 63%); 
 background: -webkit-gradient(linear, left top, right top, color-stop(37%,#ffffff), color-stop(48%,#ffa73d), color-stop(54%,#ff7c00), color-stop(63%,#ffffff)); 
@@ -141,14 +154,11 @@ background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63
 */
 }
 .project-type{
-    font-family: @font-default; 
     text-transform: uppercase;
     font-size: @font-size-medium; 
     text-align: center; 
-    letter-spacing: 0.025em;
 }
 .project-title{
-    font-family: @font-default; 
     font-size: @font-size-big;  
     text-align: left; 
     margin-bottom: 20px;
@@ -158,13 +168,11 @@ background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63
     font-weight: normal;
 }
 .project-description-from-the-readme{
-	font-family: @font-default ; 
-	font-size: @font-size-medium;  
-	text-align: left; 
-	margin-bottom: 20px;
-	margin-left: 10px;
-	letter-spacing: -0.03em;
-	font-weight: normal;
+    font-size: @font-size-medium;  
+    text-align: left; 
+    margin-bottom: 2 * @h-unit;
+    letter-spacing: -0.03em;
+    font-weight: normal;
 }
 
 
@@ -188,8 +196,15 @@ background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63
 // commits -------------------------------------------------
  
 .commit-list{
-       width: 250px;
+    width: 250px;
 //        background:grey;
+    a, a:visited, a:active {
+        color: #005580;
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
 }
 .grappe (@t: 5px, @r: 5px,@b: 5px,@l: 5px) {
     border: solid 1px;
@@ -238,7 +253,7 @@ background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63
 }
 .commit-spacer {
     width: 19px;
-    height: 1em;
+    height: 12px;
     float: left;
     border-top: 1px solid black;
     position: relative;
@@ -249,7 +264,7 @@ background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63
     text-indent: -18px;
     font-family: @font-default;
     font-size: 14px;
-    line-height: 1.3em; 
+    line-height: 18px; 
     border:solid 1px;
     display: inline-block;
     padding: 6px 4px 3px 22px;
@@ -299,8 +314,8 @@ div#project-detail-head a.git-clone {
     background-color: blue;
     color: white;
     font-weight: bold;
-    margin: 0 1em;
-    padding: 1em;
+    margin: 0 @v-unit 0 0;
+    padding: 12px;
 }
 div#project-detail-body {
     clear: both;
@@ -327,8 +342,6 @@ div#project-detail-body {
     text-align: left; 
     font-weight: normal;
 }
-
-
 
 // menu -------------------------------------------------
 
@@ -357,24 +370,23 @@ div#project-detail-body {
     margin-right:30px;
     width: 100px;
     font-size: 13px; 
-    letter-spacing: 0.025em;
     text-align: left; 
     color: @color-text;     
 }
+
+#menu a {
+    text-decoration: none;
+}
+
 #menu li{
     list-style: none;
     font-family: @font-default;
 }
-#menu a:link {
-    color: @color-link; 
-    text-decoration:none;
-}
+
 #menu a:hover { 
     color: blue; 
 } 
-#menu a:visited { 
-    color: @color-link; 
-}
+
 #baseline {
     display: block;
     text-transform: none;
@@ -383,14 +395,6 @@ div#project-detail-body {
     color:blue;
 }
 
-
-// nav/breadcrumbs -------------------------------------------------
-
-.nav-pills {
-    padding-left: 1em;
-}
-
-
 // infos-box ------------------------------------------------
 
 #home-infos{
@@ -398,7 +402,6 @@ div#project-detail-body {
     margin-left:20px;
     height: 65px;
     width: 780px;
-    padding: 5px 5px 5px 5px;
     font-size: @font-size-small; 
     text-align: left; 
     color: blue; 
@@ -433,4 +436,40 @@ div#project-detail-body {
     font-size: @font-size-medium; 
     text-align: left; 
     color: @color-text; 
+}
+
+// thumbnails -------------------------------------------------
+
+.thumbnails {
+    margin-left: -@gridGutterWidth;
+    list-style: none;
+    .clearfix();
+}
+.thumbnails > li {
+    float: left;
+    margin: 0 0 18px 20px;
+    width: 140px;
+}
+.thumbnail {
+    display: block;
+    padding: 4px;
+    line-height: 1;
+}
+
+// Images and captions
+.thumbnail > img {
+    display: block;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+// breadcrumbs ------------------------------------------------
+
+.breadcrumb {
+    margin: @h-unit @v-unit;
+}
+
+.breadcrumb li {
+    display: inline-block;
 }

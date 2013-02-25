@@ -6,10 +6,10 @@
 {% load compress %}
 {% if COMPRESS_ENABLED %}
 {% compress css %}
-        <link rel="stylesheet" type="text/less" media="all" href="{{ STATIC_URL }}visualculture.less">
+        <link rel="stylesheet" type="text/less" media="all" href="{{ STATIC_URL }}less/visualculture.less">
 {% endcompress %}
 {% else %}
-        <link rel="stylesheet/less" type="text/css" media="all" href="{{ STATIC_URL }}visualculture.less">
+        <link rel="stylesheet/less" type="text/css" media="all" href="{{ STATIC_URL }}less/visualculture.less">
         <script src="{{ STATIC_URL }}js/less-1.2.1.min.js"></script>
 {% endif%}
 {% block extrahead %}
