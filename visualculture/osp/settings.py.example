@@ -24,8 +24,8 @@ DATABASES = {
     }
 }
 
-API_PATH = 'http://ospwork.constantvzw.org/api/'
-VC_URL = 'http://ospwork.constantvzw.org/vc/'
+API_PATH = 'http://osp.constantvzw.org/api/'
+VC_URL = 'http://osp.constantvzw.org/vc/'
 PREFIX = 'osp'
 
 # Local time zone for this installation. Choices can be found here:
