@@ -4,7 +4,7 @@
 {% block vc_content %}
 <div class="project-detail-file-name">{{ blob.name }}</div>
 <div class="project-detail-file-mime">{{ blob.mime }}</div>
-<p class="project-detail-blob-size"><a href="{{ blob.raw_url }}">Download raw</a> ({{ blob.size|formatsize }})</p>
+<p class="project-detail-blob-size"><a href="{{ blob.raw_url }}">Download raw</a> ({{ blob.size|filesizeformat }})</p>
 
 <a rel="embed" href="{{vc_url}}{{ repo.slug }}/{{blob.hex}}?width=600">{{vc_url}}{{ repo.slug }}/{{blob.hex}}?width=200</a>
 {% endblock %}

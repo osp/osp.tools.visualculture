@@ -64,7 +64,7 @@
         {% if not README %}<h1 class="repo_slug">{{ repo.name }}</h1>{% endif %}
         <a class="git-clone" data-toggle="modal" href="#cloneModal" >Git Clone</a>
         <div class="project-description-from-the-readme">
-            {{ README|markdown }}
+            {{ README|urlize|markdown }}
         </div>
     </div>
 
