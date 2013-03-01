@@ -6,7 +6,7 @@ from django.views.generic.simple import direct_to_template
 urlpatterns = patterns('',
     ('^menu.html$', direct_to_template, {
         'template': 'menu.html',
-        'extra_context' : { 'HOST' : 'http://ospwork.constantvzw.org' },
+        'extra_context' : { 'HOST' : 'http://osp.constantvzw.org' },
     })
 )
 
