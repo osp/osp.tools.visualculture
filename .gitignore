@@ -2,8 +2,8 @@
 ################
 
 settings.json
-vc_django/settings.py
-vc_django/osp/settings.py
+visualculture/settings.py
+visualculture/osp/settings.py
 
 # Visual Culture Cache #
 ########################

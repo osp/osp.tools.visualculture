@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% load markup %}
+
+{% block navigation %}
+        <!-- Header and options when showing a repository -->
+        <!-- Navigate through the repository -->
+        <ul class="breadcrumb">
+                        {% for breadcrumb in breadcrumbs %}
+                        {% if not forloop.last %}
+                        <li>
+                            <a href="{{ breadcrumb.href }}">{{ breadcrumb.name }}</a> <span class="divider">/</span>
+                        </li>
+                        {% else %}
+                        <li class="active">
+                           {{ breadcrumb.name }} {% if tree %}<span class="divider">/</span>{% endif %}
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+        </ul>
+        <!-- Showing the HEAD-->
+        {% comment %}
+            <div class="commit-list">
+                <ul>
+                    <li class="commit" >
+                        <p class="commit-id">
+                            {{ repo.commits.0.id }} 
+                        </p>
+                        <p>
+                            <span class="commit-author">{{ repo.commits.0.author }}</span> <span class="commit-author-said">said</span>
+                        </p>
+                        <p class="commit-message">
+                            <a href="#">{{ repo.commits.0.message }}</a>
+                        </p>
+                        <p class="commit-date">
+                            {{ repo.commits.0.commit_time }}
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        {% endcomment %}
+{% endblock %}
+
+
+{% block header %}
+    <div id="home-infos">
+    {% if repo.category == "tools" %}
+        {% include "header_tools.html" %}
+    {% elif repo.category == "workshop" %}
+        {% include "header_workshop.html" %}
+    {% elif repo.category == "work" %}
+        {% include "header_work.html" %}
+    {% else %}
+        {% include "header_default.html" %}
+    {% endif %}
+        <a href="http://osp.constantvzw.org/about">Read more about the way we work → </a>
+    </div>
+{% endblock %}
+
+
+{% block content %}
+<div id="project-detail">
+
+    <div id="project-detail-head">
+        {% if not README %}<h1 class="repo_slug">{{ repo.name }}</h1>{% endif %}
+        <a class="git-clone" data-toggle="modal" href="#cloneModal" >Git Clone</a>
+        <div class="project-description-from-the-readme">
+            {{ README|urlize|markdown }}
+        </div>
+    </div>
+
+    <div id="project-detail-body">
+        <div class="iceberg">
+            {% for ice in repo.iceberg.files reversed %}
+                <a href="/{{ repo.category }}/{{ repo.name }}/tree/master/iceberg/{{ ice.name }}">
+                    <link rel="embed" href="{{vc_url}}{{ repo.slug }}/{{ice.hex}}?width=200">
+                </a>
+            {% endfor %}
+        </div>
+
+        {% include "commit-list.html" %}
+
+        {% block vc_content %}
+        {% endblock %}
+    </div>
+
+</div>
+{% endblock %}
+
+{% block footer %}
+        <!-- This is shown when you click Git Clone-->
+        <div class="modal hide" id="cloneModal">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal">×</a>
+                <h3>Clone the git repository</h3>
+            </div>
+            <div class="modal-body">
+                <p>The public git address for this repo is:</p>
+                <pre>git://git.constantvzw.org/{{ repo.slug }}.git</pre>
+                <p>to clone it, in the terminal type:</p>
+                <pre>git clone git://git.constantvzw.org/{{ repo.slug }}.git</pre>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal">Close</a>
+            </div>
+        </div>
+{% endblock %}
+
+
+{% block js %}
+    {{ block.super }}
+    <script src="{{ STATIC_URL }}js/mourner-suncalc-f5bbdac/suncalc-min.js"></script>
+    <script>
+    $(function() {
+        $(".commit").each(function() {
+            // var commitDateTime = new Date($(this).data("date")),
+            //     times = SunCalc.getTimes(commitDateTime, 50.850, 4.383);
+
+            // var dayBegin = new Date(commitDateTime.getTime());
+            //     dayBegin.setHours(0, 0, 0, 0);
+            // var dayEnd = new Date(dayBegin.getFullYear(), dayBegin.getMonth(), dayBegin.getDate()+1);
+
+            // var ba = dayEnd - dayBegin;
+            // var xa = commitDateTime - dayBegin;
+            // var pc = xa / ba * 100;
+
+            // var timeline = $("<div>").css({"border": "1px solid black"});
+            //     var commitPoint = $("<div>").css({"background-color": "red", "width": "2px", "height": "5px", "position": "relative", "left": pc + "%"});
+            // timeline.append(commitPoint);
+            // $(this).prepend(timeline);
+
+            // for (var i in times) {
+            //     xa = times[i] - dayBegin;
+            //     pc = xa / ba * 100;
+            //     var point = $("<div>").css({"background-color": "blue", "width": "2px", "height": "5px", "position": "relative", "left": pc + "%"});
+            //     timeline.append(point);
+            //     
+            // }
+
+            //console.log(times);
+
+            //if (commitDateTime < times.sunrise || commitDateTime > times.sunset) {
+            //    $(this).css('background-color', 'black');
+            //} else {
+            //    $(this).css('background-color', 'white');
+            //};
+        });
+    });
+    </script>
+{% endblock %}

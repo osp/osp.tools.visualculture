@@ -14,14 +14,14 @@ from gevent import wsgi
 sys.dont_write_bytecode = True
 rootpath = os.path.dirname(__file__)
 print rootpath
-dirs = ['vc_django']
+dirs = ['visualculture']
 
 for d in dirs:
     path = rootpath + d
     if path not in sys.path:
         sys.path.append(path)
         
-os.environ['DJANGO_SETTINGS_MODULE'] = 'vc_django.settings'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'visualculture.settings'
 
 def main():
 	parser = argparse.ArgumentParser()

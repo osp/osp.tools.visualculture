@@ -1,10 +1,21 @@
 VISUAL CULTURE GIT VIEWER
 =========================
 
-* Note: there will be a simpler version of this procedure,
-  to install just the OSP website for development. A large
-  part of this machinery can stay online on the Constant
-  server. *
+OSP Visual Culture Git Viewer
+=============================
+
+We are Open Source Publishing. A group of designers working in Brussels. We make books and posters and websites, and we do that using only Free and Open Source Software. That is because we feel it is important to have an intimate relation with our tools. If all designers use the same tools made by the same company, this is bound to make us less creative and less relevant.
+
+For working together and sharing our source files, we use a system called Git. This system, originally developed for computer code, is great to work together. Yet when we started sharing our source code through the internet, we found all interfaces to git were geared to sharing text files. We want to create an interface for sharing our work
+
+We have been displaying the contents of our repository in a more graphic way: showing previews in the filelistings of the fonts and the illustrations and the pdf’s. We want to take this a whole step further still, and build this into a platform where you can in a visual way view the development of your graphic design projects, the changes in between files, and comment and share and make visible your process.
+
+- - -
+
+* Note: this is for installing the Visual Culture API
+  for working on the OSP website, there is a more simple
+  application that interfaces with the API.
+  See README-OSP.txt *
 
 Installation
 ------------
@@ -13,15 +24,18 @@ Installation
 
 #### Debian / Ubuntu
 
-sudo apt-get install rabbitmq-server
+Libgit2 needs to be compiled from source:
 
-Get the latest libgit2 release from https://github.com/libgit2/libgit2/downloads
-and build it as in the instructions provided on http://libgit2.github.com.
-
-Finally Python can’t automatically find the libraries, you have to tell it
-where they are at, do:
-
-sudo ldconfig
+    sudo apt-get install build-essential cmake
+    mkdir -p ~/src
+    cd ~/src
+    curl https://github.com/downloads/libgit2/libgit2/libgit2-0.17.0.tar.gz | tar xvz
+    cd libgit2-0.17.0
+    mkdir build && cd build
+    cmake ..
+    cmake --build .
+    sudo cmake --build . --target install
+    sudo ldconfig
 
 #### OS X
 
@@ -31,39 +45,29 @@ brew install libmagic libgit2
 
 Run-of-the-mill python modules required:
 
-django
-python-magic
-django-celery
-pygit2 (built from source or via pip)
+- django
+- python-magic
+- pygit2 (built from source or via pip)
+
+Django apps:
+
+- django-cors
 
 ### Setting up django
 
-cp settings_example.py settings.py
+From inside the `visualculture` folder:
+
+    cp settings.py.example settings.py
 
 In the settings file, you will at least need to change the `GIT_ROOT` setting.
 This is the folder that Visual Culture will scan for git repositories.
 
-then run `python manage.py syncdb`
+then run
+
+    python manage.py syncdb
 
 You can then use `python manage.py runserver` to run the application
 
-You have to run the Celery queue at the same time if you want to use
-Visual Culture’s image generation functions. For that you first need to
-set up RabbitMQ:
-
-### Setting up rabbitmq
-
-sudo rabbitmqctl add_user user password
-sudo rabbitmqctl set_permissions user '.*' '.*' '.*'
-
-### Setting up the Celery queue
-
-Run the queue as:
-
-python manage.py celeryd --purge -E -c 2
-
-This means that in development you’ll have two development servers
-running: the Celery queue en the Django server.
 
 Adding vc image rendering components
 ------------------------------------
@@ -72,7 +76,7 @@ Adding vc image rendering components
 
 #### Ubuntu:
 
-sudo apt-get install libpoppler-cpp-dev libpoppler-qt4-dev libboost-dev libboost-python-dev libboost-system-dev libboost-thread-dev
+    sudo apt-get install libpoppler-cpp-dev libpoppler-qt4-dev libboost-dev libboost-python-dev libboost-system-dev libboost-thread-dev
 
 #### Debian
 
@@ -85,27 +89,27 @@ c) because the Debian we run on doesn't have libpoppler-cpp, I got the 0.20 tarb
 
 #### Then:
 
-mkdir build && cd build
-cmake ..
-make
-ln -s libvc_poppler.so ../../vc_django/visual_culture/readers/vc_poppler.so
+    mkdir build && cd build
+    cmake ..
+    make
+    ln -s libvc_poppler.so ../../visualculture/visual_culture/readers/vc_poppler.so
 
 #### OSX
 
-brew install poppler boost
+    brew install poppler boost
 
 ### FONT-SUPPORT
 
-sudo apt-get install python-fontforge fontforge
+    sudo apt-get install python-fontforge fontforge
 
 #### OSX
 
-brew install fontforge
+    brew install fontforge
 
 Maintenance
 -----------
 
 ### Empty the cache
 
-rm -rf {MEDIAROOT}/cache
-python manage.py reset vc_cache
+    rm -rf {MEDIAROOT}/cache
+    python manage.py reset vc_cache

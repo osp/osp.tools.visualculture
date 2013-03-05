@@ -1,0 +1,475 @@
+@import "reset.less";
+@import "bootstrap/bootstrap.less";
+
+
+// size variables -------------------------------------------------------
+
+@h-unit: 15px;
+@v-unit: 20px;
+
+// font sizes variables -------------------------------------------------
+
+@font-size-micro: 7px;
+@font-size-mini: 9px;
+@font-size-small: 12px;
+@font-size-medium: 15px;
+@font-size-big: 21px;
+@font-size-huge: 25px;
+@font-default: "patin"; 
+
+
+// colors variables -------------------------------------------------
+
+@color-background: white;
+@color-text: black;
+@color-link: black;
+@color-author: yellow;
+@color-author-said-gauche: #b8d37a;
+@color-author-said-droite: #87bcea;
+@color-message: lightblue;
+@color-date: #AFEEEE;
+@dawn-sky: #ed3aff; 
+@dawn-earth: #ffdd83;
+@day-sky: #0e4d81;
+@day-earth: #48a9ed;
+@dusk-sky: #dc2800;
+@dusk-earth: #dc2800;
+@night-sky: #320070;
+@night-earth: #9b4e9e;
+
+// fonts -------------------------------------------------
+
+@font-face {
+    font-family: lmitalic;
+    src: url("../fonts/lmroman10-italic.otf");
+}
+@font-face {
+    font-family: lmroman;
+    src: url("../fonts/lmroman10-regular.otf");
+}
+@font-face {
+    font-family: patin;
+    src: url("../fonts/OSP_Le-patin-helvete.ttf");
+}
+@font-face {
+    font-family: univers;
+    src: url("../fonts/UniversElse-Regular.ttf");
+}
+@font-face {
+    font-family: universlight;
+    src: url("../fonts/UniversElse-Light.ttf");
+}
+@font-face {
+    font-family: universbold;
+    src: url("../fonts/UniversElse-Bold.ttf");
+}
+@font-face {
+    font-family: karla;
+    src: url("../fonts/Karla-Regular.ttf");
+}
+
+// default -------------------------------------------------
+
+html { 
+    font-size: 100%; 
+} 
+body {
+    font-family: @font-default; 
+    font-size: @font-size-small; 
+    line-height: @h-unit;
+    color: @color-text;
+    background-color: @color-background;
+    letter-spacing: 0.025em;
+    word-wrap: break-word;
+}
+
+// typography ----------------------------------------------
+
+p {
+    margin: 0;
+    margin-bottom: @font-size-small;
+}
+a, a:visited {
+    color: @color-link;
+}
+
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+    text-decoration: none;
+}
+
+dt {
+    letter-spacing: 0.05em;
+    font-family: lmroman; 
+    font-size: @font-size-small;
+}
+li {
+    list-style: none;
+    list-style-type: none;
+}
+h1{
+    font-size: @font-size-huge; 
+    color: @color-text;
+    font-weight: normal;
+    line-height: 2 * @v-unit - 2px;
+    margin-bottom: 2px;
+    margin-top:0px;
+} 
+h2{
+    font-size: @font-size-big; 
+    color: @color-text;
+    font-weight: normal;
+    line-height: 0.9;
+    line-height: @v-unit - 2px;
+    margin-bottom: 2px;
+}
+
+// active pieces -------------------------------------------------
+
+#active-projects,
+#project-detail {
+    .clearfix;
+    margin-top: @h-unit;
+    margin-left: @v-unit;
+    width: auto;
+    // make it minimally 3 columns wide
+    min-width: 4 * 20px + 3 * 250px;
+    // and let it not bump into the menu
+    padding-right: 165px;
+}
+
+// project box -------------------------------------------------
+
+.project{
+    float: left;
+    width: 250px;
+    margin-right: @v-unit;
+    margin-bottom: @h-unit;
+/*
+background: -moz-linear-gradient(left, #ffffff 37%, #ffa73d 48%, #ff7c00 54%, #ffffff 63%); 
+background: -webkit-gradient(linear, left top, right top, color-stop(37%,#ffffff), color-stop(48%,#ffa73d), color-stop(54%,#ff7c00), color-stop(63%,#ffffff)); 
+background: -webkit-linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63%); 
+background: -o-linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63%); 
+background: -ms-linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63%);
+background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63%); 
+*/
+}
+.project-type{
+    text-transform: uppercase;
+    font-size: @font-size-medium; 
+    text-align: center; 
+}
+.project-title{
+    font-size: @font-size-big;  
+    text-align: left; 
+    margin-bottom: 20px;
+    margin-left: 10px;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    font-weight: normal;
+}
+.project-description-from-the-readme{
+    font-size: @font-size-medium;  
+    text-align: left; 
+    margin-bottom: 2 * @h-unit;
+    letter-spacing: -0.03em;
+    font-weight: normal;
+}
+
+
+// iceberg pictures -------------------------------------------------
+
+.iceberg{
+    margin-right:15px;
+    width: 225px;
+//     background:green;
+}
+.iceberg-pict{
+//     border: solid 1px gray;
+    width: 70px;
+}
+.iceberg-pict-big{
+//     border: solid 1px gray;
+    width:250px;
+    }
+    
+    
+// commits -------------------------------------------------
+ 
+.commit-list{
+    width: 250px;
+//        background:grey;
+    a, a:visited, a:active {
+        color: #005580;
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+}
+.grappe (@t: 5px, @r: 5px,@b: 5px,@l: 5px) {
+    border: solid 1px;
+    padding : @t  @r @b @l;
+    margin-bottom: -1px;
+    margin-right: -1px;   
+}
+.ellipse {
+    clear: both;
+    width: 5px; 
+    margin: auto; 
+    margin-left: 36px;
+    border-left: 1px solid black;
+}
+.commit{
+//        padding-left: 18px;
+}
+.commit p {
+    margin-bottom: 0;
+}
+.commit-author{
+    text-transform: uppercase;
+    font-family: lmroman;
+    letter-spacing: 0.05em;
+    font-size: @font-size-small;
+    .grappe;
+    display: inline-block;
+    background-color: @color-author;
+    position: relative;
+    border-bottom-color: yellow;
+}
+.commit-author-said{
+    text-transform: none;
+    font-family: lmroman;
+    letter-spacing: 0.05em;
+    font-size: @font-size-small; 
+    border:solid 1px;
+    .grappe(1px, 3px, 1px, 3px);
+    display: inline-block;
+    background-color: @color-author;
+    position: relative;
+    border-left-color: @color-author;
+    top: 4px;
+    margin-left: -1px;
+    border-bottom-color: yellow;
+}
+.commit-spacer {
+    width: 19px;
+    height: 12px;
+    float: left;
+    border-top: 1px solid black;
+    position: relative;
+}
+.commit-message{
+    float: left;
+    /*margin-left: 18px;*/
+    text-indent: -18px;
+    font-family: @font-default;
+    font-size: 14px;
+    line-height: 18px; 
+    border:solid 1px;
+    display: inline-block;
+    padding: 6px 4px 3px 22px;
+    /*background: #b8d37a; [> Old browsers <]*/
+    background: -moz-linear-gradient(top, @color-author 0%, @color-date 100%); /* FF3.6+ */
+    background:  -webkit-gradient(linear, top, bottom, color-stop(0%,@color-author),  color-stop(100%,@color-date)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, @color-author 0%,@color-date 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, @color-author 0%,@color-date 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, @color-author 0%,@color-date 100%); /* IE10+ */
+    background: linear-gradient(top, @color-author 0%,@color-date 100%); /* W3C */
+    max-width: 200px;
+    margin-left: -1px;
+}
+.commit-date{
+    float: left;
+    font-family: lmroman;
+    font-size: @font-size-small; 
+    margin-left: 18px;
+    border:solid 1px;
+    margin-top: -1px;
+    display: inline-block;
+    padding: 0 2px;
+    padding-right: 4px;
+    .grappe(1px, 3px, 1px, 3px);
+    background-color: @color-date;
+    border-top-color: @color-date;
+    margin-top: -2px;
+}
+.commit-source {
+    font-size: @font-size-small;
+       margin-left: 18px;
+}
+
+
+// project-detail -------------------------------------------------
+
+div#project-detail .iceberg,
+div#project-detail .commit-list {
+    float: left;
+    margin-right: 20px;
+}
+div#project-detail-head h1.repo_slug,
+div#project-detail-head a.git-clone {
+    float: left;
+}
+div#project-detail-head a.git-clone {
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    margin: 0 @v-unit 0 0;
+    padding: 12px;
+}
+div#project-detail-body {
+    clear: both;
+}
+.project-detail-img-file {
+    margin-top: 20px;
+}
+.project-detail-file-name{   
+    font-family:lmroman; 
+    font-size: 18px;  
+    text-align: left; 
+    font-weight: normal;
+}
+.project-detail-file-mime{
+    font-family:lmroman; 
+    font-size: 12px;  
+    text-align: left; 
+    font-weight: normal;
+}
+
+.project-detail-blob-size{   
+    font-family:lmroman; 
+    font-size: 12px;  
+    text-align: left; 
+    font-weight: normal;
+}
+
+// menu -------------------------------------------------
+
+#menu-wrapper{
+// The menu sticks to the right of this wrapper.
+// The wrapper is at 100% of the page unless the page
+// Becomes less than 995px wide
+// ( the padding is subtracted from the width because
+//   of the different box-sizing model )
+// This way the menu doesn’t interfere with the main page
+// content in #active-projects
+    position: absolute;
+    top: 0;
+    padding-left: 995px;
+    width: 100%;
+    .box-sizing(border-box);
+    z-index: 100;
+}
+#menu{
+    position: absolute;
+    right:10px;
+    top: 10px;
+    font-family: @font-default; 
+    line-height : 18px;
+    margin-top: 20px;
+    margin-right:30px;
+    width: 100px;
+    font-size: 13px; 
+    text-align: left; 
+    color: @color-text;     
+}
+
+#menu a {
+    text-decoration: none;
+}
+
+#menu li{
+    list-style: none;
+    font-family: @font-default;
+}
+
+#menu a:hover { 
+    color: blue; 
+} 
+
+#baseline {
+    display: block;
+    text-transform: none;
+    font-family: @font-default;
+    font-size: 14px;
+    color:blue;
+}
+
+// infos-box ------------------------------------------------
+
+#home-infos{
+    margin-top:15px;
+    margin-left:20px;
+    height: 65px;
+    width: 780px;
+    font-size: @font-size-small; 
+    text-align: left; 
+    color: blue; 
+//     border:solid 1px;
+    font-family:@font-default; 
+}
+
+
+// about page -------------------------------------------------
+#about-general{
+    width: 520px;
+    margin-top: 20px;
+    margin-left: 20px;
+    height: 100%;
+    font-family: @font-default; 
+    font-size: @font-size-medium; 
+    text-align: left; 
+    color: @color-text; 
+}
+.contact{ 
+    color: blue; 
+}
+.osp-about-texts{
+    color: red; 
+}
+#about-members{
+    float : left;
+    width: 520px;
+    margin-top: 20px;
+    margin-left: 40px;
+    font-family: @font-default; 
+    font-size: @font-size-medium; 
+    text-align: left; 
+    color: @color-text; 
+}
+
+// thumbnails -------------------------------------------------
+
+.thumbnails {
+    margin-left: -@gridGutterWidth;
+    list-style: none;
+    .clearfix();
+}
+.thumbnails > li {
+    float: left;
+    margin: 0 0 18px 20px;
+    width: 140px;
+}
+.thumbnail {
+    display: block;
+    padding: 4px;
+    line-height: 1;
+}
+
+// Images and captions
+.thumbnail > img {
+    display: block;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+// breadcrumbs ------------------------------------------------
+
+.breadcrumb {
+    margin: @h-unit @v-unit;
+}
+
+.breadcrumb li {
+    display: inline-block;
+}
