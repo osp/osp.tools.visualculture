@@ -48,9 +48,9 @@ class VC_PDF(object):
         pr.set_render_hint(poppler.render_hint.text_antialiasing, True)
         #raise Exception('About to render page @%d'%res)
         i = pr.render_page(self.page, xres=res, yres=res)
-        print('PDF rendered in %d %d : %s %d'%(i.width(), i.height(), i.format(), i.bytes_per_row()))
+        #print('PDF rendered in %d %d : %s %d'%(i.width(), i.height(), i.format(), i.bytes_per_row()))
         data = i.data()
-        print('Data Type => %s'%type(data))
+        #print('Data Type => %s'%type(data))
         im = Image.frombuffer("RGBA", (i.width(), i.height()), data, "raw", "RGBA", 0, 1)
         buf = StringIO.StringIO()
         im.save(buf, 'PNG')
@@ -58,7 +58,7 @@ class VC_PDF(object):
         buf.close()
     
     def read_blob(self, blob_info, options):
-        print('[VC_PDF][%s] read blob (%s)'%(time.asctime(), blob_info['blob_url']))
+        #print('[VC_PDF][%s] read blob (%s)'%(time.asctime(), blob_info['blob_url']))
         blob_data = self.get_blob_data(blob_info)
         loader = poppler.Loader()
         self.doc = loader.from_data(blob_data)
