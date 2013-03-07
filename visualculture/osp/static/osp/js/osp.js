@@ -19,9 +19,14 @@ VC.annotations = (function ($) {
                     $(that).text('loading');
                 },
                 success: function (data) {
-                    console.info('success');
+                    console.info('success', data);
                     if (data.mime === "image/png") {
                         $(that).replaceWith('<img src="' + data.url + '"/>');
+                    } else if (data.mime === "text/plain") {
+                        var txt = $("<pre />")
+                        txt.insertAfter($(that));
+                        txt.load(data.url);
+                        $(that).remove();
                     } else {
                         $(that).replaceWith('<img src="/static/img/OSP_new-frog.png" />');
                     };
