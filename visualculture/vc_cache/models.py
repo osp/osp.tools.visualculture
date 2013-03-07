@@ -94,7 +94,7 @@ class VCCache(models.Model):
             obj.blob_mime = result['mime']
             obj.cache_options = options_h
             obj.save()
-            mime = obj.blob_mime\
+            mime = obj.blob_mime
             
         cache_url = os.path.join(self.root_url, repo_name, options_h, blob_hex)
         return {'url':cache_url, 'mime':mime}
