@@ -3,7 +3,7 @@
 {% block vc_content%}
 <ul class="thumbnails">
 {% for dir in tree.dirs %}
-    <li class="span2">
+    <li>
         <div class="thumbnail folder">
             <div class="thumb">
                 <a href="{{ dir.href }}">
@@ -15,7 +15,7 @@
     </li>
 {% endfor %}
 {% for file in tree.files %}
-    <li class="span2">
+    <li>
         <div class="thumbnail preview">
             <div class="thumb">
             <a href="{{ file.href }}">
