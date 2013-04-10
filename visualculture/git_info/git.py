@@ -119,8 +119,10 @@ class GitCollection(object):
         self.watch_manager.rm_watch(self.watches)
         
         
-    def watch(self, repo_path):
+    def watch(self, repo_path, is_bare = True):
         git_refs = os.path.join(repo_path, '.git', 'refs', 'heads')
+        if is_bare:
+            git_refs = os.path.join(repo_path, 'refs', 'heads')
         #print 'Watch %s'%(git_refs,)
         wdd = self.watch_manager.add_watch(git_refs, pyinotify.ALL_EVENTS, rec=False)
         for k in wdd:
@@ -146,7 +148,7 @@ class GitCollection(object):
                     repo = None
                 if repo != None:
                     self.repos_[name] = repo
-                    self.watch(path)
+                    self.watch(path, repo.is_bare)
                     break
                     
             except Exception as e:
@@ -186,7 +188,7 @@ class GitCollection(object):
                         else:
                             slug = d
                         self.repos_[slug] = repo
-                        self.watch(name)
+                        self.watch(name, repo.is_bare)
                         
                 except Exception as e:
                     print 'ERROR (root): %s'%e
