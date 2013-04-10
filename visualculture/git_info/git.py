@@ -7,6 +7,7 @@ git_info.git
 
 import pygit2
 import os
+import pyinotify
 
 from ordereddict import OrderedDict
 
@@ -60,6 +61,31 @@ class GitRepository(object):
         return self.repo[key]
         
 
+class GitEventHandler(pyinotify.ProcessEvent):
+    def my_init(self, **kwargs):
+        try:
+            self.git_collection = kwargs['git_collection']
+        except Exception:
+            print 'WARNING: GitEventHandler instanciated without referencing a Git collection'
+            
+            
+    def reset_collection(self):
+        try:
+            self.git_collection.reset()
+        except Exception:
+            pass
+        return None
+        
+    def process_IN_ACCESS(self, event):
+        #print 'Reseting collection based on access to %s'%(event.pathname,)
+        return self.reset_collection()
+        
+    # kept here for possible debugging
+    #def process_default(self, event):
+        #print '[%s]\t%s'%(event.maskname, event.pathname)
+        #return None
+        
+        
 class GitCollection(object):
     """
     Hold a collection of instances of GIT repositories
@@ -73,9 +99,36 @@ class GitCollection(object):
         self.repos_= {}
         self.lazy_loaded_ = False 
         
+        self.watch_manager = pyinotify.WatchManager()
+        self.watches = []
+        self.notifier = pyinotify.ThreadedNotifier(self.watch_manager, GitEventHandler(git_collection=self))
+        #print 'Start Notifier'
+        self.notifier.start()
+        #print 'Notifier Started'
+        
+        
+    def __del__(self):
+        self.watch_manager.rm_watch(self.watches)
+        #print 'Stop Notifier'
+        self.notifier.stop()
+        #print 'Notifier Stopped'
+        
+    def reset(self):
+        self.repos_= {}
+        self.lazy_loaded_ = False 
+        self.watch_manager.rm_watch(self.watches)
+        
+        
+    def watch(self, repo_path):
+        git_refs = os.path.join(repo_path, '.git', 'refs', 'heads')
+        #print 'Watch %s'%(git_refs,)
+        wdd = self.watch_manager.add_watch(git_refs, pyinotify.ALL_EVENTS, rec=False)
+        for k in wdd:
+            self.watches.append(wdd[k])
+        
     def lazy_load_(self, name):
         if not self.lazy_loaded_ and self.repos_:
-            print('%s %s %s'%(name,self.lazy_loaded_, len(self.repos_)))
+            #print('%s %s %s'%(name,self.lazy_loaded_, len(self.repos_)))
             return
         
         if name in self.repos_:
@@ -93,6 +146,7 @@ class GitCollection(object):
                     repo = None
                 if repo != None:
                     self.repos_[name] = repo
+                    self.watch(path)
                     break
                     
             except Exception as e:
@@ -132,6 +186,7 @@ class GitCollection(object):
                         else:
                             slug = d
                         self.repos_[slug] = repo
+                        self.watch(name)
                         
                 except Exception as e:
                     print 'ERROR (root): %s'%e
