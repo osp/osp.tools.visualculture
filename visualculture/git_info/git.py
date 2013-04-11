@@ -100,7 +100,6 @@ class GitCollection(object):
         self.lazy_loaded_ = False 
         
         self.watch_manager = pyinotify.WatchManager()
-        self.watches = []
         self.notifier = pyinotify.ThreadedNotifier(self.watch_manager, GitEventHandler(git_collection=self))
         #print 'Start Notifier'
         self.notifier.start()
@@ -108,7 +107,7 @@ class GitCollection(object):
         
         
     def __del__(self):
-        self.watch_manager.rm_watch(self.watches)
+        self.watch_manager.rm_watch(self.watch_manager.watches.keys())
         #print 'Stop Notifier'
         self.notifier.stop()
         #print 'Notifier Stopped'
@@ -116,7 +115,7 @@ class GitCollection(object):
     def reset(self):
         self.repos_= {}
         self.lazy_loaded_ = False 
-        self.watch_manager.rm_watch(self.watches)
+        self.watch_manager.rm_watch(self.watch_manager.watches.keys())
         
         
     def watch(self, repo_path, is_bare = True):
@@ -125,8 +124,6 @@ class GitCollection(object):
             git_refs = os.path.join(repo_path, 'refs', 'heads')
         #print 'Watch %s'%(git_refs,)
         wdd = self.watch_manager.add_watch(git_refs, pyinotify.ALL_EVENTS, rec=False)
-        for k in wdd:
-            self.watches.append(wdd[k])
         
     def lazy_load_(self, name):
         if not self.lazy_loaded_ and self.repos_:
