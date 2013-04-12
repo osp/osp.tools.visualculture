@@ -99,8 +99,6 @@ class GitCollection(object):
         self.repos_= {}
         self.lazy_loaded_ = False 
         
-        print 'Instantiate GitCollection'
-        
         #self.watch_manager = pyinotify.WatchManager()
         #self.notifier = pyinotify.ThreadedNotifier(self.watch_manager, GitEventHandler(git_collection=self))
         ##print 'Start Notifier'
