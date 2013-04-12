@@ -99,31 +99,34 @@ class GitCollection(object):
         self.repos_= {}
         self.lazy_loaded_ = False 
         
-        self.watch_manager = pyinotify.WatchManager()
-        self.notifier = pyinotify.ThreadedNotifier(self.watch_manager, GitEventHandler(git_collection=self))
-        #print 'Start Notifier'
-        self.notifier.start()
-        #print 'Notifier Started'
+        print 'Instantiate GitCollection'
+        
+        #self.watch_manager = pyinotify.WatchManager()
+        #self.notifier = pyinotify.ThreadedNotifier(self.watch_manager, GitEventHandler(git_collection=self))
+        ##print 'Start Notifier'
+        #self.notifier.start()
+        ##print 'Notifier Started'
         
         
-    def __del__(self):
-        self.watch_manager.rm_watch(self.watch_manager.watches.keys())
-        #print 'Stop Notifier'
-        self.notifier.stop()
-        #print 'Notifier Stopped'
+    #def __del__(self):
+        #self.watch_manager.rm_watch(self.watch_manager.watches.keys())
+        ##print 'Stop Notifier'
+        #self.notifier.stop()
+        ##print 'Notifier Stopped'
         
     def reset(self):
         self.repos_= {}
         self.lazy_loaded_ = False 
-        self.watch_manager.rm_watch(self.watch_manager.watches.keys())
+        #self.watch_manager.rm_watch(self.watch_manager.watches.keys())
         
         
     def watch(self, repo_path, is_bare = True):
-        git_refs = os.path.join(repo_path, '.git', 'refs', 'heads')
-        if is_bare:
-            git_refs = os.path.join(repo_path, 'refs', 'heads')
-        #print 'Watch %s'%(git_refs,)
-        wdd = self.watch_manager.add_watch(git_refs, pyinotify.ALL_EVENTS, rec=False)
+        pass
+        #git_refs = os.path.join(repo_path, '.git', 'refs', 'heads')
+        #if is_bare:
+            #git_refs = os.path.join(repo_path, 'refs', 'heads')
+        ##print 'Watch %s'%(git_refs,)
+        #wdd = self.watch_manager.add_watch(git_refs, pyinotify.ALL_EVENTS, rec=False)
         
     def lazy_load_(self, name):
         if not self.lazy_loaded_ and self.repos_:
@@ -141,7 +144,7 @@ class GitCollection(object):
                 try:
                     repo = GitRepository(path)
                 except Exception as e:
-                    print('Unable to instanciate a GitRepo for: %s'%path)
+                    #print('Unable to instanciate a GitRepo for: %s'%path)
                     repo = None
                 if repo != None:
                     self.repos_[name] = repo

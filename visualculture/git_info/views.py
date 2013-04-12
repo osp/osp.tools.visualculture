@@ -71,10 +71,10 @@ def render_blob(repo_name, blob):
     return {'type':'blob', 'repo_name':repo_name, 'hex' : blob.hex, 'mime': mime, 'size' : blob.size, 'cache':cache}
 
 def index(request):
-    return HttpResponse(json.dumps({'repos': git_collection.get_names()}, indent=2), mimetype="application/json")
+    return HttpResponse(json.dumps({'repos': GitCollection(settings.PREFIX).get_names()}, indent=2), mimetype="application/json")
 
 def render_repo(repo_slug, n_commits=5, tree=False, iceberg=False):
-    repo = git_collection[repo_slug]
+    repo = GitCollection(settings.PREFIX)[repo_slug]
     hash = {}
     hash['category'] = repo.repo_category
     hash['name'] = repo.repo_name
@@ -109,12 +109,12 @@ def repos(repo_names):
 
 @cache_page(60 * 60)
 def all_repos(request):
-    hash = repos(git_collection.get_names())
+    hash = repos(GitCollection(settings.PREFIX).get_names())
     return HttpResponse(json.dumps(hash, indent=2), mimetype="application/json")
 
 def item(request, repo_name, oid):
     print('Requested item: %s %s' % (repo_name, oid))
-    repo = git_collection[repo_name]
+    repo = GitCollection(settings.PREFIX)[repo_name]
     obj = None
     if(oid == 'head'):
         obj = repo.head
@@ -145,7 +145,7 @@ def item_from_path(request, repo_name, path):
     you just recurse down the tree:
     /libs/transducers -> repo.head.tree['libs'].to_object()['transducers'].to_object()
     """
-    repo = git_collection[repo_name]
+    repo = GitCollection(settings.PREFIX)[repo_name]
     
     paths = path.split('/')
     
@@ -184,7 +184,7 @@ def item_from_path(request, repo_name, path):
     return HttpResponse(json.dumps(hash, indent=2), mimetype="application/json")
 
 def blob_data(request, repo_name, oid):
-    obj = git_collection[repo_name][oid]
+    obj = GitCollection(settings.PREFIX)[repo_name][oid]
     
     if obj.type == pygit2.GIT_OBJ_BLOB:
         mime = magic_finder(obj.data)
@@ -193,12 +193,12 @@ def blob_data(request, repo_name, oid):
     return HttpResponseBadRequest('Requested object is not a BLOB')
 
 def blob_data_from_path(request, repo_name, path):
-    repo = git_collection[repo_name]
+    repo = GitCollection(settings.PREFIX)[repo_name]
     try:
         oid = repo.index[path].oid
     except KeyError:
          raise Http404
-    obj = git_collection[repo_name][oid]
+    obj = repo[oid]
     
     if obj.type == pygit2.GIT_OBJ_BLOB:
         mime = magic_finder(obj.data)
