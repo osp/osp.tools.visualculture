@@ -87,7 +87,7 @@ def category(request, category):
     #except TemplateDoesNotExist:
     t = loader.get_template('category.html')
     c = RequestContext(request,
-           { 'repos' : repos[:8], "said": said, 'vc_url' :settings.VC_URL, 'category' : category }
+           { 'repos' : repos, "said": said, 'vc_url' :settings.VC_URL, 'category' : category }
        )
     return HttpResponse(t.render(c))
 
