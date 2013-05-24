@@ -10,7 +10,7 @@
 
     {% for repo in repos %}
     <div class="project">
-    <p class="project-type"><a href="{% url osp.views.category repo.category %}">{{ repo.category }}</a></p>
+    <p class="project-type">{% if repo.category %}<a href="{% url osp.views.category repo.category %}">{{ repo.category }}</a>{% else %}&nbsp;{% endif %}</p>
 
         <h2 class="project-title">
             <a href="{{ repo.web_path }}">{{ repo.name }}</a>
