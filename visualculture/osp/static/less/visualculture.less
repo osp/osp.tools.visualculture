@@ -355,6 +355,10 @@ div#project-detail-head a.git-clone {
 }
 div#project-detail-body {
     clear: both;
+    display:-moz-box; /* Firefox */
+    display:-webkit-box; /* Safari and Chrome */
+    display:-ms-flexbox; /* Internet Explorer 10 */
+    display:box;
 }
 .project-detail-img-file {
     margin-top: 20px;
