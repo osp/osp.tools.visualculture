@@ -63,6 +63,10 @@
         div#quotes {
             text-align: center;
             height: 360px;
+            position: fixed;
+            left: 0;
+            top: 40%;
+            width: 25%;
         }
         blockquote {
             display: none;
@@ -75,7 +79,7 @@
             line-height: 1em;
         }
         blockquote div {
-        font-family: patin, serif;
+	        font-family: patin, serif;
         }
         p {
             margin: 0;
@@ -89,9 +93,15 @@
             vertical-align: 0.25em;
         }
         .inst_logo {
-         width: 25%;
-         height: 25%; 
+         height: 20%; 
+         margin-left: 0;
       }
+      img {
+		border: 3px solid lightseagreen;
+		max-width: 70%;
+		margin-left: 15%;
+		margin-bottom: 1em;
+    }
     </style>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 </head>
@@ -115,11 +125,11 @@
     <div style="margin-top: 0.5em;"><a href="http://libregraphicsmeeting.org/2013/r+w/" target="_blank">LGRU Q&A</a></div>
         </blockquote>
          <blockquote>
-«When is the next version coming out?»
+		«When is the next version coming out?»
         <div style="margin-top: 0.5em;"><a href="http://libregraphicsmeeting.org/2013/r+w/" target="_blank">LGRU Q&A</a></div>
  </blockquote>
         <blockquote>
-    «As a tourist in this free territory, you forget about the adobe holy trinity: Illustrator™ / Photoshop™ / Indesign™.»
+	    «As a tourist in this free territory, you forget about the adobe holy trinity: Illustrator™ / Photoshop™ / Indesign™.»
             <div style="margin-top: 0.5em;">Louison Coulom</div>
         </blockquote>
         <blockquote>
@@ -132,8 +142,7 @@
 
 
   <h2>Libre Graphics Summer School</h2>
-<img src="
-http://osp.constantvzw.org/static/summer-school-2013/screenshot_2013-05-04_15.png" style="width:100%; text-align:center; margin-bottom:20px">
+<img src="http://osp.constantvzw.org/static/summer-school-2013/screenshot_2013-05-04_15.png" style="width:100%; text-align:center; margin-bottom:20px">
 
 <p>
   <strong>The design caravan <a href="http://osp.constantvzw.org/" target="_blank">Open Source Publishing</a> invites you for a design education experiment
@@ -172,12 +181,11 @@ http://osp.constantvzw.org/static/summer-school-2013/screenshot_2013-05-04_15.pn
 At the translation between analog gesture and digital format the notion of scale becomes pertinent. 
 Going  from digital to analog, we are used to seeing a discrete logic of blobs  as produced by the print head of the inkjet printer. But 1980s  technology of plotting tables shows that a printer can also be commanded  in a much more gestural and continuous style. 
 </p><p>
-From a small scale to a large scale and from large to small, what tools can we use for this translation? What is lost in the scaling ? Can we measure the approximation, the distance between instructions and graphical interpretation ?
+From a small scale to a large scale and from large to small, what tools can we use for this translation? What is lost in the scaling? Can we measure the approximation, the distance between instructions and graphical interpretation?
 </p>
   <div>
   
 <img src="
-
 
 
 http://osp.constantvzw.org/static/summer-school-2013/DSCF2653_small.jpg" style="width:100%; text-align:center; margin-top:20px">
@@ -196,7 +204,6 @@ The  starting point for this worksession is the notion of skeleton, of line, of 
           </p>
           
 <img src="
-
 
 
 
@@ -243,12 +250,13 @@ For design students? Which level? Other disciplines, backgrounds?
   </p>
   
   <p>
-* Please spread this call to students, designers, teachers, institutions and friends you feel might be interested.
+	* Please spread this call to students, designers, teachers, institutions and friends you feel might be interested.
   </p>
-  <p>
+
+  <p style="text-indent: 0; margin-top: 2em;">
   <img src="http://osp.constantvzw.org/static/summer-school-2013/vo.svg" alt="Logo Vlaamse Overheid" title="Vlaamse Overheid" class="inst_logo">
   <img src="http://osp.constantvzw.org/static/summer-school-2013/vgc.svg" alt="Logo Vlaamse Gemeenschapscommissie" title="Vlaamse Gemeenschapscommissie" class="inst_logo"><br/>
-  Constant Variable is supported by the Vlaamse Gemeenschapscommisie
+  Constant Variable is supported by the Vlaamse Gemeenschapscommisie.
   </p>
       <script type="text/javascript" charset="utf-8">
         var quotes = {};
@@ -270,3 +278,4 @@ For design students? Which level? Other disciplines, backgrounds?
     </script>
 </body>
 </html>
+
