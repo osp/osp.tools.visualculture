@@ -336,12 +336,6 @@ background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63
 
 
 // project-detail -------------------------------------------------
-
-div#project-detail .iceberg,
-div#project-detail .commit-list {
-    float: left;
-    margin-right: 20px;
-}
 div#project-detail-head h1.repo_slug,
 div#project-detail-head a.git-clone {
     float: left;
@@ -359,6 +353,23 @@ div#project-detail-body {
     display:-webkit-box; /* Safari and Chrome */
     display:-ms-flexbox; /* Internet Explorer 10 */
     display:box;
+}
+
+div#project-detail .iceberg,
+div#project-detail .commit-list {
+    float: left;
+    margin-right: 20px;
+}
+div#project-detail ul.thumbnails {
+    -moz-box-flex:1.0; /* Firefox */
+    -webkit-box-flex:1.0; /* Safari and Chrome */
+    -ms-flex:1.0; /* Internet Explorer 10 */
+    box-flex:1.0;
+    
+}
+
+div#project-detail #blob {
+    
 }
 .project-detail-img-file {
     margin-top: 20px;
