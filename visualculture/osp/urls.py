@@ -7,7 +7,8 @@ urlpatterns = patterns('',
     ('^menu.html$', direct_to_template, {
         'template': 'menu.html',
         'extra_context' : { 'HOST' : 'http://osp.constantvzw.org' },
-    })
+    }),
+    ('^summer-school-2013/$', direct_to_template, {'template': 'summer-school-2013.html', })
 )
 
 urlpatterns += patterns('osp.views',
