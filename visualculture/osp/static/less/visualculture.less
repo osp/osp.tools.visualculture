@@ -5,6 +5,7 @@
 
 @h-unit: 15px;
 @v-unit: 20px;
+@col:   250px;
 
 // utility classes ------------------------------------------------------
 
@@ -143,22 +144,25 @@ li {
     list-style: none;
     list-style-type: none;
 }
-h1{
-    font-size: @font-size-huge; 
+
+h1, h2, h3, h4, h5, h6 {
     color: @color-text;
     font-weight: normal;
     line-height: 2 * @v-unit - 2px;
     margin-bottom: 2px;
-    margin-top:0px;
-} 
-h2{
-    font-size: @font-size-big; 
-    color: @color-text;
-    font-weight: normal;
-    line-height: @v-unit - 2px;
-    margin-bottom: 2px;
+}
+h1 {
+    font-size: @font-size-huge; 
 }
 
+h2 {
+    font-size: @font-size-big; 
+}
+
+h3 {
+    font-size: @font-size-medium; 
+}
+ 
 // active pieces -------------------------------------------------
 
 #active-projects,
@@ -168,7 +172,7 @@ h2{
     margin-left: @v-unit;
     width: auto;
     // make it minimally 3 columns wide
-    min-width: 4 * 20px + 3 * 250px;
+    min-width: 4 * @v-unit + 3 * @col;
     // and let it not bump into the menu
     padding-right: 165px;
 }
@@ -177,7 +181,7 @@ h2{
 
 .project{
     float: left;
-    width: 250px;
+    width: @col;
     margin-right: @v-unit;
     margin-bottom: @h-unit;
 /*
@@ -225,14 +229,14 @@ background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63
 }
 .iceberg-pict-big{
 //     border: solid 1px gray;
-    width:250px;
+    width: @col;
     }
     
     
 // commits -------------------------------------------------
  
 .commit-list{
-    width: 250px;
+    width: @col;
 //        background:grey;
     a, a:visited, a:active {
         color: #005580;
@@ -344,7 +348,7 @@ div#project-detail-head a.git-clone {
     background-color: blue;
     color: white;
     font-weight: bold;
-    margin: 0 @v-unit 0 0;
+    margin: 0 @v-unit @h-unit 0;
     padding: 12px;
 }
 div#project-detail-body {
@@ -374,24 +378,36 @@ div#project-detail #blob {
 .project-detail-img-file {
     margin-top: 20px;
 }
-.project-detail-file-name{   
+.project-detail-file-name {
     font-family:lmroman; 
     font-size: 18px;  
     text-align: left; 
     font-weight: normal;
 }
-.project-detail-file-mime{
+.project-detail-file-mime {
     font-family:lmroman; 
     font-size: 12px;  
     text-align: left; 
     font-weight: normal;
 }
 
-.project-detail-blob-size{   
+.project-detail-blob-size {
     font-family:lmroman; 
     font-size: 12px;  
     text-align: left; 
     font-weight: normal;
+}
+
+.project-description-from-the-readme {
+    width: 3 * @col + 2 * @v-unit;
+    
+    p, ul, ol {
+        width: 2 * @col + @v-unit;
+    }
+    
+    ul, ol, pre {
+        margin-bottom: @h-unit;
+    }
 }
 
 // menu -------------------------------------------------
@@ -463,7 +479,7 @@ div#project-detail #blob {
     margin-top:15px;
     margin-left:20px;
     height: 65px;
-    width: 780px;
+    width: 3 * @col + 2 * @v-unit;
     font-size: @font-size-small; 
     text-align: left; 
     color: blue; 
@@ -549,38 +565,38 @@ pre {
 // modals -----------------------------------------------------
 
 .close {
-  float: right;
-  text-shadow: 0 1px 0 rgba(255,255,255,1);
-  font-size: @font-size-big;
-  line-height: @v-unit;
-  .opacity(20);
-  &:hover {
-    text-decoration: none;
-    .opacity(40);
-    cursor: pointer;
-  }
+    float: right;
+    text-shadow: 0 1px 0 rgba(255,255,255,1);
+    font-size: @font-size-big;
+    line-height: @v-unit;
+    .opacity(20);
+    &:hover {
+        text-decoration: none;
+        .opacity(40);
+        cursor: pointer;
+    }
 }
 
 // Recalculate z-index where appropriate
 .modal-open {
-  .dropdown-menu {  z-index: 2050; }
-  .dropdown.open { *z-index: 2050; }
-  .popover       {  z-index: 2060; }
-  .tooltip       {  z-index: 2070; }
+    .dropdown-menu {  z-index: 2050; }
+    .dropdown.open { *z-index: 2050; }
+    .popover       {  z-index: 2060; }
+    .tooltip       {  z-index: 2070; }
 }
 
 // Background
 .modal-backdrop {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1040;
-  background-color: @color-author;
-  #gradient > .radial(@color-author, @color-date);
-  // Fade for backdrop
-  &.fade { opacity: 0; }
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    background-color: @color-author;
+    #gradient > .radial(@color-author, @color-date);
+    // Fade for backdrop
+    &.fade { opacity: 0; }
 }
 
 .modal-backdrop,
@@ -606,8 +622,8 @@ pre {
     .box-shadow(0 3px 7px rgba(0,0,0,0.3));
     .background-clip(padding-box);
     &.fade {
-      .transition(e('opacity .3s linear, top .3s ease-out'));
-      top: -25%;
+        .transition(e('opacity .3s linear, top .3s ease-out'));
+        top: -25%;
     }
     &.fade.in { top: 50%; }
 }
