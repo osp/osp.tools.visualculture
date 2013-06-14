@@ -234,7 +234,14 @@ background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63
     
     
 // commits -------------------------------------------------
- 
+
+// to deal with a weird webkit bug in which the commit messages and iceberg pictures were no longer visible
+// cf http://stackoverflow.com/questions/10801171/inner-elements-remains-invisible-after-a-css3-transition
+// maybe do cleanup of gradients, transitions, and then check if still necessary?
+* {
+    -webkit-backface-visibility: hidden;
+}
+
 .commit-list{
     width: @col;
 //        background:grey;
