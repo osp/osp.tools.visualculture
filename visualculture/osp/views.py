@@ -92,7 +92,10 @@ def category(request, category):
     return HttpResponse(t.render(c))
 
 def browse(request, category, name, path):
-    title = "you're traveling toward %s in %s" % (path, name)
+    if path:
+        title = "you’re traveling towards %s in %s" % (path, name)
+    else:
+        title = "you’re traveling in %s" % (name)
     
     repo_slug = which_repo(category, name)
     try:
