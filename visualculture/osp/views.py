@@ -93,9 +93,9 @@ def category(request, category):
 
 def browse(request, category, name, path):
     if path:
-        title = "you’re traveling towards %s in %s" % (path, name)
+        title = u"you’re traveling towards %s in %s" % (path, name)
     else:
-        title = "you’re traveling in %s" % (name)
+        title = u"you’re traveling in %s" % (name)
     
     repo_slug = which_repo(category, name)
     try:
