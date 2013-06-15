@@ -2,15 +2,9 @@
 
 {% block content %}
 <div id="active-projects">
-    <script>
-    // $('#active-projects').masonry({
-    //   itemSelector: '.project'
-    // });
-    </script>
-
     {% for repo in repos %}
     <div class="project">
-    <p class="project-type"><a href="{% url osp.views.category repo.category %}">{{ repo.category }}</a></p>
+        <p class="project-type"><a href="{% url osp.views.category repo.category %}">{{ repo.category }}</a></p>
 
         <h2 class="project-title">
             <a href="{{ repo.web_path }}">{{ repo.name }}</a>
@@ -18,8 +12,8 @@
 
         <div class="iceberg">
             {% for ice in repo.iceberg reversed %}
-                <a href="/{{ repo.category }}/{{ repo.name }}/tree/master/iceberg/{{ ice.name }}">
-                    <link rel="embed" href="{{vc_url}}{{ repo.slug }}/{{ice.hex}}?width=200">
+            <a href="{{ vc_url }}/{{ repo.category }}/{{ repo.name }}/tree/master/iceberg/{{ ice.name }}">
+                <link rel="embed" href="{{vc_url}}/{{ repo.slug }}/{{ice.hex}}?width=200">
             </a>
             {% endfor %}
         </div>
@@ -27,6 +21,8 @@
         <p class="project-source"><a href="{{ repo.web_path }}">Source files</a></p>
 
         {% include "commit-list.html" %}
+
+        <p><a href="{{ repo.web_path }}">Read the full story</a></p>
         
     </div>
     {% endfor %}

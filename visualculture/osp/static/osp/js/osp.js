@@ -20,6 +20,7 @@ VC.annotations = (function ($) {
                 },
                 success: function (data) {
                     console.info('success', data);
+                    console.log(data.url);
                     if (data.mime === "image/png") {
                         $(that).replaceWith('<img src="' + data.url + '"/>');
                     } else if (data.mime === "text/plain") {

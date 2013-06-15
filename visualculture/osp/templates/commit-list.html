@@ -1,12 +1,21 @@
+{% load humanize markup %}
+
 <div class="commit-list">
     {% for commit in repo.commits %}
-        <div class='ellipse' style='height: {{ commit.ellipse }}px;'>&nbsp;</div>
-        <div class='commit' data-date="{{ commit.commit_time|date:"c" }}">
-            <p><span class='commit-author'>{{ commit.author }}</span><span class='commit-author-said'>{{ said|random }}</span></p>
-            <div class='commit-spacer'>
+    <div class='commit' data-date="{{ commit.commit_time|date:"c" }}" style="margin-top: {% if commit.ellipse < 10 %}10{%else %}{{ commit.ellipse }}{% endif %}px">
+            <div class='commit-metadata'>
+                {% ifchanged commit.commit_time|naturaltime %}
+                <p>
+                    <time datetime="{{ commit.commit_time }}" class="commit-time">{{ commit.commit_time|naturaltime|capfirst }}</time>,</p>
+                {% endifchanged %}
+                <p>
+                    <span class='commit-author'>{{ commit.author }}</span>
+                    <span class='commit-author-said'>{{ said|random }}</span>:
+                </p>
             </div>
-            <p class='commit-message'>&mdash; {{ commit.message|urlize|linebreaksbr }}</p>
-            <p class='commit-date'>{{ commit.commit_time|date:"l, jS F Y - H:i" }}</p>
+            <div class="commit-message">
+                {{ commit.message|urlize|markdown }}</p>
+            </div>
         </div>
     {% endfor %} 
 </div>
