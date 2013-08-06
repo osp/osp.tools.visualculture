@@ -8,6 +8,10 @@ urlpatterns = patterns('',
         'template': 'menu.html',
         'extra_context' : { 'HOST' : 'http://osp.constantvzw.org' },
     }),
+    ('^about$', direct_to_template, {
+        'template': 'about.html',
+        'extra_context' : { 'title' : 'about' },
+    }),
     ('^cv$', direct_to_template, {
         'template': 'cv.html',
         'extra_context' : { 'title' : 'cv' },
