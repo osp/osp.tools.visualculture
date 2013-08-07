@@ -81,7 +81,10 @@ def category(request, category):
                 ice.append(penguin)
         r['iceberg'] = ice
         repos.append(r)
-
+    
+    if len(repos) == 0: # No repositories with this slug
+        raise Http404
+    
     #try:
         #t = loader.get_template('category_%s.html'%(category))
     #except TemplateDoesNotExist:
