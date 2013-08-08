@@ -137,8 +137,16 @@ h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
 
 dt {
     letter-spacing: 0.05em;
-    font-family: lmroman; 
     font-size: @font-size-small;
+}
+dd {
+    margin-left: @v-unit;
+}
+dt {
+    margin-top: @h-unit;
+}
+dt:first-child {
+    margin-top: inherit;
 }
 li {
     list-style: none;
@@ -170,7 +178,8 @@ sup {
 // active pieces -------------------------------------------------
 
 #active-projects,
-#project-detail {
+#project-detail,
+#info-page {
     .clearfix;
     margin-top: @h-unit;
     margin-left: @v-unit;
@@ -211,7 +220,7 @@ background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63
     letter-spacing: -0.03em;
     font-weight: normal;
 }
-.project-description-from-the-readme{
+.project-description-from-the-readme {
     font-size: @font-size-medium;  
     text-align: left; 
     margin-bottom: 2 * @h-unit;
@@ -411,10 +420,11 @@ div#project-detail #blob {
     font-weight: normal;
 }
 
-.project-description-from-the-readme {
+.project-description-from-the-readme,
+#info-page {
     width: 3 * @col + 2 * @v-unit;
     
-    p, ul, ol {
+    p, ul, ol, dl {
         width: 2 * @col + @v-unit;
     }
     
