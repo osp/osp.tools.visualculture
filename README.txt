@@ -29,13 +29,19 @@ Libgit2 needs to be compiled from source:
     sudo apt-get install build-essential cmake
     mkdir -p ~/src
     cd ~/src
-    curl https://github.com/downloads/libgit2/libgit2/libgit2-0.17.0.tar.gz | tar xvz
+    wget https://github.com/downloads/libgit2/libgit2/libgit2-0.17.0.tar.gz | tar zxvf
     cd libgit2-0.17.0
     mkdir build && cd build
     cmake ..
     cmake --build .
     sudo cmake --build . --target install
     sudo ldconfig
+
+Note: if you have this error:
+    ImportError: libgit2.so.0: cannot open shared object file: No such file or directory
+
+Do:
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 
 #### OS X
 
