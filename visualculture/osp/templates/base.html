@@ -63,6 +63,39 @@
     <script>
     jQuery(document).ready(VC.annotations.init());
     </script>
+
+
+        <script>
+            function resetLayers(){
+                $("#project-detail-files").css("z-index", "10");
+                $("#project-detail-iceberg").css("z-index", "20");
+                $("#project-detail-commits").css("z-index", "30");
+                $("#project-detail-about").css("z-index", "40");
+            }
+            $(document).ready(function(){
+                $("#project-nav-about").click(function(e){
+                    e.preventDefault();
+                    resetLayers();
+                    $("#project-detail-about").css("z-index", "100");
+                });
+                $("#project-nav-commits").click(function(e){
+                    e.preventDefault();
+                    resetLayers();
+                    $("#project-detail-commits").css("z-index", "100");
+                });
+                $("#project-nav-iceberg").click(function(e){
+                    e.preventDefault();
+                    resetLayers();
+                    $("#project-detail-iceberg").css("z-index", "100");
+                });
+                $("#project-nav-files").click(function(e){
+                    e.preventDefault();
+                    resetLayers();
+                    $("#project-detail-files").css("z-index", "100");
+                });
+            });
+        </script>
+
     {% endblock %}
     </body>
 </html>

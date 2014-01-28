@@ -219,10 +219,6 @@ h2{
         left: 3 * 4em;
     }
 }
-h1#project-detail-title {
-    float: left;
-    margin-bottom: 0;
-}
 
 // project box -------------------------------------------------
 
@@ -340,6 +336,26 @@ background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63
 
 
 // project-detail -------------------------------------------------
+h1#project-detail-title {
+    float: left;
+    margin-bottom: 0;
+}
+ul#project-detail-nav {
+    margin-top: 1em;
+
+    li {
+        display: inline;
+        margin-left: 1em;
+
+        a {
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
 
 div#project-detail .iceberg,
 div#project-detail .commit-list {
