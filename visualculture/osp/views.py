@@ -81,7 +81,10 @@ def category(request, category):
                 ice.append(penguin)
         r['iceberg'] = ice
         repos.append(r)
-
+    
+    if len(repos) == 0: # No repositories with this slug
+        raise Http404
+    
     #try:
         #t = loader.get_template('category_%s.html'%(category))
     #except TemplateDoesNotExist:
@@ -92,7 +95,10 @@ def category(request, category):
     return HttpResponse(t.render(c))
 
 def browse(request, category, name, path):
-    title = "you're traveling toward %s in %s" % (path, name)
+    if path:
+        title = u"you’re traveling towards %s in %s" % (path, name)
+    else:
+        title = u"you’re traveling in %s" % (name)
     
     repo_slug = which_repo(category, name)
     try:

@@ -159,12 +159,13 @@ def item_from_path(request, repo_name, path):
         except KeyError:
             raise Http404
     
-    if len(paths) == 1:
-        # root path named after repo
-        name = repo_name
-    elif paths[-1] == '':
-        # tree named after tree
-        name = paths[-2]
+    if paths[-1] == '':
+        if len(paths) == 1:
+            # root path named after repo
+            name = repo_name
+        else:
+            # tree named after tree
+            name = paths[-2]
     else:
         # blob named after blob
         name = paths[-1]

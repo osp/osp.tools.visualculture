@@ -67,6 +67,7 @@ def blob_data(request, repo_name, oid):
     
     try:
         blob = cache.Get(repo_name, oid, options=options)
+        blob['url'] = request.build_absolute_uri(blob['url']) # add domain name to url
     except MimeNotSupported:
         blob = {'url': '', 'mime': ''}
     

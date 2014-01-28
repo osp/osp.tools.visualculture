@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="margin: 1.5em;">
+<h1 style="margin-top: 2em;">Subscribe to OSP's newsletter</h1>
+<form method="post" action="http://list.osp.stdin.fr/process.php" name="signup">
+    <!--	Email field must be named "Email" -->
+    <div style="float: left;">
+        <label for="email"><strong>Your Email:</strong></label>
+        <input type="text" name="Email" id="email" maxlength="60" />
+    </div>
+
+
+    <div style="float: left;">
+        <!--  *** DO NOT CHANGE name="pommo_signup" ! ***
+              If you'd like to change the button text change the "value=" text. -->
+        <input type="hidden" name="pommo_signup" value="true" />
+        <input type="submit" value="Subscribe" />
+    </div>
+
+</form>
+</div>
+{% endblock %}
+
