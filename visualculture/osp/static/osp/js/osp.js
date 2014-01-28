@@ -20,9 +20,9 @@ VC.annotations = (function ($) {
                 },
                 success: function (data) {
                     console.info('success', data);
-                    if (data.mime === "image/png") {
+                    if (data.mime.match(/image\/.*/)) {
                         $(that).replaceWith('<img src="' + data.url + '"/>');
-                    } else if (data.mime === "text/plain") {
+                    } else if (data.mime.match(/text\/.*/)) {
                         var txt = $("<pre />")
                         txt.insertAfter($(that));
                         txt.load(data.url);
