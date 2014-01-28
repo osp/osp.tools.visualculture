@@ -3,7 +3,7 @@
 
 // size variables -------------------------------------------------------
 
-@h-unit: 18px;
+@h-unit: 20px;
 @v-unit: 15px;
 
 // utility classes ------------------------------------------------------
@@ -119,6 +119,9 @@ p {
 a, a:visited {
     color: @color-link;
 }
+a:hover {
+    text-decoration: none;
+}
 
 h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
     text-decoration: none;
@@ -138,8 +141,8 @@ h1{
     color: @color-text;
     font-weight: normal;
     line-height: 2 * @v-unit - 2px;
-    margin-bottom: 2px;
-    margin-top:0px;
+    margin-bottom: 1em;
+    margin-top: 1em;
     clear: both;
     text-transform: uppercase;
 } 
@@ -148,7 +151,7 @@ h2{
     color: @color-text;
     font-weight: normal;
     line-height: @v-unit - 2px;
-    margin-bottom: 2px;
+    margin-bottom: 1em;
 }
 
 // active pieces -------------------------------------------------
@@ -158,14 +161,13 @@ h2{
     z-index: 2;
     background-color: rgba(255, 255, 255, 0.9);
     left: 2em;
-    top: 2em;
     padding: 1em;
+    margin-top: 2em;
+    margin-left: @v-unit;
 }
 #active-projects,
 #project-detail {
     .clearfix;
-    margin-top: @h-unit;
-    margin-left: @v-unit;
     width: auto;
     // make it minimally 3 columns wide
     min-width: 4 * 20px + 3 * 250px;
@@ -173,26 +175,53 @@ h2{
     padding-right: 165px;
     position: absolute;
 
-    #project-detail-head {
-        background: rgba(255, 255, 255, 0.9);
+    #project-detail-readme,
+    #project-detail-iceberg,
+    #project-detail-commits,
+    #project-detail-files {
         position: absolute;
         padding: 2em;
         margin: 15px;
-        z-index: 50;
+    }
+    #project-detail-files {
+        background: rgba(224, 255, 255, 0.9);
+        width: 100%;
+        z-index: 10;
+        &:hover {
+            z-index: 100;
+        }
+    }
+    #project-detail-iceberg {
+        background: rgba(255, 255, 224, 0.9);
+        width: 85%;
+        z-index: 20;
         top: 4em;
         left: 4em;
-        min-width: 4 * 20px + 3 * 250px;
+        &:hover {
+            z-index: 100;
+        }
     }
-    #project-detail-body {
+    #project-detail-commits {
+        background: rgba(127, 255, 212, 0.9);
+        width: 75%;
+        z-index: 30;
+        top: 2 * 4em;
+        left: 2 * 4em;
+        &:hover {
+            z-index: 100;
+        }
+    }
+    #project-detail-readme {
         background: rgba(255, 255, 255, 0.9);
-        position: absolute;
-        padding: 2em;
-        margin: 15px;
+        width: 600px;
         z-index: 40;
-        top: 2em;
-        left: 2em;
-        min-width: 4 * 20px + 3 * 250px;
+        top: 3 * 4em;
+        left: 3 * 4em;
     }
+}
+h1#project-detail-title {
+    float: left;
+    margin-bottom: 0;
 }
 
 // project box -------------------------------------------------
@@ -216,6 +245,14 @@ background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63
     text-transform: uppercase;
     font-size: @font-size-medium; 
     text-align: center; 
+
+    a {
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 }
 .project-title{
     font-size: @font-size-big;  
@@ -225,6 +262,7 @@ background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63
     line-height: 0.9;
     letter-spacing: -0.03em;
     font-weight: normal;
+    text-decoration: underline;
 }
 .project-description-from-the-readme{
     font-size: @font-size-medium;  
@@ -239,7 +277,6 @@ background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63
 
 .iceberg{
     margin-right:15px;
-    width: 225px;
 //     background:green;
 }
 .iceberg-pict{
@@ -283,7 +320,6 @@ background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63
 .commit  {
     padding: 6px 0;
     border-top: 1px dotted aquamarine;
-    background-color: white;
     p {
         margin-bottom: 0;
     }
@@ -310,16 +346,22 @@ div#project-detail .commit-list {
     float: left;
     margin-right: 20px;
 }
-div#project-detail-head h1.repo_slug,
-div#project-detail-head a.git-clone {
+div#project-detail-head h1.repo_slug {
     float: left;
 }
-div#project-detail-head a.git-clone {
-    background-color: blue;
-    color: white;
+a.git-clone {
+    background: none repeat scroll 0 0 #0000FF;
+    color: #FFFFFF;
+    display: inline-block;
+    font-family: notcouriersans;
     font-weight: bold;
-    margin: 0 @v-unit 0 0;
-    padding: 12px;
+    margin-left: 1em;
+    margin-top: 23px;
+    padding: 8px;
+    text-decoration: none;
+
+    &:hover {
+    }
 }
 div#project-detail-body {
     clear: both;
@@ -413,7 +455,7 @@ div#on-the-table {
     position: absolute;
     z-index: 1;
     &:hover {
-        z-index: 3;
+        z-index: 100;
     }
     figure {
         display: inline-block;
@@ -492,7 +534,8 @@ pre {
 // breadcrumbs ------------------------------------------------
 
 .breadcrumb {
-    margin: @h-unit @v-unit;
+    clear: both;
+    font-family: notcouriersans;
 }
 
 .breadcrumb li {

@@ -19,8 +19,6 @@
 <div id="active-projects">
     {% for repo in repos %}
     <div class="project">
-        <p class="project-type">{{ repo.category }}</p>
-
         <h2 class="project-title">
             <a href="{{ repo.web_path }}">{{ repo.name }}</a>
         </h2>
