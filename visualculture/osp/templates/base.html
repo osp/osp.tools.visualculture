@@ -17,6 +17,18 @@
 {% endblock %}
     </head>
     <body>
+        {% block menu %}
+        <!-- Menu navigation-->
+        <div id="menu-wrapper">
+            {% include "partials/nav.html" %}
+        </div>
+
+        <div>
+            <a href="http://osp.constantvzw.org"><img style="position: absolute; top: 0; right: 0; border: 0;" src="{{ STATIC_URL }}img/ribbon-osp.png" alt="Frog me on GitOsp"></a>
+        </div>
+       {% endblock %}
+
+
     {% block body %}
         {% block header %}
         <div id="home-infos">
@@ -37,18 +49,6 @@
         {% block content %}{% endblock %}
 
 
-        {% block menu %}
-        <!-- Menu navigation-->
-            <div id="menu-wrapper">
-{% include "partials/nav.html" %}
-            </div>
-
-<div>
-<a href="http://osp.constantvzw.org"><img style="position: absolute; top: 0; right: 0; border: 0;" src="{{ STATIC_URL }}img/ribbon-osp.png" alt="Frog me on GitOsp"></a>
-</div>
-
-
-       {% endblock %}
         
 {% block footer %}{% endblock %}
     {% endblock %}
