@@ -3,8 +3,8 @@
 
 // size variables -------------------------------------------------------
 
-@h-unit: 15px;
-@v-unit: 20px;
+@h-unit: 18px;
+@v-unit: 15px;
 
 // utility classes ------------------------------------------------------
 
@@ -101,11 +101,11 @@
 
 body {
     font-family: @font-default; 
-    font-size: @font-size-small; 
+    font-size: @font-size-medium; 
     line-height: @h-unit;
     color: @color-text;
     background-color: @color-background;
-    letter-spacing: 0.025em;
+    letter-spacing: 0.5px;
     word-wrap: break-word;
     padding: 1em;
 }
@@ -156,7 +156,7 @@ h2{
 #active-projects {
     position: relative;
     z-index: 2;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.9);
     left: 2em;
     top: 2em;
     padding: 1em;
@@ -177,9 +177,10 @@ h2{
 
 .project{
     float: left;
-    width: 350px;
+    width: 315px;
     margin-right: @v-unit;
     margin-bottom: @h-unit;
+    min-height: 300px;
 /*
 background: -moz-linear-gradient(left, #ffffff 37%, #ffa73d 48%, #ff7c00 54%, #ffffff 63%); 
 background: -webkit-gradient(linear, left top, right top, color-stop(37%,#ffffff), color-stop(48%,#ffa73d), color-stop(54%,#ff7c00), color-stop(63%,#ffffff)); 
@@ -258,6 +259,8 @@ background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63
     border-left: 1px solid black;
 }
 .commit  {
+    padding: 6px 0;
+    border-top: 1px dotted aquamarine;
     background-color: white;
     p {
         margin-bottom: 0;
@@ -266,9 +269,15 @@ background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63
 .commit-metadata {
     margin-left: 5em;
 }
+.commit-author-said {
+    margin-left: 7px;
+}
 .commit-message{
     font-size: 19px;
     line-height: 24px;
+}
+.commit-date {
+    margin-top: 2px;
 }
 
 
@@ -304,14 +313,14 @@ div#project-detail-body {
 }
 .project-detail-file-mime{
     font-family:lmroman; 
-    font-size: 12px;  
+    font-size: 14px;  
     text-align: left; 
     font-weight: normal;
 }
 
 .project-detail-blob-size{   
     font-family:lmroman; 
-    font-size: 12px;  
+    font-size: 14px;  
     text-align: left; 
     font-weight: normal;
 }
@@ -361,10 +370,11 @@ div#on-the-table {
     padding: 12px;
     margin-bottom: 1em;
     margin-right: 1em;
-    width: 20%;
+    width: 20em;
     float: left;
     font-family: notcouriersans;
     font-weight: bold;
+    font-size: 13px;
     a {
         color: #AFEEEE;
     }
@@ -375,7 +385,7 @@ div#on-the-table {
 #home-infos{
     width: 350px;
     padding: @font-size-small;
-    font-size: @font-size-small; 
+    font-size: 13px;
     background-color: pink;
     font-family: NotCourierSans; 
     position: absolute;
