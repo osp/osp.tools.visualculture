@@ -22,6 +22,15 @@
         <div id="menu-wrapper">
             {% include "partials/nav.html" %}
         </div>
+        <div id="on-the-table">
+           <h1>On the table</h1>
+           <div class='status'>
+               We found the OSP <a href="http://ospublish.constantvzw.org/blog" target="_blank">blog</a> in the attic and decided to give him a second life..
+           </div>
+           <div class='status'>
+               Get OSP latest news by subscribing to our <a href="http://osp.constantvzw.org/newsletter" target="_blank">newsletter</a>.
+           </div>
+        </div>
 
         <div>
             <a href="http://osp.constantvzw.org"><img style="position: absolute; top: 0; right: 0; border: 0;" src="{{ STATIC_URL }}img/ribbon-osp.png" alt="Frog me on GitOsp"></a>
@@ -31,6 +40,7 @@
 
     {% block body %}
         {% block header %}
+        <h1>What have we been up to?</h1>
         <div id="home-infos">
         What is that? Some says that those snapshots are to our work what the pictures of a cookbook are to the cooked meal. 
         Source files = ingredients. These arrangements of blocks of text and pictures try harder to depict the most current 
