@@ -6,11 +6,13 @@ visual_culture.readers.text_plain
 from visual_culture.readers import reader, MimeNotSupported
 from markdown2 import markdown
 
-import cairo
-import pango
-import pangocairo
+# Well probably need this kind of stuff once we want to implement draw_image but
+# Im commenting it out for now
+# import cairo
+# import pango
+# import pangocairo
 
-@reader(r'text/plain')
+@reader(r'text/.*')
 class VC_TextPlain(object):
     """
     Handles plain text
@@ -22,8 +24,10 @@ class VC_TextPlain(object):
         return markdown(txt)
         
     def draw_text(self, txt, options):
-        width = 0
-        height = 0
+        # This is not implemented yet, but could be used to send
+        # an image representation of text
+        width = 200
+        height = 200
         if 'width' in options:
             width = int(options['width'])
             if 'height' not in options:
@@ -32,10 +36,6 @@ class VC_TextPlain(object):
             height = int(options['height'])
             if 'width' not in options:
                 width = height
-                
-                
-        if height == 0 and width == 0:
-            width = height = 200
     
     def read_blob(self, blob_info, options):
         """
@@ -45,10 +45,10 @@ class VC_TextPlain(object):
         contain the full text representation)
         """
         if 'width' in options and int(options['width']) > 400:
+            blob_data = self.get_blob_data(blob_info)
             if 'filter' in options:
                 if options['filter'] == 'markdown':
                     return {'data':self.md(blob_data), 'mime': 'text/html'}
-            blob_data = self.get_blob_data(blob_info)
             return {'data':blob_data, 'mime': blob_info['mime'] }
         """
         Not sure what to return in other cases.
