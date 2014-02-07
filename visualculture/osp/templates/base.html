@@ -46,7 +46,7 @@
 
     {% block js %}
     {% compress js %}
-            <script src="{{ STATIC_URL }}js/jquery-1.7.2.min.js"></script>
+            <script src="{{ STATIC_URL }}js/jquery-1.11.0.min.js"></script>
             <script src="{{ STATIC_URL }}js/bootstrap-modal.js"></script>
             <!--<script src="{{ STATIC_URL }}js/jquery.masonry.min.js"></script>-->
             <!--<script>-->
@@ -60,41 +60,39 @@
             <!--</script>-->
     {% endcompress %}
     <script src="{{ STATIC_URL }}osp/js/osp.js"></script>
+    <script src="{{ STATIC_URL }}js/jquery.hoverIntent.minified.js"></script>
     <script>
     jQuery(document).ready(VC.annotations.init());
     </script>
 
 
         <script>
+            function onTop(){
+                $(this).css("z-index", "100");
+            };
             function resetLayers(){
                 $("#project-detail-files").css("z-index", "10");
                 $("#project-detail-iceberg").css("z-index", "20");
                 $("#project-detail-commits").css("z-index", "30");
                 $("#project-detail-about").css("z-index", "40");
             }
-            $(document).ready(function(){
-                $("#project-nav-about").click(function(e){
+            function showLayer(section){
+                $("#project-nav-" + section).click(function(e){
                     e.preventDefault();
                     resetLayers();
-                    $("#project-detail-about").css("z-index", "100");
+                    $("#project-detail-" + section).css("z-index", "100");
                 });
-                $("#project-nav-commits").click(function(e){
-                    e.preventDefault();
-                    resetLayers();
-                    $("#project-detail-commits").css("z-index", "100");
-                });
-                $("#project-nav-iceberg").click(function(e){
-                    e.preventDefault();
-                    resetLayers();
-                    $("#project-detail-iceberg").css("z-index", "100");
-                });
-                $("#project-nav-files").click(function(e){
-                    e.preventDefault();
-                    resetLayers();
-                    $("#project-detail-files").css("z-index", "100");
+                $("#project-detail-" + section).hoverIntent({
+                    over: onTop,
+                    out: resetLayers
                 });
 
-                console.log($("#blob"));
+            }
+            $(document).ready(function(){
+                showLayer("about");
+                showLayer("iceberg");
+                showLayer("commits");
+                showLayer("files");
                 if ($("#blob").length > 0) {
                     $("#project-detail-files").css("z-index", "100");
                 }
