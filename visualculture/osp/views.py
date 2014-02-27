@@ -97,8 +97,10 @@ def category(request, category):
 def browse(request, category, name, path):
     if path:
         title = u"you’re traveling towards %s in %s" % (path, name)
+        root = False
     else:
         title = u"you’re traveling in %s" % (name)
+        root = True
     
     repo_slug = which_repo(category, name)
     try:
@@ -190,6 +192,7 @@ def browse(request, category, name, path):
                'said': said,
                'vc_url': settings.VC_URL,
                'tree' : tree,
+               'root': root,
                'README' : README },
               context_instance=RequestContext(request))
     

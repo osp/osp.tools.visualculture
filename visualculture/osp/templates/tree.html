@@ -1,7 +1,7 @@
 {% extends "project_base.html" %}
 
 {% block vc_content%}
-<ul class="thumbnails">
+<ul id="tree" class="thumbnails{% if root %}  root{% endif %}">
 {% for dir in tree.dirs %}
     <li>
         <div class="thumbnail folder">
