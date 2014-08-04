@@ -13,7 +13,6 @@ around all the time.
 
 
 import json
-import magic
 
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, Http404, HttpResponseForbidden, HttpResponseNotAllowed
 from django.core.urlresolvers import reverse
@@ -21,17 +20,10 @@ from django.views.decorators.cache import cache_page
 
 from vc_cache.models import VCCache
 from git_info.git import *
+from utils import find_mime
 
 import settings
 
-try:
-    magic_find_mime = magic.open(magic.MIME_TYPE)
-    magic_find_mime.load()
-    magic_finder = magic_find_mime.buffer
-except AttributeError:
-    magic_find_mime = magic.Magic(mime=True)
-    magic_finder = magic_find_mime.from_buffer
-        
 
 if settings.PREFIX:
     git_collection = GitCollection(settings.PREFIX)
@@ -59,13 +51,14 @@ def render_tree(repo_name, tree):
     return hash
     
     
-def render_blob(repo_name, blob):
+def render_blob(repo_name, blob, path=None):
     """
     Ok so render is not the right name for this.
     Will re-rename them all to get.
     
     """
-    mime = magic_finder(blob.data)
+    
+    mime = find_mime(blob, path)
     # Returns cache status as to let the caller decide if it goes for VC or cached files
     cache = VCCache().GetCacheInfo(repo_name, blob.hex)
     return {'type':'blob', 'repo_name':repo_name, 'hex' : blob.hex, 'mime': mime, 'size' : blob.size, 'cache':cache}
@@ -174,7 +167,7 @@ def item_from_path(request, repo_name, path):
         hash = render_tree(repo_name, obj)
         
     elif obj.type == pygit2.GIT_OBJ_BLOB:
-        hash = render_blob(repo_name, obj)
+        hash = render_blob(repo_name, obj, path)
         hash['raw_url'] = reverse('git_info.views.blob_data', args=[repo_name, hash['hex']]) + name
         # Note: to pass the absolute url:
         hash['raw_url'] = request.build_absolute_uri(hash['raw_url']) 
@@ -188,7 +181,7 @@ def blob_data(request, repo_name, oid):
     obj = GitCollection(settings.PREFIX)[repo_name][oid]
     
     if obj.type == pygit2.GIT_OBJ_BLOB:
-        mime = magic_finder(obj.data)
+        mime = find_mime(obj)
         return HttpResponse(obj.data, mimetype=mime)
     
     return HttpResponseBadRequest('Requested object is not a BLOB')
@@ -202,7 +195,7 @@ def blob_data_from_path(request, repo_name, path):
     obj = repo[oid]
     
     if obj.type == pygit2.GIT_OBJ_BLOB:
-        mime = magic_finder(obj.data)
+        mime = find_mime(obj, path)
         return HttpResponse(obj.data, mimetype=mime)
     
     return HttpResponseBadRequest('Requested object is not a BLOB')

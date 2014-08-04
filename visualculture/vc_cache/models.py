@@ -10,13 +10,6 @@ from visual_culture.readers import Reader
 import time
 import magic
 
-magic_find_mime = None
-try:
-    magic_find_mime = magic.open(magic.MIME_TYPE)
-    magic_find_mime.load()
-except AttributeError:
-    magic_find_mime = magic.Magic(mime=True)
-
 class VCCache(models.Model):
     """
     Interface to (for now) file based cache
@@ -37,19 +30,17 @@ class VCCache(models.Model):
     def get_from_module(self, repo_name, blob_hex):
         git_collection = git.GitCollection()
         repo = git_collection[repo_name]
-        commit = repo[blob_hex]
-        if commit.type != git.pygit2.GIT_OBJ_BLOB:
+        obj = repo[blob_hex]
+        if obj.type != git.pygit2.GIT_OBJ_BLOB:
             raise Exception('Requested object is not a BLOB')
             
-        try:
-            mime = magic_find_mime.buffer(commit.data)
-        except AttributeError:
-            mime = magic_find_mime.from_buffer(commit.data)
+
+        mime = magic.from_buffer(obj.data, mime=True)
         return {'type':'blob', 
             'repo_name':repo_name, 
             'blob_hex': blob_hex,
             'blob_url':'/'.join([settings.API_HOST, 'api', repo_name, blob_hex, 'blob_data']), 
-            'commit' : commit.hex, 
+            'commit' : obj.hex, 
             'mime':mime}
 
     def GetCacheInfo(self, repo, blob_hex):
