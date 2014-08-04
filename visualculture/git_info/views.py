@@ -188,6 +188,9 @@ def blob_data(request, repo_name, oid):
 
 def blob_data_from_path(request, repo_name, path):
     repo = GitCollection(settings.PREFIX)[repo_name]
+    print path
+    
+    return HttpResponse("asking for %s" %path, "text/plain")
     try:
         oid = repo.index[path].oid
     except KeyError:
