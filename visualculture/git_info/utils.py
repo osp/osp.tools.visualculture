@@ -3,7 +3,7 @@ from mimetypes import guess_type
 
 import magic
 
-def find_mime(obj, path=None):
+def find_mime(obj=None, path=None):
     """
     First try to determine the mime-type based on the file extension
     
@@ -15,4 +15,6 @@ def find_mime(obj, path=None):
             mime = guess_type(path)[0]
             if mime:
                 return mime
+    if not obj:
+        return 'application/octet-stream'
     return magic.from_buffer(obj.data, mime=True)

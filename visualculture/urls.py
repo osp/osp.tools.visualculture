@@ -6,7 +6,7 @@ handler500 = 'visualculture.errors.error_500'
 
 urlpatterns = patterns('',
     (r'^api/', include('git_info.urls')),
-    (r'^vc/', include('visual_culture.urls')),
+    (r'^visual/', include('visual_culture.urls')),
     (r'^test/', include('test_browser.urls')),
     (r'^', include('osp.urls')),
-) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # serve media in debug
+)

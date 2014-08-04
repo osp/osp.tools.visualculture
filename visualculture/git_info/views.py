@@ -18,7 +18,6 @@ from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, HttpRes
 from django.core.urlresolvers import reverse
 from django.views.decorators.cache import cache_page
 
-from vc_cache.models import VCCache
 from git_info.git import *
 from utils import find_mime
 
@@ -40,13 +39,10 @@ def render_tree(repo_name, tree):
     items = []
     dirs = []
     for item in tree:
-        try:
-            if item.to_object().type == pygit2.GIT_OBJ_TREE:
-                dirs.append({'hex': item.hex, 'name': item.name})
-            else:
-                items.append({'hex': item.hex, 'name': item.name})
-        except Exception:
-            pass
+        if item.to_object().type == pygit2.GIT_OBJ_TREE:
+            dirs.append({'hex': item.hex, 'name': item.name, 'mime': find_mime(path=item.name)})
+        else:
+            items.append({'hex': item.hex, 'name': item.name, 'mime': find_mime(path=item.name)})
     hash = {'type':'tree', 'repo_name':repo_name, 'dirs':dirs, 'files':items}
     return hash
     
@@ -60,8 +56,7 @@ def render_blob(repo_name, blob, path=None):
     
     mime = find_mime(blob, path)
     # Returns cache status as to let the caller decide if it goes for VC or cached files
-    cache = VCCache().GetCacheInfo(repo_name, blob.hex)
-    return {'type':'blob', 'repo_name':repo_name, 'hex' : blob.hex, 'mime': mime, 'size' : blob.size, 'cache':cache}
+    return {'type':'blob', 'repo_name':repo_name, 'hex' : blob.hex, 'mime': mime, 'size' : blob.size }
 
 def index(request):
     return HttpResponse(json.dumps({'repos': GitCollection(settings.PREFIX).get_names()}, indent=2), mimetype="application/json")

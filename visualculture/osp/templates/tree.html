@@ -19,7 +19,11 @@
         <div class="thumbnail preview">
             <div class="thumb">
             <a href="{{ file.href }}">
-                <link rel="embed" href="{{vc_url}}{{ repo.slug }}/{{file.hex}}?width=140">
+                    {% if 'image/' in file.mime or file.mime == 'application/pdf' %}
+                    <img src="/visual/{{ repo.slug }}/{{file.hex}}/width..140/{{ file.name }}.png"/>
+                    {% else %}
+                    <img src="/static/img/OSP_new-frog.png" />
+                    {% endif %}
             </a>
             </div>
             <h5><a href="{{ file.href }}">{{ file.name }}</a></h5>

@@ -2,64 +2,52 @@
 visual_culture.views
 """
 
+import os
+import errno
 
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, Http404, HttpResponseForbidden, HttpResponseNotAllowed
-from visual_culture.readers import MimeNotSupported
+from django.http import HttpResponse, HttpResponseBadRequest, Http404
+from visual_culture.readers import Reader
+from git_info.utils import find_mime
+
+def ensure_dir(path):
+    try:
+        os.makedirs(path)
+    except OSError as exception:
+        if exception.errno != errno.EEXIST:
+            raise exception
 
 
-HAVE_GITCOLLECTION = True
+import settings
 
-try:
-    from git_info import git
-    import magic
-except ImportError:
-    HAVE_GITCOLLECTION = False
-    import urllib
+from git_info import git
 
-import json
+if settings.PREFIX:
+    git_collection = git.GitCollection(settings.PREFIX)
+else:
+    git_collection = git.GitCollection()
 
-from vc_cache.models import VCCache
 
-def get_from_network(repo_name, oid):
-    """
-    #TODO
-    """
-    pass
-
-def get_from_module(repo_name, oid):
-    repo = getattr(git.git_collection, repo_name)
-    obj = repo[oid]
+def transduce(request, repo_name, oid, key, value, filename, extension):
+    try:
+        repo = git_collection[repo_name]
+    except KeyError:
+        raise Http404
+    try:
+        obj = repo[oid]
+    except KeyError:
+        raise Http404
+    
     if obj.type != git.pygit2.GIT_OBJ_BLOB:
         return HttpResponseBadRequest('Requested object is not a BLOB')
-        
-    mime = magic.from_buffer(obj.data, mime=True)
-    return vc_reader.read_blob({'type':'blob', 'repo_name':repo_name, 'commit' : obj.hex, 'mime':mime}, obj.data)
     
-
-def blob_data(request, repo_name, oid):
-    """
-    the game here is to get data and mime type, whether from git_info module
-    or from a git_info server, to feed the Reader
-    """
-    #if HAVE_GITCOLLECTION:
-        #return get_from_module(repo_name, oid)
-    #return get_from_network(repo_name, oid)
-    
+    mime = find_mime(obj, filename)
+    r = Reader()
     options = {}
-    for k in request.POST:
-        options[k] = request.POST.get(k, '')
-    for k in request.GET:
-        options[k] = request.GET.get(k, '')
-        
-    cache = VCCache()
-    
-    try:
-        blob = cache.Get(repo_name, oid, options=options)
-        blob['url'] = request.build_absolute_uri(blob['url']) # add domain name to url
-    except MimeNotSupported:
-        blob = {'url': '', 'mime': ''}
-    
-    #return HttpResponse(blob['data'], mimetype=blob['mime'])
-    return HttpResponse(json.dumps(blob, indent=2), mimetype="application/json")
-    
-    
+    if key and value:
+        options = {key: value}
+    result = r.read_blob({'mime': mime, 'repo_name': repo_name, 'blob_hex': oid}, options)
+    cpath = os.path.join(settings.MEDIA_ROOT, repo_name, oid, '%s..%s' % (key, value))
+    ensure_dir(cpath)
+    with open(os.path.join(cpath, '%s%s' % (filename, extension)), 'wb') as f:
+        f.write(result['data'])
+    return HttpResponse(result['data'], result['mime'])
