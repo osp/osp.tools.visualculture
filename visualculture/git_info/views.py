@@ -96,8 +96,12 @@ def repos(repo_names):
     return hash
 
 @cache_page(60 * 60)
-def all_repos(request):
-    hash = repos(GitCollection(settings.PREFIX).get_names())
+def home(request, n=8, category=None):
+    if category:
+        slugs = [slug for slug in GitCollection(settings.PREFIX).get_names() if len(slug.split('.')) > 1 and slug.split('.')[1] == category]
+    else:
+        slugs = GitCollection(settings.PREFIX).get_names()[:n]
+    hash = repos(slugs)
     return HttpResponse(json.dumps(hash, indent=2), mimetype="application/json")
 
 def item(request, repo_name, oid):

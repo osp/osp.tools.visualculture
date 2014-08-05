@@ -17,7 +17,7 @@ import os
 said = ["said", "whispered", "shouted", "cried", "confessed", "expressed", "verbalized", "verbalised", "uttered", "claimed", "argued", "complained", "ironized", "said", "tweeted", "told", "stated", "song", "interpreted", "rendered", "emited", "let out", "let loose", "talked", "spoke", "said", "whistled", "spilled the beans", "let the cat out of the bag", "talked", "tattled", "blabed", "peached", "babbled", "babbled out", "blabed out", "unwraped", "disclosed", "let on", "said", "bring out", "revealed", "discovered", "exposed", "published", "divulged", "gave away"]
 
 def home(request):
-    data = get_api('all')
+    data = get_api('home')
     repos = []
     for repo in data:
         r = repo
@@ -55,11 +55,11 @@ def home(request):
         repos.append(r)
 
     return render_to_response('home.html',
-            { 'repos' : repos[:8], "said": said, 'vc_url' :settings.VC_URL },
+            { 'repos' : repos, "said": said, 'vc_url' :settings.VC_URL },
         context_instance=RequestContext(request))
 
 def category(request, category):
-    data = get_api('all')
+    data = get_api('category', category)
     repos = []
     for repo in data:
         r = repo
