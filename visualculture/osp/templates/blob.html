@@ -6,6 +6,11 @@
     <div class="project-detail-file-mime">{{ blob.mime }}</div>
     <p class="project-detail-blob-size"><a href="{{ blob.raw_url }}">Download raw</a> ({{ blob.size|filesizeformat }})</p>
 
-    <a rel="embed" href="{{vc_url}}{{ repo.slug }}/{{blob.hex}}?width=600">{{vc_url}}{{ repo.slug }}/{{blob.hex}}?width=200</a>
+    {% if 'image/' in blob.mime or blob.mime == 'application/pdf' %}
+    <img src="/visual/{{blob.repo_name}}/{{blob.hex}}/width..600/{{ blob.name }}.png"/>
+    {% else %}
+    <img src="/static/img/OSP_new-frog.png" />
+    {% endif %}
+    
 </div>
 {% endblock %}

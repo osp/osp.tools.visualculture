@@ -139,7 +139,6 @@ INSTALLED_APPS = (
     'git_info',
     'visual_culture',
     'test_browser',
-    'vc_cache',
     'osp'
 )
 

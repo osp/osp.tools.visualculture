@@ -4,10 +4,8 @@ git_info.git
 
 """
 
-
 import pygit2
 import os
-import pyinotify
 
 from ordereddict import OrderedDict
 
@@ -60,31 +58,6 @@ class GitRepository(object):
     def __getitem__(self, key):
         return self.repo[key]
         
-
-class GitEventHandler(pyinotify.ProcessEvent):
-    def my_init(self, **kwargs):
-        try:
-            self.git_collection = kwargs['git_collection']
-        except Exception:
-            print 'WARNING: GitEventHandler instanciated without referencing a Git collection'
-            
-            
-    def reset_collection(self):
-        try:
-            self.git_collection.reset()
-        except Exception:
-            pass
-        return None
-        
-    def process_IN_ACCESS(self, event):
-        #print 'Reseting collection based on access to %s'%(event.pathname,)
-        return self.reset_collection()
-        
-    # kept here for possible debugging
-    #def process_default(self, event):
-        #print '[%s]\t%s'%(event.maskname, event.pathname)
-        #return None
-        
         
 class GitCollection(object):
     """
@@ -99,32 +72,12 @@ class GitCollection(object):
         self.repos_= {}
         self.lazy_loaded_ = False 
         
-        #self.watch_manager = pyinotify.WatchManager()
-        #self.notifier = pyinotify.ThreadedNotifier(self.watch_manager, GitEventHandler(git_collection=self))
-        ##print 'Start Notifier'
-        #self.notifier.start()
-        ##print 'Notifier Started'
-        
-        
-    #def __del__(self):
-        #self.watch_manager.rm_watch(self.watch_manager.watches.keys())
-        ##print 'Stop Notifier'
-        #self.notifier.stop()
-        ##print 'Notifier Stopped'
-        
     def reset(self):
         self.repos_= {}
         self.lazy_loaded_ = False 
-        #self.watch_manager.rm_watch(self.watch_manager.watches.keys())
-        
         
     def watch(self, repo_path, is_bare = True):
         pass
-        #git_refs = os.path.join(repo_path, '.git', 'refs', 'heads')
-        #if is_bare:
-            #git_refs = os.path.join(repo_path, 'refs', 'heads')
-        ##print 'Watch %s'%(git_refs,)
-        #wdd = self.watch_manager.add_watch(git_refs, pyinotify.ALL_EVENTS, rec=False)
         
     def lazy_load_(self, name):
         if not self.lazy_loaded_ and self.repos_:

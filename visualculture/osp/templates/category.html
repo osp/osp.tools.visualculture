@@ -25,7 +25,11 @@
 
         <div class="iceberg">
             <a href="/{{ repo.category }}/{{ repo.name }}/tree/master/iceberg/{{ repo.iceberg.0.name }}">
-                <link rel="embed" href="{{vc_url}}{{ repo.slug }}/{{ repo.iceberg.0.hex }}?width=200">
+                {% if 'image/' in repo.iceberg.0.mime or repo.iceberg.0.mime == 'application/pdf' %}
+                <img src="/visual/{{ repo.slug }}/{{ repo.iceberg.0.hex }}/width..200/{{ repo.iceberg.0.name }}.png"/>
+                {% else %}
+                <img src="/static/img/OSP_new-frog.png" />
+                {% endif %}
             </a>
         </div>
         

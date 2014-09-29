@@ -93,7 +93,13 @@
                 showLayer("iceberg");
                 showLayer("commits");
                 showLayer("files");
-                if ($("#blob").length > 0) {
+                if ($("#blob, #tree:not(.root)").length > 0) {
+                	/* If we are looking at a blob/file, or a tree/folder with files
+                	 * we want the layer with the file(s) to appear on top.
+                	 * 
+                	 * Except if we’re looking at the root folder:
+                	 * in this case the README is shown on top as usual.
+                	 */
                     $("#project-detail-files").css("z-index", "100");
                 }
             });
