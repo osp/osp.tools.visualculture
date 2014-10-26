@@ -14,6 +14,8 @@ around all the time.
 
 import json
 
+from pygit2 import GIT_SORT_TOPOLOGICAL
+
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, Http404, HttpResponseForbidden, HttpResponseNotAllowed
 from django.core.urlresolvers import reverse
 from django.views.decorators.cache import cache_page
@@ -36,10 +38,11 @@ def render_commit(repo_name, commit):
     return hash
 
 def render_tree(repo_name, tree):
+    repo = git_collection[repo_name]
     items = []
     dirs = []
     for item in tree:
-        if item.to_object().type == pygit2.GIT_OBJ_TREE:
+        if repo[item.hex].type == pygit2.GIT_OBJ_TREE:
             dirs.append({'hex': item.hex, 'name': item.name, 'mime': find_mime(path=item.name)})
         else:
             items.append({'hex': item.hex, 'name': item.name, 'mime': find_mime(path=item.name)})
@@ -59,7 +62,7 @@ def render_blob(repo_name, blob, path=None):
     return {'type':'blob', 'repo_name':repo_name, 'hex' : blob.hex, 'mime': mime, 'size' : blob.size }
 
 def index(request):
-    return HttpResponse(json.dumps({'repos': GitCollection(settings.PREFIX).get_names()}, indent=2), mimetype="application/json")
+    return HttpResponse(json.dumps({'repos': git_collection.get_names()}, indent=2), mimetype="application/json")
 
 def render_repo(repo_slug, n_commits=5, tree=False, iceberg=False):
     repo = GitCollection(settings.PREFIX)[repo_slug]
@@ -70,7 +73,7 @@ def render_repo(repo_slug, n_commits=5, tree=False, iceberg=False):
     hash['commits'] = []
     i = 0
     try:
-        for commit in repo.walk(repo.head.hex, pygit2.GIT_OBJ_TREE):
+        for commit in repo.walk(repo.head.target, GIT_SORT_TOPOLOGICAL):
             hash['commits'].append(render_commit(repo_slug, commit))
             i += 1
             if i == n_commits:
@@ -78,10 +81,12 @@ def render_repo(repo_slug, n_commits=5, tree=False, iceberg=False):
     except Exception as exn:
         pass
     if tree:
-        hash['tree'] = render_tree(repo_slug, repo.head.tree)
+        head = repo.revparse_single('HEAD')
+        hash['tree'] = render_tree(repo_slug, head.tree)
     if iceberg:
-        if repo.has_iceberg():
-            hash['iceberg'] = render_tree(repo_slug, repo.head.tree['iceberg'].to_object())
+        if 'iceberg' in repo.head.get_object().tree:
+            icetree = repo[ repo.head.get_object().tree['iceberg'].hex ]
+            hash['iceberg'] = render_tree(repo_slug, icetree)
     return hash
     
 def repo(request, repo_name):
@@ -106,7 +111,7 @@ def home(request, n=8, category=None):
 
 def item(request, repo_name, oid):
     print('Requested item: %s %s' % (repo_name, oid))
-    repo = GitCollection(settings.PREFIX)[repo_name]
+    repo = git_collection[repo_name]
     obj = None
     if(oid == 'head'):
         obj = repo.head
@@ -134,20 +139,19 @@ def item(request, repo_name, oid):
 def item_from_path(request, repo_name, path):
     """
     Git doesn’t have a specific way to search for a tree or blob by path,
-    you just recurse down the tree:
-    /libs/transducers -> repo.head.tree['libs'].to_object()['transducers'].to_object()
+    you just recurse down the tree
     """
-    repo = GitCollection(settings.PREFIX)[repo_name]
+    repo = git_collection[repo_name]
     
     paths = path.split('/')
     
     print "looking for %s from %s in %s" % (paths, path, repo_name)
-    obj = repo.head.tree
+    obj = repo.head.get_object().tree
     for p in paths:
         if p == '':
             break
         try:
-            obj = obj[p].to_object()
+            obj = repo[ obj[p].hex ]
         except KeyError:
             raise Http404
     
@@ -177,7 +181,7 @@ def item_from_path(request, repo_name, path):
     return HttpResponse(json.dumps(hash, indent=2), mimetype="application/json")
 
 def blob_data(request, repo_name, oid):
-    obj = GitCollection(settings.PREFIX)[repo_name][oid]
+    obj = git_collection[repo_name][oid]
     
     if obj.type == pygit2.GIT_OBJ_BLOB:
         mime = find_mime(obj)
@@ -186,15 +190,15 @@ def blob_data(request, repo_name, oid):
     return HttpResponseBadRequest('Requested object is not a BLOB')
 
 def blob_data_from_path(request, repo_name, path):
-    repo = GitCollection(settings.PREFIX)[repo_name]
+    repo = git_collection[repo_name]
     paths = path.split('/')
     
-    obj = repo.head.tree
+    obj = repo.head.get_object().tree
     for p in paths:
         if p == '':
             break
         try:
-            obj = obj[p].to_object()
+            obj = repo[ obj[p].hex ]
         except KeyError:
             raise Http404
     

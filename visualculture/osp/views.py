@@ -16,6 +16,24 @@ import os
 
 said = ["said", "whispered", "shouted", "cried", "confessed", "expressed", "verbalized", "verbalised", "uttered", "claimed", "argued", "complained", "ironized", "said", "tweeted", "told", "stated", "song", "interpreted", "rendered", "emited", "let out", "let loose", "talked", "spoke", "said", "whistled", "spilled the beans", "let the cat out of the bag", "talked", "tattled", "blabed", "peached", "babbled", "babbled out", "blabed out", "unwraped", "disclosed", "let on", "said", "bring out", "revealed", "discovered", "exposed", "published", "divulged", "gave away"]
 
+def format_commits(commits_to_format):
+    commits = []
+    ellipse = 0
+    i = 0
+    for commit in commits_to_format:
+        c = commit
+        
+        if i != 0:
+            commit_time=  datetime.fromtimestamp(c['commit_time'])
+            ellipse = float((previous_commit - c['commit_time']))/(24*60*60)
+            ellipse = (log1p(abs(ellipse)) * 50) + 3
+        i += 1
+        previous_commit = c['commit_time']
+        c['commit_time'] = datetime.fromtimestamp(c['commit_time'])
+        c['ellipse'] = ellipse
+        commits.append(c)
+    return commits
+
 def home(request):
     data = get_api('home')
     repos = []
@@ -35,23 +53,7 @@ def home(request):
                 # certain file types
                 ice.append(penguin)
         r['iceberg'] = ice
-
-        commits = []
-        ellipse = 0
-        i = 0
-        for commit in r['commits']:
-            c = commit
-            
-            if i != 0:
-                commit_time=  datetime.fromtimestamp(c['commit_time'])
-                ellipse = float((previous_commit - c['commit_time']))/(24*60*60)
-                ellipse = (log1p(ellipse) * 50) + 3
-            i += 1
-            previous_commit = c['commit_time']
-            c['commit_time'] = datetime.fromtimestamp(c['commit_time'])
-            c['ellipse'] = ellipse
-            commits.append(c)
-        r['commits'] = commits
+        r['commits'] = format_commits(r['commits'])
         repos.append(r)
 
     return render_to_response('home.html',
@@ -110,23 +112,7 @@ def browse(request, category, name, path):
         raise Http404
 
     # Render commits with time apart
-    
-    commits = []
-    ellipse = 0
-    i = 0
-    for commit in reversed(repo['commits']): # default is newest first, we start from the beginning
-        c = commit
-        
-        if i != 0:
-            commit_time=  datetime.fromtimestamp(c['commit_time'])
-            ellipse = float((c['commit_time'] - previous_commit))/(24*60*60)
-            ellipse = log1p(ellipse) * 50
-        i += 1
-        previous_commit = c['commit_time']
-        c['commit_time'] = datetime.fromtimestamp(c['commit_time'])
-        c['ellipse'] = ellipse
-        commits.append(c)
-    repo['commits'] = commits
+    repo['commits'] = format_commits(reversed(repo['commits']))
     
     # Render README
     
