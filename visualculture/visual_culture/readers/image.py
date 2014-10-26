@@ -8,7 +8,7 @@ from PIL import Image
 import StringIO
 
 
-@reader(r'image/.*')
+@reader(r'image/(gif|png|jpeg|jpg|tiff)')
 class VC_Image(object):
     """
     Handle any kind of images
