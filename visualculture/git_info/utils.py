@@ -17,4 +17,4 @@ def find_mime(obj=None, path=None):
                 return mime
     if not obj:
         return 'application/octet-stream'
-    return magic.from_buffer(obj.data, mime=True)
+    return magic.from_buffer(obj.data[:1024], mime=True)
