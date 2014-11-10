@@ -1,6 +1,8 @@
 VISUAL CULTURE GIT VIEWER
 =========================
 
+# <http://kisskissbankbank.com/visual-culture-a-tool-for-design-collaboration>
+
 OSP Visual Culture Git Viewer
 =============================
 
@@ -8,7 +10,7 @@ We are Open Source Publishing. A group of designers working in Brussels. We make
 
 For working together and sharing our source files, we use a system called Git. This system, originally developed for computer code, is great to work together. Yet when we started sharing our source code through the internet, we found all interfaces to git were geared to sharing text files. We want to create an interface for sharing our work
 
-We have been displaying the contents of our repository in a more graphic way: showing previews in the filelistings of the fonts and the illustrations and the pdf’s. We want to take this a whole step further still, and build this into a platform where you can in a visual way view the development of your graphic design projects, the changes in between files, and comment and share and make visible your process.
+We have been displaying the contents of our repository in a more graphic way on our web-site: showing previews in the filelistings of the fonts and the illustrations and the pdf’s. You are now browsing through the code that makes this possible. We want to take this a whole step further still, and build this into a platform where you can in a visual way view the development of your graphic design projects, the changes in between files, and comment and share and make visible your process. [Please support our crowdfunding campaign!](http://kisskissbankbank.com/visual-culture-a-tool-for-design-collaboration)
 
 - - -
 
@@ -29,8 +31,8 @@ Libgit2 needs to be compiled from source:
     sudo apt-get install build-essential cmake
     mkdir -p ~/src
     cd ~/src
-    wget https://github.com/downloads/libgit2/libgit2/libgit2-0.17.0.tar.gz | tar zxvf
-    cd libgit2-0.17.0
+    curl https://codeload.github.com/libgit2/libgit2/tar.gz/v0.21.2 | tar xvz
+    cd libgit2-0.21.2
     mkdir build && cd build
     cmake ..
     cmake --build .
@@ -49,15 +51,16 @@ brew install libmagic libgit2
 
 ### Python modules
 
-Run-of-the-mill python modules required:
+Run-of-the-mill python modules required (best into a virtual environment):
 
-- django
-- python-magic
-- pygit2 (built from source or via pip)
+pip install Django<1.5
+pip install python-magic<0.5
+pip install pygit2<0.22
 
 Django apps:
 
-- django-cors
+pip install django-compressor<1.5
+pip install django-cors<0.2
 
 ### Setting up django
 
@@ -118,4 +121,3 @@ Maintenance
 ### Empty the cache
 
     rm -rf {MEDIAROOT}/cache
-    python manage.py reset vc_cache

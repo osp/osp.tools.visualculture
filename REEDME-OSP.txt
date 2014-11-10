@@ -13,7 +13,7 @@ Getting started
 # you can also use your distributions package manager,
 # or create a virtual env
 
-sudo pip install django django_compressor
+pip install "django<1.5" "django_compressor<1.5" "django-cors<0.2"
 
 # to install the less css compiler, you need to install
 # node js. download the latest version, and do a
@@ -46,7 +46,7 @@ make
 Directory layout
 ----------------
 
- /public                   less, js, static images
  /visualculture/osp            application
+ /visualculture/osp/static     less, js, static images
  /visualculture/osp/templates  templates
 
