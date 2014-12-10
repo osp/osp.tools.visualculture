@@ -70,8 +70,10 @@
     <div id="project-detail-iceberg">
         <h2>Snapshots</h2>
         <div class="iceberg">
-            {% for ice in repo.iceberg.files reversed %}
-                <img src="/visual/{{ repo.slug }}/{{ice.hex}}/width..200/{{ ice.name }}.png"/>
+            {% for ice in repo.iceberg.files %}
+                <a href="/{{ repo.category }}/{{ repo.name }}/tree/master/iceberg/{{ ice.name }}">
+                    <img src="/visual/{{ repo.slug }}/{{ice.hex}}/width..200/{{ ice.name }}.png"/>
+                </a>
             {% endfor %}
         </div>
 
