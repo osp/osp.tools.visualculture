@@ -7,7 +7,7 @@
         <div class="thumbnail folder">
             <div class="thumb">
                 <a href="{{ dir.href }}">
-                <img src="{{ STATIC_URL }}img/frog-folder.png" alt="representation of a folder" title="" style="width:130px;" />
+                <img src="{{ STATIC_URL }}img/crown-folder.png" alt="representation of a folder" title="" style="width:130px;" />
             </a>
             </div>
             <h5><a href="{{ dir.href }}">{{ dir.name }}</a></h5>
@@ -22,7 +22,7 @@
                     {% if 'image/' in file.mime or file.mime == 'application/pdf' %}
                     <img src="/visual/{{ repo.slug }}/{{file.hex}}/width..140/{{ file.name }}.png"/>
                     {% else %}
-                    <img src="/static/img/OSP_new-frog.png" />
+                    <img src="/static/img/frog-file.png" />
                     {% endif %}
             </a>
             </div>
