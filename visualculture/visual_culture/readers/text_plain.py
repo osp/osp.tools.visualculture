@@ -4,7 +4,7 @@ visual_culture.readers.text_plain
 """
 
 from visual_culture.readers import reader, MimeNotSupported
-from markdown2 import markdown
+# from markdown2 import markdown
 
 # Well probably need this kind of stuff once we want to implement draw_image but
 # Im commenting it out for now
@@ -46,9 +46,9 @@ class VC_TextPlain(object):
         """
         if 'width' in options and int(options['width']) > 400:
             blob_data = self.get_blob_data(blob_info)
-            if 'filter' in options:
-                if options['filter'] == 'markdown':
-                    return {'data':self.md(blob_data), 'mime': 'text/html'}
+#            if 'filter' in options:
+#                if options['filter'] == 'markdown':
+#                    return {'data':self.md(blob_data), 'mime': 'text/html'}
             return {'data':blob_data, 'mime': blob_info['mime'] }
         """
         Not sure what to return in other cases.
