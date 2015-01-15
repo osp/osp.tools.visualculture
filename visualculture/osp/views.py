@@ -119,7 +119,7 @@ def browse(request, category, name, path):
     root_files = [i['name'] for i in repo['tree']['files']]
     README = ''
     for f in root_files:
-        if 'README' in f or 'readme' in f: # A regex would be more flexible
+        if 'README' in f or 'readme' in f or 'LISEZ_MOI' in f: # A regex would be more flexible
             README = get_url_contents(get_api(repo_slug, 'path', f)['raw_url'])
             # OSP Convention: the part of the README that equals the description is 
             # terminated by a Markdown representation of a horizontal line - - -.
