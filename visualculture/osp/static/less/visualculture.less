@@ -40,7 +40,7 @@
 @font-size-medium: 15px;
 @font-size-big: 21px;
 @font-size-huge: 25px;
-@font-default: "lmroman"; 
+@font-default: "lmroman";
 
 
 // colors variables -------------------------------------------------
@@ -53,7 +53,7 @@
 @color-author-said-droite: #87bcea;
 @color-message: lightblue;
 @color-date: #AFEEEE;
-@dawn-sky: #ed3aff; 
+@dawn-sky: #ed3aff;
 @dawn-earth: #ffdd83;
 @day-sky: #0e4d81;
 @day-earth: #48a9ed;
@@ -100,8 +100,8 @@
 // default -------------------------------------------------
 
 body {
-    font-family: @font-default; 
-    font-size: @font-size-medium; 
+    font-family: @font-default;
+    font-size: @font-size-medium;
     line-height: @h-unit;
     color: @color-text;
     background-color: @color-background;
@@ -112,8 +112,7 @@ body {
 
 // typography ----------------------------------------------
 
-p {
-    margin: 0;
+ul, blockquote, ol, p {
     margin-bottom: @h-unit;
 }
 blockquote {
@@ -134,7 +133,7 @@ h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
 
 dt {
     letter-spacing: 0.05em;
-    font-family: lmroman; 
+    font-family: lmroman;
     font-size: @font-size-small;
 }
 li {
@@ -142,7 +141,7 @@ li {
     list-style-type: none;
 }
 h1{
-    font-size: @font-size-huge; 
+    font-size: @font-size-huge;
     color: @color-text;
     font-weight: normal;
     line-height: 2 * @v-unit - 2px;
@@ -150,9 +149,9 @@ h1{
     margin-top: 1em;
     clear: both;
     text-transform: uppercase;
-} 
+}
 h2{
-    font-size: @font-size-big; 
+    font-size: @font-size-big;
     color: @color-text;
     font-weight: normal;
     line-height: @v-unit - 2px;
@@ -229,18 +228,18 @@ h2{
     margin-bottom: @h-unit;
     min-height: 300px;
 /*
-background: -moz-linear-gradient(left, #ffffff 37%, #ffa73d 48%, #ff7c00 54%, #ffffff 63%); 
-background: -webkit-gradient(linear, left top, right top, color-stop(37%,#ffffff), color-stop(48%,#ffa73d), color-stop(54%,#ff7c00), color-stop(63%,#ffffff)); 
-background: -webkit-linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63%); 
-background: -o-linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63%); 
+background: -moz-linear-gradient(left, #ffffff 37%, #ffa73d 48%, #ff7c00 54%, #ffffff 63%);
+background: -webkit-gradient(linear, left top, right top, color-stop(37%,#ffffff), color-stop(48%,#ffa73d), color-stop(54%,#ff7c00), color-stop(63%,#ffffff));
+background: -webkit-linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63%);
+background: -o-linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63%);
 background: -ms-linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63%);
-background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63%); 
+background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63%);
 */
 }
 .project-type{
     text-transform: uppercase;
-    font-size: @font-size-medium; 
-    text-align: center; 
+    font-size: @font-size-medium;
+    text-align: center;
 
     a {
         text-decoration: none;
@@ -251,8 +250,8 @@ background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63
     }
 }
 .project-title{
-    font-size: @font-size-big;  
-    text-align: left; 
+    font-size: @font-size-big;
+    text-align: left;
     margin-bottom: 20px;
     margin-left: 10px;
     line-height: 0.9;
@@ -261,8 +260,8 @@ background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63
     text-decoration: underline;
 }
 .project-description-from-the-readme{
-    font-size: @font-size-medium;  
-    text-align: left; 
+    font-size: @font-size-medium;
+    text-align: left;
     margin-bottom: 2 * @h-unit;
     letter-spacing: -0.03em;
     font-weight: normal;
@@ -283,10 +282,10 @@ background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63
 //     border: solid 1px gray;
     width:250px;
     }
-    
-    
+
+
 // commits -------------------------------------------------
- 
+
 .commit-list{
       background-size: 1px 1px;
       background-position: 100px 0,0 0;
@@ -303,12 +302,12 @@ background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63
     border: solid 1px;
     padding : @t  @r @b @l;
     margin-bottom: -1px;
-    margin-right: -1px;   
+    margin-right: -1px;
 }
 .ellipse {
     clear: both;
-    width: 5px; 
-    margin: auto; 
+    width: 5px;
+    margin: auto;
     margin-left: 36px;
     border-left: 1px solid black;
 }
@@ -386,23 +385,23 @@ div#project-detail-body {
 .project-detail-img-file {
     margin-top: 20px;
 }
-.project-detail-file-name{   
-    font-family:lmroman; 
-    font-size: 18px;  
-    text-align: left; 
+.project-detail-file-name{
+    font-family:lmroman;
+    font-size: 18px;
+    text-align: left;
     font-weight: normal;
 }
 .project-detail-file-mime{
-    font-family:lmroman; 
-    font-size: 14px;  
-    text-align: left; 
+    font-family:lmroman;
+    font-size: 14px;
+    text-align: left;
     font-weight: normal;
 }
 
-.project-detail-blob-size{   
-    font-family:lmroman; 
-    font-size: 14px;  
-    text-align: left; 
+.project-detail-blob-size{
+    font-family:lmroman;
+    font-size: 14px;
+    text-align: left;
     font-weight: normal;
 }
 
@@ -424,9 +423,9 @@ header {
 	    text-decoration: none;
 	}
 
-	a:hover { 
-	    color: blue; 
-	} 
+	a:hover {
+	    color: blue;
+	}
 
 	li{
 	    display: inline;
@@ -434,7 +433,7 @@ header {
 	    font-family: @font-default;
 	    margin-right: 1em;
 	}
-} 
+}
 
 #baseline {
     text-transform: none;
@@ -467,7 +466,7 @@ div#on-the-table {
     padding: @font-size-small;
     font-size: 13px;
     background-color: pink;
-    font-family: NotCourierSans; 
+    font-family: NotCourierSans;
     position: absolute;
     z-index: 1;
     &:hover {
@@ -489,26 +488,26 @@ div#on-the-table {
     margin-top: 20px;
     margin-left: 20px;
     height: 100%;
-    font-family: @font-default; 
-    font-size: @font-size-medium; 
-    text-align: left; 
-    color: @color-text; 
+    font-family: @font-default;
+    font-size: @font-size-medium;
+    text-align: left;
+    color: @color-text;
 }
-.contact{ 
-    color: blue; 
+.contact{
+    color: blue;
 }
 .osp-about-texts{
-    color: red; 
+    color: red;
 }
 #about-members{
     float : left;
     width: 520px;
     margin-top: 20px;
     margin-left: 40px;
-    font-family: @font-default; 
-    font-size: @font-size-medium; 
-    text-align: left; 
-    color: @color-text; 
+    font-family: @font-default;
+    font-size: @font-size-medium;
+    text-align: left;
+    color: @color-text;
 }
 div#info-page{
     width: 50%;
@@ -516,7 +515,7 @@ div#info-page{
     h3 {
     font-size: 22px;
     padding-bottom: 3px;
-    
+
     }
 }
 
