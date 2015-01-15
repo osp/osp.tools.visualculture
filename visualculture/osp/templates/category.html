@@ -24,7 +24,7 @@
         </h2>
 
         <div class="iceberg">
-            <a href="/{{ repo.category }}/{{ repo.name }}/tree/master/iceberg/{{ repo.iceberg.0.name }}">
+            <a href="/{{ repo.category }}/{{ repo.name }}/">
                 {% if 'image/' in repo.iceberg.0.mime and not 'svg' in repo.iceberg.0.mime or repo.iceberg.0.mime == 'application/pdf' %}
                 <img src="/visual/{{ repo.slug }}/{{ repo.iceberg.0.hex }}/width..200/{{ repo.iceberg.0.name }}.png"/>
                 {% else %}
@@ -32,7 +32,7 @@
                 {% endif %}
             </a>
         </div>
-        
+
     </div>
     {% endfor %}
 
