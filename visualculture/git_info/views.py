@@ -59,7 +59,7 @@ def render_blob(repo_name, blob, path=None):
     
     mime = find_mime(blob, path)
     # Returns cache status as to let the caller decide if it goes for VC or cached files
-    return {'type':'blob', 'repo_name':repo_name, 'hex' : blob.hex, 'mime': mime, 'size' : blob.size, 'binary': blob.binary }
+    return {'type':'blob', 'repo_name':repo_name, 'hex' : blob.hex, 'mime': mime, 'size' : blob.size, 'is_binary': blob.is_binary }
 
 def index(request):
     return HttpResponse(json.dumps({'repos': git_collection.get_names()}, indent=2), mimetype="application/json")
