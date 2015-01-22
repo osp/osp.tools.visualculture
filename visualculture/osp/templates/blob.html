@@ -8,9 +8,10 @@
 
     {% if 'image/' in blob.mime and 'svg' not in blob.mime or blob.mime == 'application/pdf' %}
     <img src="/visual/{{blob.repo_name}}/{{blob.hex}}/width..600/{{ blob.name }}.png"/>
+    {% elif not blob.binary and blob.data %} <!-- Generic fallback for text data -->
+    <pre>{{ blob.data }}</pre>
     {% else %}
     <img src="/static/img/OSP_new-frog.png" />
     {% endif %}
-    
 </div>
 {% endblock %}
