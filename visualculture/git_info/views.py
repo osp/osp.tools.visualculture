@@ -59,7 +59,11 @@ def render_blob(repo_name, blob, path=None):
     
     mime = find_mime(blob, path)
     # Returns cache status as to let the caller decide if it goes for VC or cached files
-    return {'type':'blob', 'repo_name':repo_name, 'hex' : blob.hex, 'mime': mime, 'size' : blob.size, 'is_binary': blob.is_binary }
+    hash = {'type':'blob', 'repo_name':repo_name, 'hex' : blob.hex, 'mime': mime, 'size' : blob.size, 'is_binary': blob.is_binary }
+    # embed the data directly if it is less then 100kb
+    if hash['is_binary'] and hash['size'] < 104857600:
+        hash['data'] = blob.data
+    return hash
 
 def index(request):
     return HttpResponse(json.dumps({'repos': git_collection.get_names()}, indent=2), mimetype="application/json")
