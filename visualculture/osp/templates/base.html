@@ -45,6 +45,7 @@
     {% compress js %}
             <script src="{{ STATIC_URL }}js/jquery-1.11.0.min.js"></script>
             <script src="{{ STATIC_URL }}js/bootstrap-modal.js"></script>
+            <script src="{{ STATIC_URL }}js/FeedEk.js"></script>
             <!--<script src="{{ STATIC_URL }}js/jquery.masonry.min.js"></script>-->
             <!--<script>-->
             <!--$(window).load(function() {-->
@@ -60,6 +61,15 @@
     <script src="{{ STATIC_URL }}js/jquery.hoverIntent.minified.js"></script>
     <script>
     jQuery(document).ready(VC.annotations.init());
+    </script>
+    <script type="text/javascript">
+    $('#on-the-table-feed').FeedEk({
+    FeedUrl : 'http://ospublish.constantvzw.org/blog/feed',
+    MaxCount : 4,
+    ShowDesc : true,
+    ShowPubDate:false,
+    DescCharacterLimit:200,
+  });
     </script>
 
 
