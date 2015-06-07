@@ -28,12 +28,10 @@
 
         {% for repo in repos %}
         <div class="project">
-            <p class="project-type">{% if repo.category %}<a href="{% url osp.views.category repo.category %}">{{ repo.category }}</a>{% else %}&nbsp;{% endif %}</p>
-
             <h2 class="project-title">
-                <a href="{{ repo.web_path }}">{{ repo.name }}</a>
-            </h2>
+              {% if repo.category %}<a class="category" href="{% url osp.views.category repo.category %}">{{ repo.category }}</a>{% else %}&nbsp;<br>{% endif %}<br><a href="{{ repo.web_path }}">{{ repo.name }}</a>
 
+            </h2>
             <div class="iceberg">
                 {% for ice in repo.iceberg reversed %}
                     <a href="/{{ repo.category }}/{{ repo.name }}/tree/master/iceberg/{{ ice.name }}">
