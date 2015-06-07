@@ -307,6 +307,8 @@ a.category{
     //float: right;
     line-height: 36px;
     padding-bottom: @v-unit;
+    color: @color-osp-orange;
+    letter-spacing: 0.5px;
 }
 .project-description-from-the-readme{
     font-size: @font-size-medium;
@@ -575,7 +577,8 @@ div#on-the-table-feed{
 
 #home-info{
   font-family: @font-secondary;
-  width: 345px*2+40px;
+  width: 95%;
+  //width: 345px*2+40px;
   font-size: 16px;
   line-height: 24px;
 }
@@ -779,6 +782,10 @@ pre {
       width: 70%;
       margin-left:15%;
     }
+  #home-info{
+    width: 70%;
+    margin-left:15%;
+  }
 }
 
 @media only screen and (min-width : 768px){
@@ -798,7 +805,11 @@ pre {
       width: 45%;
       margin-right: 2%;
       margin-left: 0%;
-    }
+  }
+  #home-info{
+    width: 345px*2+40px;
+    margin: 0;
+  }
 }
 
 @media only screen and (min-width : 1024px){
