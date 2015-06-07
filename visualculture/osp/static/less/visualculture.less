@@ -5,7 +5,15 @@
 
 @h-unit: 20px;
 @v-unit: 15px;
-
+/*
+@mobile: only screen and (min-width : 384px); // 6 * 64 = 24 * 16 = 384
+@phablet: only screen and (min-width : 512px); // 8 * 64 = 32 * 16 = 512
+@tablet: only screen and (min-width : 768px); // 12 * 64 = 48 * 16 = 768
+@desktop: only screen and (min-width : 1024px); // 16 * 64 = 64 * 16 = 1024
+@large: only screen and (min-width : 1280px); // 20 * 64 = 80 * 16 = 1280
+@huge: only screen and (min-width : 1536px); // 24 * 64 = 96 * 16 = 1536
+@max: only screen and (min-width : 2048px); // 32 * 64 = 128 * 16 = 2048
+*/
 // utility classes ------------------------------------------------------
 
 .hide {
@@ -136,7 +144,7 @@ body {
     background-color: @color-background;
     letter-spacing: 0.5px;
     word-wrap: break-word;
-    padding: 2em;
+    padding: 1em;
 }
 
 // typography ----------------------------------------------
@@ -257,10 +265,7 @@ h2{
 
 .project{
     float: left;
-    width: 28%;
-    min-width: 300px;
-    max-width: 345px;
-    margin-right: @v-unit*2+10;
+    width:95%;
     margin-bottom: @h-unit;
     min-height: 300px;
 /*
@@ -474,7 +479,7 @@ header {
 	    display: inline;
 	    list-style: none;
 	    font-family: @font-default;
-	    margin-right: 1em;
+	    margin-right: 1%;
 	}
 
   p{
@@ -738,3 +743,43 @@ pre {
         margin-bottom: 0; // account for input[type="submit"] which gets the bottom margin like all other inputs
     }
 }
+
+@media only screen and (min-width : 384px){
+
+}
+
+@media only screen and (min-width : 512px){
+  .project{
+      width: 70%;
+      //min-width: 300px;
+      //max-width: 345px;
+      margin-left:15%;
+    }
+}
+
+@media only screen and (min-width : 768px){
+  body{
+    padding: 1.5em;
+  }
+  .project{
+      width: 45%;
+      //min-width: 300px;
+      //max-width: 345px;
+      margin-right: 2%;
+      margin-left: 0%;
+    }
+}
+
+@media only screen and (min-width : 1024px){
+  body{
+    padding: 2em;
+  }
+  .project{
+      width: 28%;
+      min-width: 300px;
+      max-width: 345px;
+      margin-right: @v-unit*2+10;
+    }
+}
+
+//@media #{$large}
