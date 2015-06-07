@@ -1,12 +1,11 @@
 {% extends 'base.html' %}
 
 {% block header %}
-<!--
 <div id="on-the-table">
-   <h1>The latest</h1>
-   <div id="on-the-table-feed" class="status"></div>
+   <h1>latest notes</h1>
 </div>
--->
+<div id="on-the-table-feed"></div>
+
 {% endblock %}
 
 {% block content %}
@@ -43,7 +42,7 @@
                 {% for ice in repo.iceberg reversed %}
                     <a href="/{{ repo.category }}/{{ repo.name }}/tree/master/iceberg/{{ ice.name }}">
                         {% if 'image/' in ice.mime and 'svg' not in ice.mime or ice.mime == 'application/pdf' %}
-                        <img src="/visual/{{repo.slug}}/{{ice.hex}}/width..{% if forloop.first %}200{% else %}100{% endif %}/{{ ice.name }}.png"/>
+                        <img src="http://osp.kitchen/visual/{{repo.slug}}/{{ice.hex}}/width..{% if forloop.first %}200{% else %}100{% endif %}/{{ ice.name }}.png"/>
                         {% else %}
                         <img src="/static/img/file-frog.png" />
                         {% endif %}
