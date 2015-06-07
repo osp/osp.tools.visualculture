@@ -182,8 +182,8 @@ h1{
     color: @color-osp-orange;
     font-weight: normal;
     line-height: 2 * @v-unit - 2px;
-    margin-bottom: 1em;
-    margin-top: 1em;
+    margin-top: @v-unit*3;
+    margin-bottom: @v-unit  ;
     clear: both;
     //text-decoration: underline @color-osp-orange;
 }
@@ -203,7 +203,7 @@ h2{
     background-color: rgba(255, 255, 255, 0.9);
     //left: 2em;
     //padding: 1em;
-    margin-top: 2em;
+    margin-top: @v-unit;
     //margin-left: @v-unit;
 }
 #active-projects,
@@ -506,14 +506,12 @@ div#on-the-table {
     margin: 1em 0;
 }
 div#on-the-table-feed{
+  min-height: 120px;
   ul.feedEkList{
     li{
-      margin-bottom: 40px;
-      width: 28%;
-      min-width:300px;
-      max-width:350px;
-      margin-right: 40px;
+      width: 95%;
       float: left;
+      margin-bottom: @h-unit;
       div.itemContent{
         font-family: @font-secondary;
         font-size: 16px;
@@ -566,6 +564,13 @@ div#on-the-table-feed{
         max-width: 100%;
         display: block;
     }
+}
+
+#home-info{
+  font-family: @font-secondary;
+  width: 345px*2+40px;
+  font-size: 16px;
+  line-height: 24px;
 }
 
 
@@ -755,10 +760,16 @@ pre {
 }
 
 @media only screen and (min-width : 512px){
+    ul.feedEkList{
+      li{
+      width: 70%;
+      min-width:300px;
+      max-width:350px;
+      margin-left: 15%;
+      }
+    }
   .project{
       width: 70%;
-      //min-width: 300px;
-      //max-width: 345px;
       margin-left:15%;
     }
 }
@@ -767,10 +778,17 @@ pre {
   body{
     padding: 1.5em;
   }
+  div#on-the-table-feed{
+    ul.feedEkList{
+      li{
+        min-width: 45%;
+        margin-right: 2%;
+        margin-left: 0%;
+      }
+    }
+  }
   .project{
       width: 45%;
-      //min-width: 300px;
-      //max-width: 345px;
       margin-right: 2%;
       margin-left: 0%;
     }
@@ -779,6 +797,16 @@ pre {
 @media only screen and (min-width : 1024px){
   body{
     padding: 2em;
+  }
+  div#on-the-table-feed{
+    ul.feedEkList{
+      li{
+        min-width: 300px;
+        max-width: 345px;
+        width: 28%;
+        margin-right: @v-unit*2+10;
+      }
+    }
   }
   .project{
       width: 28%;
