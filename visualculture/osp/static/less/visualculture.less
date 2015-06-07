@@ -306,9 +306,18 @@ a.category{
     font-size: 12px;
     //float: right;
     line-height: 36px;
-    padding-bottom: @v-unit;
+    padding-bottom: 5px;
     color: @color-osp-orange;
     letter-spacing: 0.5px;
+}
+a.category:after{
+  content: " 	\2193";
+}
+a.category:hover:after{
+  content: " \2192";
+  }
+a.category:hover{
+  border-bottom: 1px solid @color-osp-orange;
 }
 .project-description-from-the-readme{
     font-size: @font-size-medium;
