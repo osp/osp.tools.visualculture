@@ -621,8 +621,7 @@ div#on-the-table-feed{
     color: @color-text;
 }
 div#info-page{
-    width: 50%;
-    margin: 0 auto;
+    width: 95%;
     dt{
       font-family: @font-default;
       font-size: 16px;
@@ -644,7 +643,8 @@ div#info-page{
     }
     ul{
       li{
-        list-style: outside none none;
+        padding-top: 2px;
+        padding-bottom: 2px;
       }
       li:before{
         content: "\2192 \20 ";
@@ -809,14 +809,10 @@ pre {
       margin-left: 15%;
       }
     }
-  .project{
+  .project, #home-info, div#info-page{
       width: 70%;
       margin-left:15%;
     }
-  #home-info{
-    width: 70%;
-    margin-left:15%;
-  }
 }
 
 @media only screen and (min-width : 768px){
@@ -837,7 +833,7 @@ pre {
       margin-right: 2%;
       margin-left: 0%;
   }
-  #home-info{
+  #home-info, div#info-page{
     width: 345px*2+40px;
     margin: 0;
   }
