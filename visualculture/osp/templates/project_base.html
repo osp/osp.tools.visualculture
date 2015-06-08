@@ -6,8 +6,9 @@
 
 {% block header %}
         <h1 id="project-detail-title">{{ repo.name }}</h1>
+        <!--
         <a class="git-clone" data-toggle="modal" href="#cloneModal" >Git Clone</a>
-
+      -->
         <!-- Header and options when showing a repository -->
         <!-- Navigate through the repository -->
         <ul class="breadcrumb">
@@ -16,12 +17,17 @@
                 <li>
                     <a href="{{ breadcrumb.href }}">{{ breadcrumb.name }}</a> <span class="divider">/</span>
                 </li>
+
                 {% else %}
                 <li class="active">
                    {{ breadcrumb.name }} {% if tree %}<span class="divider">/</span>{% endif %}
                 </li>
                 {% endif %}
             {% endfor %}
+            <li><a id="project-nav-about" href="#">&rarr; About</a></li>
+            <!-- <li><a id="project-nav-commits" href="#">&rarr; Log</a></li> -->
+            <li><a id="project-nav-iceberg" href="#">&rarr; Snapshots</a></li>
+            <li><a id="project-nav-files" href="#">&rarr; Files</a></li>
         </ul>
         <!-- Showing the HEAD-->
         {% comment %}
@@ -29,7 +35,7 @@
                 <ul>
                     <li class="commit" >
                         <p class="commit-id">
-                            {{ repo.commits.0.id }} 
+                            {{ repo.commits.0.id }}
                         </p>
                         <p>
                             <span class="commit-author">{{ repo.commits.0.author }}</span> <span class="commit-author-said">said</span>
@@ -44,21 +50,26 @@
                 </ul>
             </div>
         {% endcomment %}
-
+<!--
         <ul id="project-detail-nav">
             <li><a id="project-nav-about" href="#">About</a></li>
             <li><a id="project-nav-commits" href="#">Log</a></li>
             <li><a id="project-nav-iceberg" href="#">Snapshots</a></li>
             <li><a id="project-nav-files" href="#">Files</a></li>
         </ul>
+-->
 {% endblock %}
 
 
 {% block content %}
 <div id="project-detail">
+  <div id="project-detail-commits">
+      <h2>Log</h2>
+      {% include "commit-list.html" %}
 
+  </div>
     <div id="project-detail-readme">
-        <h2>About</h2>
+        <h2>about {{ breadcrumb.name }}</h2>
         <article>
             {% if not README %}<h1 class="repo_slug">{{ repo.name }}</h1>{% endif %}
             <div class="project-description-from-the-readme">
@@ -66,21 +77,16 @@
             </div>
         </article>
     </div>
-
     <div id="project-detail-iceberg">
         <h2>Snapshots</h2>
         <div class="iceberg">
             {% for ice in repo.iceberg.files %}
                 <a href="/{{ repo.category }}/{{ repo.name }}/tree/master/iceberg/{{ ice.name }}">
-                    <img src="/visual/{{ repo.slug }}/{{ice.hex}}/width..200/{{ ice.name }}.png"/>
+                    <img src="http://osp.kitchen/visual/{{ repo.slug }}/{{ice.hex}}/width..200/{{ ice.name }}.png"/>
+                    <!-- DO NOT FORGET TO REMOVE THE 'HTTP://OSP.KITCHEN' LINK when publishing -->
                 </a>
             {% endfor %}
         </div>
-
-    </div>
-    <div id="project-detail-commits">
-        <h2>Log</h2>
-        {% include "commit-list.html" %}
 
     </div>
     <div id="project-detail-files">
@@ -139,7 +145,7 @@
             //     pc = xa / ba * 100;
             //     var point = $("<div>").css({"background-color": "blue", "width": "2px", "height": "5px", "position": "relative", "left": pc + "%"});
             //     timeline.append(point);
-            //     
+            //
             // }
 
             //console.log(times);

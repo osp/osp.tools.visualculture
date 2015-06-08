@@ -51,6 +51,7 @@
 @font-default: "belgika-16";
 @font-secondary: "lmroman";
 @font-intermediary: "belgika-8";
+@font-tertiary: "lmitalic";
 
 
 // colors variables -------------------------------------------------
@@ -64,6 +65,7 @@
 @color-message: lightblue;
 @color-date: #AFEEEE;
 @color-osp-orange: #ffaa00;
+@color-osp-orange-light: RGBA(255, 170, 0, 0.7);
 @dawn-sky: #ed3aff;
 @dawn-earth: #ffdd83;
 @day-sky: #0e4d81;
@@ -223,41 +225,91 @@ h2{
         //position: absolute;
         //padding: 2em;
         //margin: 15px;
-    }
-    #project-detail-files {
-        background: rgba(224, 255, 255, 0.9);
-        width: 100%;
-        z-index: 10;
-    }
-    #project-detail-iceberg {
-        background: rgba(255, 255, 224, 0.9);
-        width: 85%;
-        //z-index: 20;
-        //top: 4em;
-        //left: 4em;
-    }
-    #project-detail-commits {
-        background: rgba(127, 255, 212, 0.9);
-        width: 75%;
-        //z-index: 30;
-        //top: 2 * 4em;
-        //left: 2 * 4em;
+        border-top: 1px dotted;
+        padding-top: @v-unit*2;
+        margin-top: @v-unit;
     }
     #project-detail-readme {
-        background: rgba(255, 255, 255, 0.9);
-        width: 600px;
+        //background: rgba(255, 255, 255, 0.9);
+        width: 345px*2+40px;
+        margin-right: 40px;
+        float: left;
         //z-index: 40;
         //top: 3 * 4em;
         //left: 3 * 4em;
-
         img {
             max-width: 100%;
+            margin-top: @v-unit;
+            margin-bottom: @v-unit;
         }
-
-        h1 { text-align: center; }
-        h2 { font-size: 25px; }
-        h3 { font-size: 21px; }
+        h1 {
+          font-size: 42px;
+          text-decoration: underline dotted;
+          //border: 1px dotted;
+          width: auto;
+          padding: 5px;
+        }
+        h2 {
+          font-size: 25px;
+          margin:0;
+          padding:0;
+          margin-top: @v-unit*2;
+          margin-bottom: @v-unit;
+        }
+        h3 {
+          font-size: 21px;
+        }
         h4 { text-decoration: underline;}
+        p, li {
+          font-family: @font-secondary;
+          font-size: 16px;
+          line-height: 24px;
+          letter-spacing: 0.5px;
+        }
+        blockquote {
+          font-style: italic;
+          border-left: 1px dotted @color-osp-orange;
+        }
+        li{
+          padding-left: @h-unit;
+        }
+        li:before{
+          content: "\2192 \20 ";
+          margin-left: -22px;
+        }
+    }
+    #project-detail-iceberg {
+        //background: rgba(255, 255, 224, 0.9);
+        width: 345px*2+40px;
+        margin-right: 40px;
+        //z-index: 20;
+        //top: 4em;
+        //left: 4em;
+        float: left;
+        a{
+          padding: 20px;
+        }
+    }
+    #project-detail-commits {
+        //background: rgba(127, 255, 212, 0.9);
+        width: 345px;
+        //z-index: 30;
+        //top: 2 * 4em;
+        //left: 2 * 4em;
+        float: right;
+    }
+    #project-detail-files {
+        //background: rgba(224, 255, 255, 0.9);
+        width: 345px*2+40px;
+        margin-right: 40px;
+        float: left;
+        background-color: @color-osp-orange-light;
+        color: white;
+        padding: 20px;
+        border-top: none;
+        h2{
+          color: white;
+        }
     }
 }
 
@@ -427,6 +479,7 @@ div#project-detail .iceberg,
 div#project-detail .commit-list {
     float: left;
     margin-right: 20px;
+    width: 100%;
 }
 div#project-detail-head h1.repo_slug {
     float: left;
@@ -693,7 +746,7 @@ pre {
 
 .breadcrumb {
     clear: both;
-    font-family: notcouriersans;
+    font-family: @font-secondary;
 }
 
 .breadcrumb li {
