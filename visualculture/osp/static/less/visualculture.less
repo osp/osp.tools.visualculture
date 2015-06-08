@@ -222,9 +222,6 @@ h2{
     #project-detail-iceberg,
     #project-detail-commits,
     #project-detail-files {
-        //position: absolute;
-        //padding: 2em;
-        //margin: 15px;
         border-top: 1px dotted;
         padding-top: @v-unit*2;
         margin-top: @v-unit;
@@ -234,9 +231,6 @@ h2{
         width: 345px*2+40px;
         margin-right: 40px;
         float: left;
-        //z-index: 40;
-        //top: 3 * 4em;
-        //left: 3 * 4em;
         img {
             max-width: 100%;
             margin-top: @v-unit;
@@ -244,8 +238,8 @@ h2{
         }
         h1 {
           font-size: 42px;
+          line-height: 50px;
           text-decoration: underline dotted;
-          //border: 1px dotted;
           width: auto;
           padding: 5px;
         }
@@ -253,11 +247,12 @@ h2{
           font-size: 25px;
           margin:0;
           padding:0;
-          margin-top: @v-unit*2;
+          //margin-top: @v-unit*2;
           margin-bottom: @v-unit;
         }
         h3 {
           font-size: 21px;
+          line-height: 28px;
         }
         h4 { text-decoration: underline;}
         p, li {
@@ -282,10 +277,10 @@ h2{
         //background: rgba(255, 255, 224, 0.9);
         width: 345px*2+40px;
         margin-right: 40px;
-        //z-index: 20;
-        //top: 4em;
-        //left: 4em;
         float: left;
+        border-bottom: 1px dotted;
+        padding-bottom: @v-unit;
+        margin-bottom: @v-unit;
         a{
           padding: 20px;
         }
@@ -293,10 +288,8 @@ h2{
     #project-detail-commits {
         //background: rgba(127, 255, 212, 0.9);
         width: 345px;
-        //z-index: 30;
-        //top: 2 * 4em;
-        //left: 2 * 4em;
         float: right;
+        border-top: none;
     }
     #project-detail-files {
         //background: rgba(224, 255, 255, 0.9);
@@ -537,7 +530,7 @@ header {
 
 #menu {
     font-size: 14px;
-    margin-top: @v-unit;
+    //margin-top: @v-unit;
     margin-bottom: @v-unit*2;
 	a {
 	    text-decoration: none;
@@ -548,17 +541,17 @@ header {
   em{
     font-size: 36px;
     line-height: 40px;
+    margin-bottom: @v-unit;
   }
   object{
     //float: right;
   }
-	li{
-	    display: inline;
+  li{
+	    //display: inline;
 	    list-style: none;
 	    font-family: @font-default;
 	    margin-right: 1%;
 	}
-
   p{
     font-family: @font-secondary;
     span{
@@ -587,6 +580,8 @@ div#on-the-table-feed{
         font-family: @font-secondary;
         font-size: 16px;
         line-height: 24px;
+        padding-bottom: 10px;
+        border-bottom: 1px dotted;
       }
       div.itemTitle{
         a{
@@ -866,6 +861,13 @@ pre {
       width: 70%;
       margin-left:15%;
     }
+    #menu
+    ul{
+      margin-top: -@v-unit;
+    }
+    li{
+      display: inline;
+    }
 }
 
 @media only screen and (min-width : 768px){
@@ -878,6 +880,10 @@ pre {
         min-width: 45%;
         margin-right: 2%;
         margin-left: 0%;
+        div.itemContent{
+          border-bottom: none;
+          padding-bottom: none;
+        }
       }
     }
   }

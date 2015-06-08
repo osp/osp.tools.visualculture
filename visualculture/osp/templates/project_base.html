@@ -24,10 +24,10 @@
                 </li>
                 {% endif %}
             {% endfor %}
-            <li><a id="project-nav-about" href="#">&rarr; About</a></li>
-            <!-- <li><a id="project-nav-commits" href="#">&rarr; Log</a></li> -->
-            <li><a id="project-nav-iceberg" href="#">&rarr; Snapshots</a></li>
-            <li><a id="project-nav-files" href="#">&rarr; Files</a></li>
+            <br><li><a id="project-nav-about" href="/{{ repo.category }}/{{ repo.name }}/#project-detail-readme">&rarr; About</a></li>
+            <!-- <li><a id="project-nav-commits" href="/{{ repo.category }}/{{ repo.name }}/#project-detail-commits">&rarr; Log</a></li> -->
+            <li><a id="project-nav-iceberg" href="/{{ repo.category }}/{{ repo.name }}/#project-detail-iceberg">&rarr; Snapshots</a></li>
+            <li><a id="project-nav-files" href="/{{ repo.category }}/{{ repo.name }}/#project-detail-files">&rarr; Files</a></li>
         </ul>
         <!-- Showing the HEAD-->
         {% comment %}
