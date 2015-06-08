@@ -214,15 +214,15 @@ h2{
     //min-width: 4 * 20px + 3 * 250px;
     // and let it not bump into the menu
     //padding-right: 165px;
-    position: absolute;
+    //position: absolute;
 
     #project-detail-readme,
     #project-detail-iceberg,
     #project-detail-commits,
     #project-detail-files {
-        position: absolute;
-        padding: 2em;
-        margin: 15px;
+        //position: absolute;
+        //padding: 2em;
+        //margin: 15px;
     }
     #project-detail-files {
         background: rgba(224, 255, 255, 0.9);
@@ -232,23 +232,23 @@ h2{
     #project-detail-iceberg {
         background: rgba(255, 255, 224, 0.9);
         width: 85%;
-        z-index: 20;
-        top: 4em;
-        left: 4em;
+        //z-index: 20;
+        //top: 4em;
+        //left: 4em;
     }
     #project-detail-commits {
         background: rgba(127, 255, 212, 0.9);
         width: 75%;
-        z-index: 30;
-        top: 2 * 4em;
-        left: 2 * 4em;
+        //z-index: 30;
+        //top: 2 * 4em;
+        //left: 2 * 4em;
     }
     #project-detail-readme {
         background: rgba(255, 255, 255, 0.9);
         width: 600px;
-        z-index: 40;
-        top: 3 * 4em;
-        left: 3 * 4em;
+        //z-index: 40;
+        //top: 3 * 4em;
+        //left: 3 * 4em;
 
         img {
             max-width: 100%;
@@ -407,7 +407,7 @@ h1#project-detail-title {
 ul#project-detail-nav {
     margin-top: 1em;
     margin-right: 13em;
-    text-align: center;
+    //text-align: center;
 
     li {
         display: inline;
@@ -623,10 +623,32 @@ div#on-the-table-feed{
 div#info-page{
     width: 50%;
     margin: 0 auto;
+    dt{
+      font-family: @font-default;
+      font-size: 16px;
+      margin-top: @v-unit;
+    }
+    p, dd{
+      font-family: @font-secondary;
+      font-size: 16px;
+      line-height: 24px;
+      a{
+        font-family: @font-default;
+        font-size: 12px;
+      }
+    }
     h3 {
     font-size: 22px;
-    padding-bottom: 3px;
-
+    padding-top: 20px;
+    padding-bottom: 10px;
+    }
+    ul{
+      li{
+        list-style: outside none none;
+      }
+      li:before{
+        content: "\2192 \20 ";
+      }
     }
 }
 
