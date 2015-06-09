@@ -46,7 +46,7 @@
 @font-size-mini: 9px;
 @font-size-small: 12px;
 @font-size-medium: 15px;
-@font-size-big: 21px;
+@font-size-big: 18px;
 @font-size-huge: 25px;
 @font-default: "belgika-16";
 @font-secondary: "lmroman";
@@ -225,12 +225,11 @@ h2{
         border-top: 1px dotted;
         padding-top: @v-unit*2;
         margin-top: @v-unit;
+        width: 100%;
+        float:left;
     }
     #project-detail-readme {
         //background: rgba(255, 255, 255, 0.9);
-        width: 345px*2+40px;
-        margin-right: 40px;
-        float: left;
         img {
             max-width: 100%;
             margin-top: @v-unit;
@@ -244,7 +243,7 @@ h2{
           padding: 5px;
         }
         h2 {
-          font-size: 25px;
+          font-size: @font-size-big;
           margin:0;
           padding:0;
           //margin-top: @v-unit*2;
@@ -274,10 +273,6 @@ h2{
         }
     }
     #project-detail-iceberg {
-        //background: rgba(255, 255, 224, 0.9);
-        width: 345px*2+40px;
-        margin-right: 40px;
-        float: left;
         border-bottom: 1px dotted;
         padding-bottom: @v-unit;
         margin-bottom: @v-unit;
@@ -286,16 +281,9 @@ h2{
         }
     }
     #project-detail-commits {
-        //background: rgba(127, 255, 212, 0.9);
-        width: 345px;
-        float: right;
         border-top: none;
     }
     #project-detail-files {
-        //background: rgba(224, 255, 255, 0.9);
-        width: 345px*2+40px;
-        margin-right: 40px;
-        float: left;
         background-color: @color-osp-orange-light;
         color: white;
         padding: 20px;
@@ -307,27 +295,16 @@ h2{
 }
 
 // project box -------------------------------------------------
-
 .project{
     float: left;
     width:95%;
     margin-bottom: @h-unit;
     min-height: 300px;
-/*
-background: -moz-linear-gradient(left, #ffffff 37%, #ffa73d 48%, #ff7c00 54%, #ffffff 63%);
-background: -webkit-gradient(linear, left top, right top, color-stop(37%,#ffffff), color-stop(48%,#ffa73d), color-stop(54%,#ff7c00), color-stop(63%,#ffffff));
-background: -webkit-linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63%);
-background: -o-linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63%);
-background: -ms-linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63%);
-background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63%);
-*/
 }
 .project-type{
     text-transform: uppercase;
     font-size: @font-size-medium;
     text-align: center;
-
-
     a {
         text-decoration: none;
         &:hover {
@@ -445,6 +422,21 @@ a.category:hover{
 
 
 // project-detail -------------------------------------------------
+.left-2{
+  width:95%;
+  //width: 345px*2+40px;
+  //margin-right: 40px;
+  float: left;
+  margin: 0 auto;
+}
+.right-1{
+  width:95%;
+  //width: 345px;
+  //margin-left: @h-unit*2;
+  float: left;
+  margin: 0 auto;
+}
+
 h1#project-detail-title {
     float: left;
     margin-bottom: 0;
@@ -477,18 +469,17 @@ div#project-detail .commit-list {
 div#project-detail-head h1.repo_slug {
     float: left;
 }
-a.git-clone {
-    background: none repeat scroll 0 0 #0000FF;
-    color: #FFFFFF;
-    display: inline-block;
-    font-family: notcouriersans;
-    font-weight: bold;
-    margin-left: 1em;
-    margin-top: 23px;
-    padding: 8px;
-    text-decoration: none;
-
+a.gitclone {
+    background-color: @color-osp-orange-light;
+    color: white;
+    font-family: @font-intermediary;
+    padding: 10px 5px 2px 5px;
+    font-size: 18px;
     &:hover {
+    color: black;
+    background-color: white;
+    outline: 1px dotted @color-osp-orange-light;
+    font-family: @font-default;
     }
 }
 div#project-detail-body {
@@ -857,7 +848,8 @@ pre {
       margin-left: 15%;
       }
     }
-  .project, #home-info, div#info-page{
+
+  .project, #home-info, div#info-page, .right-1, .left-2{
       width: 70%;
       margin-left:15%;
     }
@@ -875,14 +867,14 @@ pre {
     padding: 1.5em;
   }
   div#on-the-table-feed{
-    ul.feedEkList{
-      li{
-        min-width: 45%;
-        margin-right: 2%;
-        margin-left: 0%;
-        div.itemContent{
-          border-bottom: none;
-          padding-bottom: none;
+      ul.feedEkList{
+        li{
+          min-width: 45%;
+          margin-right: 2%;
+          margin-left: 0%;
+          div.itemContent{
+            border-bottom: none;
+            padding-bottom: none;
         }
       }
     }
@@ -891,6 +883,16 @@ pre {
       width: 45%;
       margin-right: 2%;
       margin-left: 0%;
+  }
+  .left-2{
+    width: 345px*2+40px;
+    margin: 0;
+    margin-right: 40px;
+  }
+  .right-1{
+    width:345px;
+    margin: 0;
+    margin-right: 40px;
   }
   #home-info, div#info-page{
     width: 345px*2+40px;
@@ -905,19 +907,30 @@ pre {
   div#on-the-table-feed{
     ul.feedEkList{
       li{
-        min-width: 300px;
-        max-width: 345px;
-        width: 28%;
-        margin-right: @v-unit*2+10;
+        width:345px;
+        min-width: 345px;
+        margin-right: @h-unit*2;
       }
     }
   }
   .project{
-      width: 28%;
-      min-width: 300px;
-      max-width: 345px;
-      margin-right: @v-unit*2+10;
+    width: 345px;
+    margin-right: @h-unit*2;
     }
 }
 
-//@media #{$large}
+@media only screen and (min-width : 1280px){
+/*
+  .left-2{
+    width: 345px*3+40px;
+    div#project-detail-readme{
+      width:45%;
+    }
+    #project-detail-files{
+      width: 345px;
+      margin-right: 40px;
+      float:left;
+    }
+  }
+*/
+}
