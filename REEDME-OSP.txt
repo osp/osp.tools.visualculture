@@ -14,6 +14,7 @@ Getting started
 # or create a virtual env
 
 pip install "django<1.5" "django_compressor<1.5" "django-cors<0.2"
+also, Markdown is required, as dependecies are growing, pip freeze to requirements.txt? I made one in branch 'colm'
 
 # to install the less css compiler, you need to install
 # node js. download the latest version, and do a
