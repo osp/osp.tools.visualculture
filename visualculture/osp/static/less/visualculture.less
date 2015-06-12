@@ -286,10 +286,26 @@ h2{
     #project-detail-files {
         background-color: @color-osp-orange-light;
         color: white;
-        padding: 20px;
         border-top: none;
         h2{
           color: white;
+          padding-top: @h-unit;
+          padding-left: @h-unit;
+          margin-bottom: 0;
+        }
+        svg.file-icon{
+          width: 20px;
+          float: left;
+          margin-top: -5px;
+          margin-left: 2px;
+          fill: none;
+          outline: black;
+        }
+        path.outline-path{
+          stroke: black;
+        }
+        #blob{
+          padding-left: @v-unit;
         }
     }
 }
@@ -424,15 +440,11 @@ a.category:hover{
 // project-detail -------------------------------------------------
 .left-2{
   width:95%;
-  //width: 345px*2+40px;
-  //margin-right: 40px;
   float: left;
   margin: 0 auto;
 }
 .right-1{
   width:95%;
-  //width: 345px;
-  //margin-left: @h-unit*2;
   float: left;
   margin: 0 auto;
 }
@@ -703,14 +715,48 @@ pre {
 }
 
 // thumbnails -------------------------------------------------
+div.thumbnail.folder{
+  border-bottom: 1px solid black;
+  div.thumb{
+    img{
+    width: 30px;
+    height:30px;
+    float: left;
+    }
+  }
+}
+div.thumbnail.preview{
+  border-bottom: 1px dotted black;
+  div.thumb{
+    img{
+    display:none;
+    }
+  }
+  p{
+    margin-bottom:10px;
+  }
+}
+
+div.thumb{
+  min-height: 25px;
+}
+
+a.folder-name{
+  padding-left: 10px;
+  margin-bottom: -5px;
+}
+
+a.file-name{
+  float: left;
+}
 
 .thumbnails {
-    margin-left: -@v-unit;
+    //margin-left: -@v-unit;
     list-style: none;
     .clearfix();
 }
 .thumbnails > li {
-    float: left;
+    //float: left;
     margin: 0 0 18px 20px;
     width: 140px;
 }
@@ -726,6 +772,10 @@ pre {
     max-width: 100%;
     margin-left: auto;
     margin-right: auto;
+}
+
+ul#tree{
+  padding: 15px;
 }
 
 // breadcrumbs ------------------------------------------------
