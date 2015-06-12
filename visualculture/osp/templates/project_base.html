@@ -65,12 +65,16 @@
       <div id="project-detail-iceberg">
           <h2>Snapshots | iceberg</h2>
           <div class="iceberg">
-              {% for ice in repo.iceberg.files %}
-                  <a href="/{{ repo.category }}/{{ repo.name }}/tree/master/iceberg/{{ ice.name }}">
-                      <img src="http://osp.kitchen/visual/{{ repo.slug }}/{{ice.hex}}/width..200/{{ ice.name }}.png"/>
-                      <!-- DO NOT FORGET TO REMOVE THE 'HTTP://OSP.KITCHEN' LINK when publishing -->
-                  </a>
-              {% endfor %}
+              {% if repo.iceberg.files %}
+                {% for ice in repo.iceberg.files %}
+                    <a href="/{{ repo.category }}/{{ repo.name }}/tree/master/iceberg/{{ ice.name }}">
+                        <img src="http://osp.kitchen/visual/{{ repo.slug }}/{{ice.hex}}/width..200/{{ ice.name }}.png"/>
+                        <!-- DO NOT FORGET TO REMOVE THE 'HTTP://OSP.KITCHEN' LINK when publishing -->
+                    </a>
+                {% endfor %}
+              {% else %}
+                <pre>no images in the iceberg at this time</pre>
+              {% endif %}
           </div>
       </div>
       <div id="project-detail-files">
