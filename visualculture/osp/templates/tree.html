@@ -2,6 +2,20 @@
 
 {% block vc_content%}
 <ul id="tree" class="thumbnails{% if root %}  root{% endif %}">
+  <ul class="breadcrumb">
+      {% for breadcrumb in breadcrumbs %}
+          {% if not forloop.last %}
+          <li>
+              <a href="{{ breadcrumb.href }}#project-detail-files">{{ breadcrumb.name }}</a> <span class="divider">/</span>
+          </li>
+
+          {% else %}
+          <li class="active">
+             {{ breadcrumb.name }} {% if tree %}<span class="divider">/</span>{% endif %}
+          </li>
+          {% endif %}
+      {% endfor %}
+  </ul>
 {% for dir in tree.dirs %}
     <li>
         <div class="thumbnail folder">
@@ -30,7 +44,6 @@
             </a>
             </div>
           -->
-
         <svg class="js-geomicon geomicon file-icon" data-icon="file" viewBox="0 0 32 32"><path class="outline-path" d="M4 2 L4 30 L28 30 L28 10 L20 2 z"></path></svg>
         <h5><a href="{{ file.href }}#project-detail-files" class="file-name">{{ file.name }}</a></h5>
             <p>{{ file.mime }}</p>

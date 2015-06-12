@@ -165,6 +165,9 @@ a, a:visited {
 a:hover {
     text-decoration: none;
 }
+a.no-underline{
+  text-decoration: none;
+}
 
 h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
     text-decoration: none;
@@ -238,9 +241,11 @@ h2{
         h1 {
           font-size: 42px;
           line-height: 50px;
-          text-decoration: underline dotted;
+          //text-decoration: underline dotted;
           width: auto;
           padding: 5px;
+          padding-left: 0px;
+          border-bottom: dotted 1px;
         }
         h2 {
           font-size: @font-size-big;
@@ -285,19 +290,28 @@ h2{
     }
     #project-detail-files {
         background-color: @color-osp-orange-light;
-        color: white;
         border-top: none;
         h2{
           color: white;
           padding-top: @h-unit;
           padding-left: @h-unit;
           margin-bottom: 0;
+          text-decoration: none;
+        }
+        p{
+          font-family: @font-secondary;
+        }
+        ul.breadcrumb{
+          font-family: @font-default;
+          font-size: 12px;
+          padding-left:5px;
         }
         svg.file-icon{
           width: 20px;
           float: left;
           margin-top: -5px;
           margin-left: 2px;
+          padding-right: 10px;
           fill: none;
           outline: black;
         }
@@ -305,7 +319,8 @@ h2{
           stroke: black;
         }
         #blob{
-          padding-left: @v-unit;
+          margin-top: @h-unit;
+          padding-left: @h-unit;
         }
     }
 }
@@ -748,6 +763,7 @@ a.folder-name{
 
 a.file-name{
   float: left;
+  margin-right: @h-unit;
 }
 
 .thumbnails {

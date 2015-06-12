@@ -9,22 +9,10 @@
         <!-- Header and options when showing a repository -->
         <!-- Navigate through the repository -->
         <ul class="breadcrumb">
-            {% for breadcrumb in breadcrumbs %}
-                {% if not forloop.last %}
-                <li>
-                    <a href="{{ breadcrumb.href }}">{{ breadcrumb.name }}</a> <span class="divider">/</span>
-                </li>
-
-                {% else %}
-                <li class="active">
-                   {{ breadcrumb.name }} {% if tree %}<span class="divider">/</span>{% endif %}
-                </li>
-                {% endif %}
-            {% endfor %}
-            <br><li>&rarr;<a id="project-nav-about" href="/{{ repo.category }}/{{ repo.name }}/#project-detail-readme"> About</a></li>
-            <!-- <li>&rarr;<a id="project-nav-commits" href="/{{ repo.category }}/{{ repo.name }}/#project-detail-commits"> Log</a></li> -->
-            <li>&rarr;<a id="project-nav-iceberg" href="/{{ repo.category }}/{{ repo.name }}/#project-detail-iceberg"> Snapshots</a></li>
-            <li>&rarr;<a id="project-nav-files" href="/{{ repo.category }}/{{ repo.name }}/#project-detail-files"> Files</a></li>
+            <br><li>&rarr;<a id="#project-nav-about" href="/{{ repo.category }}/{{ repo.name }}/#project-detail-readme"> About</a></li>
+            <!-- <li>&rarr;<a id="#project-nav-commits" href="/{{ repo.category }}/{{ repo.name }}/#project-detail-commits"> Log</a></li> -->
+            <li>&rarr;<a id="#project-nav-iceberg" href="/{{ repo.category }}/{{ repo.name }}/#project-detail-iceberg"> Snapshots</a></li>
+            <li>&rarr;<a id="#project-nav-files" href="/{{ repo.category }}/{{ repo.name }}/#project-detail-files"> Files</a></li>
         </ul>
         <!-- Showing the HEAD-->
         {% comment %}
@@ -78,7 +66,7 @@
           </div>
       </div>
       <div id="project-detail-files">
-          <h2>explore this repository</h2>
+          <a class="no-underline" href="/{{ repo.category }}/{{ repo.name }}/#project-detail-files"><h2>inside this repository</h2></a>
           {% block vc_content %}
           {% endblock %}
       </div>
