@@ -48,6 +48,7 @@
             <script src="{{ STATIC_URL }}js/jquery-1.11.0.min.js"></script>
             <script src="{{ STATIC_URL }}js/bootstrap-modal.js"></script>
             <script src="{{ STATIC_URL }}js/FeedEk.js"></script>
+            <script src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
             <!--<script src="{{ STATIC_URL }}js/jquery.masonry.min.js"></script>-->
             <!--<script>-->
             <!--$(window).load(function() {-->
@@ -70,7 +71,8 @@
     MaxCount : 3,
     ShowDesc :false,
     ShowPubDate:true,
-    DescCharacterLimit:100,
+    DateFormat: 'dddd, Do MMMM YYYY - hh:mm',
+    DateFormatLang: 'en'
   });
     </script>
 
