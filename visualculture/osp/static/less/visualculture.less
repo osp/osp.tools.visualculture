@@ -333,10 +333,6 @@ h2{
           padding-left: @h-unit;
         }
     }
-
-    ul li:before {
-        content: "– ";
-    }
 }
 
 // project box -------------------------------------------------
@@ -345,7 +341,7 @@ h2{
     width:95%;
     margin-bottom: @h-unit;
     min-height: 300px;
-    max-height: 600px;
+    max-height: 480px;
     overflow: hidden;
 }
 .project-type{
@@ -688,6 +684,14 @@ div#on-the-table-feed{
   line-height: 24px;
 }
 
+#home-side{
+  width: 345px;
+  float: right;
+  height: 500px;
+  min-height: 500px;
+  max-height: 500px;
+}
+
 
 // about page -------------------------------------------------
 #about-general{
@@ -990,7 +994,15 @@ ul#tree{
     margin: 0;
     margin-right: 40px;
   }
-  #home-info, div#info-page{
+  #home-info{
+    width: 345px;
+    margin: 0;
+    margin-right: 40px;
+    padding-top: 50px;
+    //min-height: 500px;
+  }
+
+  div#info-page{
     width: 345px*2+40px;
     margin: 0;
   }

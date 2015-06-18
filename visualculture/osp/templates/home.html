@@ -1,31 +1,30 @@
 {% extends 'base.html' %}
 
 {% block header %}
-<div id="on-the-table">
-   <h1>latest notes</h1>
-</div>
-<div id="on-the-table-feed"></div>
 
 {% endblock %}
 
 {% block content %}
 <div>
-            <h1>What are we up to?</h1>
-            <div id="home-info">
-            You're looking at the inside of our cupboards. In the OSP kitchen, source files = ingredients. These arrangements of blocks of text and pictures depict the most recent
-            projects, their narratives, some selected visuals and the source files of the entire project. They are a view of the files and folders we make, share and the way they mature. These views are all thanks to <a href="{{ HOST }}/tools/visualculture/">VisualCulture</a>. We welcome to <a href="http://en.wikipedia.org/wiki/Copyleft#Applying_copyleft">study</a>
-            these, <a href="http://en.wikipedia.org/wiki/Copyleft#Applying_copyleft">improve</a> them, to <a href="http://en.wikipedia.org/wiki/Copyleft#Applying_copyleft">redistribute copies</a>
-            of them and <a href="http://en.wikipedia.org/wiki/Copyleft#Applying_copyleft">release your improvements</a>.
-        Nous sommes embarqués.
-            <a href="http://osp.constantvzw.org/about">Read more about the way we work</a> →
-            </div>
+    <h1>What are we up to?</h1>
     <div id="active-projects">
         <script>
         // $('#active-projects').masonry({
         //   itemSelector: '.project'
         // });
         </script>
-
+        <div id="home-info" class="project">
+        You're looking at the inside of our cupboards. In the OSP kitchen, source files = ingredients. These arrangements of blocks of text and pictures depict the most recent
+        projects, their narratives, some selected visuals and the source files of the entire project. They are a view of the files and folders we make, share and the way they mature. These views are all thanks to <a href="{{ HOST }}/tools/visualculture/">VisualCulture</a>. We welcome to <a href="http://en.wikipedia.org/wiki/Copyleft#Applying_copyleft">study</a>
+        these, <a href="http://en.wikipedia.org/wiki/Copyleft#Applying_copyleft">improve</a> them, to <a href="http://en.wikipedia.org/wiki/Copyleft#Applying_copyleft">redistribute copies</a>
+        of them and <a href="http://en.wikipedia.org/wiki/Copyleft#Applying_copyleft">release your improvements</a>.
+    Nous sommes embarqués.
+        <a href="http://osp.constantvzw.org/about">Read more about the way we work</a> →
+        </div>
+        <div id="home-side">
+          <h1>latest notes</h1>
+          <div id="on-the-table-feed"></div>
+        </div>
         {% for repo in repos %}
         <div class="project">
             <h2 class="project-title">
