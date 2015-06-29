@@ -9,25 +9,24 @@
 
     <div id="active-projects">
         <div id="home-info" class="project">
-        <h1>What are we up to?</h1>
-        You're looking at the inside of our cupboards. In the OSP kitchen, source files = ingredients. These arrangements of blocks of text and pictures depict the most recent
+        <h1>This is what we’re up to:</h1>
+        <p>You're looking at the inside of our cupboards. In the OSP kitchen, source files = ingredients. These arrangements of blocks of text and pictures depict the most recent
         projects, their narratives, some selected visuals and the source files of the entire project. They are a view of the files and folders we make, share and the way they mature. These views are all thanks to <a href="{{ HOST }}/tools/visualculture/">VisualCulture</a>. We welcome to <a href="http://en.wikipedia.org/wiki/Copyleft#Applying_copyleft">study</a>
         these, <a href="http://en.wikipedia.org/wiki/Copyleft#Applying_copyleft">improve</a> them, to <a href="http://en.wikipedia.org/wiki/Copyleft#Applying_copyleft">redistribute copies</a>
         of them and <a href="http://en.wikipedia.org/wiki/Copyleft#Applying_copyleft">release your improvements</a>.
-    Nous sommes embarqués.
-        <a href="http://osp.constantvzw.org/about">Read more about the way we work</a> →
+        <br>Nous sommes embarqués.
+        <a href="http://osp.constantvzw.org/about">Read more about the way we work</a> →</p>
+        <h1>Latest notes from the blog</h1>
+        <div id="on-the-table-feed"></div>
         </div>
-        <div id="home-notes">
-          <h1>latest notes</h1>
-          <div id="on-the-table-feed"></div>
-        </div>
+
         {% for repo in repos %}
         <div class="project">
             <h2 class="project-title">
               {% if repo.category %}
                 <a class="category" href="{% url osp.views.category repo.category %}">{{ repo.category }}</a><br>
                 {% else %}
-                  <a class="category" href="#"></a><br>
+                  <a class="category-none" href="#"></a><br>
               {% endif %}
             <a href="{{ repo.web_path }}">{{ repo.name }}</a>
             </h2>

@@ -48,8 +48,8 @@
 @font-size-medium: 15px;
 @font-size-big: 27px;
 @font-size-huge: 25px;
-@font-default: Bagnard;
-@font-secondary: Bagnard;
+@font-default: belgika-16;
+@font-secondary: cmunorm;
 @font-intermediary: herscheyfutura;
 @font-tertiary: Bagnard;
 @font-factuelle:belgika-16;
@@ -65,8 +65,8 @@
 @color-author-said-droite: #87bcea;
 @color-message: lightblue;
 @color-date: #AFEEEE;
-@color-osp-orange: #9900ff;
-@color-osp-orange-light: RGBA(153, 0, 255, 0.7);
+@color-osp-orange: #996670;
+@color-osp-orange-light: RGBA(153, 102, 112, 0.7);
 @dawn-sky: #ed3aff;
 @dawn-earth: #ffdd83;
 @day-sky: #0e4d81;
@@ -77,6 +77,11 @@
 @night-earth: #9b4e9e;
 
 // fonts -------------------------------------------------
+
+@font-face {
+    font-family: cmunorm;
+    src: url("../fonts/cmunorm.ttf");
+}
 
 @font-face {
     font-family: lmitalic;
@@ -209,6 +214,9 @@ h2{
     font-weight: normal;
     line-height: @v-unit - 2px;
     margin-bottom: 1em;
+}
+p{
+  letter-spacing: 0.01em;
 }
 
 // active pieces -------------------------------------------------
@@ -387,6 +395,10 @@ a.category:hover:after{
 a.category:hover{
   border-bottom: 1px solid black;
 }
+a.category-none{
+    font-size: 12px;
+    line-height: 36px;
+}
 .project-description-from-the-readme{
     font-size: @font-size-medium;
     text-align: left;
@@ -518,7 +530,7 @@ div#project-detail-head h1.repo_slug {
 a.gitclone {
     background-color: @color-osp-orange-light;
     color: white;
-    font-family: @font-intermediary;
+    font-family: @font-default;
     padding: 10px 5px 2px 5px;
     font-size: 18px;
     &:hover {
@@ -673,6 +685,7 @@ div#on-the-table-feed{
     &:hover {
         z-index: 100;
     }
+
     figure {
         display: inline-block;
     }
@@ -688,6 +701,11 @@ div#on-the-table-feed{
   //width: 345px*2+40px;
   font-size: 16px;
   line-height: 24px;
+  h1{
+    padding-bottom: 5px;
+    border-bottom: 1px dotted aquamarine;
+    margin-top: 38px;
+  }
 }
 
 #home-side{
