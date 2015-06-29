@@ -1,5 +1,5 @@
 <div class="commit-list">
-    {% for commit in repo.commits %}
+    {% for commit in repo.commits reversed %}
         <div class='ellipse' style='height: {{ commit.ellipse }}px;'>&nbsp;</div>
         <div class='commit' data-date="{{ commit.commit_time|date:"c" }}">
             <p><span class='commit-author'>{{ commit.author }}</span><span class='commit-author-said'>{{ said|random }}</span></p>
@@ -8,5 +8,5 @@
             <p class='commit-message'>&mdash; {{ commit.message|urlize|linebreaksbr }}</p>
             <p class='commit-date'>{{ commit.commit_time|date:"l, jS F Y - H:i" }}</p>
         </div>
-    {% endfor %} 
+    {% endfor %}
 </div>

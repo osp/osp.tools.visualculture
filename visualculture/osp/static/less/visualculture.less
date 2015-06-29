@@ -341,7 +341,7 @@ h2{
     width:95%;
     margin-bottom: @h-unit;
     min-height: 300px;
-    max-height: 480px;
+    //max-height: 480px;
     overflow: hidden;
 }
 .project-type{
@@ -376,7 +376,7 @@ a.category{
     line-height: 36px;
     padding-bottom: 5px;
     color: black !important;
-    //letter-spacing: 0.5px;
+    letter-spacing: 0.05em;
 }
 a.category:after{
   content: " 	\2193";
@@ -621,19 +621,25 @@ div#on-the-table-feed{
         border-bottom: 1px dotted;
       }
       div.itemDate{
-          font-family: @font-factuelle;
-	  margin-top: 6px;
-	  font-size: 12px;
+        font-family: @font-factuelle-bold;
+	      margin-top: 6px;
+        font-size: 12px;
+        }
+        div.itemDate::before{
+          content: "posed: "
         }
       div.itemTitle{
         a{
-	  font-family: @font-intermediary;
-	  font-size: 25px;
+	        font-family: @font-intermediary;
+	        font-size: 25px;
           text-decoration:none;
-          line-height: 40px;
+          line-height: 46px;
         }
         a:hover{
-          text-decoration: underline @color-osp-orange;
+          margin-bottom:20px;
+          //text-decoration: underline @color-osp-orange;
+          //This doesn't work because the baseline settings in herscheyfutura are all fucked up. It's a shame, trying to revert to a different hover method to signify that blog post titles are in fact links.
+          color: @color-osp-orange;
         }
       }
     }
@@ -687,6 +693,14 @@ div#on-the-table-feed{
 #home-side{
   width: 345px;
   float: right;
+  height: 500px;
+  min-height: 500px;
+  max-height: 500px;
+}
+
+#home-notes{
+  width: 345px;
+  float: left;
   height: 500px;
   min-height: 500px;
   max-height: 500px;
@@ -998,7 +1012,7 @@ ul#tree{
     width: 345px;
     margin: 0;
     margin-right: 40px;
-    padding-top: 50px;
+    //padding-top: 50px;
     //min-height: 500px;
   }
 
