@@ -2,6 +2,8 @@
 <html dir="ltr" lang="en-US">
     <head>
         <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		    <meta name="viewport" content="initial-scale=1">
         <title>OSP (Open Source Publishing) → {{ title }}</title>
 {% load compress %}
 {% if COMPRESS_ENABLED %}
@@ -20,12 +22,9 @@
         {% block menu %}
         <!-- Menu navigation-->
         <div id="menu-wrapper">
-            {% include "partials/nav.html" %}
+            {% include "partials/reg-nav.html" %}
         </div>
 
-        <div id="frog-me">
-            <a href="http://osp.constantvzw.org"><img style="position: absolute; top: 0; right: 0; border: 0;" src="{{ STATIC_URL }}img/ribbon-osp.png" alt="Frog me on GitOsp"></a>
-        </div>
        {% endblock %}
 
 
@@ -40,7 +39,7 @@
         {% block content %}{% endblock %}
 
 
-        
+
         {% block footer %}{% endblock %}
     {% endblock %}
 
@@ -48,6 +47,8 @@
     {% compress js %}
             <script src="{{ STATIC_URL }}js/jquery-1.11.0.min.js"></script>
             <script src="{{ STATIC_URL }}js/bootstrap-modal.js"></script>
+            <script src="{{ STATIC_URL }}js/FeedEk.js"></script>
+            <script src="{{ STATIC_URL }}js/moment.locales.min.js"></script>
             <!--<script src="{{ STATIC_URL }}js/jquery.masonry.min.js"></script>-->
             <!--<script>-->
             <!--$(window).load(function() {-->
@@ -63,6 +64,16 @@
     <script src="{{ STATIC_URL }}js/jquery.hoverIntent.minified.js"></script>
     <script>
     jQuery(document).ready(VC.annotations.init());
+    </script>
+    <script type="text/javascript">
+    $('#on-the-table-feed').FeedEk({
+    FeedUrl : 'http://ospublish.constantvzw.org/blog/feed',
+    MaxCount : 3,
+    ShowDesc :false,
+    ShowPubDate:true,
+    DateFormat: 'dddd, Do MMMM YYYY - hh:mm',
+    DateFormatLang: 'en'
+  });
     </script>
 
 
@@ -96,7 +107,7 @@
                 if ($("#blob, #tree:not(.root)").length > 0) {
                 	/* If we are looking at a blob/file, or a tree/folder with files
                 	 * we want the layer with the file(s) to appear on top.
-                	 * 
+                	 *
                 	 * Except if we’re looking at the root folder:
                 	 * in this case the README is shown on top as usual.
                 	 */

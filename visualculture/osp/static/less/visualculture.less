@@ -5,7 +5,15 @@
 
 @h-unit: 20px;
 @v-unit: 15px;
-
+/*
+@mobile: only screen and (min-width : 384px); // 6 * 64 = 24 * 16 = 384
+@phablet: only screen and (min-width : 512px); // 8 * 64 = 32 * 16 = 512
+@tablet: only screen and (min-width : 768px); // 12 * 64 = 48 * 16 = 768
+@desktop: only screen and (min-width : 1024px); // 16 * 64 = 64 * 16 = 1024
+@large: only screen and (min-width : 1280px); // 20 * 64 = 80 * 16 = 1280
+@huge: only screen and (min-width : 1536px); // 24 * 64 = 96 * 16 = 1536
+@max: only screen and (min-width : 2048px); // 32 * 64 = 128 * 16 = 2048
+*/
 // utility classes ------------------------------------------------------
 
 .hide {
@@ -38,10 +46,14 @@
 @font-size-mini: 9px;
 @font-size-small: 12px;
 @font-size-medium: 15px;
-@font-size-big: 21px;
+@font-size-big: 27px;
 @font-size-huge: 25px;
-@font-default: "lmroman";
-
+@font-default: belgika-16;
+@font-secondary: cmunorm;
+@font-intermediary: herscheyfutura;
+@font-tertiary: Bagnard;
+@font-factuelle:belgika-16;
+@font-factuelle-bold:belgika-8;
 
 // colors variables -------------------------------------------------
 
@@ -53,6 +65,8 @@
 @color-author-said-droite: #87bcea;
 @color-message: lightblue;
 @color-date: #AFEEEE;
+@color-osp-orange: RGBA(255, 0, 170, 1);
+@color-osp-orange-light: RGBA(153, 102, 112, 0.7);
 @dawn-sky: #ed3aff;
 @dawn-earth: #ffdd83;
 @day-sky: #0e4d81;
@@ -65,6 +79,11 @@
 // fonts -------------------------------------------------
 
 @font-face {
+    font-family: cmunorm;
+    src: url("../fonts/cmunorm.ttf");
+}
+
+@font-face {
     font-family: lmitalic;
     src: url("../fonts/lmroman10-italic.otf");
 }
@@ -72,6 +91,31 @@
 @font-face {
     font-family: lmroman;
     src: url("../fonts/lmroman10-regular.otf");
+}
+
+@font-face {
+    font-family: belgika-8;
+    src: url("../fonts/Belgika-8th.otf");
+}
+
+@font-face {
+    font-family: belgika-16;
+    src: url("../fonts/Belgika-16th.otf");
+}
+
+@font-face {
+    font-family: belgika-40;
+    src: url("../fonts/Belgika-40th.otf");
+}
+
+@font-face {
+    font-family: Bagnard;
+    src: url("../fonts/Bagnard.otf");
+}
+
+@font-face {
+    font-family: herscheyfutura;
+    src: url("../fonts/herscheyfutura.otf");
 }
 
 @font-face {
@@ -97,6 +141,17 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Sean';
+    src: url('../atfont-face/sean_normal.eot');
+    src: url('../atfont-face/sean_normal.eot?#iefix') format('embedded-opentype'),
+         url('../atfont-face/sean_normal.woff') format('woff'),
+         url('../atfont-face/sean_normal.ttf') format('truetype'),
+         url('../atfont-face/sean_normal.svg#NotCourierSansRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 // default -------------------------------------------------
 
 body {
@@ -105,7 +160,7 @@ body {
     line-height: @h-unit;
     color: @color-text;
     background-color: @color-background;
-    letter-spacing: 0.5px;
+    //letter-spacing: 0.5px;
     word-wrap: break-word;
     padding: 1em;
 }
@@ -126,6 +181,9 @@ a, a:visited {
 a:hover {
     text-decoration: none;
 }
+a.no-underline{
+  text-decoration: none;
+}
 
 h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
     text-decoration: none;
@@ -142,13 +200,13 @@ li {
 }
 h1{
     font-size: @font-size-huge;
-    color: @color-text;
+    color: @color-osp-orange;
     font-weight: normal;
     line-height: 2 * @v-unit - 2px;
-    margin-bottom: 1em;
-    margin-top: 1em;
+    margin-top: @v-unit*3;
+    margin-bottom: @v-unit  ;
     clear: both;
-    text-transform: uppercase;
+    //text-decoration: underline @color-osp-orange;
 }
 h2{
     font-size: @font-size-big;
@@ -157,6 +215,9 @@ h2{
     line-height: @v-unit - 2px;
     margin-bottom: 1em;
 }
+p{
+  letter-spacing: 0.01em;
+}
 
 // active pieces -------------------------------------------------
 
@@ -164,109 +225,179 @@ h2{
     position: relative;
     z-index: 2;
     background-color: rgba(255, 255, 255, 0.9);
-    left: 2em;
-    padding: 1em;
-    margin-top: 2em;
-    margin-left: @v-unit;
+    //left: 2em;
+    //padding: 1em;
+    margin-top: @v-unit;
+    //margin-left: @v-unit;
 }
 #active-projects,
 #project-detail {
     .clearfix;
     width: auto;
     // make it minimally 3 columns wide
-    min-width: 4 * 20px + 3 * 250px;
+    //min-width: 4 * 20px + 3 * 250px;
     // and let it not bump into the menu
-    padding-right: 165px;
-    position: absolute;
+    //padding-right: 165px;
+    //position: absolute;
 
     #project-detail-readme,
     #project-detail-iceberg,
     #project-detail-commits,
     #project-detail-files {
-        position: absolute;
-        padding: 2em;
-        margin: 15px;
-    }
-    #project-detail-files {
-        background: rgba(224, 255, 255, 0.9);
+        border-top: 1px dotted;
+        padding-top: @v-unit*2;
+        margin-top: @v-unit;
         width: 100%;
-        z-index: 10;
-    }
-    #project-detail-iceberg {
-        background: rgba(255, 255, 224, 0.9);
-        width: 85%;
-        z-index: 20;
-        top: 4em;
-        left: 4em;
-    }
-    #project-detail-commits {
-        background: rgba(127, 255, 212, 0.9);
-        width: 75%;
-        z-index: 30;
-        top: 2 * 4em;
-        left: 2 * 4em;
+        float:left;
     }
     #project-detail-readme {
-        background: rgba(255, 255, 255, 0.9);
-        width: 600px;
-        z-index: 40;
-        top: 3 * 4em;
-        left: 3 * 4em;
-
+        //background: rgba(255, 255, 255, 0.9);
         img {
             max-width: 100%;
+            margin-top: @v-unit;
+            margin-bottom: @v-unit;
         }
-
-        h1 { text-align: center; }
-        h2 { font-size: 25px; }
-        h3 { font-size: 21px; }
+        h1 {
+          font-size: 42px;
+          line-height: 50px;
+          //text-decoration: underline dotted;
+          width: auto;
+          padding: 5px;
+          padding-left: 0px;
+          border-bottom: dotted 1px;
+        }
+        h2 {
+          font-size: @font-size-big;
+          margin:0;
+          padding:0;
+          //margin-top: @v-unit*2;
+          margin-bottom: @v-unit;
+        }
+        h3 {
+          font-size: 21px;
+          line-height: 28px;
+        }
         h4 { text-decoration: underline;}
+        p, li {
+          font-family: @font-secondary;
+          font-size: 16px;
+          line-height: 24px;
+        }
+        blockquote {
+          font-style: italic;
+          border-left: 1px dotted @color-osp-orange;
+        }
+        li{
+          padding-left: @h-unit;
+        }
+        li:before{
+          content: "\2192 \20 ";
+          margin-left: -22px;
+        }
     }
-
-    ul li:before {
-        content: "– ";
+    #project-detail-iceberg {
+        border-bottom: 1px dotted;
+        padding-bottom: @v-unit;
+        margin-bottom: @v-unit;
+        a{
+          padding: 20px;
+        }
+    }
+    #project-detail-commits {
+        border-top: none;
+    }
+    #project-detail-files {
+        background-color: @color-osp-orange-light;
+        border-top: none;
+        h2{
+          color: white;
+          padding-top: @h-unit;
+          padding-left: @h-unit;
+          margin-bottom: 0;
+          text-decoration: none;
+        }
+        p{
+          font-family: @font-secondary;
+        }
+        ul.breadcrumb{
+          font-family: @font-default;
+          font-size: 12px;
+          padding-left:5px;
+        }
+        svg.file-icon{
+          width: 20px;
+          float: left;
+          margin-top: -5px;
+          margin-left: 2px;
+          padding-right: 10px;
+          fill: none;
+          outline: black;
+        }
+        path.outline-path{
+          stroke: black;
+        }
+        #blob{
+          margin-top: @h-unit;
+          padding-left: @h-unit;
+        }
     }
 }
 
 // project box -------------------------------------------------
-
 .project{
     float: left;
-    width: 315px;
-    margin-right: @v-unit;
+    width:95%;
     margin-bottom: @h-unit;
     min-height: 300px;
-/*
-background: -moz-linear-gradient(left, #ffffff 37%, #ffa73d 48%, #ff7c00 54%, #ffffff 63%);
-background: -webkit-gradient(linear, left top, right top, color-stop(37%,#ffffff), color-stop(48%,#ffa73d), color-stop(54%,#ff7c00), color-stop(63%,#ffffff));
-background: -webkit-linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63%);
-background: -o-linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63%);
-background: -ms-linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63%);
-background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63%);
-*/
+    //max-height: 480px;
+    overflow: hidden;
 }
 .project-type{
     text-transform: uppercase;
     font-size: @font-size-medium;
     text-align: center;
-
     a {
         text-decoration: none;
-
         &:hover {
-            text-decoration: underline;
+            text-decoration: underline @color-osp-orange;
         }
     }
 }
 .project-title{
     font-size: @font-size-big;
+    font-family: @font-factuelle-bold;
     text-align: left;
     margin-bottom: 20px;
-    margin-left: 10px;
+    //margin-left: 10px;
     line-height: 0.9;
     letter-spacing: -0.03em;
     font-weight: normal;
-    text-decoration: underline;
+    text-decoration: dashed;
+    a {
+      color: @color-osp-orange;
+    }
+}
+a.category{
+    font-family: @font-factuelle;
+    font-size: 12px;
+    //float: right;
+    line-height: 36px;
+    padding-bottom: 5px;
+    color: black !important;
+    letter-spacing: 0.05em;
+}
+a.category:after{
+  content: " 	\2193";
+}
+a.category:hover:after{
+  content: " \2192";
+  }
+a.category:hover{
+  border-bottom: 1px solid black;
+}
+a.category-none{
+    font-size: 12px;
+    line-height: 36px;
 }
 .project-description-from-the-readme{
     font-size: @font-size-medium;
@@ -330,19 +461,40 @@ background: linear-gradient(left, #ffffff 37%,#ffa73d 48%,#ff7c00 54%,#ffffff 63
 .commit-metadata {
     margin-left: 5em;
 }
+.commit-author{
+  font-size : 13px;
+  font-family: @font-default;
+  text-transform: uppercase;
+}
 .commit-author-said {
+    font-family: @font-factuelle-bold;
+    font-size: 12px;
     margin-left: 7px;
 }
 .commit-message{
-    font-size: 19px;
+    font-size: 16px;
     line-height: 24px;
+    font-family: @font-secondary;
+
 }
 .commit-date {
-    margin-top: 2px;
+    font-family:@font-factuelle-bold;
+    margin-top: 6px;
+    font-size: 12px;
 }
 
 
 // project-detail -------------------------------------------------
+.left-2{
+  float: left;
+  margin: 0 auto;
+}
+.right-1{
+  width:95%;
+  float: left;
+  margin: 0 auto;
+}
+
 h1#project-detail-title {
     float: left;
     margin-bottom: 0;
@@ -350,7 +502,7 @@ h1#project-detail-title {
 ul#project-detail-nav {
     margin-top: 1em;
     margin-right: 13em;
-    text-align: center;
+    //text-align: center;
 
     li {
         display: inline;
@@ -370,22 +522,22 @@ div#project-detail .iceberg,
 div#project-detail .commit-list {
     float: left;
     margin-right: 20px;
+    width: 100%;
 }
 div#project-detail-head h1.repo_slug {
     float: left;
 }
-a.git-clone {
-    background: none repeat scroll 0 0 #0000FF;
-    color: #FFFFFF;
-    display: inline-block;
-    font-family: notcouriersans;
-    font-weight: bold;
-    margin-left: 1em;
-    margin-top: 23px;
-    padding: 8px;
-    text-decoration: none;
-
+a.gitclone {
+    background-color: @color-osp-orange-light;
+    color: white;
+    font-family: @font-default;
+    padding: 10px 5px 2px 5px;
+    font-size: 18px;
     &:hover {
+    color: black;
+    background-color: white;
+    outline: 1px dotted @color-osp-orange-light;
+    font-family: @font-default;
     }
 }
 div#project-detail-body {
@@ -427,21 +579,34 @@ header {
 
 #menu {
     font-size: 14px;
-
+    //margin-top: @v-unit;
+    margin-bottom: @v-unit*2;
 	a {
 	    text-decoration: none;
 	}
-
 	a:hover {
-	    color: blue;
+	    color: @color-osp-orange;
 	}
-
-	li{
-	    display: inline;
+  em{
+    font-size: 36px;
+    line-height: 40px;
+    margin-bottom: @v-unit;
+  }
+  object{
+    //float: right;
+  }
+  li{
+	    //display: inline;
 	    list-style: none;
 	    font-family: @font-default;
-	    margin-right: 1em;
+	    margin-right: 1%;
 	}
+  p{
+    font-family: @font-secondary;
+    span{
+      font-family: @font-intermediary;
+    }
+  }
 }
 
 #baseline {
@@ -452,6 +617,45 @@ header {
 
 div#on-the-table {
     margin: 1em 0;
+}
+div#on-the-table-feed{
+  //min-height: 120px;
+  ul.feedEkList{
+    li{
+      width: 95%;
+      float: left;
+      margin-bottom: @h-unit;
+      div.itemContent{
+        font-family: NotCourierSans;
+        font-size: 16px;
+        line-height: 24px;
+        padding-bottom: 10px;
+        border-bottom: 1px dotted;
+      }
+      div.itemDate{
+        font-family: @font-factuelle-bold;
+	      margin-top: 6px;
+        font-size: 12px;
+        }
+        div.itemDate::before{
+          content: "posed: "
+        }
+      div.itemTitle{
+        a{
+	        font-family: @font-intermediary;
+	        font-size: 25px;
+          text-decoration:none;
+          line-height: 46px;
+        }
+        a:hover{
+          margin-bottom:20px;
+          //text-decoration: underline @color-osp-orange;
+          //This doesn't work because the baseline settings in herscheyfutura are all fucked up. It's a shame, trying to revert to a different hover method to signify that blog post titles are in fact links.
+          color: @color-osp-orange;
+        }
+      }
+    }
+  }
 }
 .status {
     background-color: blue;
@@ -481,6 +685,7 @@ div#on-the-table {
     &:hover {
         z-index: 100;
     }
+
     figure {
         display: inline-block;
     }
@@ -488,6 +693,35 @@ div#on-the-table {
         max-width: 100%;
         display: block;
     }
+}
+
+#home-info{
+  font-family: @font-secondary;
+  width: 95%;
+  //width: 345px*2+40px;
+  font-size: 16px;
+  line-height: 24px;
+  h1{
+    padding-bottom: 5px;
+    border-bottom: 1px dotted aquamarine;
+    margin-top: 38px;
+  }
+}
+
+#home-side{
+  width: 345px;
+  float: right;
+  height: 500px;
+  min-height: 500px;
+  max-height: 500px;
+}
+
+#home-notes{
+  width: 345px;
+  float: left;
+  height: 500px;
+  min-height: 500px;
+  max-height: 500px;
 }
 
 
@@ -519,12 +753,34 @@ div#on-the-table {
     color: @color-text;
 }
 div#info-page{
-    width: 50%;
-    margin: 0 auto;
+    width: 95%;
+    dt{
+      font-family: @font-default;
+      font-size: 16px;
+      margin-top: @v-unit;
+    }
+    p, dd{
+      font-family: @font-secondary;
+      font-size: 16px;
+      line-height: 24px;
+      a{
+        font-family: @font-default;
+        font-size: 12px;
+      }
+    }
     h3 {
     font-size: 22px;
-    padding-bottom: 3px;
-
+    padding-top: 20px;
+    padding-bottom: 10px;
+    }
+    ul{
+      li{
+        padding-top: 2px;
+        padding-bottom: 2px;
+      }
+      li:before{
+        content: "\2192 \20 ";
+      }
     }
 }
 
@@ -540,14 +796,49 @@ pre {
 }
 
 // thumbnails -------------------------------------------------
+div.thumbnail.folder{
+  border-bottom: 1px solid black;
+  div.thumb{
+    img{
+    width: 30px;
+    height:30px;
+    float: left;
+    }
+  }
+}
+div.thumbnail.preview{
+  border-bottom: 1px dotted black;
+  div.thumb{
+    img{
+    display:none;
+    }
+  }
+  p{
+    margin-bottom:10px;
+  }
+}
+
+div.thumb{
+  min-height: 25px;
+}
+
+a.folder-name{
+  padding-left: 10px;
+  margin-bottom: -5px;
+}
+
+a.file-name{
+  float: left;
+  margin-right: @h-unit;
+}
 
 .thumbnails {
-    margin-left: -@v-unit;
+    //margin-left: -@v-unit;
     list-style: none;
     .clearfix();
 }
 .thumbnails > li {
-    float: left;
+    //float: left;
     margin: 0 0 18px 20px;
     width: 140px;
 }
@@ -565,11 +856,15 @@ pre {
     margin-right: auto;
 }
 
+ul#tree{
+  padding: 15px;
+}
+
 // breadcrumbs ------------------------------------------------
 
 .breadcrumb {
     clear: both;
-    font-family: notcouriersans;
+    font-family: @font-secondary;
 }
 
 .breadcrumb li {
@@ -672,3 +967,110 @@ pre {
     }
 }
 
+@media only screen and (min-width : 384px){
+
+}
+
+@media only screen and (min-width : 512px){
+    ul.feedEkList{
+      li{
+      width: 70%;
+      min-width:300px;
+      max-width:350px;
+      margin-left: 15%;
+      }
+    }
+
+  .project, #home-info, div#info-page, .right-1, .left-2{
+      width: 70%;
+      margin-left:15%;
+    }
+    #menu
+    ul{
+      margin-top: -@v-unit;
+    }
+    li{
+      display: inline;
+    }
+}
+
+@media only screen and (min-width : 768px){
+  body{
+    padding: 1.5em;
+  }
+  div#on-the-table-feed{
+      ul.feedEkList{
+        li{
+          min-width: 45%;
+          margin-right: 2%;
+          margin-left: 0%;
+          div.itemContent{
+            border-bottom: none;
+            padding-bottom: none;
+        }
+      }
+    }
+  }
+  .project{
+      width: 45%;
+      margin-right: 2%;
+      margin-left: 0%;
+  }
+  .left-2{
+    width: 345px*2+40px;
+    margin: 0;
+    margin-right: 40px;
+  }
+  .right-1{
+    width:345px;
+    margin: 0;
+    margin-right: 40px;
+  }
+  #home-info{
+    width: 345px;
+    margin: 0;
+    margin-right: 40px;
+    //padding-top: 50px;
+    //min-height: 500px;
+  }
+
+  div#info-page{
+    width: 345px*2+40px;
+    margin: 0;
+  }
+}
+
+@media only screen and (min-width : 1024px){
+  body{
+    padding: 2em;
+  }
+  div#on-the-table-feed{
+    ul.feedEkList{
+      li{
+        width:345px;
+        min-width: 345px;
+        margin-right: @h-unit*2;
+      }
+    }
+  }
+  .project{
+    width: 345px;
+    margin-right: @h-unit*2;
+    }
+}
+
+@media only screen and (min-width : 1280px){
+/*
+  .left-2{
+    width: 345px*3+40px;
+    div#project-detail-readme{
+      width:45%;
+    }
+    #project-detail-files{
+      width: 345px;
+      margin-right: 40px;
+      float:left;
+    }
+  }
+*/
+}

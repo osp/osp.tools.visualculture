@@ -2,31 +2,50 @@
 
 {% block vc_content%}
 <ul id="tree" class="thumbnails{% if root %}  root{% endif %}">
+  <ul class="breadcrumb">
+      {% for breadcrumb in breadcrumbs %}
+          {% if not forloop.last %}
+          <li>
+              <a href="{{ breadcrumb.href }}#project-detail-files">{{ breadcrumb.name }}</a> <span class="divider">/</span>
+          </li>
+
+          {% else %}
+          <li class="active">
+             {{ breadcrumb.name }} {% if tree %}<span class="divider">/</span>{% endif %}
+          </li>
+          {% endif %}
+      {% endfor %}
+  </ul>
 {% for dir in tree.dirs %}
     <li>
         <div class="thumbnail folder">
             <div class="thumb">
-                <a href="{{ dir.href }}">
-                <img src="{{ STATIC_URL }}img/crown-folder.png" alt="representation of a folder" title="" style="width:80px;" />
+                <a href="{{ dir.href }}#project-detail-files">
+                <svg class="js-geomicon geomicon file-icon" data-icon="folder" viewBox="0 0 32 32"><path class="outline-path" d="M0 4 L0 28 L32 28 L32 8 L16 8 L12 4 z"></path></svg>
+
+                <!--<img src="{{ STATIC_URL }}img/crown-folder.png" alt="representation of a folder" title="" />-->
+                <h5><a href="{{ dir.href }}#project-detail-files" class="folder-name">{{ dir.name }}</a></h5>
             </a>
             </div>
-            <h5><a href="{{ dir.href }}">{{ dir.name }}</a></h5>
         </div>
     </li>
 {% endfor %}
 {% for file in tree.files %}
     <li>
         <div class="thumbnail preview">
+            <!--
             <div class="thumb">
             <a href="{{ file.href }}">
                     {% if 'image/' in file.mime or file.mime == 'application/pdf' %}
                     <img src="/visual/{{ repo.slug }}/{{file.hex}}/width..140/{{ file.name }}.png"/>
                     {% else %}
-                    <img src="/static/img/frog-file.png" style="width: 80px;" />
+                    <img src="/static/img/frog-file.png" />
                     {% endif %}
             </a>
             </div>
-            <h5><a href="{{ file.href }}">{{ file.name }}</a></h5>
+          -->
+        <svg class="js-geomicon geomicon file-icon" data-icon="file" viewBox="0 0 32 32"><path class="outline-path" d="M4 2 L4 30 L28 30 L28 10 L20 2 z"></path></svg>
+        <h5><a href="{{ file.href }}#project-detail-files" class="file-name">{{ file.name }}</a></h5>
             <p>{{ file.mime }}</p>
         </div>
     </li>

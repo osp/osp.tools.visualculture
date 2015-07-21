@@ -1,55 +1,41 @@
 {% extends 'base.html' %}
 
 {% block header %}
-<div id="on-the-table">
-   <h1>On the table</h1>
-   <div class='status'>
-       <a href="https://medor.coop/" title="Médor, le trimestriel coopératif belge d’enquêtes et de récits présenté par Médor — KissKissBankBank" target="_blank">Subscribe to <em>Médor</em></a> a new cooperatively owned magazine for Belgian investigative journalism!
-   </div>
-   <div class='status'>
-       We found the OSP <a href="http://ospublish.constantvzw.org/blog" target="_blank">blog</a> in the attic and decided to give bring it back to life...
-   </div>
-   <div class='status'>
-       Get OSP latest news by subscribing to our <a href="http://osp.kitchen/newsletter/" target="_blank">newsletter</a>.
-   </div>
-
-</div>
 
 {% endblock %}
 
 {% block content %}
-<div style="position relative; clear: both;">
-            <h1>What are we up to?</h1>
-            <div id="home-infos">
-            What is this? You could look at these snapshots of our work in the way that the pictures of a cookbook not really the cooked meal.
-            Source files = ingredients. These arrangements of blocks of text and pictures try harder to depict the most current
-            projects, their narratives, some selected visuals and the source files of everything. We warmly welcome you to <a href="http://en.wikipedia.org/wiki/Copyleft#Applying_copyleft">study</a>
-            them, <a href="http://en.wikipedia.org/wiki/Copyleft#Applying_copyleft">improve</a> them, to <a href="http://en.wikipedia.org/wiki/Copyleft#Applying_copyleft">redistribute copies</a>
-            of them and <a href="http://en.wikipedia.org/wiki/Copyleft#Applying_copyleft">release your improvements</a> (or unstable versions as you like).
-        Nous sommes embarqués.
-            <a href="http://osp.constantvzw.org/about">Read more about the way we work → </a>
-            </div>
+<div>
 
     <div id="active-projects">
-        <script>
-        // $('#active-projects').masonry({
-        //   itemSelector: '.project'
-        // });
-        </script>
+        <div id="home-info" class="project">
+        <h1>This is what we’re up to:</h1>
+        <p>You're looking at the inside of our cupboards. In the OSP kitchen, source files = ingredients. These arrangements of blocks of text and pictures depict the most recent
+        projects, their narratives, some selected visuals and the source files of the entire project. They are a view of the files and folders we make, share and the way they mature. These views are all thanks to <a href="{{ HOST }}/tools/visualculture/">VisualCulture</a>. We welcome to <a href="http://en.wikipedia.org/wiki/Copyleft#Applying_copyleft">study</a>
+        these, <a href="http://en.wikipedia.org/wiki/Copyleft#Applying_copyleft">improve</a> them, to <a href="http://en.wikipedia.org/wiki/Copyleft#Applying_copyleft">redistribute copies</a>
+        of them and <a href="http://en.wikipedia.org/wiki/Copyleft#Applying_copyleft">release your improvements</a>.
+        <br>Nous sommes embarqués.
+        <a href="http://osp.constantvzw.org/about">Read more about the way we work</a> →</p>
+        <h1>Latest notes from the blog</h1>
+        <div id="on-the-table-feed"></div>
+        </div>
 
         {% for repo in repos %}
         <div class="project">
-            <p class="project-type">{% if repo.category %}<a href="{% url osp.views.category repo.category %}">{{ repo.category }}</a>{% else %}&nbsp;{% endif %}</p>
-
             <h2 class="project-title">
-                <a href="{{ repo.web_path }}">{{ repo.name }}</a>
+              {% if repo.category %}
+                <a class="category" href="{% url osp.views.category repo.category %}">{{ repo.category }}</a><br>
+                {% else %}
+                  <a class="category-none" href="#"></a><br>
+              {% endif %}
+            <a href="{{ repo.web_path }}">{{ repo.name }}</a>
             </h2>
-
             <div class="iceberg">
                 {% for ice in repo.iceberg reversed %}
                     <a href="/{{ repo.category }}/{{ repo.name }}/tree/master/iceberg/{{ ice.name }}">
                         {% if 'image/' in ice.mime and 'svg' not in ice.mime or ice.mime == 'application/pdf' %}
-                        <img src="/visual/{{repo.slug}}/{{ice.hex}}/width..{% if forloop.first %}200{% else %}100{% endif %}/{{ ice.name }}.png"/>
+                        <img src="http://osp.kitchen/visual/{{repo.slug}}/{{ice.hex}}/width..{% if forloop.first %}200{% else %}100{% endif %}/{{ ice.name }}.png"/>
+                        <!-- DO NOT FORGET TO REMOVE THE 'HTTP://OSP.KITCHEN' LINK when publishing -->
                         {% else %}
                         <img src="/static/img/file-frog.png" />
                         {% endif %}
