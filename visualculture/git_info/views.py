@@ -12,6 +12,7 @@ around all the time.
 """
 
 
+from datetime import datetime
 import json
 
 from pygit2 import GIT_SORT_TOPOLOGICAL
@@ -37,15 +38,42 @@ def render_commit(repo_name, commit):
         hash['parent'] = commit.parents[0].hex
     return hash
 
+
+def find_last_commit(repo, name):
+    last_commit = None
+    last_oid = None
+
+    for commit in repo.repo.walk(repo.repo.head.target, pygit2.GIT_SORT_TIME):
+        if name in commit.tree:
+            oid = commit.tree[name].oid
+            has_changed = (oid != last_oid and last_oid)
+
+            if has_changed:
+                break
+
+            last_oid = oid
+
+        last_commit = commit
+
+    return last_commit or 'No commit'
+
+
 def render_tree(repo_name, tree):
     repo = git_collection[repo_name]
+
+
     items = []
     dirs = []
+    
     for item in tree:
         if repo[item.hex].type == pygit2.GIT_OBJ_TREE:
             dirs.append({'hex': item.hex, 'name': item.name, 'mime': find_mime(path=item.name)})
         else:
-            items.append({'hex': item.hex, 'name': item.name, 'mime': find_mime(path=item.name)})
+            res = find_last_commit(repo, item.name)
+            dt = datetime.fromtimestamp(res.commit_time)
+            print(dt.date())
+            print(dt.time())
+            items.append({'hex': item.hex, 'name': item.name, 'mime': find_mime(path=item.name), 'date': str(dt.date()), 'time': str(dt.time())})
     hash = {'type':'tree', 'repo_name':repo_name, 'dirs':dirs, 'files':items}
     return hash
     
