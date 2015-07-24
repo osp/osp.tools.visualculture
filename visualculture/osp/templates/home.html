@@ -31,8 +31,10 @@
             <a href="{{ repo.web_path }}">{{ repo.name }}</a>
             </h2>
             <div class="iceberg">
-                {% for ice in repo.iceberg reversed %}
-                    <a href="/{{ repo.category }}/{{ repo.name }}/tree/master/iceberg/main.png">
+
+                {% for ice in repo.iceberg|dictsortreversed:"datetime" %}
+                    {% if forloop.first %}
+                    <a href="/{{ repo.category }}/{{ repo.name }}/tree/master/iceberg/{{ ice.name }}">
                         {% if 'image/' in ice.mime and 'svg' not in ice.mime or ice.mime == 'application/pdf' %}
                         <img src="http://osp.kitchen/{{ repo.category }}/{{ repo.name }}/tree/master/iceberg/main.png"/>
                         <!-- DO NOT FORGET TO REMOVE THE 'HTTP://OSP.KITCHEN' LINK when publishing -->
@@ -40,6 +42,7 @@
                         <img src="/static/img/file-frog.png" />
                         {% endif %}
                     </a>
+                    {% endif %}
                 {% endfor %}
             </div>
 

@@ -12,6 +12,7 @@ around all the time.
 """
 
 
+from datetime import datetime
 import json
 
 from pygit2 import GIT_SORT_TOPOLOGICAL
@@ -37,15 +38,52 @@ def render_commit(repo_name, commit):
         hash['parent'] = commit.parents[0].hex
     return hash
 
+
+def find_last_commit(repo, name):
+    last_commit = None
+    last_oid = None
+    i = 0
+
+    for commit in repo.repo.walk(repo.repo.head.target, pygit2.GIT_SORT_TIME):
+        if 'iceberg' in commit.tree:
+            iceoid = commit.tree['iceberg'].hex
+            icetree = repo[iceoid]
+
+            if name in icetree:
+                i += 1
+                oid = icetree[name].oid
+
+                has_changed = (oid != last_oid and last_oid)
+
+                if has_changed:
+                    break
+
+                last_oid = oid
+
+            elif i > 1:
+                break
+
+            last_commit = commit
+            print datetime.fromtimestamp(last_commit.commit_time)
+
+    return last_commit or 'No commit'
+
+
 def render_tree(repo_name, tree):
     repo = git_collection[repo_name]
     items = []
     dirs = []
+    
     for item in tree:
         if repo[item.hex].type == pygit2.GIT_OBJ_TREE:
             dirs.append({'hex': item.hex, 'name': item.name, 'mime': find_mime(path=item.name)})
         else:
-            items.append({'hex': item.hex, 'name': item.name, 'mime': find_mime(path=item.name)})
+            res = find_last_commit(repo, item.name)
+            if res != "No commit":
+                dt = datetime.fromtimestamp(res.commit_time)
+            else:
+                dt = None
+            items.append({'hex': item.hex, 'name': item.name, 'mime': find_mime(path=item.name), 'datetime': str(dt) })
     hash = {'type':'tree', 'repo_name':repo_name, 'dirs':dirs, 'files':items}
     return hash
     
