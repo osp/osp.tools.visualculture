@@ -42,26 +42,35 @@ def render_commit(repo_name, commit):
 def find_last_commit(repo, name):
     last_commit = None
     last_oid = None
+    i = 0
 
     for commit in repo.repo.walk(repo.repo.head.target, pygit2.GIT_SORT_TIME):
-        if name in commit.tree:
-            oid = commit.tree[name].oid
-            has_changed = (oid != last_oid and last_oid)
+        if 'iceberg' in commit.tree:
+            iceoid = commit.tree['iceberg'].hex
+            icetree = repo[iceoid]
 
-            if has_changed:
+            if name in icetree:
+                i += 1
+                oid = icetree[name].oid
+
+                has_changed = (oid != last_oid and last_oid)
+
+                if has_changed:
+                    break
+
+                last_oid = oid
+
+            elif i > 1:
                 break
 
-            last_oid = oid
-
-        last_commit = commit
+            last_commit = commit
+            print datetime.fromtimestamp(last_commit.commit_time)
 
     return last_commit or 'No commit'
 
 
 def render_tree(repo_name, tree):
     repo = git_collection[repo_name]
-
-
     items = []
     dirs = []
     
@@ -70,10 +79,11 @@ def render_tree(repo_name, tree):
             dirs.append({'hex': item.hex, 'name': item.name, 'mime': find_mime(path=item.name)})
         else:
             res = find_last_commit(repo, item.name)
-            dt = datetime.fromtimestamp(res.commit_time)
-            print(dt.date())
-            print(dt.time())
-            items.append({'hex': item.hex, 'name': item.name, 'mime': find_mime(path=item.name), 'date': str(dt.date()), 'time': str(dt.time())})
+            if res != "No commit":
+                dt = datetime.fromtimestamp(res.commit_time)
+            else:
+                dt = None
+            items.append({'hex': item.hex, 'name': item.name, 'mime': find_mime(path=item.name), 'datetime': str(dt) })
     hash = {'type':'tree', 'repo_name':repo_name, 'dirs':dirs, 'files':items}
     return hash
     
