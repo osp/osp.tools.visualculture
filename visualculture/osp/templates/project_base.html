@@ -55,7 +55,8 @@
           <div class="iceberg">
               {% if repo.iceberg.files %}
                 {% for ice in repo.iceberg.files %}
-                    <a href="/{{ repo.category }}/{{ repo.name }}/tree/master/iceberg/{{ ice.name }}">
+                    <!-- <a class="fancybox" rel="gallery" href="/{{ repo.category }}/{{ repo.name }}/tree/master/iceberg/{{ ice.name }}.png">-->
+                    <a class="fancybox" rel="gallery1" href="http://osp.kitchen/visual/{{ repo.slug }}/{{ice.hex}}/width..200/{{ ice.name }}">
                         <img src="http://osp.kitchen/visual/{{ repo.slug }}/{{ice.hex}}/width..200/{{ ice.name }}.png"/>
                         <!-- DO NOT FORGET TO REMOVE THE 'HTTP://OSP.KITCHEN' LINK when publishing -->
                     </a>
