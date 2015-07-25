@@ -36,7 +36,7 @@
                     {% if forloop.first %}
                     <a href="/{{ repo.category }}/{{ repo.name }}/tree/master/iceberg/{{ ice.name }}">
                         {% if 'image/' in ice.mime and 'svg' not in ice.mime or ice.mime == 'application/pdf' %}
-                        <img src="http://osp.kitchen/{{ repo.category }}/{{ repo.name }}/tree/master/iceberg/main.png"/>
+                        <img src="http://osp.kitchen/visual/{{repo.slug}}/{{ice.hex}}/width..300/{{ ice.name }}.png"/>
                         <!-- DO NOT FORGET TO REMOVE THE 'HTTP://OSP.KITCHEN' LINK when publishing -->
                         {% else %}
                         <img src="/static/img/file-frog.png" />
