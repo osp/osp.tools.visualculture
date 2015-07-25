@@ -4,7 +4,7 @@ VISUAL CULTURE GIT VIEWER
 # <http://kisskissbankbank.com/visual-culture-a-tool-for-design-collaboration>
 
 OSP Visual Culture Git Viewer
-=============================
+-----------------------------
 
 We are Open Source Publishing. A group of designers working in Brussels. We make books and posters and websites, and we do that using only Free and Open Source Software. That is because we feel it is important to have an intimate relation with our tools. If all designers use the same tools made by the same company, this is bound to make us less creative and less relevant.
 
@@ -20,11 +20,11 @@ We have been displaying the contents of our repository in a more graphic way on 
   See README-OSP.txt *
 
 Installation
-------------
+============
 
-### OS Dependencies
+## OS Dependencies
 
-#### Debian / Ubuntu
+### Debian / Ubuntu
 
 Libgit2 needs to be compiled from source:
 
@@ -45,11 +45,12 @@ Note: if you have this error:
 Do:
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 
-#### OS X
+### OS X
 
 brew install libmagic libgit2
 
-### Python modules
+
+## Python modules
 
 Run-of-the-mill python modules required (best into a virtual environment):
 
@@ -62,7 +63,8 @@ Django apps:
 pip install django-compressor<1.5
 pip install django-cors<0.2
 
-### Setting up django
+
+## Setting up django
 
 From inside the `visualculture` folder:
 
@@ -71,53 +73,72 @@ From inside the `visualculture` folder:
 In the settings file, you will at least need to change the `GIT_ROOT` setting.
 This is the folder that Visual Culture will scan for git repositories.
 
-then run
+Then run:
 
     python manage.py syncdb
 
-You can then use `python manage.py runserver` to run the application
+You can then use `python manage.py runserver` to run the application. Visit
+within a browser the URL `http://localhost:8000/`.
 
 
 Adding vc image rendering components
 ------------------------------------
 
-### PDF-SUPPORT : Poppler
+### PDF-SUPPORT: Poppler
 
-#### Ubuntu:
+#### Ubuntu/Debian
 
     sudo apt-get install libpoppler-cpp-dev libpoppler-qt4-dev libboost-dev libboost-python-dev libboost-system-dev libboost-thread-dev
 
-#### Debian
+Debian note:
 
-well, just a note
+1 remove the leading 'lib' from the resulting library filename
+2 drop it wherever Python can find it and it will be available as a module
+3 because the Debian we run on doesn't have libpoppler-cpp, I got the 0.20 tarball, compile it and installed it in the venv we use for this deployment, then adjusted PKG_CONFIG_PATH to make cmake find it
 
-a) remove the leading 'lib' from the resulting library filename
-b) drop it wherever Python can find it and it will be available as a module
-c) because the Debian we run on doesn't have libpoppler-cpp, I got the 0.20 tarball, compile it and installed it in the venv we use for this deployment, then adjusted PKG_CONFIG_PATH to make cmake find it
-
-
-#### Then:
+Then:
 
     mkdir build && cd build
     cmake ..
     make
     ln -s libvc_poppler.so ../../visualculture/visual_culture/readers/vc_poppler.so
 
+
 #### OSX
 
     brew install poppler boost
+
+
 
 ### FONT-SUPPORT
 
     sudo apt-get install python-fontforge fontforge
 
+
 #### OSX
 
     brew install fontforge
 
+
+
 Maintenance
------------
+===========
 
 ### Empty the cache
 
     rm -rf {MEDIAROOT}/cache
+
+
+
+Folder structure
+================
+
+- iceberg: images showcasing Visual Culture
+- vc_pypoppler: Poppler library for PDF support in case you can't install it with your package manager
+- visual: this is where Visual Culture will store its cache of rendered images during development
+- visualculture: project folder
+    - git_info: visual culture api
+    - osp: OSP's django website
+    - templates: templates for error 404 and 500
+    - test_browser: a test browser
+    - visual_culture: readers of different file formats
