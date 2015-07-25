@@ -5,7 +5,8 @@
 {% endblock %}
 
 {% block header %}
-        <h1 id="project-detail-title">{{ repo.name }} <a class="gitclone" data-toggle="modal" href="#cloneModal">Copy this repository</a></h1>
+        <h1 id="project-detail-title">{{ repo.name }} <a class="gitclone"
+                data-toggle="modal" href="#cloneModal">Get your own copy</a></h1>
         <!-- Header and options when showing a repository -->
         <!-- Navigate through the repository -->
         <ul class="breadcrumb">
@@ -40,6 +41,7 @@
 
 {% block content %}
 <div id="project-detail">
+{% if root %}
     <div class="left-2">
       <div id="project-detail-readme">
           <h2>about {{ breadcrumb.name }}</h2>
@@ -54,7 +56,7 @@
           <h2>Snapshots | iceberg</h2>
           <div class="iceberg">
               {% if repo.iceberg.files %}
-                {% for ice in repo.iceberg.files %}
+                {% for ice in repo.iceberg.files|dictsortreversed:"datetime" %}
                     <!-- <a class="fancybox" rel="gallery" href="/{{ repo.category }}/{{ repo.name }}/tree/master/iceberg/{{ ice.name }}.png">-->
                     <a class="fancybox" rel="gallery1" href="http://osp.kitchen/visual/{{ repo.slug }}/{{ice.hex}}/width..200/{{ ice.name }}">
                         <img src="http://osp.kitchen/visual/{{ repo.slug }}/{{ice.hex}}/width..200/{{ ice.name }}.png"/>
@@ -66,6 +68,8 @@
               {% endif %}
           </div>
       </div>
+{% endif %}
+
       <div id="project-detail-files">
           <a class="no-underline" href="/{{ repo.category }}/{{ repo.name }}/#project-detail-files"><h2>inside this repository</h2></a>
           {% block vc_content %}
@@ -73,12 +77,15 @@
       </div>
     </div>
     <!--ends left column-->
+
+    {% if root %}
     <div class="right-1">
       <div id="project-detail-commits">
         <h2>Log</h2>
         {% include "commit-list.html" %}
       </div>
     </div>
+    {% endif %}
 </div>
 {% endblock %}
 
