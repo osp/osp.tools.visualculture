@@ -240,7 +240,7 @@ p{
     // and let it not bump into the menu
     //padding-right: 165px;
     //position: absolute;
-    
+
     h2 {
         color: @color-osp-orange;
         font-family: @font-factuelle-bold;
@@ -266,7 +266,7 @@ p{
         }
         figure {
             text-align: center;
-            
+
             & img { margin-top: 0; margin-bottom: @v-unit /2; }
 
             &:hover { outline: 1px solid aquamarine; }
@@ -366,9 +366,34 @@ p{
     float: left;
     width:95%;
     margin-bottom: @h-unit;
-    min-height: 300px;
-    //max-height: 480px;
+    min-height: 480px;
+    max-height: 480px;
     overflow: hidden;
+    position: relative;
+}
+.project .see-more{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  background-color: white;
+  background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(255, 255, 255, 1));
+  background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0), rgba(255, 255, 255, 1));
+  background-image: -webkit-gradient(linear, 0 0, 100% 0, from(rgba(0, 0, 0, 0)), to(rgba(255, 255, 255, 1)));
+  background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(255, 255, 255, 1));
+  background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0), rgba(255, 255, 255, 1));
+  background-image: linear-gradient(top, rgba(0, 0, 0, 0), rgba(255, 255, 255, 1));
+  background-repeat: repeat-x;
+  text-decoration: none;
+  padding: 30px 0;
+  //height: 50px;
+}
+.see-more:hover{
+  text-decoration: underline;
+}
+#home-info.project{
+  max-height: none;
 }
 .project-type{
     text-transform: uppercase;
@@ -629,7 +654,7 @@ header {
 	    list-style: none;
 	    font-family: @font-default;
 	    margin-right: 1%;
-        //float: left; 
+        //float: left;
 
         //&:first-child { height: 150px; }
         //&:nth-child(3) { clear: both; }
