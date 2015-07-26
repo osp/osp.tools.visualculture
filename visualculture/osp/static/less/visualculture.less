@@ -228,7 +228,7 @@ p{
     
     h2 {
         color: @color-contrast;
-        font-family: @font-factuelle-bold;
+        font-family: @font-factuelle;
     }
 
     #project-detail-readme,
@@ -248,16 +248,17 @@ p{
             max-width: 100%;
             margin-top: @v-unit;
             margin-bottom: @v-unit;
+            outline: 1px solid @color-contrast-light;
         }
         figure {
             text-align: center;
             
-            & img { margin-top: 0; margin-bottom: @v-unit /2; }
+            & img { margin-top: 0; margin-bottom: @v-unit /2; outline: none; }
 
-            &:hover { outline: 1px solid @color-contrast-light; }
         }
         figure footer {
             font-size: 12px;
+            font-family: @font-factuelle-bold;
         }
         h1 {
           font-size: @font-size-big;
@@ -272,13 +273,14 @@ p{
           padding:0;
           margin-top: @v-unit*2;
           margin-bottom: @v-unit;
-          font-family: @font-factuelle;
+          font-family: @font-factuelle-bold;
           border-top: dotted 1px;
           padding-top: @v-unit * 2;
         }
         h3 {
           font-size: 21px;
           line-height: 28px;
+          font-family: @font-factuelle;
         }
         h4 { text-decoration: underline;}
         p, li {
@@ -465,7 +467,7 @@ a.category-none{
     margin-left: 5em;
 }
 .commit-author{
-  font-size : 13px;
+  font-size : 12px;
   font-family: @font-factuelle-bold;
   text-transform: uppercase;
 }
@@ -609,6 +611,7 @@ header {
     margin-bottom: @v-unit;
     margin-left: 8px;
     display: inline;
+    font-family: Belgika-40;
   }
   li {
 	    list-style: none;
