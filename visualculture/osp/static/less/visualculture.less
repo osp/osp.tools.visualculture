@@ -150,6 +150,10 @@ body {
     word-wrap: break-word;
     padding: 1em;
 }
+div.contain{
+  width: 1155px;
+  margin: 0 auto;
+}
 
 // typography ----------------------------------------------
 
@@ -257,7 +261,6 @@ p{
         }
         figure footer {
             font-size: 12px;
-            font-family: @font-factuelle-bold;
         }
         h1 {
           font-size: @font-size-big;
@@ -272,7 +275,7 @@ p{
           padding:0;
           margin-top: @v-unit*2;
           margin-bottom: @v-unit;
-          font-family: @font-factuelle-bold;
+          font-family: @font-factuelle;
           border-top: dotted 1px;
           padding-top: @v-unit * 2;
         }
@@ -352,9 +355,34 @@ p{
     float: left;
     width:95%;
     margin-bottom: @h-unit;
-    min-height: 300px;
-    //max-height: 480px;
+    min-height: 480px;
+    max-height: 480px;
     overflow: hidden;
+    position: relative;
+}
+.project .see-more{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  background-color: white;
+  background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(255, 255, 255, 1));
+  background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0), rgba(255, 255, 255, 1));
+  background-image: -webkit-gradient(linear, 0 0, 100% 0, from(rgba(0, 0, 0, 0)), to(rgba(255, 255, 255, 1)));
+  background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(255, 255, 255, 1));
+  background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0), rgba(255, 255, 255, 1));
+  background-image: linear-gradient(top, rgba(0, 0, 0, 0), rgba(255, 255, 255, 1));
+  background-repeat: repeat-x;
+  text-decoration: none;
+  padding: 30px 0;
+  //height: 50px;
+}
+.see-more:hover{
+  text-decoration: underline;
+}
+#home-info.project{
+  max-height: none;
 }
 .project-type{
     text-transform: uppercase;
