@@ -65,9 +65,9 @@
 @color-author-said-droite: #87bcea;
 @color-message: lightblue;
 @color-date: #AFEEEE;
-@color-osp-orange: #9900ff;
-//@color-osp-orange-light: RGBA(153, 102, 112, 0.7);
-@color-osp-orange-light: aquamarine;
+@color-contrast: #9900ff;
+//@color-contrast-light: RGBA(153, 102, 112, 0.7);
+@color-contrast-light: aquamarine;
 @dawn-sky: #ed3aff;
 @dawn-earth: #ffdd83;
 @day-sky: #0e4d81;
@@ -201,13 +201,13 @@ li {
 }
 h1{
     font-size: @font-size-huge;
-    color: @color-osp-orange;
+    color: @color-contrast;
     font-weight: normal;
     line-height: 2 * @v-unit - 2px;
     margin-top: @v-unit*3;
     margin-bottom: @v-unit  ;
     clear: both;
-    //text-decoration: underline @color-osp-orange;
+    //text-decoration: underline @color-contrast;
 }
 h2{
     font-size: @font-size-big;
@@ -242,7 +242,7 @@ p{
     //position: absolute;
     
     h2 {
-        color: @color-osp-orange;
+        color: @color-contrast;
         font-family: @font-factuelle-bold;
     }
 
@@ -269,7 +269,7 @@ p{
             
             & img { margin-top: 0; margin-bottom: @v-unit /2; }
 
-            &:hover { outline: 1px solid aquamarine; }
+            &:hover { outline: 1px solid @color-contrast-light; }
         }
         figure footer {
             font-size: 12px;
@@ -303,7 +303,7 @@ p{
         }
         blockquote {
           font-style: italic;
-          border-left: 1px dotted @color-osp-orange;
+          border-left: 1px dotted @color-contrast;
         }
         li{
           padding-left: @h-unit;
@@ -325,7 +325,7 @@ p{
         border-top: none;
     }
     #project-detail-files {
-        background-color: @color-osp-orange-light;
+        background-color: @color-contrast-light;
         border-top: none;
         h2{
           color: white;
@@ -377,7 +377,7 @@ p{
     a {
         text-decoration: none;
         &:hover {
-            text-decoration: underline @color-osp-orange;
+            text-decoration: underline @color-contrast;
         }
     }
 }
@@ -392,7 +392,7 @@ p{
     font-weight: normal;
     text-decoration: dashed;
     a {
-      color: @color-osp-orange;
+      color: @color-contrast;
     }
 }
 a.category{
@@ -471,7 +471,7 @@ a.category-none{
 }
 .commit  {
     padding: 6px 0;
-    border-top: 1px dotted aquamarine;
+    border-top: 1px dotted @color-contrast-light;
     p {
         margin-bottom: 0;
     }
@@ -547,7 +547,7 @@ div#project-detail-head h1.repo_slug {
     float: left;
 }
 a.gitclone {
-    background-color: @color-osp-orange-light;
+    background-color: @color-contrast-light;
     //color: white;
     font-family: @font-default;
     padding: 10px 5px 2px 5px;
@@ -556,7 +556,7 @@ a.gitclone {
     &:hover {
         //color: black;
         background-color: white;
-        outline: 1px solid @color-osp-orange-light;
+        outline: 1px solid @color-contrast-light;
     }
 }
 div#project-detail-body {
@@ -602,7 +602,7 @@ header {
   float: left;
 
   svg#svg5365 path {
-    stroke: @color-osp-orange !important;
+    stroke: @color-contrast !important;
     stroke-width: 1.5 !important;
   }
 }
@@ -615,7 +615,7 @@ header {
 	    text-decoration: none;
 	}
 	a:hover {
-	    color: @color-osp-orange;
+	    color: @color-contrast;
 	}
   h1 {
     font-size: 36px;
@@ -682,9 +682,9 @@ div#on-the-table-feed{
         }
         a:hover{
           margin-bottom:20px;
-          //text-decoration: underline @color-osp-orange;
+          //text-decoration: underline @color-contrast;
           //This doesn't work because the baseline settings in herscheyfutura are all fucked up. It's a shame, trying to revert to a different hover method to signify that blog post titles are in fact links.
-          color: @color-osp-orange;
+          color: @color-contrast;
         }
       }
     }
@@ -737,7 +737,7 @@ div#on-the-table-feed{
   margin-top: 8px !important;
   h1{
     padding-bottom: 5px;
-    border-bottom: 1px dotted aquamarine;
+    border-bottom: 1px dotted @color-contrast-light;
     margin-top: 38px;
   }
 }
