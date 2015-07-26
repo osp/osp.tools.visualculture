@@ -44,7 +44,7 @@
 {% if root %}
     <div class="left-2">
       <div id="project-detail-readme">
-          <h2>about {{ breadcrumb.name }}</h2>
+          <h2>About {{ breadcrumb.name }}</h2>
           <article>
               {% if not README %}<h1 class="repo_slug">{{ repo.name }}</h1>{% endif %}
               <div class="project-description-from-the-readme">
@@ -64,14 +64,14 @@
                     </a>
                 {% endfor %}
               {% else %}
-                <pre>no images in this repo's iceberg at this time</pre>
+                <pre>No images in this repository’s iceberg at this time</pre>
               {% endif %}
           </div>
       </div>
 {% endif %}
 
       <div id="project-detail-files">
-          <a class="no-underline" href="/{{ repo.category }}/{{ repo.name }}/#project-detail-files"><h2>inside this repository</h2></a>
+          <a class="no-underline" href="/{{ repo.category }}/{{ repo.name }}/#project-detail-files"><h2>Inside this repository</h2></a>
           {% block vc_content %}
           {% endblock %}
       </div>
