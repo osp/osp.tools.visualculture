@@ -854,14 +854,19 @@ div.thumbnail.folder{
 }
 div.thumbnail.preview{
   border-bottom: 1px dotted black;
-  div.thumb{
-    img{
-    display:none;
-    }
+
+  h5 { 
+      display: inline;
+  }
+
+  img, svg {
+    display: inline;
   }
   p{
-    margin-bottom:10px;
+      margin-bottom:10px;
+      display: inline;
   }
+  a { text-decoration: none; }
 }
 
 div.thumb{
@@ -874,8 +879,6 @@ a.folder-name{
 }
 
 a.file-name{
-  float: left;
-  margin-right: @h-unit;
 }
 
 .thumbnails {
