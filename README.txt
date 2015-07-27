@@ -148,4 +148,5 @@ Folder structure
     - osp: OSP's django website
     - templates: templates for error 404 and 500
     - test_browser: a test browser
+    - vc_cache: cache folder
     - visual_culture: readers of different file formats
