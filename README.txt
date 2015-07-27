@@ -84,6 +84,13 @@ within a browser the URL `http://localhost:8000/`.
 Adding vc image rendering components
 ------------------------------------
 
+
+### Image support
+
+pip install pillow
+
+
+
 ### PDF-SUPPORT: Poppler
 
 #### Ubuntu/Debian
