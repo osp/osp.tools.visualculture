@@ -22,7 +22,7 @@ def format_commits(commits_to_format):
     i = 0
     for commit in commits_to_format:
         c = commit
-        
+
         if i != 0:
             commit_time=  datetime.fromtimestamp(c['commit_time'])
             ellipse = float((previous_commit - c['commit_time']))/(24*60*60)
@@ -43,9 +43,9 @@ def home(request):
             r['web_path'] = reverse('osp.views.project', args=[ r['category'], r['name'] ])
         except NoReverseMatch:
             r['web_path'] = ''
-            
+
         ice = []
-        # The iceberg returned by the APO is just like a regular tree, 
+        # The iceberg returned by the APO is just like a regular tree,
         # so there’s files and folders
         if 'iceberg' in r and 'files' in r['iceberg']:
             for penguin in r['iceberg']['files']:
@@ -67,14 +67,14 @@ def category(request, category):
         r = repo
         if r['category'] != category:
             continue
-        
+
         try:
             r['web_path'] = reverse('osp.views.project', args=[ r['category'], r['name'] ])
         except NoReverseMatch:
             r['web_path'] = ''
-            
+
         ice = []
-        # The iceberg returned by the APO is just like a regular tree, 
+        # The iceberg returned by the APO is just like a regular tree,
         # so there’s files and folders
         if 'iceberg' in r and 'files' in r['iceberg']:
             for penguin in r['iceberg']['files']:
@@ -83,14 +83,14 @@ def category(request, category):
                 ice.append(penguin)
         r['iceberg'] = ice
         repos.append(r)
-    
+
     if len(repos) == 0: # No repositories with this slug
         raise Http404
-    
-    #try:
-        #t = loader.get_template('category_%s.html'%(category))
-    #except TemplateDoesNotExist:
-    t = loader.get_template('category.html')
+
+    try:
+        t = loader.get_template('category_%s.html'%(category))
+    except TemplateDoesNotExist:
+        t = loader.get_template('category.html')
     c = RequestContext(request,
            { 'repos' : repos, "said": said, 'vc_url' :settings.VC_URL, 'category' : category }
        )
@@ -103,7 +103,7 @@ def browse(request, category, name, path):
     else:
         title = u"you’re traveling in %s" % (name)
         root = True
-    
+
     repo_slug = which_repo(category, name)
     try:
         repo = get_api(repo_slug)
@@ -113,28 +113,28 @@ def browse(request, category, name, path):
 
     # Render commits with time apart
     repo['commits'] = format_commits(reversed(repo['commits']))
-    
+
     # Render README
-    
+
     root_files = [i['name'] for i in repo['tree']['files']]
     README = ''
     for f in root_files:
         if 'README' in f or 'readme' in f or 'LISEZ_MOI' in f: # A regex would be more flexible
             README = get_url_contents(get_api(repo_slug, 'path', f)['raw_url'])
-            # OSP Convention: the part of the README that equals the description is 
+            # OSP Convention: the part of the README that equals the description is
             # terminated by a Markdown representation of a horizontal line - - -.
             README = README.split('- - -')[0]
             break
 
 
     # Render a breadcrumbs navigation for the current path
-    
+
     breadcrumbs = []
     repo_home = {}
     repo_home['name'] = obj['repo_name']
     repo_home['href'] = reverse('osp.views.project', args=[ category, name ])
     breadcrumbs.append(repo_home)
-    
+
     path_to = ''
     for i, path in enumerate(obj['paths']):
         path_to += path + '/'
@@ -151,12 +151,12 @@ def browse(request, category, name, path):
         breadcrumbs.append(breadcrumb)
 
     if obj['type'] == 'tree':
-        
+
         # Add hyperlinks to all files and folders
-        
+
         dirs = []
         for dir in obj['dirs']:
-            # the last element of the paths array is empty 
+            # the last element of the paths array is empty
             # '/some/path/to/tree/'.split('/') -> ['some', 'path', 'to', 'tree', '']
             # which we have to take into account when adding new elements to the path
             dir['path'] = '/'.join(obj['paths'][:-1] + [dir['name'], ''])
@@ -170,8 +170,8 @@ def browse(request, category, name, path):
         tree = obj
         tree['dirs'] = dirs
         tree['files'] = files
-        
-        return render_to_response('tree.html', 
+
+        return render_to_response('tree.html',
               {'title': title,
                'breadcrumbs' : breadcrumbs,
                'repo' : repo,
@@ -181,11 +181,11 @@ def browse(request, category, name, path):
                'root': root,
                'README' : README },
               context_instance=RequestContext(request))
-    
+
     if obj['type'] == 'blob':
         blob = obj
-        
-        return render_to_response('blob.html', 
+
+        return render_to_response('blob.html',
               {'title': title,
                'breadcrumbs' : breadcrumbs,
                'repo' : repo,
