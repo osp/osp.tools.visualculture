@@ -228,10 +228,10 @@ p{
     // and let it not bump into the menu
     //padding-right: 165px;
     //position: absolute;
-    
+
     h2 {
         color: @color-contrast;
-        font-family: @font-intermediary;
+        font-family: @font-factuelle-bold;
     }
 
     #project-detail-readme,
@@ -255,7 +255,7 @@ p{
         }
         figure {
             text-align: center;
-            
+
             & img { margin-top: 0; margin-bottom: @v-unit /2; outline: none; }
 
         }
@@ -720,17 +720,12 @@ div#on-the-table-feed{
 
 // infos-box ------------------------------------------------
 #home-infos{
-    width: 350px;
-    padding: @font-size-small;
-    font-size: 13px;
-    background-color: pink;
-    font-family: NotCourierSans;
-    position: absolute;
-    z-index: 1;
-    &:hover {
-        z-index: 100;
-    }
-
+    width: 50%;
+    font-size: 16px;
+    line-height: 24px;
+    font-family: @font-secondary;
+    margin-top: 16px;
+    padding-bottom: 16px;
     figure {
         display: inline-block;
     }
@@ -741,12 +736,12 @@ div#on-the-table-feed{
 }
 
 #home-info{
-  font-family: @font-factuelle;
+  font-family: @font-secondary;
   width: 95%;
   //width: 345px*2+40px;
-  font-size: 12px;
-  line-height: 20px;
-  margin-top: 8px !important;
+  font-size: 16px;
+  line-height: 24px;
+  margin-top: 24px !important;
   h1{
     padding-bottom: 5px;
     border-bottom: 1px dotted @color-contrast-light;
@@ -855,7 +850,7 @@ div.thumbnail.folder{
 div.thumbnail.preview{
   border-bottom: 1px dotted black;
 
-  h5 { 
+  h5 {
       display: inline;
   }
 

@@ -9,7 +9,7 @@
 
     <div id="active-projects">
         <div id="home-info" class="project">
-        <p>You're looking at the inside of our cupboards. In the OSP kitchen, source files = ingredients. These arrangements of blocks of text and pictures depict the most recent
+        <p>You're looking at the inside of our cupboards. In the OSP kitchen, source files&nbsp;=&nbsp;ingredients. These arrangements of blocks of text and pictures depict the most recent
         projects, their narratives, some selected visuals and the source files of the entire project. They are a view of the files and folders we make, share and the way they mature. These views are all thanks to <a href="{{ HOST }}/tools/visualculture/">VisualCulture</a>. We welcome to <a href="http://en.wikipedia.org/wiki/Copyleft#Applying_copyleft">study</a>
         these, <a href="http://en.wikipedia.org/wiki/Copyleft#Applying_copyleft">improve</a> them, to <a href="http://en.wikipedia.org/wiki/Copyleft#Applying_copyleft">redistribute copies</a>
         of them and <a href="http://en.wikipedia.org/wiki/Copyleft#Applying_copyleft">release your improvements</a>.
@@ -36,7 +36,6 @@
                     <a href="/{{ repo.category }}/{{ repo.name }}/tree/master/iceberg/{{ ice.name }}">
                         {% if 'image/' in ice.mime and 'svg' not in ice.mime or ice.mime == 'application/pdf' %}
                         <img src="/visual/{{repo.slug}}/{{ice.hex}}/width..300/{{ ice.name }}.png"/>
-                        <!-- DO NOT FORGET TO REMOVE THE 'HTTP://OSP.KITCHEN' LINK when publishing -->
                         {% else %}
                         <img src="/static/img/file-frog.png" />
                         {% endif %}
