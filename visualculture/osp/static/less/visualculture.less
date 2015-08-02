@@ -644,7 +644,7 @@ header {
 	    list-style: none;
 	    font-family: @font-default;
 	    margin-right: 1%;
-        display: inline;
+      //display: inline;
   }
   p {
     font-family: @font-secondary;
@@ -722,7 +722,6 @@ div#on-the-table-feed{
 #home-infos{
     width: 50%;
     font-size: 16px;
-    line-height: 24px;
     font-family: @font-secondary;
     margin-top: 16px;
     padding-bottom: 16px;
@@ -859,7 +858,10 @@ div.thumbnail.preview{
   }
   p{
       margin-bottom:10px;
+      font-size: 14px;
+      color: grey;
       display: inline;
+      font-family: @font-factuelle !important;
   }
   a { text-decoration: none; }
 }
@@ -1029,13 +1031,14 @@ ul#tree{
       width: 70%;
       margin-left:15%;
     }
-    #menu
-    ul{
+    #menu-wrapper{
+    ul#menu{
       margin-top: -@v-unit;
+      li{
+        display: inline;
+      }
     }
-    //li{
-      //display: inline;
-    //}
+  }
 }
 
 @media only screen and (min-width : 768px){
