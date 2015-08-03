@@ -6,7 +6,7 @@
 
 {% block header %}
         <h1 id="project-detail-title">{{ repo.name }} <a class="gitclone"
-                data-toggle="modal" href="#cloneModal">clone your own copy</a> /
+                data-toggle="modal" href="#cloneModal">clone your own copy</a> |
                 <a class="gitclone" href="https://github.com/osp/osp.{{ repo.category }}.{{ repo.name }}/archive/master.zip">download ZIP</a>
         </h1>
         <!-- Header and options when showing a repository -->
@@ -118,20 +118,16 @@
         $(".commit").each(function() {
             // var commitDateTime = new Date($(this).data("date")),
             //     times = SunCalc.getTimes(commitDateTime, 50.850, 4.383);
-
             // var dayBegin = new Date(commitDateTime.getTime());
             //     dayBegin.setHours(0, 0, 0, 0);
             // var dayEnd = new Date(dayBegin.getFullYear(), dayBegin.getMonth(), dayBegin.getDate()+1);
-
             // var ba = dayEnd - dayBegin;
             // var xa = commitDateTime - dayBegin;
             // var pc = xa / ba * 100;
-
             // var timeline = $("<div>").css({"border": "1px solid black"});
             //     var commitPoint = $("<div>").css({"background-color": "red", "width": "2px", "height": "5px", "position": "relative", "left": pc + "%"});
             // timeline.append(commitPoint);
             // $(this).prepend(timeline);
-
             // for (var i in times) {
             //     xa = times[i] - dayBegin;
             //     pc = xa / ba * 100;
@@ -139,9 +135,7 @@
             //     timeline.append(point);
             //
             // }
-
             //console.log(times);
-
             //if (commitDateTime < times.sunrise || commitDateTime > times.sunset) {
             //    $(this).css('background-color', 'black');
             //} else {
