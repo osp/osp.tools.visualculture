@@ -6,7 +6,7 @@
 
 {% block header %}
         <h1 id="project-detail-title">{{ repo.name }} <a class="gitclone"
-                data-toggle="modal" href="#cloneModal">clone your own copy</a> / 
+                data-toggle="modal" href="#cloneModal">clone your own copy</a> /
                 <a class="gitclone" href="https://github.com/osp/osp.{{ repo.category }}.{{ repo.name }}/archive/master.zip">download ZIP</a>
         </h1>
         <!-- Header and options when showing a repository -->
@@ -61,7 +61,8 @@
                 {% for ice in repo.iceberg.files|dictsortreversed:"datetime" %}
                     <!-- <a class="fancybox" rel="gallery" href="/{{ repo.category }}/{{ repo.name }}/tree/master/iceberg/{{ ice.name }}.png">-->
                     <a class="fancybox" rel="gallery1" href="http://osp.kitchen/visual/{{ repo.slug }}/{{ice.hex}}/width..200/{{ ice.name }}">
-                        <img src="/visual/{{ repo.slug }}/{{ice.hex}}/width..200/{{ ice.name }}.png"/>
+                        <div class="iceberg-thumbnail" style="background: url(/visual/{{ repo.slug }}/{{ice.hex}}/width..200/{{ ice.name }}.png) center center no-repeat;"></div>
+                      <!--<img src="/visual/{{ repo.slug }}/{{ice.hex}}/width..200/{{ ice.name }}.png"/>-->
                     </a>
                 {% endfor %}
               {% else %}
@@ -148,5 +149,13 @@
             //};
         });
     });
+    </script>
+    <script type="text/javascript">
+            $(document).ready(function() {
+            	$(".fancybox").fancybox({
+            		openEffect	: 'none',
+            		closeEffect	: 'none'
+            	});
+            });
     </script>
 {% endblock %}
