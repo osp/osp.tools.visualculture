@@ -1,6 +1,45 @@
 @import "reset.less";
 @import "mixins.less";
 
+/*
+VISUALCULTURE LESS content map
+---
+The order of the stylesheet tries hard to maintain consistensy with the order
+in which items appear on the web page. Below is a table of contents to help you
+find your way around.
+
+Note that since we approched a responsive website, we use a 'mobile-first'
+attitude. 95% of styles will remain the same on whatever viewports, only certain
+sizes change for bigger screens, so we declare all of the mobile styles first,
+then we go onto a set of queries that target viewport sizes starting at 512 px
+and up. This keeps the styles clean and logical, you just need to know in which
+order to write things.
+
+////////
+TABLE OF CONTENT
+----------------
+- variables & utilities
+- @font-face
+- typography
+- menu & navigation
+- info boxes for home page
+- project overview sections
+  - iceberg
+  - commit-list
+  - commit-date
+  - ...
+- project detail views
+- 'about' page styles
+- modals
+- plugins
+- media queries
+  - 512px & up
+  - 768px & up
+  - 1024px & up
+  - 1280px & up
+
+*/
+
 // size variables -------------------------------------------------------
 
 @h-unit: 20px;
@@ -205,6 +244,146 @@ h2{
 p{
   letter-spacing: 0.01em;
 }
+
+// menu -------------------------------------------------
+
+#menu-wrapper{
+    width: 100%;
+    .box-sizing(border-box);
+    z-index: 100;
+}
+header {
+    margin-left: 400px;
+}
+
+#logo {
+  float: left;
+
+  svg#svg5365 path {
+    stroke: @color-contrast !important;
+    stroke-width: 1.5 !important;
+  }
+}
+
+#menu {
+    font-size: 14px;
+    //margin-top: @v-unit;
+    margin-bottom: @v-unit;
+	a {
+	    text-decoration: none;
+	}
+	a:hover {
+	    color: @color-contrast;
+	}
+  h1 {
+    font-size: 36px;
+    line-height: 40px;
+    margin-top: 0;
+    margin-bottom: @v-unit;
+    margin-top: @v-unit;
+    display: inline;
+    font-family: Belgika-40;
+    float:left;
+    width:100%;
+  }
+  li {
+	    list-style: none;
+	    font-family: @font-default;
+	    margin-right: 1%;
+      margin-bottom: @h-unit/3;
+  }
+  li:nth-of-type(2){
+    margin-top: @v-unit*2;
+  }
+  p {
+    font-family: @font-secondary;
+    span{
+      font-family: @font-intermediary;
+    }
+  }
+}
+
+// infos-box ------------------------------------------------
+#home-infos{
+    width: 50%;
+    font-size: 16px;
+    font-family: @font-secondary;
+    margin-top: 16px;
+    padding-bottom: 16px;
+    figure {
+        display: inline-block;
+    }
+    img {
+        max-width: 100%;
+        display: block;
+    }
+}
+
+#home-info{
+  font-family: @font-secondary;
+  width: 95%;
+  font-size: 16px;
+  line-height: 24px;
+  margin-top: 24px !important;
+  h1{
+    padding-bottom: 5px;
+    border-bottom: 1px dotted @color-contrast-light;
+    margin-top: 38px;
+  }
+}
+
+// blog rss feed ------------------------------------------------
+// fed by FeedEk.js
+
+div#on-the-table-feed{
+  ul.feedEkList{
+    li{
+      width: 95%;
+      float: left;
+      margin-bottom: @h-unit;
+      div.itemContent{
+        font-family: @font-secondary;
+        font-size: 16px;
+        line-height: 24px;
+        padding-bottom: 10px;
+        border-bottom: 1px dotted;
+      }
+      div.itemDate{
+        font-family: @font-factuelle-bold;
+	      margin-top: 6px;
+        font-size: 12px;
+        }
+      div.itemTitle{
+        a{
+	        font-family: @font-intermediary;
+	        font-size: 25px;
+          text-decoration:none;
+          line-height: 46px;
+        }
+        a:hover{
+          margin-bottom:20px;
+          color: @color-contrast;
+        }
+      }
+    }
+  }
+}
+.status {
+    background-color: blue;
+    color: white;
+    padding: 12px;
+    margin-bottom: 1em;
+    margin-right: 1em;
+    width: 20em;
+    float: left;
+    font-family: notcouriersans;
+    font-weight: bold;
+    font-size: 13px;
+    a {
+        color: #AFEEEE;
+    }
+}
+
 
 // active pieces -------------------------------------------------
 
@@ -517,7 +696,6 @@ a.category-none{
     font-family:@font-factuelle-bold;
     margin-top: 6px;
     font-size: 10px;
-    //color: grey;
 }
 
 // project-detail -------------------------------------------------
@@ -600,172 +778,6 @@ div#project-detail-body {
     font-weight: normal;
 }
 
-// menu -------------------------------------------------
-
-#menu-wrapper{
-    width: 100%;
-    .box-sizing(border-box);
-    z-index: 100;
-}
-header {
-    margin-left: 400px;
-}
-
-#logo {
-  float: left;
-
-  svg#svg5365 path {
-    stroke: @color-contrast !important;
-    stroke-width: 1.5 !important;
-  }
-}
-
-#menu {
-    font-size: 14px;
-    //margin-top: @v-unit;
-    margin-bottom: @v-unit;
-	a {
-	    text-decoration: none;
-	}
-	a:hover {
-	    color: @color-contrast;
-	}
-  h1 {
-    font-size: 36px;
-    line-height: 40px;
-    margin-top: 0;
-    margin-bottom: @v-unit;
-    margin-top: @v-unit;
-    display: inline;
-    font-family: Belgika-40;
-    float:left;
-    width:100%;
-  }
-  li {
-	    list-style: none;
-	    font-family: @font-default;
-	    margin-right: 1%;
-      margin-bottom: @h-unit/3;
-  }
-  li:nth-of-type(2){
-    margin-top: @v-unit*2;
-  }
-  p {
-    font-family: @font-secondary;
-    span{
-      font-family: @font-intermediary;
-    }
-  }
-}
-
-#baseline {
-    text-transform: none;
-    font-family: @font-default;
-    color:blue;
-}
-
-div#on-the-table {
-    margin: 1em 0;
-}
-div#on-the-table-feed{
-  ul.feedEkList{
-    li{
-      width: 95%;
-      float: left;
-      margin-bottom: @h-unit;
-      div.itemContent{
-        font-family: @font-secondary;
-        font-size: 16px;
-        line-height: 24px;
-        padding-bottom: 10px;
-        border-bottom: 1px dotted;
-      }
-      div.itemDate{
-        font-family: @font-factuelle-bold;
-	      margin-top: 6px;
-        font-size: 12px;
-        }
-      div.itemTitle{
-        a{
-	        font-family: @font-intermediary;
-	        font-size: 25px;
-          text-decoration:none;
-          line-height: 46px;
-        }
-        a:hover{
-          margin-bottom:20px;
-          color: @color-contrast;
-        }
-      }
-    }
-  }
-}
-.status {
-    background-color: blue;
-    color: white;
-    padding: 12px;
-    margin-bottom: 1em;
-    margin-right: 1em;
-    width: 20em;
-    float: left;
-    font-family: notcouriersans;
-    font-weight: bold;
-    font-size: 13px;
-    a {
-        color: #AFEEEE;
-    }
-}
-
-// infos-box ------------------------------------------------
-#home-infos{
-    width: 50%;
-    font-size: 16px;
-    font-family: @font-secondary;
-    margin-top: 16px;
-    padding-bottom: 16px;
-    figure {
-        display: inline-block;
-    }
-    img {
-        max-width: 100%;
-        display: block;
-    }
-}
-
-#home-infos.centered{
-  margin: 0 auto;
-}
-
-#home-info{
-  font-family: @font-secondary;
-  width: 95%;
-  font-size: 16px;
-  line-height: 24px;
-  margin-top: 24px !important;
-  h1{
-    padding-bottom: 5px;
-    border-bottom: 1px dotted @color-contrast-light;
-    margin-top: 38px;
-  }
-}
-
-#home-side{
-  width: @col-width;
-  float: right;
-  height: 500px;
-  min-height: 500px;
-  max-height: 500px;
-}
-
-#home-notes{
-  width: @col-width;
-  float: left;
-  height: 500px;
-  min-height: 500px;
-  max-height: 500px;
-}
-
-
 // about page -------------------------------------------------
 #about-general{
     width: 520px;
@@ -837,6 +849,7 @@ pre {
 }
 
 // thumbnails -------------------------------------------------
+
 div.thumbnail.folder{
   border-bottom: 1px solid black;
   div.thumb{
@@ -1006,6 +1019,8 @@ ul#tree{
         margin-bottom: 0; // account for input[type="submit"] which gets the bottom margin like all other inputs
     }
 }
+
+// plugins -----------------------------------------------------
 
 // fancybox -----------------------------------------------------
 
