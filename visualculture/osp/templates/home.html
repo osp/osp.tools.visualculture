@@ -33,7 +33,8 @@
 
                 {% for ice in repo.iceberg|dictsortreversed:"datetime" %}
                     {% if forloop.first %}
-                    <a href="/{{ repo.category }}/{{ repo.name }}/tree/master/iceberg/{{ ice.name }}">
+                    <!--<a href="/{{ repo.category }}/{{ repo.name }}/tree/master/iceberg/{{ ice.name }}">-->
+                    <a href="{{ repo.web_path }}">
                         {% if 'image/' in ice.mime and 'svg' not in ice.mime or ice.mime == 'application/pdf' %}
                         <img src="/visual/{{repo.slug}}/{{ice.hex}}/width..300/{{ ice.name }}.png"/>
                         {% else %}

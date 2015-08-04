@@ -59,6 +59,7 @@
           <div class="iceberg">
               {% if repo.iceberg.files %}
                 {% for ice in repo.iceberg.files|dictsortreversed:"datetime" %}
+
                     <a class="fancybox" rel="gallery" href="/visual/{{ repo.slug }}/{{ice.hex}}/width..1000/{{ ice.name }}">
                       <img src="/visual/{{ repo.slug }}/{{ice.hex}}/width..200/{{ ice.name }}.png"/>
                     </a>
@@ -145,8 +146,21 @@
     <script>
           $(document).ready(function() {
               $('.fancybox').fancybox({
-                  padding : 0,
-                  openEffect  : 'elastic'
+                padding: 0,
+                margin: [96, 64, 96, 64],
+                height: 'auto',
+                autoSize: false,
+                autoResize: true,
+                autoCenter: true,
+                aspectRatio: false,
+                arrows: true,
+                closeBtn: true,
+                closeClick: false,
+                helpers: {
+                  title : {
+                    type : 'inside'
+                  }
+                },
               });
           });
       </script>
