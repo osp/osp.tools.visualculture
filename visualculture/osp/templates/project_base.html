@@ -59,9 +59,8 @@
           <div class="iceberg">
               {% if repo.iceberg.files %}
                 {% for ice in repo.iceberg.files|dictsortreversed:"datetime" %}
-
                     <a class="fancybox" rel="gallery" href="/visual/{{ repo.slug }}/{{ice.hex}}/width..1000/{{ ice.name }}">
-                      <img src="/visual/{{ repo.slug }}/{{ice.hex}}/width..200/{{ ice.name }}.png"/>
+                      <div class="iceberg-thumbnail" style="background: url(/visual/{{ repo.slug }}/{{ice.hex}}/width..200/{{ ice.name }}.png) center center no-repeat;"></div>
                     </a>
                 {% endfor %}
               {% else %}
