@@ -13,7 +13,6 @@
 {% else %}
         <link rel="stylesheet/less" type="text/css" media="all" href="{{ STATIC_URL }}less/visualculture.less">
         <script src="{{ STATIC_URL }}js/less-1.2.1.min.js"></script>
-
 {% endif%}
 
 
@@ -22,8 +21,6 @@
 {% endblock %}
     </head>
   <script src="{{ STATIC_URL }}js/jquery-1.11.0.min.js"></script>
-    <link rel="stylesheet" href="{{ STATIC_URL }}js/fancyBox/source/jquery.fancybox.css" type="text/css" media="screen" />
-    <script type="text/javascript" src="{{ STATIC_URL }}js/fancyBox/source/jquery.fancybox.pack.js"></script>
     <body>
         {% block menu %}
         <!-- Menu navigation-->
@@ -51,6 +48,7 @@
 
     {% block js %}
     {% compress js %}
+            <script type="text/javascript" src="{{ STATIC_URL }}js/fancyBox/source/jquery.fancybox.pack.js"></script>
             <script src="{{ STATIC_URL }}js/bootstrap-modal.js"></script>
             <script src="{{ STATIC_URL }}js/FeedEk.js"></script>
             <script src="{{ STATIC_URL }}js/moment.locales.min.js"></script>
