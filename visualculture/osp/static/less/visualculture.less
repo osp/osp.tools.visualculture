@@ -315,7 +315,7 @@ p{
           float: left;
           margin-right: 15px;
           margin-bottom: 15px;
-          background-size: contain;
+          background-size: cover;
         }
     }
     #project-detail-commits {
@@ -522,6 +522,7 @@ a.category-none{
     font-family: @font-factuelle-bold;
     font-size: 12px;
     margin-left: 7px;
+    color: grey;
 }
 .commit-message{
     font-size: 16px;
@@ -532,7 +533,8 @@ a.category-none{
 .commit-date {
     font-family:@font-factuelle-bold;
     margin-top: 6px;
-    font-size: 12px;
+    font-size: 10px;
+    //color: grey;
 }
 
 
@@ -691,7 +693,7 @@ div#on-the-table-feed{
       float: left;
       margin-bottom: @h-unit;
       div.itemContent{
-        font-family: NotCourierSans;
+        font-family: @font-secondary;
         font-size: 16px;
         line-height: 24px;
         padding-bottom: 10px;
@@ -703,7 +705,7 @@ div#on-the-table-feed{
         font-size: 12px;
         }
         div.itemDate::before{
-          content: "posed: "
+          //content: "posed: "
         }
       div.itemTitle{
         a{
@@ -752,6 +754,10 @@ div#on-the-table-feed{
         max-width: 100%;
         display: block;
     }
+}
+
+#home-infos.centered{
+  margin: 0 auto;
 }
 
 #home-info{
