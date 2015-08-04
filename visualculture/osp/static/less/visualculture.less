@@ -150,10 +150,6 @@ body {
     word-wrap: break-word;
     padding: 1em;
 }
-div.contain{
-  width: 1155px;
-  margin: 0 auto;
-}
 
 // typography ----------------------------------------------
 
@@ -214,26 +210,16 @@ p{
     position: relative;
     z-index: 2;
     background-color: rgba(255, 255, 255, 0.9);
-    //left: 2em;
-    //padding: 1em;
     margin-top: @v-unit;
-    //margin-left: @v-unit;
 }
 #active-projects,
 #project-detail {
     .clearfix;
     width: auto;
-    // make it minimally 3 columns wide
-    //min-width: 4 * 20px + 3 * 250px;
-    // and let it not bump into the menu
-    //padding-right: 165px;
-    //position: absolute;
-
     h2 {
         color: @color-contrast;
         font-family: @font-factuelle-bold;
     }
-
     #project-detail-readme,
     #project-detail-iceberg,
     #project-detail-commits,
@@ -245,7 +231,6 @@ p{
         float:left;
     }
     #project-detail-readme article {
-        //background: rgba(255, 255, 255, 0.9);
         figure,
         img {
             max-width: 100%;
@@ -255,9 +240,7 @@ p{
         }
         figure {
             text-align: center;
-
             & img { margin-top: 0; margin-bottom: @v-unit /2; outline: none; }
-
         }
         figure footer {
             font-size: 12px;
@@ -306,9 +289,6 @@ p{
         border-bottom: 1px dotted;
         padding-bottom: @v-unit;
         margin-bottom: @v-unit;
-        a{
-          //padding: 20px;
-        }
         div.iceberg-thumbnail{
           width: 220px;
           height: 125px;
@@ -326,6 +306,7 @@ p{
         border-top: none;
         h2{
           color: white;
+          line-height: 26px;
           padding-top: @h-unit;
           padding-left: @h-unit;
           margin-bottom: 0;
@@ -420,7 +401,6 @@ a.see-more{
     font-family: @font-factuelle-bold;
     text-align: left;
     margin-bottom: 20px;
-    //margin-left: 10px;
     line-height: 0.9;
     letter-spacing: -0.03em;
     font-weight: normal;
@@ -432,7 +412,6 @@ a.see-more{
 a.category{
     font-family: @font-factuelle;
     font-size: 12px;
-    //float: right;
     line-height: 36px;
     padding-bottom: 5px;
     color: black !important;
@@ -459,7 +438,6 @@ a.category-none{
     font-weight: normal;
 }
 
-
 // iceberg pictures -------------------------------------------------
 
 .iceberg{
@@ -474,7 +452,6 @@ a.category-none{
 //     border: solid 1px gray;
     width:250px;
     }
-
 
 // commits -------------------------------------------------
 
@@ -537,7 +514,6 @@ a.category-none{
     //color: grey;
 }
 
-
 // project-detail -------------------------------------------------
 .left-2{
   float: left;
@@ -558,15 +534,11 @@ h1#project-detail-title {
 ul#project-detail-nav {
     margin-top: 1em;
     margin-right: 13em;
-    //text-align: center;
-
     li {
         display: inline;
         margin-left: 1em;
-
         a {
             text-decoration: none;
-
             &:hover {
                 text-decoration: underline;
             }
@@ -585,13 +557,11 @@ div#project-detail-head h1.repo_slug {
 }
 a.gitclone {
     background-color: @color-contrast-light;
-    //color: white;
     font-family: @font-default;
     padding: 10px 5px 2px 5px;
     font-size: 18px;
 
     &:hover {
-        //color: black;
         background-color: white;
         outline: 1px solid @color-contrast-light;
     }
@@ -667,7 +637,6 @@ header {
 	    list-style: none;
 	    font-family: @font-default;
 	    margin-right: 1%;
-      //display: inline;
   }
   p {
     font-family: @font-secondary;
@@ -687,7 +656,6 @@ div#on-the-table {
     margin: 1em 0;
 }
 div#on-the-table-feed{
-  //min-height: 120px;
   ul.feedEkList{
     li{
       width: 95%;
@@ -705,9 +673,6 @@ div#on-the-table-feed{
 	      margin-top: 6px;
         font-size: 12px;
         }
-        div.itemDate::before{
-          //content: "posed: "
-        }
       div.itemTitle{
         a{
 	        font-family: @font-intermediary;
@@ -717,8 +682,6 @@ div#on-the-table-feed{
         }
         a:hover{
           margin-bottom:20px;
-          //text-decoration: underline @color-contrast;
-          //This doesn't work because the baseline settings in herscheyfutura are all fucked up. It's a shame, trying to revert to a different hover method to signify that blog post titles are in fact links.
           color: @color-contrast;
         }
       }
@@ -764,7 +727,6 @@ div#on-the-table-feed{
 #home-info{
   font-family: @font-secondary;
   width: 95%;
-  //width: 345px*2+40px;
   font-size: 16px;
   line-height: 24px;
   margin-top: 24px !important;
@@ -906,14 +868,11 @@ a.file-name{
 }
 
 .thumbnails {
-    //margin-left: -@v-unit;
     list-style: none;
     .clearfix();
 }
 .thumbnails > li {
-    //float: left;
     margin: 0 0 18px 20px;
-    //width: 140px;
 }
 .thumbnail {
     display: block;
@@ -1000,8 +959,6 @@ ul#tree{
     border: 1px solid #999;
     border: 1px solid rgba(0,0,0,.3);
     *border: 1px solid #999; /* IE6-7 */
-    //.border-radius(6px);
-    //.box-shadow(0 3px 7px rgba(0,0,0,0.3));
     .background-clip(padding-box);
     &.fade {
       .transition(e('opacity .3s linear, top .3s ease-out'));
@@ -1010,7 +967,6 @@ ul#tree{
     &.fade.in { top: 50%; }
 }
 .modal-header {
-    //background-color: lighten(@color-author, 40%);
     padding: @v-unit @h-unit;
     border-bottom: 1px solid #eee;
 }
@@ -1028,7 +984,6 @@ ul#tree{
 .modal-footer {
     padding: @v-unit @h-unit;
     margin-bottom: 0;
-    //background-color: lighten(@color-author, 40%);
     border-top: 1px solid #ddd;
     .border-radius(0 0 6px 6px);
     .box-shadow(inset 0 1px 0 @color-background);
@@ -1326,7 +1281,6 @@ ul#tree{
     ul.feedEkList{
       li{
       width: 100%;
-      //margin-left: 15%;
       }
     }
 
@@ -1386,8 +1340,6 @@ ul#tree{
     width: 345px;
     margin: 0;
     margin-right: 40px;
-    //padding-top: 50px;
-    //min-height: 500px;
   }
 
   div#info-page{
@@ -1416,7 +1368,7 @@ ul#tree{
 }
 
 @media only screen and (min-width : 1280px){
-/*
+
   .left-2{
     width: 345px*3+40px;
     div#project-detail-readme{
@@ -1428,5 +1380,5 @@ ul#tree{
       float:left;
     }
   }
-*/
+
 }
