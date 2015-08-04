@@ -1046,25 +1046,28 @@ ul#tree{
 @media only screen and (min-width : 512px){
     ul.feedEkList{
       li{
-      width: 70%;
-      min-width:300px;
-      max-width:350px;
-      margin-left: 15%;
+      width: 100%;
+      //margin-left: 15%;
       }
     }
 
   .project, #home-info, div#info-page, .right-1, .left-2{
-      width: 70%;
-      margin-left:15%;
+      width: 90%;
     }
     #menu-wrapper{
     ul#menu{
-      margin-top: @v-unit;
+      margin-top: @v-unit*2;
       li{
         display: inline;
-        margin-top: @v-unit;
+        color: blue;
+      }
+      li:nth-of-type(2){
+        margin-top:@v-unit*2;
       }
     }
+  }
+  #menu li{
+    padding-top: @v-unit;
   }
 }
 
@@ -1128,8 +1131,8 @@ ul#tree{
     }
   }
   .project{
-    width: 345px;
-    margin-right: @h-unit*2;
+    width: 330px;
+    margin-right: 30px;
     }
 }
 
