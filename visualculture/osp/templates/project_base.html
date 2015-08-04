@@ -5,9 +5,8 @@
 {% endblock %}
 
 {% block header %}
-        <h1 id="project-detail-title">{{ repo.name }} <a class="gitclone"
-                data-toggle="modal" href="#cloneModal">clone your own copy</a> |
-                <a class="gitclone" href="https://github.com/osp/osp.{{ repo.category }}.{{ repo.name }}/archive/master.zip">download ZIP</a>
+        <h1 id="project-detail-title">{{ repo.name }} <br>
+          <a class="gitclone" data-toggle="modal" href="#cloneModal">clone your own copy</a> | <a class="gitclone" href="https://github.com/osp/osp.{{ repo.category }}.{{ repo.name }}/archive/master.zip">download ZIP</a>
         </h1>
         <!-- Header and options when showing a repository -->
         <!-- Navigate through the repository -->
@@ -60,7 +59,7 @@
               {% if repo.iceberg.files %}
                 {% for ice in repo.iceberg.files|dictsortreversed:"datetime" %}
                     <a class="fancybox" rel="gallery" href="/visual/{{ repo.slug }}/{{ice.hex}}/width..1000/{{ ice.name }}">
-                      <div class="iceberg-thumbnail" style="background: url(/visual/{{ repo.slug }}/{{ice.hex}}/width..200/{{ ice.name }}.png) center center no-repeat;"></div>
+                      <div class="iceberg-thumbnail" style="background: url(/visual/{{ repo.slug }}/{{ice.hex}}/width..400/{{ ice.name }}.png) center center no-repeat; background-size: cover;"></div>
                     </a>
                 {% endfor %}
               {% else %}

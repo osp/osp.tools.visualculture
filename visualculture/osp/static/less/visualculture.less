@@ -305,7 +305,7 @@ header {
 
 // infos-box ------------------------------------------------
 #home-infos{
-    width: 50%;
+    width: 100%;
     font-size: 16px;
     font-family: @font-secondary;
     margin-top: 16px;
@@ -471,12 +471,11 @@ div#on-the-table-feed{
         padding-bottom: @v-unit;
         margin-bottom: @v-unit;
         div.iceberg-thumbnail{
-          width: 220px;
-          height: 125px;
+          width: 100%;
+          height: 300px;
           float: left;
           margin-right: 15px;
           margin-bottom: 15px;
-          background-size: cover;
         }
     }
     #project-detail-commits {
@@ -525,11 +524,12 @@ div#on-the-table-feed{
     float: left;
     width:95%;
     margin-bottom: @h-unit;
-    min-height: 580px;
+    //min-height: 580px;
     max-height: 580px;
     overflow: hidden;
     position: relative;
     border-top: 1px solid black;
+    padding-top: @h-unit;
 }
 #home-info.project{
   border-top: none;
@@ -742,7 +742,7 @@ div#project-detail-head h1.repo_slug {
 a.gitclone {
     background-color: @color-contrast-light;
     font-family: @font-default;
-    padding: 10px 5px 2px 5px;
+    padding: 7px 5px 2px 5px;
     font-size: 18px;
 
     &:hover {
@@ -973,13 +973,12 @@ ul#tree{
 // Base modal
 .modal {
     position: fixed;
-    top: 50%;
-    left: 50%;
+    top: 10%;
     z-index: 1050;
     max-height: 500px;
     overflow: auto;
-    width: 560px;
-    margin: -250px 0 0 -280px;
+    width: 90%;
+    margin: 0 auto;
     background-color: @color-background;
     border: 1px solid #999;
     border: 1px solid rgba(0,0,0,.3);
@@ -994,6 +993,9 @@ ul#tree{
 .modal-header {
     padding: @v-unit @h-unit;
     border-bottom: 1px solid #eee;
+    h2{
+      line-height: 30px;
+    }
 }
 
 // Body (where all modal content resises)
@@ -1372,12 +1374,34 @@ ul#tree{
     margin: 0;
     margin-right: @v-unit*2;
   }
+  #home-infos{
+    width: 50%;
+  }
+
+  #project-detail {
+    #project-detail-iceberg{
+      div.iceberg-thumbnail{
+        width: 200px;
+        height: 125px;
+      }
+    }
+  }
+
 
   div#info-page{
     width: @col-width*2+@v-unit*2;
     margin: 0;
   }
+
+  .modal {
+      top: 50%;
+      left: 50%;
+      width: 560px;
+      margin: -250px 0 0 -280px;
+    }
 }
+
+
 
 @media only screen and (min-width : 1024px){
   body{
