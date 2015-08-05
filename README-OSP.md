@@ -18,6 +18,7 @@ install dependencies via pip inside your virtual env, the OSP dependencies are g
 ``pip install -r requirements.txt``
 
 At the time of this writing, dependencies are so:
+
 - Django==1.4.20
 - Markdown==2.6.2
 - amqp==1.4.6
