@@ -43,7 +43,12 @@
 
 
 
-        {% block footer %}{% endblock %}
+        <footer>
+          {% block footer %}
+            {% include "partials/footer.html" %}
+          {% endblock %}
+        </footer>
+
     {% endblock %}
 
     {% block js %}

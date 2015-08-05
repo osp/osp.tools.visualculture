@@ -524,7 +524,6 @@ div#on-the-table-feed{
     float: left;
     width:95%;
     margin-bottom: @h-unit;
-    //min-height: 580px;
     max-height: 580px;
     overflow: hidden;
     position: relative;
@@ -1022,6 +1021,14 @@ ul#tree{
     }
 }
 
+footer{
+  bottom: 0;
+  margin-top: @v-unit*4;
+  p{
+    font-size: 10px;
+  }
+}
+
 // plugins -----------------------------------------------------
 
 // fancybox -----------------------------------------------------
@@ -1358,6 +1365,7 @@ ul#tree{
       margin-right: 2%;
       margin-left: 0%;
       border-top: none;
+      min-height: 580px;
   }
   .left-2{
     width: @col-width*2+@v-unit*2;
@@ -1426,7 +1434,7 @@ ul#tree{
 
 
   .left-2{
-    width: @col-width*3+@v-unit*2;
+    width: @col-width*2.5+@v-unit*4;
     div#project-detail-readme{
       width:45%;
     }
