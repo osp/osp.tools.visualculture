@@ -48,5 +48,8 @@ Directory layout
 ---
 
  /visualculture/osp            application
+
  /visualculture/osp/static     less, js, static images
+
  /visualculture/osp/templates  templates
+ 
