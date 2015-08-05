@@ -1,7 +1,7 @@
 README OSP
 ==========
 
-The OSP website uses the Visual Culture api as basis to show our work based on our gitted practice. 
+The OSP website uses the Visual Culture api as basis to show our work based on our gitted practice.
 The osp app, contained in the visualculture project, can also be used as a standalone django app. This means
 you don’t need to install all of visual culture locally when you just want to
 work on the OSP website.
@@ -9,47 +9,44 @@ work on the OSP website.
 Getting started
 ---------------
 
-# install django and additional django apps
-# you can also use your distributions package manager,
-# or create a virtual env
+- install django and additional django apps
+- you can also use your distributions package manager,
+- or create a virtual env
 
 pip install "django<1.5" "django_compressor<1.5" "django-cors<0.2"
 also, Markdown is required, as dependecies are growing, pip freeze to requirements.txt? I made one in branch 'colm'
 
-pip install -r requirements.txt
+``pip install -r requirements.txt``
 
-# to install the less css compiler, you need to install
-# node js. download the latest version, and do a
-# ./configure; make; sudo make install
+to install the less css compiler, you need to install node js. download the latest version, and do a
 
-# install the less compiler through npm:
+``./configure; make; sudo make install``
 
-sudo npm install -g less
+install the less compiler through npm:
 
-# move into your osp folder, then get the files:
+``sudo npm install -g less``
 
-git clone git@git.constantvzw.org:osp.tools.visualculture.git
-cd osp.tools.visualculture/visualculture/osp/
+move into your osp folder, then get the files:
 
-# create settings file
+``git clone git@git.constantvzw.org:osp.tools.visualculture.git``
+``cd osp.tools.visualculture/visualculture/osp/``
 
-cp settings.py.example settings.py
+create settings file
 
-# run development server
+``cp settings.py.example settings.py``
 
-python manage.py runserver
+run development server
 
-# now you can make changes and check your progress on the development
-# server. When you are happy, commit. To propagate your changes to the
-# server, run:
+``python manage.py runserver``
 
-make
+now you can make changes and check your progress on the development server. When you are happy, commit. To propagate your changes to the server, run:
+
+``make``
 
 
 Directory layout
-----------------
+---
 
  /visualculture/osp            application
  /visualculture/osp/static     less, js, static images
  /visualculture/osp/templates  templates
-
