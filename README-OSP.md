@@ -13,14 +13,32 @@ Getting started
 - you can also use your distributions package manager,
 - or create a virtual env
 
-pip install "django<1.5" "django_compressor<1.5" "django-cors<0.2"
-also, Markdown is required, as dependecies are growing, pip freeze to requirements.txt? I made one in branch 'colm'
+install dependencies via pip inside your virtual env, the OSP dependencies are gathered in a requirments.txt inside folder osp/
 
 ``pip install -r requirements.txt``
 
+At the time of this writing, dependencies are so:
+- Django==1.4.20
+- Markdown==2.6.2
+- amqp==1.4.6
+- anyjson==0.3.3
+- argparse==1.2.1
+- billiard==3.3.0.20
+- celery==3.1.18
+- django-appconf==1.0.1
+- django-celery==3.1.16
+- django-compressor==1.4
+- django-cors==0.1
+- kombu==3.0.26
+- pytz==2015.4
+- six==1.9.0
+- wsgiref==0.1.2
+
 to install the less css compiler, you need to install node js. download the latest version, and do a
 
-``./configure; make; sudo make install``
+`./configure`
+`make`
+`sudo make install`
 
 install the less compiler through npm:
 
