@@ -47,9 +47,8 @@ now you can make changes and check your progress on the development server. When
 Directory layout
 ---
 
- /visualculture/osp            application
+ /visualculture/osp            `application`
 
- /visualculture/osp/static     less, js, static images
+ /visualculture/osp/static     `less, js, static images`
 
- /visualculture/osp/templates  templates
- 
+ /visualculture/osp/templates  `templates`
