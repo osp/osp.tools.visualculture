@@ -44,6 +44,20 @@
 <div id="project-detail">
 {% if root %}
     <div class="left-2">
+      <div id="project-detail-iceberg">
+          <h2>Snapshots | iceberg</h2>
+          <div class="iceberg">
+              {% if repo.iceberg.files %}
+                {% for ice in repo.iceberg.files|dictsortreversed:"datetime" %}
+                    <a class="fancybox" rel="gallery" title="{{ ice.name }}" href="/visual/{{ repo.slug }}/{{ice.hex}}/width..1000/{{ ice.name }}">
+                      <div class="iceberg-thumbnail" style="background: url('/visual/{{ repo.slug }}/{{ice.hex}}/width..400/{{ ice.name }}.png') center center no-repeat; background-size: cover;"></div>
+                    </a>
+                {% endfor %}
+              {% else %}
+                <pre>No images in this repository’s iceberg at this time</pre>
+              {% endif %}
+          </div>
+      </div>
       <div id="project-detail-readme">
           <h2>About {{ breadcrumb.name }}</h2>
           <article>
@@ -53,20 +67,7 @@
               </div>
           </article>
       </div>
-      <div id="project-detail-iceberg">
-          <h2>Snapshots | iceberg</h2>
-          <div class="iceberg">
-              {% if repo.iceberg.files %}
-                {% for ice in repo.iceberg.files|dictsortreversed:"datetime" %}
-                    <a class="fancybox" rel="gallery" href="/visual/{{ repo.slug }}/{{ice.hex}}/width..1000/{{ ice.name }}">
-                      <div class="iceberg-thumbnail" style="background: url(/visual/{{ repo.slug }}/{{ice.hex}}/width..400/{{ ice.name }}.png) center center no-repeat; background-size: cover;"></div>
-                    </a>
-                {% endfor %}
-              {% else %}
-                <pre>No images in this repository’s iceberg at this time</pre>
-              {% endif %}
-          </div>
-      </div>
+
 {% endif %}
 
       <div id="project-detail-files">
