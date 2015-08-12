@@ -1,4 +1,4 @@
-@import "reset.less";
+  @import "reset.less";
 @import "mixins.less";
 
 /*
@@ -253,6 +253,7 @@ p{
     width: 100%;
     .box-sizing(border-box);
     z-index: 100;
+    background-color: white;
 }
 header {
     margin-left: 400px;
@@ -349,6 +350,7 @@ div#on-the-table-feed{
         line-height: 24px;
         padding-bottom: 10px;
         border-bottom: 1px dotted;
+        display: none;
       }
       div.itemDate{
         font-family: @font-factuelle-bold;
@@ -1360,6 +1362,7 @@ footer{
           div.itemContent{
             border-bottom: none;
             padding-bottom: none;
+            display: block;
         }
       }
     }
@@ -1416,6 +1419,11 @@ footer{
 
 
 @media only screen and (min-width : 1024px){
+  .breadcrumb{
+    li:nth-child(5){
+      display: none;
+    }
+  }
   body{
     padding: 2em;
   }
