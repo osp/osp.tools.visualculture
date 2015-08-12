@@ -45,7 +45,7 @@ def home(request):
             r['web_path'] = ''
 
         ice = []
-        # The iceberg returned by the APO is just like a regular tree,
+        # The iceberg returned by the API is just like a regular tree,
         # so there’s files and folders
         if 'iceberg' in r and 'files' in r['iceberg']:
             for penguin in r['iceberg']['files']:
