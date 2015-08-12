@@ -32,6 +32,10 @@
                 {% endif %}
             </a>
         </div>
+        {% include "commit-list.html" %}
+        <div class="gradient-to-more">
+          <a href="{{ repo.web_path }}" class="see-more">see more</a>
+        </div>
 
     </div>
     {% endfor %}
