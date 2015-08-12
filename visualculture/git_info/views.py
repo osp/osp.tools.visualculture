@@ -44,27 +44,30 @@ def find_last_commit(repo, name):
     last_oid = None
     i = 0
 
-    for commit in repo.repo.walk(repo.repo.head.target, pygit2.GIT_SORT_TIME):
-        if 'iceberg' in commit.tree:
-            iceoid = commit.tree['iceberg'].hex
-            icetree = repo[iceoid]
+    try:
+        for commit in repo.repo.walk(repo.repo.head.target, pygit2.GIT_SORT_TIME):
+            if 'iceberg' in commit.tree:
+                iceoid = commit.tree['iceberg'].hex
+                icetree = repo[iceoid]
 
-            if name in icetree:
-                i += 1
-                oid = icetree[name].oid
+                if name in icetree:
+                    i += 1
+                    oid = icetree[name].oid
 
-                has_changed = (oid != last_oid and last_oid)
+                    has_changed = (oid != last_oid and last_oid)
 
-                if has_changed:
+                    if has_changed:
+                        break
+
+                    last_oid = oid
+
+                elif i > 1:
                     break
 
-                last_oid = oid
-
-            elif i > 1:
-                break
-
-            last_commit = commit
-            print datetime.fromtimestamp(last_commit.commit_time)
+                last_commit = commit
+                print datetime.fromtimestamp(last_commit.commit_time)
+    except:
+        return last_commit or 'Corrupted repository'
 
     return last_commit or 'No commit'
 
@@ -73,28 +76,28 @@ def render_tree(repo_name, tree):
     repo = git_collection[repo_name]
     items = []
     dirs = []
-    
+
     for item in tree:
         if repo[item.hex].type == pygit2.GIT_OBJ_TREE:
             dirs.append({'hex': item.hex, 'name': item.name, 'mime': find_mime(path=item.name)})
         else:
             res = find_last_commit(repo, item.name)
-            if res != "No commit":
+            if res != "No commit" and res != "Corrupted repository":
                 dt = datetime.fromtimestamp(res.commit_time)
             else:
                 dt = None
             items.append({'hex': item.hex, 'name': item.name, 'mime': find_mime(path=item.name), 'datetime': str(dt) })
     hash = {'type':'tree', 'repo_name':repo_name, 'dirs':dirs, 'files':items}
     return hash
-    
-    
+
+
 def render_blob(repo_name, blob, path=None):
     """
     Ok so render is not the right name for this.
     Will re-rename them all to get.
-    
+
     """
-    
+
     mime = find_mime(blob, path)
     # Returns cache status as to let the caller decide if it goes for VC or cached files
     hash = {'type':'blob', 'repo_name':repo_name, 'hex' : blob.hex, 'mime': mime, 'size' : blob.size, 'is_binary': blob.is_binary }
@@ -130,7 +133,7 @@ def render_repo(repo_slug, n_commits=5, tree=False, iceberg=False):
             icetree = repo[ repo.head.get_object().tree['iceberg'].hex ]
             hash['iceberg'] = render_tree(repo_slug, icetree)
     return hash
-    
+
 def repo(request, repo_name):
     print('Requested repo: %s'%repo_name)
     hash = render_repo(repo_name, n_commits=-1, tree=True, iceberg=True)
@@ -162,13 +165,13 @@ def item(request, repo_name, oid):
             obj = repo[oid]
         except KeyError:
             raise Http404
-    
+
     if obj.type == pygit2.GIT_OBJ_COMMIT:
         hash = render_commit(repo_name, obj)
-        
+
     elif obj.type == pygit2.GIT_OBJ_TREE:
         hash = render_tree(repo_name, obj)
-        
+
     elif obj.type == pygit2.GIT_OBJ_BLOB:
         hash = render_blob(repo_name, obj)
 
@@ -184,9 +187,9 @@ def item_from_path(request, repo_name, path):
     you just recurse down the tree
     """
     repo = git_collection[repo_name]
-    
+
     paths = path.split('/')
-    
+
     print "looking for %s from %s in %s" % (paths, path, repo_name)
     obj = repo.head.get_object().tree
     for p in paths:
@@ -196,7 +199,7 @@ def item_from_path(request, repo_name, path):
             obj = repo[ obj[p].hex ]
         except KeyError:
             raise Http404
-    
+
     if paths[-1] == '':
         if len(paths) == 1:
             # root path named after repo
@@ -207,34 +210,34 @@ def item_from_path(request, repo_name, path):
     else:
         # blob named after blob
         name = paths[-1]
-    
+
     if obj.type == pygit2.GIT_OBJ_TREE:
         hash = render_tree(repo_name, obj)
-        
+
     elif obj.type == pygit2.GIT_OBJ_BLOB:
         hash = render_blob(repo_name, obj, path)
         hash['raw_url'] = reverse('git_info.views.blob_data', args=[repo_name, hash['hex']]) + name
         # Note: to pass the absolute url:
-        hash['raw_url'] = request.build_absolute_uri(hash['raw_url']) 
-    
+        hash['raw_url'] = request.build_absolute_uri(hash['raw_url'])
+
     hash['name'] = name
     hash['paths'] = paths
-    
+
     return HttpResponse(json.dumps(hash, indent=2), mimetype="application/json")
 
 def blob_data(request, repo_name, oid):
     obj = git_collection[repo_name][oid]
-    
+
     if obj.type == pygit2.GIT_OBJ_BLOB:
         mime = find_mime(obj)
         return HttpResponse(obj.data, mimetype=mime)
-    
+
     return HttpResponseBadRequest('Requested object is not a BLOB')
 
 def blob_data_from_path(request, repo_name, path):
     repo = git_collection[repo_name]
     paths = path.split('/')
-    
+
     obj = repo.head.get_object().tree
     for p in paths:
         if p == '':
@@ -243,9 +246,9 @@ def blob_data_from_path(request, repo_name, path):
             obj = repo[ obj[p].hex ]
         except KeyError:
             raise Http404
-    
+
     if obj.type == pygit2.GIT_OBJ_BLOB:
         mime = find_mime(obj, path)
         return HttpResponse(obj.data, mimetype=mime)
-    
+
     return HttpResponseBadRequest('Requested object is not a BLOB')
