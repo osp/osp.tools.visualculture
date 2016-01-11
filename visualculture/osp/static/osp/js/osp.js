@@ -51,7 +51,7 @@ VC.annotations = (function ($) {
 
 /* Inserts the meel address */
 
-een = '.wzvtnatsnoc.pso@liam||gro'
+een = '.pso@maim||nehctik'
 eentjes = een.split("||");
 var reverse = function (s) {
   var ret ='';
