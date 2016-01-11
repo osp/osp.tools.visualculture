@@ -16,6 +16,10 @@ urlpatterns = patterns('',
         'template': 'cv.html',
         'extra_context' : { 'title' : 'cv' },
     }),
+    ('^writing-tips$', direct_to_template, {
+        'template': 'writing-tips.html',
+        'extra_context' : { 'title' : 'OSP Writing Tips' },
+    }),
     ('^summer-school-2013/$', direct_to_template, {'template': 'summer-school-2013.html', }),
     ('^newsletter/$', direct_to_template, {'template': 'newsletter.html', }),
     ('^newsletter-success/$', direct_to_template, {'template': 'newsletter-success.html', })
