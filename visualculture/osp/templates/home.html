@@ -30,18 +30,22 @@
             </h2>
             <div class="iceberg">
 
-                {% for ice in repo.iceberg|dictsortreversed:"datetime" %}
-                    {% if forloop.first %}
-                    <!--<a href="/{{ repo.category }}/{{ repo.name }}/tree/master/iceberg/{{ ice.name }}">-->
-                    <a href="{{ repo.web_path }}">
-                        {% if 'image/' in ice.mime and 'svg' not in ice.mime or ice.mime == 'application/pdf' %}
-                        <img src="/visual/{{repo.slug}}/{{ice.hex}}/width..300/{{ ice.name }}.png"/>
-                        {% else %}
-                        <img src="/static/img/file-frog.png" />
-                        {% endif %}
-                    </a>
-                    {% endif %}
-                {% endfor %}
+                {% if repo.iceberg %}
+                  {% for ice in repo.iceberg|dictsortreversed:"datetime" %}
+                      {% if forloop.first %}
+                      <!--<a href="/{{ repo.category }}/{{ repo.name }}/tree/master/iceberg/{{ ice.name }}">-->
+                      <a href="{{ repo.web_path }}">
+                          {% if 'image/' in ice.mime and 'svg' not in ice.mime or ice.mime == 'application/pdf' %}
+                          <img src="/visual/{{repo.slug}}/{{ice.hex}}/width..300/{{ ice.name }}.png"/>
+                          {% endif %}
+                      </a>
+                      {% endif %}
+                  {% endfor %}
+                {% else %}
+                <div class="no-ice">
+                <h3 class="no-img-placeholder">{{ repo.name }}</h3>
+                </div>
+                {% endif %}
             </div>
 
             {% include "commit-list.html" %}
