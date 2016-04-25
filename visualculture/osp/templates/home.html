@@ -30,7 +30,9 @@
             </h2>
             <div class="iceberg">
               {% if repo.cover %}
-                <img src="/visual/{{repo.slug}}/{{repo.cover.hex}}/width..300/{{ repo.cover.name }}"/>
+                <a href="{{ repo.web_path }}">
+                    <img src="/visual/{{repo.slug}}/{{repo.cover.hex}}/width..300/{{ repo.cover.name }}"/>
+                </a>
               {% else %}
                 {% for ice in repo.iceberg|dictsortreversed:"datetime" %}
                     {% if forloop.first %}
