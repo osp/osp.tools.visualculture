@@ -20,6 +20,10 @@ urlpatterns = patterns('',
         'template': 'writing-tips.html',
         'extra_context' : { 'title' : 'OSP Writing Tips' },
     }),
+    ('^research-tracks/$', direct_to_template, {
+        'template': 'research-tracks.html',
+        'extra_context' : { 'title' : 'OSP research tracks' },
+    }),
     ('^summer-school-2013/$', direct_to_template, {'template': 'summer-school-2013.html', }),
     ('^newsletter/$', direct_to_template, {'template': 'newsletter.html', }),
     ('^newsletter-success/$', direct_to_template, {'template': 'newsletter-success.html', })
@@ -31,4 +35,3 @@ urlpatterns += patterns('osp.views',
     url(r'(?P<category>[\w\.\-_]+)/(?P<name>[\w\.\-_]+)/$', 'project'),
     url(r'(?P<category>[\w\.\-_]+)/$', 'category'),
 )
-
