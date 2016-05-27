@@ -848,7 +848,7 @@ section#intro {
   margin-top: 200px;
   width: 100%;
   min-height: 500px;
-  border-bottom: 1px solid grey;
+  //border-bottom: 1px solid grey;
   h1{
     //font-family: @font-factuelle-bold;
     color: grey;
@@ -872,28 +872,86 @@ section#intro {
 div.half-image{
   float: right;
   width: 48%;
-  margin-right: 2%;
+  margin-left: 2%;
+  img{
+    width: 100%;
+  }
 }
 div.half-text{
   float: right;
   width: 48%;
   margin-right: 2%;
+  h2{
+  }
+  p{
+    font-family: @font-secondary;
+  }
 }
 section#secondary-menu{
-  border-bottom: 1px solid grey;
+  //border-bottom: 1px solid grey;
   height: 100px;
+  //width: 106%;
+  //margin-left: -3%;
+  background-color: @color-author;
+  #gradient > .radial(@color-author, @color-date);
+  //background-blend-mode: overlay;
+
   div{
     width:21%;
     margin: 2%;
     float: left;
     //border-right: 1px solid grey;
-    h3{
+    h3 {
       text-align: center;
-
+    }
+    h3 a{
+      //color: white;
+      font-family: @font-factuelle-bold;
     }
   }
-  div:last-of-type{
-    border-right: none;
+}
+
+section.full-width{
+  margin-top: @v-unit*2;
+  margin-bottom: @v-unit*2;
+  //padding-top: @v-unit;
+  padding-bottom: @v-unit*2;
+  width: 100%;
+  float: left;
+  border-bottom: 1px solid grey;
+  .half-text{
+    h2{
+      padding-top: @v-unit*2;
+      font-family: @font-factuelle-bold;
+    }
+    h4{
+      padding-bottom: @v-unit*2;
+    }
+    p{
+      width: 40%;
+    }
+  }
+}
+
+section#h2p, section#stroke-fonts{
+  .half-text{
+    h2{
+      text-align: right;
+    }
+    h4{
+      text-align: right;
+    }
+    p{
+      margin-left: 60%;
+    }
+  }
+}
+
+section#publishing-platforms{
+  .half-text{
+    h2, h4, p, ul, strong{
+      padding-left: 4%;
+    }
   }
 }
 
@@ -1085,6 +1143,9 @@ ul#tree{
 
 footer{
   bottom: 0;
+  clear: both;
+  width: 100%;
+  float: right;
   margin-top: @v-unit*4;
   p{
     font-size: 10px;
