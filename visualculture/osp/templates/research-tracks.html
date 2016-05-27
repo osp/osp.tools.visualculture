@@ -1,8 +1,32 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div id="info-page">
-<h1>OSP's current research tracks</h1>
+
+<section id="intro">
+  <div class="half-text">
+    <h1>research tracks</h1>
+    <p>The more OSP accumulates work, the more cross sections appear among the projects. A good part of these interesections end up emerging as themes of their own. We've made the decision to stimulate OSP's research functions by following some of these more specific themes. They are the most interesting and exiting to us. We want to drive these forwards, we're making them into their own research projects.</p>
+  </div>
+  <div class="half-image">
+    <img src="{{ STATIC_URL }}img/0.svg">
+  </div>
+</section>
+<section id="secondary-menu">
+  <div><h3>Publishing platforms</h3></div>
+  <div><h3>html2print</h3></div>
+  <div><h3>Stroke typography</h3></div>
+  <div><h3>Meta</h3></div>
+</section>
+
+<!--
+<section id="h2p">
+  <div class="half-image">
+    <img src="http://git.constantvzw.org/?p=osp.work.balsamine.2015-2016.git;a=blob_plain;f=iceberg/DSCF8663_01.jpg;h=0ebe50c540e7e50c2be7512467500d3ad5d3e462;hb=HEAD">
+  </div>
+<div class="half-text">
+<h2>Html 2 print</h2>
 
 </div>
+</section>
+-->
 {% endblock %}
