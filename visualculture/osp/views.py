@@ -51,6 +51,8 @@ def home(request):
             for penguin in r['iceberg']['files']:
                 # This is where you would add specific logic to not include
                 # certain file types
+                if penguin["name"].split(".")[0] == "cover":
+                    r["cover"] = penguin
                 ice.append(penguin)
         r['iceberg'] = ice
         r['commits'] = format_commits(r['commits'])
